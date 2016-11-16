@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_account_invoice_today_filter" model="ir.ui.view">
+            <field name="name">account.invoice.today.select</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+            	<field name="number" position="after">
+                    <field name="date_invoice"/>
+            	</field>
+                <xpath expr="//filter[@name='unpaid']" position="after">
+                	<filter name="today" string="Today" domain="[('date_invoice','=',time.strftime('%%Y-%%m-%%d'))]" help="Today"/>
+                	<filter name="today" string="Yesterday" domain="[('date_invoice','=',(context_today()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))]" help="Yesterday"/>
+               </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
