@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="invoice_form_partner_bank2" model="ir.ui.view">
+            <field name="name">account.invoice.form.partner_bank2</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_bank_id" position="attributes">
+<!--	                <attribute name="string">Bank Account #1</attribute>-->
+	                <attribute name="domain">['|',('partner_id.ref_companies', 'in', [company_id]),('partner_id.parent_id.ref_companies', 'in', [company_id])]</attribute>
+                </field>
+                <field name="partner_bank_id" position="after">
+	                <field domain="['|',('partner_id.ref_companies', 'in', [company_id]),('partner_id.parent_id.ref_companies', 'in', [company_id])]" name="partner_bank2_id"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

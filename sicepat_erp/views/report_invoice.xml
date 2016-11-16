@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="account.report_invoice_document">
+    <t t-call="sicepat_erp.sicepat_invoice">
+	    <div class="page" style="margin-top: -30px;">
+	        <div class="row">
+	            <div class="col-inv-text">
+	            	<div style="float: left; width: 100%; height: 53px;"></div>
+	            	<div style="float: left; width: 100%; height: 63px; padding-left: 26px; border-left: 34px solid #AD1E2B;">
+		                <span class="inv-text" t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">INVOICE</span>
+		                <span class="inv-text" t-if="o.type == 'out_invoice' and o.state == 'proforma2'">PRO-FORMA</span>
+		                <span class="inv-text" t-if="o.type == 'out_invoice' and o.state == 'draft'">DRAFT Invoice</span>
+		                <span class="inv-text" t-if="o.type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</span>
+		                <span class="inv-text" t-if="o.type == 'out_refund'">Refund</span>
+		                <span class="inv-text" t-if="o.type == 'in_refund'">Supplier Refund</span>
+		                <span class="inv-text" t-if="o.type == 'in_invoice'">Supplier Invoice</span>
+	            	</div>
+	            	<div style="float: left; width: 100%; height: 39px;"></div>
+	            </div>
+	            <div class="col-total-text">
+	                <div><span class="total-text">TOTAL DUE</span></div>
+	                <p>
+	                	<span class="inv-amount" t-field="o.amount_total_plus" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>
+	                </p>
+	            </div>
+	        </div>
+	        <div class="row mt32">
+	            <div class="col-xs-9 partner-info" style="padding-left: 60px;">
+	            	<div>Bill to</div>
+	                <div class="partner-name" t-field="o.partner_id"
+	                    t-field-options='{"widget": "contact", "fields": ["name"], "no_marker": true}'/>
+	                <div t-field="o.partner_id"
+	                	t-field-options='{"widget": "contact", "fields": ["address"], "no_tag_br": true}'/>
+	                <div t-field="o.partner_id"
+	                	t-field-options='{"widget": "contact", "fields": ["email", "website"], "no_tag_br": true}'/>
+	                <div t-field="o.partner_id"
+	                	t-field-options='{"widget": "contact", "fields": ["phone", "mobile"], "no_tag_br": true}'/>
+	            </div>
+	            <div class="col-xs-3" style="padding-right: 38px;">
+			        <p class="inv-info1">
+			            INVOICE NO<br/>
+			            <span class="inv-nbr" t-field="o.number"/>
+			        </p>
+			        <p class="inv-info1">
+			            INVOICE DATE<br/>
+			            <span class="inv-nbr" t-field="o.date_invoice"/>
+			        </p>
+			        <p class="inv-info1">
+			            PAYMENT DUE<br/>
+			            <span class="inv-nbr" t-field="o.date_due"/>
+			        </p>
+	            </div>
+	        </div>
+			<div class="row">
+				<div class="col-xs-12" style="padding: 32px 20px 0 17px;">
+			        <table class="table table-striped">
+			            <thead>
+			                <tr>
+			                    <th>NO</th>
+			                    <th>NO RESI</th>
+			                    <th>TUJUAN</th>
+			                    <th>PENERIMA</th>
+			                    <th>HP PENERIMA</th>
+			                    <th>RESI JNE</th>
+			                    <th>BERAT</th>
+			                    <th class="text-right">BIAYA</th>
+			                    <th class="text-right">%</th>
+			                    <th class="text-right">TOTAL</th>
+			                </tr>
+			            </thead>
+			            <tbody>
+			                <t t-foreach="o.invoice_line" t-as="l">
+				                <tr>
+				                    <td class="text-right"><span t-esc="l_index + 1"/></td>
+				                    <td><span t-field="l.name"/></td>
+				                    <td><span t-field="l.destination_code"/></td>
+				                    <td><span t-field="l.recipient_name"/></td>
+				                    <td><span t-field="l.recipient_phone"/></td>
+				                    <td>
+				                    	<span t-field="l.jne_number"/>
+				                    	<t t-if="l.insurance_value != 0.0">
+				                    		<br/><span>Nilai Asuransi</span>
+				                    	</t>
+				                    	<t t-if="l.insurance_fee != 0.0">
+				                    		<br/><span>Biaya Asuransi</span>
+				                    	</t>
+				                    	<t t-if="l.admcost_insurance != 0.0">
+				                    		<br/><span>Biaya Administrasi</span>
+				                    	</t>
+				                    	<t t-if="l.packing_cost != 0.0">
+				                    		<br/><span>Biaya Packing</span>
+				                    	</t>
+				                    </td>
+				                    <td class="text-right">
+				                        <span t-esc="'%.f'%(l.quantity)"/>
+				                    </td>
+				                    <td class="text-right">
+				                        <span t-esc="(l.quantity * l.price_unit)"
+				                        	t-esc-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>
+				                    	<t t-if="l.insurance_value != 0.0">
+				                    		<br/><span t-field="l.insurance_value"
+				                    			t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>
+				                    	</t>
+				                    	<t t-if="l.insurance_fee != 0.0">
+				                    		<br/><span t-field="l.insurance_fee"
+				                    			t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>
+				                    	</t>
+				                    	<t t-if="l.admcost_insurance != 0.0">
+				                    		<br/><span t-field="l.admcost_insurance"
+				                    			t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>
+				                    	</t>
+				                    	<t t-if="l.packing_cost != 0.0">
+				                    		<br/><span t-field="l.packing_cost"
+				                    			t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>
+				                    	</t>
+				                    </td>
+				                    <td class="text-right"><span t-esc="'%.f'%(l.discount)"/></td>
+				                    <td class="text-right">
+				                    	<t t-if="l.insurance_value == 0.0 and l.insurance_fee == 0.0 and l.admcost_insurance == 0.0 and l.packing_cost == 0.0">
+					                        <span t-field="l.price_subtotal"
+					                        	t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>
+				                    	</t>
+				                    	<t t-if="l.insurance_value != 0.0 and l.insurance_fee == 0.0 and l.admcost_insurance == 0.0 and l.packing_cost == 0.0">
+					                        <span/><br/>
+				                    		<span t-field="l.price_subtotal"
+					                        	t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>
+				                    	</t>
+				                    	<t t-if="l.insurance_value == 0.0 and l.insurance_fee != 0.0 and l.admcost_insurance == 0.0 and l.packing_cost == 0.0">
+					                        <span/><br/>
+				                    		<span t-field="l.price_subtotal"
+					                        	t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>
+				                    	</t>
+				                    	<t t-if="l.insurance_value == 0.0 and l.insurance_fee == 0.0 and l.admcost_insurance != 0.0 and l.packing_cost == 0.0">
+					                        <span/><br/>
+				                    		<span t-field="l.price_subtotal"
+					                        	t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>
+				                    	</t>
+				                    	<t t-if="l.insurance_value == 0.0 and l.insurance_fee == 0.0 and l.admcost_insurance == 0.0 and l.packing_cost != 0.0">
+					                        <span/><br/>
+				                    		<span t-field="l.price_subtotal"
+					                        	t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>
+				                    	</t>
+				                    	<t t-if="l.insurance_value != 0.0 and l.insurance_fee != 0.0 and l.admcost_insurance == 0.0 and l.packing_cost == 0.0">
+					                        <span/><br/>
+					                        <span/><br/>
+				                    		<span t-field="l.price_subtotal"
+					                        	t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>
+				                    	</t>
+				                    	<t t-if="l.insurance_value != 0.0 and l.insurance_fee == 0.0 and l.admcost_insurance != 0.0 and l.packing_cost == 0.0">
+					                        <span/><br/>
+					                        <span/><br/>
+				                    		<span t-field="l.price_subtotal"
+					                        	t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>
+				                    	</t>
+				                    	<t t-if="l.insurance_value != 0.0 and l.insurance_fee == 0.0 and l.admcost_insurance == 0.0 and l.packing_cost != 0.0">
+					                        <span/><br/>
+					                        <span/><br/>
+				                    		<span t-field="l.price_subtotal"
+					                        	t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>
+				                    	</t>
+				                    	<t t-if="l.insurance_value == 0.0 and l.insurance_fee != 0.0 and l.admcost_insurance != 0.0 and l.packing_cost == 0.0">
+					                        <span/><br/>
+					                        <span/><br/>
+				                    		<span t-field="l.price_subtotal"
+					                        	t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>
+				                    	</t>
+				                    	<t t-if="l.insurance_value == 0.0 and l.insurance_fee != 0.0 and l.admcost_insurance == 0.0 and l.packing_cost != 0.0">
+					                        <span/><br/>
+					                        <span/><br/>
+				                    		<span t-field="l.price_subtotal"
+					                        	t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>
+				                    	</t>
+				                    	<t t-if="l.insurance_value == 0.0 and l.insurance_fee == 0.0 and l.admcost_insurance != 0.0 and l.packing_cost != 0.0">
+					                        <span/><br/>
+					                        <span/><br/>
+				                    		<span t-field="l.price_subtotal"
+					                        	t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>
+				                    	</t>
+				                    	<t t-if="l.insurance_value != 0.0 and l.insurance_fee != 0.0 and l.admcost_insurance != 0.0 and l.packing_cost == 0.0">
+					                        <span/><br/>
+					                        <span/><br/>
+					                        <span/><br/>
+				                    		<span t-field="l.price_subtotal"
+					                        	t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>
+				                    	</t>
+				                    	<t t-if="l.insurance_value != 0.0 and l.insurance_fee != 0.0 and l.admcost_insurance == 0.0 and l.packing_cost != 0.0">
+					                        <span/><br/>
+					                        <span/><br/>
+					                        <span/><br/>
+				                    		<span t-field="l.price_subtotal"
+					                        	t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>
+				                    	</t>
+				                    	<t t-if="l.insurance_value != 0.0 and l.insurance_fee == 0.0 and l.admcost_insurance != 0.0 and l.packing_cost != 0.0">
+					                        <span/><br/>
+					                        <span/><br/>
+					                        <span/><br/>
+				                    		<span t-field="l.price_subtotal"
+					                        	t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>
+				                    	</t>
+				                    	<t t-if="l.insurance_value == 0.0 and l.insurance_fee != 0.0 and l.admcost_insurance != 0.0 and l.packing_cost != 0.0">
+					                        <span/><br/>
+					                        <span/><br/>
+					                        <span/><br/>
+				                    		<span t-field="l.price_subtotal"
+					                        	t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>
+				                    	</t>
+				                    </td>
+				                </tr>
+<!--				                <tr t-if="l.insurance_value != 0.0 or l.insurance_fee != 0.0 or l.admcost_insurance != 0.0 or l.packing_cost != 0.0">-->
+<!--				                    <td class="text-right"><span t-esc="l_index + 1"/></td>-->
+<!--				                    <td><span t-field="l.name"/></td>-->
+<!--				                    <td><span t-field="l.destination_code"/></td>-->
+<!--				                    <td><span t-field="l.recipient_name"/></td>-->
+<!--				                    <td><span t-field="l.recipient_phone"/></td>-->
+<!--				                    <td><span t-field="l.jne_number"/></td>-->
+<!--				                    <td class="text-right">-->
+<!--				                        <span t-esc="'%.f'%(l.quantity)"/>-->
+<!--				                    </td>-->
+<!--				                    <td class="text-right">-->
+<!--				                        <span t-esc="(l.quantity * l.price_unit)"-->
+<!--				                        	t-esc-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>-->
+<!--				                    </td>-->
+<!--				                    <td class="text-right"><span t-esc="'%.f'%(l.discount)"/></td>-->
+<!--				                    <td class="text-right">-->
+<!--				                        <span t-field="l.price_subtotal"-->
+<!--				                        	t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>-->
+<!--				                    </td>-->
+<!--				                </tr>-->
+			                </t>
+			            </tbody>
+			        </table>
+				</div>
+			</div>
+			<div class="row" style="page-break-inside: avoid;">
+	            <div class="col-xs-6" style="padding: 32px 15px 0 35px;">
+	            	<p class="inv-info-2">PAYMENT METHOD</p>
+	            	<div t-if="o.partner_bank_id">
+	            		<p>
+	            			<p class="bank-info">BANK TRANSFER</p>
+	            			<span class="bank-name" t-field="o.partner_bank_id.bank_name"/>
+	            			<div class="bank-info">
+			            		<span t-field="o.partner_bank_id.acc_number"/><br/>
+			            		an. <span t-field="o.partner_bank_id.owner_name"/>
+	            			</div> 
+	            		</p>
+	            	</div>
+	            	<div t-if="o.partner_bank2_id">
+	            		<p>
+	            			<p class="bank-info">atau</p>
+	            			<span class="bank-name" t-field="o.partner_bank2_id.bank_name"/><br/>
+	            			<div class="bank-info">
+		            			<span t-field="o.partner_bank2_id.acc_number"/><br/>
+		            			an. <span t-field="o.partner_bank2_id.owner_name"/>
+	            			</div> 
+	            		</p>
+	            	</div>
+	            </div>
+	            <div class="col-xs-6" style="padding: 32px 17px 0 15px;">
+                    <table class="table table-grandtotal">
+                        <tr>
+                            <td class="inv-info-2">SUB-TOTAL</td>
+                            <td class="text-right inv-info-2">
+                                <span t-field="o.price_unit_total" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="inv-info-2">SUB-TOTAL AFTER DISCOUNT</td>
+                            <td class="text-right inv-info-2">
+                                 <span t-field="o.amount_total" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="inv-info-2">OUTSTANDING</td>
+                            <td class="text-right inv-info-2">
+                                 <span t-field="o.outstanding" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="inv-info-2">OVERPAYMENT</td>
+                            <td class="text-right inv-info-2">
+                                 <span t-field="o.overpaid" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="grand-total grandtotaltext">GRAND TOTAL</td>
+                            <td class="text-right grand-total grandtotalamt">
+                                 <span t-field="o.amount_total_plus" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/>
+                            </td>
+                        </tr>
+                    </table>
+	            </div>
+                <div class="col-xs-4 pull-right text-right" style="padding: 15px 59px 32px 0;">
+                	<div style="height: 100px;"/>
+                	<span class="name-mgr">IMELDA</span><br/>
+                	<span class="title-mgr">Head of Finance</span>
+                </div>
+			</div>
+			<div class="row" style="page-break-inside: avoid;">
+			</div>
+	    </div>
+    </t>
+</template>
+
+<template id="account.report_invoice">
+    <t t-call="sicepat_erp.sicepat_container">
+        <t t-foreach="doc_ids" t-as="doc_id">
+            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'account.report_invoice_document')"/>
+        </t>
+    </t>
+</template>
+
+</data>
+</openerp>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="1">
+
+        <!-- Bank Account -->
+        <record id="bank_4970609429" model="res.partner.bank">
+            <field name="state">bank</field>
+            <field name="acc_number">497.060.9429</field>
+            <field name="partner_id" ref="l10n_id_sicepat.contact1_partner"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="bank" ref="l10n_id_bank.CENAIDJAXXX"/>
+            <field name="journal_id" ref="l10n_id_sicepat.journal_111002001"/>
+        </record>
+        <record id="bank_2703027211" model="res.partner.bank">
+            <field name="state">bank</field>
+            <field name="acc_number">270.302.7211</field>
+            <field name="partner_id" ref="base.main_partner"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="bank" ref="l10n_id_bank.CENAIDJAXXX"/>
+            <field name="journal_id" ref="l10n_id_sicepat.journal_111002002"/>
+        </record>
+        <record id="bank_2703029311" model="res.partner.bank">
+            <field name="state">bank</field>
+            <field name="acc_number">270.302.9311</field>
+            <field name="partner_id" ref="base.main_partner"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="bank" ref="l10n_id_bank.CENAIDJAXXX"/>
+            <field name="journal_id" ref="l10n_id_sicepat.journal_111002003"/>
+        </record>
+        <record id="bank_2700889966" model="res.partner.bank">
+            <field name="state">bank</field>
+            <field name="acc_number">270.088.9966</field>
+            <field name="partner_id" ref="base.main_partner"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="bank" ref="l10n_id_bank.CENAIDJAXXX"/>
+            <field name="journal_id" ref="l10n_id_sicepat.journal_111002004"/>
+        </record>
+        <record id="bank_1640001045675" model="res.partner.bank">
+            <field name="state">bank</field>
+            <field name="acc_number">164.000.104.5675</field>
+            <field name="partner_id" ref="l10n_id_sicepat.contact1_partner"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="bank" ref="l10n_id_bank.BMRIIDJAXXX"/>
+            <field name="journal_id" ref="l10n_id_sicepat.journal_111002005"/>
+        </record>
+        <record id="bank_4630100431005" model="res.partner.bank">
+            <field name="state">bank</field>
+            <field name="acc_number">463.010.043.1005</field>
+            <field name="partner_id" ref="l10n_id_sicepat.contact2_partner"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="bank" ref="l10n_id_bank.BNIAIDJAXXX"/>
+            <field name="journal_id" ref="l10n_id_sicepat.journal_111002006"/>
+        </record>
+        <record id="bank_703134863200" model="res.partner.bank">
+            <field name="state">bank</field>
+            <field name="acc_number">703.13.486.3200</field>
+            <field name="partner_id" ref="l10n_id_sicepat.contact3_partner"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="bank" ref="l10n_id_bank.BNIAIDJAXXX"/>
+            <field name="journal_id" ref="l10n_id_sicepat.journal_111002007"/>
+        </record>
+        <record id="bank_2700618989" model="res.partner.bank">
+            <field name="state">bank</field>
+            <field name="acc_number">270.061.8989</field>
+            <field name="partner_id" ref="base.main_partner"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="bank" ref="l10n_id_bank.CENAIDJAXXX"/>
+            <field name="journal_id" ref="l10n_id_sicepat.journal_111002008"/>
+        </record>
+        <record id="bank_1210006557171" model="res.partner.bank">
+            <field name="state">bank</field>
+            <field name="acc_number">121.000.655.7171</field>
+            <field name="partner_id" ref="base.main_partner"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="bank" ref="l10n_id_bank.BMRIIDJAXXX"/>
+            <field name="journal_id" ref="l10n_id_sicepat.journal_111002009"/>
+        </record>
+        <record id="bank_033801000906304" model="res.partner.bank">
+            <field name="state">bank</field>
+            <field name="acc_number">0338-01-000906-30-4</field>
+            <field name="partner_id" ref="base.main_partner"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="bank" ref="l10n_id_bank.BRINIDJAXXX"/>
+            <field name="journal_id" ref="l10n_id_sicepat.journal_111002010"/>
+        </record>
+
+	</data>
+</openerp>

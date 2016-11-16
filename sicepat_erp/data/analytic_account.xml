@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="1">
+		<record id="GadingSerpong01" model="account.analytic.account">
+		  <field name="code">1</field>
+		  <field name="name">GadingSerpong01</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="Lause01" model="account.analytic.account">
+		  <field name="code">2</field>
+		  <field name="name">Lause01</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="Bekasi01" model="account.analytic.account">
+		  <field name="code">3</field>
+		  <field name="name">Bekasi01</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="Depok01" model="account.analytic.account">
+		  <field name="code">4</field>
+		  <field name="name">Depok01</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="Bandung01" model="account.analytic.account">
+		  <field name="code">5</field>
+		  <field name="name">Bandung01</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="Surabaya01" model="account.analytic.account">
+		  <field name="code">6</field>
+		  <field name="name">Surabaya01</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="Bogor01" model="account.analytic.account">
+		  <field name="code">7</field>
+		  <field name="name">Bogor01</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="Semarang01" model="account.analytic.account">
+		  <field name="code">8</field>
+		  <field name="name">Semarang01</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="Medan01" model="account.analytic.account">
+		  <field name="code">9</field>
+		  <field name="name">Medan01</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="Denpasar01" model="account.analytic.account">
+		  <field name="code">10</field>
+		  <field name="name">Denpasar01</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="Palembang01" model="account.analytic.account">
+		  <field name="code">11</field>
+		  <field name="name">Palembang01</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="Jogja01" model="account.analytic.account">
+		  <field name="code">12</field>
+		  <field name="name">Jogja01</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="Makasar01" model="account.analytic.account">
+		  <field name="code">13</field>
+		  <field name="name">Makasar01</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="Roxy01" model="account.analytic.account">
+		  <field name="code">14</field>
+		  <field name="name">Roxy01</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="Lampung01" model="account.analytic.account">
+		  <field name="code">15</field>
+		  <field name="name">Lampung01</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="JakartaBarat01" model="account.analytic.account">
+		  <field name="code">16</field>
+		  <field name="name">JakartaBarat01</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="JakartaTimur01" model="account.analytic.account">
+		  <field name="code">17</field>
+		  <field name="name">JakartaTimur01</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="JakartaSelatan01" model="account.analytic.account">
+		  <field name="code">18</field>
+		  <field name="name">JakartaSelatan01</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="BandungTimur01" model="account.analytic.account">
+		  <field name="code">20</field>
+		  <field name="name">BandungTimur01</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="Cengkareng01" model="account.analytic.account">
+		  <field name="code">21</field>
+		  <field name="name">Cengkareng01</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="Sangiang01" model="account.analytic.account">
+		  <field name="code">22</field>
+		  <field name="name">Sangiang01</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="Cikarang01" model="account.analytic.account">
+		  <field name="code">23</field>
+		  <field name="name">Cikarang01</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="Cempaka" model="account.analytic.account">
+		  <field name="code">24</field>
+		  <field name="name">Cempaka</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="BandungCimahi01" model="account.analytic.account">
+		  <field name="code">25</field>
+		  <field name="name">BandungCimahi01</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="Batam01" model="account.analytic.account">
+		  <field name="code">54</field>
+		  <field name="name">Batam01</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="Purwakarta01" model="account.analytic.account">
+		  <field name="code">72</field>
+		  <field name="name">Purwakarta01</field>
+		  <field name="type">normal</field>
+		</record>
+	</data>
+</openerp>

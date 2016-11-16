@@ -1,0 +1,117 @@
+<?xml version="1.0" ?>
+<openerp>
+    <!-- Mail template are declared in a NOUPDATE block
+         so users can freely customize/delete them -->
+    <data noupdate="1">
+        <record id="account.account_invoices" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="sicepat_erp.paperformat_SCE"/>
+        </record>
+        <!--Email template -->
+        <record id="account.email_template_edi_invoice" model="email.template">
+            <field name="name">Invoice - Send by Email</field>
+            <field name="email_from">${('finance@sicepat.com')|safe}</field>
+            <field name="subject">${object.company_id.name|safe} Invoice (Ref ${object.number or 'n/a'})</field>
+            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="model_id" ref="account.model_account_invoice"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_template" ref="account.account_invoices"/>
+            <field name="report_name">Invoice_${(object.number or '').replace('/','_')}_${object.state == 'draft' and 'draft' or ''}</field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="body_html"><![CDATA[
+<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+    <span>
+	Berikut kami lampirkan laporan pengiriman harian Anda.<br/><br/>
+	Resi Tanggal: ${object.date_invoice|format_date()}<br/><br/>
+	</span>
+            
+	<div style="display: table; margin: 0 0 15px 0;">
+	    <div style="display: table-header-group; font-weight: bold;">
+	        <div style="display: table-row;">
+	            <div style="display: table-cell;">
+	                <span>${'&ensp;'*(5-'No'|length)+'No&ensp;'}</span>
+	                <span>${'&ensp;No Resi'+'&ensp;'*(14-'No Resi'|length)}</span>
+	                <span>${'&ensp;Nama Penerima'+'&ensp;'*(50-'Nama Penerima'|length)}</span>
+	            </div>
+	        </div>
+	    </div>
+	    <div style="display: table-row-group;">
+			% for line in object.invoice_line:
+	    	<div style="display: table-row;">
+	    		<div style="display: table-cell;">
+	                <span>${'&ensp;'*(5-str(loop.index)|length)+str(loop.index)+'&ensp;'}</span>
+	                <span>${'&ensp;'+line.name+'&ensp;'*(14-line.name|length)}</span>
+	                <span>${'&ensp;'+line.recipient_name+'&ensp;'*(50-line.recipient_name|length)}</span>
+	            </div>
+	        </div>
+		    % endfor
+	    </div>
+	</div>
+            	
+    <span>Apabila ada ketidaksesuaian tagihan dalam email ini bisa menghubungi kami di :<br/></span>
+    <span><span class="Apple-tab-span" style="white-space:pre">	</span>LINE - @sicepat.finance / @sicepat.finance2 / @finance.sicepat4<br/></span>
+    <span><span class="Apple-tab-span" style="white-space:pre">	</span>Tlp - 0812 87 999 837 / 0812 87 999 813<br/><br/></span>
+
+	<span>*SICEPAT Express-15 Hours Delivery Service</br></span>
+	<span><span class="Apple-tab-span" style="white-space:pre">	</span>Untuk area Jabodetabek kirim barang lebih cepat mulai dari 15 jam tiba dengan biaya sama.<br/></span>
+	<span><span class="Apple-tab-span" style="white-space:pre">	</span>Hub. LINE @sicepatmarketing<br/><br/></span>
+
+    <span>*Partner online shop, silahkan isi format berikut kepada kami untuk menindaklanjuti keluhan anda:<br/></span>
+	<span><span class="Apple-tab-span" style="white-space:pre">	</span>Nama<br/></span>
+    <span><span class="Apple-tab-span" style="white-space:pre">	</span>No HP<br/></span>
+    <span><span class="Apple-tab-span" style="white-space:pre">	</span>E-mail<br/></span>
+    <span><span class="Apple-tab-span" style="white-space:pre">	</span>No Resi & No HP Penerima yang bisa dihubungi saat ini<br/><br/></span>
+	<span><span class="Apple-tab-span" style="white-space:pre">	</span>Format di atas bisa langsung complain via LINE @sicepat<br/></span>
+	<span><span class="Apple-tab-span" style="white-space:pre">	</span>Customer Care kami akan segera melakukan pengecekan segera setelah data diterima.<br/><br/></span>
+
+    <span>*Untuk kenyamanan para pelanggan kami. Saat ini kami informasikan bahwa per tanggal 15 Juni 2015 nomor hotline kami adalah (021) 632 39 18<br/></span>
+    <span><span class="Apple-tab-span" style="white-space:pre">	</span>Terimakasih atas kesetiaannya menggunakan SiCepat Express.<br/><br/></span>
+
+    % if object.payment_term:
+    <span>Payment Term: ${object.payment_term.name}<br/><br/></span>
+    % endif
+
+    % if object.partner_bank_id:
+    <span>
+    Pembayaran dapat melalui :<br/>
+    ${object.partner_bank_id.bank_name}<br/>
+    No. Rekening: ${object.partner_bank_id.acc_number}<br/>
+    Atas Nama: ${object.partner_bank_id.owner_name}<br/><br/>
+    </span>
+    % endif
+    
+    % if object.partner_bank2_id:
+	<span>atau<br/><br/>
+    ${object.partner_bank2_id.bank_name}<br/>
+    No. Rekening: ${object.partner_bank2_id.acc_number}<br/>
+    Atas Nama: ${object.partner_bank2_id.owner_name}<br/><br/>
+    </span>
+    % endif
+
+    <span>
+    Wajib lampirkan Nama Olshop dan tanggal pengiriman di berita acara.<br/>
+    "Namaolshop - Tgl Tagihan"<br/>
+    Contoh :<br/>
+    </span>
+    <span><span class="Apple-tab-span" style="white-space:pre">	</span>"SiCepatShop - 19Feb15"<br/><br/></span>
+
+    <span>
+    *Wajib sertakan bukti transfer dan konfirmasi pembayaran ke contact kami<br/><br/>
+    Terima kasih.<br/><br/>
+    </span>
+
+
+    <span>
+    Hormat Kami,<br/>
+    SiCepat.Finance<br/><br/>
+    </span>
+
+    <span>
+    <u><a href="http://www.sicepat.com">www.sicepat.com</a></u><br/>
+    LINE: @sicepat.finance
+    </span>
+</div>
+            ]]></field>
+        </record>
+    </data>
+</openerp>

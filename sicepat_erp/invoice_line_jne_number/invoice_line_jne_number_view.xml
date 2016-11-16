@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_invoice_line_form_sicepat_jne_number" model="ir.ui.view">
+            <field name="name">account.invoice.line.form.sicepat.jne_number</field>
+            <field name="model">account.invoice.line</field>
+            <field name="inherit_id" ref="sicepat_erp.view_invoice_line_form_sicepat_recipient"/>
+            <field name="arch" type="xml">
+            	<field name="recipient_phone" position="after">
+                	<field name="jne_number"/>
+            	</field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

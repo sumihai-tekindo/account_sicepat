@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_account_config_settings_partner_bank_id" model="ir.ui.view">
+            <field name="name">account.settings.partner_bank_id</field>
+            <field name="model">account.config.settings</field>
+            <field name="inherit_id" ref="account.view_account_config_settings"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//div[@name='company_footer']" position="after">
+                    <div name='partner_bank_id'>
+                        <label for="default_bank_id"/>
+                        <field domain="['|',('partner_id.ref_companies', 'in', [company_id]),('partner_id.parent_id.ref_companies', 'in', [company_id])]" name="default_bank_id" class="oe_inline"/>
+                    </div>
+                    <div name='partner_bank2_id'>
+                        <label for="default_bank2_id"/>
+                        <field domain="['|',('partner_id.ref_companies', 'in', [company_id]),('partner_id.parent_id.ref_companies', 'in', [company_id])]" name="default_bank2_id" class="oe_inline"/>
+                    </div>
+            	</xpath>
+            </field>
+        </record>
+        
+    </data>	
+</openerp>

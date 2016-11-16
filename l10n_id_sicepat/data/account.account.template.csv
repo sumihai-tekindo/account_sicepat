@@ -1,0 +1,233 @@
+id,code,reconcile,type,parent_id:id,user_type:id,name,chart_template_id:id
+chart_sicepat_root,0,FALSE,view,,l10n_id_sicepat.user_type_view,Sicepat Ekspres,l10n_id_sicepat.chart_sicepat
+chart_100000000,100.000.000,FALSE,view,chart_sicepat_root,l10n_id_sicepat.user_type_current_asset,Aset,l10n_id_sicepat.chart_sicepat
+chart_110000000,110.000.000,FALSE,view,chart_100000000,l10n_id_sicepat.user_type_current_asset,Aset Lancar,l10n_id_sicepat.chart_sicepat
+chart_111000000,111.000.000,FALSE,view,chart_110000000,l10n_id_sicepat.user_type_cash_bank,Kas dan Bank,l10n_id_sicepat.chart_sicepat
+chart_111001000,111.001.000,FALSE,view,chart_111000000,account.data_account_type_cash,Kas,l10n_id_sicepat.chart_sicepat
+chart_111001001,111.001.001,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Pusat,l10n_id_sicepat.chart_sicepat
+chart_111001002,111.001.002,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Bandung (BDO),l10n_id_sicepat.chart_sicepat
+chart_111001003,111.001.003,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Bekasi (BKI),l10n_id_sicepat.chart_sicepat
+chart_111001004,111.001.004,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Bogor (BOO),l10n_id_sicepat.chart_sicepat
+chart_111001005,111.001.005,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Purwokerto (PWT),l10n_id_sicepat.chart_sicepat
+chart_111001006,111.001.006,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Semarang (SRG),l10n_id_sicepat.chart_sicepat
+chart_111001007,111.001.007,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Banjarmasin (BDJ),l10n_id_sicepat.chart_sicepat
+chart_111001008,111.001.008,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Bengkulu (BKS),l10n_id_sicepat.chart_sicepat
+chart_111001009,111.001.009,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Balikpapan (BPN),l10n_id_sicepat.chart_sicepat
+chart_111001010,111.001.010,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jambi (DJB),l10n_id_sicepat.chart_sicepat
+chart_111001011,111.001.011,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Denpasar (DPS),l10n_id_sicepat.chart_sicepat
+chart_111001012,111.001.012,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Pekanbaru (PKU),l10n_id_sicepat.chart_sicepat
+chart_111001013,111.001.013,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Palembang (PLM),l10n_id_sicepat.chart_sicepat
+chart_111001014,111.001.014,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Surabaya (SUB),l10n_id_sicepat.chart_sicepat
+chart_111001015,111.001.015,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Samarinda (SRI),l10n_id_sicepat.chart_sicepat
+chart_111001016,111.001.016,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Ujung Padang (UPG),l10n_id_sicepat.chart_sicepat
+chart_111001017,111.001.017,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Medan (MES),l10n_id_sicepat.chart_sicepat
+chart_111001018,111.001.018,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Malang (MLG),l10n_id_sicepat.chart_sicepat
+chart_111001019,111.001.019,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Lampung TKG/LPG,l10n_id_sicepat.chart_sicepat
+chart_111001020,111.001.020,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Lautze ,l10n_id_sicepat.chart_sicepat
+chart_111001021,111.001.021,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Depok (DPK),l10n_id_sicepat.chart_sicepat
+chart_111001022,111.001.022,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Sukabumi (SMI),l10n_id_sicepat.chart_sicepat
+chart_111001023,111.001.023,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Tanjung Pinang (TNJ),l10n_id_sicepat.chart_sicepat
+chart_111001024,111.001.024,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jogja (JOG),l10n_id_sicepat.chart_sicepat
+chart_111001025,111.001.025,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Serang (CLG),l10n_id_sicepat.chart_sicepat
+chart_111001026,111.001.026,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Gading Serpong (GS),l10n_id_sicepat.chart_sicepat
+chart_111001027,111.001.027,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Manado (MDC),l10n_id_sicepat.chart_sicepat
+chart_111001028,111.001.028,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Solo,l10n_id_sicepat.chart_sicepat
+chart_111001029,111.001.029,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Garut (GRT),l10n_id_sicepat.chart_sicepat
+chart_111001030,111.001.030,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jakarta Barat,l10n_id_sicepat.chart_sicepat
+chart_111001031,111.001.031,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Pemalang (PML),l10n_id_sicepat.chart_sicepat
+chart_111001032,111.001.032,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Palu (PLW),l10n_id_sicepat.chart_sicepat
+chart_111001033,111.001.033,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Palangkaraya (PKY),l10n_id_sicepat.chart_sicepat
+chart_111001034,111.001.034,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Tasikmalaya (TSI),l10n_id_sicepat.chart_sicepat
+chart_111001035,111.001.035,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jakarta Timur (JAKTIM),l10n_id_sicepat.chart_sicepat
+chart_111001036,111.001.036,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Ternate (TTE),l10n_id_sicepat.chart_sicepat
+chart_111001037,111.001.037,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Purwakarta (PWA),l10n_id_sicepat.chart_sicepat
+chart_111001038,111.001.038,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Cikarang (CKR),l10n_id_sicepat.chart_sicepat
+chart_111001039,111.001.039,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Ciamis,l10n_id_sicepat.chart_sicepat
+chart_111001040,111.001.040,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jakarta Selatan (JAKSEL),l10n_id_sicepat.chart_sicepat
+chart_111001041,111.001.041,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Banyuwangi (BWI),l10n_id_sicepat.chart_sicepat
+chart_111001042,111.001.042,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jember (JBR),l10n_id_sicepat.chart_sicepat
+chart_111001043,111.001.043,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Kediri (KDR),l10n_id_sicepat.chart_sicepat
+chart_111001044,111.001.044,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Sumedang (SMD),l10n_id_sicepat.chart_sicepat
+chart_111001045,111.001.045,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Batam (BTH),l10n_id_sicepat.chart_sicepat
+chart_111001046,111.001.046,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Blora (BLA),l10n_id_sicepat.chart_sicepat
+chart_111001047,111.001.047,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Bandung Timur (BDT),l10n_id_sicepat.chart_sicepat
+chart_111001048,111.001.048,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Ambon,l10n_id_sicepat.chart_sicepat
+chart_111001049,111.001.049,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Cengkareng,l10n_id_sicepat.chart_sicepat
+chart_111001050,111.001.050,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Kupang,l10n_id_sicepat.chart_sicepat
+chart_111001051,111.001.051,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Sangiang,l10n_id_sicepat.chart_sicepat
+chart_111002000,111.002.000,FALSE,view,chart_111000000,account.data_account_type_bank,Bank,l10n_id_sicepat.chart_sicepat
+chart_111002001,111.002.001,FALSE,liquidity,chart_111002000,account.data_account_type_bank,BCA 497.060.9429,l10n_id_sicepat.chart_sicepat
+chart_111002002,111.002.002,FALSE,liquidity,chart_111002000,account.data_account_type_bank,BCA 270.302.7211,l10n_id_sicepat.chart_sicepat
+chart_111002003,111.002.003,FALSE,liquidity,chart_111002000,account.data_account_type_bank,BCA 270.302.9311,l10n_id_sicepat.chart_sicepat
+chart_111002004,111.002.004,FALSE,liquidity,chart_111002000,account.data_account_type_bank,BCA 270.088.9966,l10n_id_sicepat.chart_sicepat
+chart_111002005,111.002.005,FALSE,liquidity,chart_111002000,account.data_account_type_bank,Mandiri 164.000.104.5675,l10n_id_sicepat.chart_sicepat
+chart_111002006,111.002.006,FALSE,liquidity,chart_111002000,account.data_account_type_bank,CIMB Niaga 463.010.043.1005,l10n_id_sicepat.chart_sicepat
+chart_111002007,111.002.007,FALSE,liquidity,chart_111002000,account.data_account_type_bank,CIMB Niaga 703.13.486.3200,l10n_id_sicepat.chart_sicepat
+chart_111002008,111.002.008,FALSE,liquidity,chart_111002000,account.data_account_type_bank,BCA 270.061.8989,l10n_id_sicepat.chart_sicepat
+chart_111002009,111.002.009,FALSE,liquidity,chart_111002000,account.data_account_type_bank,Mandiri 121.000.655.7171,l10n_id_sicepat.chart_sicepat
+chart_111002010,111.002.010,FALSE,liquidity,chart_111002000,account.data_account_type_bank,BRI 0338-01-000906-30-4,l10n_id_sicepat.chart_sicepat
+chart_112000000,112.000.000,FALSE,view,chart_110000000,l10n_id_sicepat.user_type_account_receivable,Piutang,l10n_id_sicepat.chart_sicepat
+chart_112001000,112.001.000,TRUE,receivable,chart_112000000,l10n_id_sicepat.user_type_account_receivable,Piutang Usaha,l10n_id_sicepat.chart_sicepat
+chart_112002000,112.002.000,TRUE,receivable,chart_112000000,l10n_id_sicepat.user_type_account_receivable,Piutang Karyawan,l10n_id_sicepat.chart_sicepat
+chart_112003000,112.003.000,FALSE,other,chart_112000000,l10n_id_sicepat.user_type_account_receivable,Piutang Pemegang Saham,l10n_id_sicepat.chart_sicepat
+chart_112004000,112.004.000,FALSE,other,chart_112000000,l10n_id_sicepat.user_type_account_receivable,Piutang Pihak Berelasi,l10n_id_sicepat.chart_sicepat
+chart_112005000,112.005.000,TRUE,payable,chart_112000000,l10n_id_sicepat.user_type_account_receivable,Piutang Lain-lain,l10n_id_sicepat.chart_sicepat
+chart_113000000,113.000.000,FALSE,view,chart_110000000,l10n_id_sicepat.user_type_account_receivable,Uang Muka,l10n_id_sicepat.chart_sicepat
+chart_113001000,113.001.000,FALSE,other,chart_113000000,l10n_id_sicepat.user_type_account_receivable,Uang Muka Pembelian Barang/Jasa,l10n_id_sicepat.chart_sicepat
+chart_113002000,113.002.000,FALSE,other,chart_113000000,l10n_id_sicepat.user_type_account_receivable,Uang Muka Operasional Karyawan,l10n_id_sicepat.chart_sicepat
+chart_114000000,114.000.000,FALSE,view,chart_110000000,l10n_id_sicepat.user_type_inventory,Persediaan,l10n_id_sicepat.chart_sicepat
+chart_114001000,114.001.000,FALSE,other,chart_114000000,l10n_id_sicepat.user_type_inventory,Persediaan Lakban,l10n_id_sicepat.chart_sicepat
+chart_114002000,114.002.000,FALSE,other,chart_114000000,l10n_id_sicepat.user_type_inventory,Persediaan Plastik,l10n_id_sicepat.chart_sicepat
+chart_115000000,115.000.000,FALSE,view,chart_110000000,l10n_id_sicepat.user_type_other_current_asset,Pajak Dibayar Dimuka,l10n_id_sicepat.chart_sicepat
+chart_115001000,115.001.000,FALSE,other,chart_115000000,l10n_id_sicepat.user_type_other_current_asset,PPh Pasal 4(2) Dibayar Dimuka,l10n_id_sicepat.chart_sicepat
+chart_115002000,115.002.000,FALSE,other,chart_115000000,l10n_id_sicepat.user_type_other_current_asset,PPh Pasal 21 Dibayar Dimuka,l10n_id_sicepat.chart_sicepat
+chart_115003000,115.003.000,FALSE,other,chart_115000000,l10n_id_sicepat.user_type_other_current_asset,PPh Pasal 22 Dibayar Dimuka,l10n_id_sicepat.chart_sicepat
+chart_115004000,115.004.000,FALSE,other,chart_115000000,l10n_id_sicepat.user_type_other_current_asset,PPh Pasal 23 Dibayar Dimuka,l10n_id_sicepat.chart_sicepat
+chart_115005000,115.005.000,FALSE,other,chart_115000000,l10n_id_sicepat.user_type_other_current_asset,PPh Pasal 24 Dibayar Dimuka,l10n_id_sicepat.chart_sicepat
+chart_115006000,115.006.000,FALSE,other,chart_115000000,l10n_id_sicepat.user_type_other_current_asset,PPh Pasal 25 Dibayar Dimuka,l10n_id_sicepat.chart_sicepat
+chart_115007000,115.007.000,FALSE,other,chart_115000000,l10n_id_sicepat.user_type_other_current_asset,PPN Masukan,l10n_id_sicepat.chart_sicepat
+chart_116000000,116.000.000,FALSE,view,chart_110000000,l10n_id_sicepat.user_type_other_current_asset,Biaya Dibayar Dimuka,l10n_id_sicepat.chart_sicepat
+chart_116001000,116.001.000,FALSE,view,chart_116000000,l10n_id_sicepat.user_type_other_current_asset,Asuransi Dibayar Dimuka,l10n_id_sicepat.chart_sicepat
+chart_116001001,116.001.001,FALSE,other,chart_116001000,l10n_id_sicepat.user_type_other_current_asset,Asuransi Kendaraan Dibayar Dimuka,l10n_id_sicepat.chart_sicepat
+chart_116002000,116.002.000,FALSE,view,chart_116000000,l10n_id_sicepat.user_type_other_current_asset,Sewa Dibayar Dimuka,l10n_id_sicepat.chart_sicepat
+chart_116002001,116.002.001,FALSE,other,chart_116002000,l10n_id_sicepat.user_type_other_current_asset,Sewa Ruko / Rumah Dibayar Dimuka,l10n_id_sicepat.chart_sicepat
+chart_117000000,117.000.000,FALSE,view,chart_110000000,l10n_id_sicepat.user_type_other_current_asset,Akun Temporer,l10n_id_sicepat.chart_sicepat
+chart_117001000,117.001.000,FALSE,other,chart_117000000,l10n_id_sicepat.user_type_other_current_asset,Transaksi Temporer,l10n_id_sicepat.chart_sicepat
+chart_117001001,117.002.000,TRUE,receivable,chart_117000000,l10n_id_sicepat.user_type_other_current_asset,Piutang NN,l10n_id_sicepat.chart_sicepat
+chart_120000000,120.000.000,FALSE,view,chart_100000000,l10n_id_sicepat.user_type_fixed_asset,Aset Tetap,l10n_id_sicepat.chart_sicepat
+chart_120001000,120.001.000,FALSE,other,chart_120000000,l10n_id_sicepat.user_type_fixed_asset,Peralatan Kantor,l10n_id_sicepat.chart_sicepat
+chart_120002000,120.002.000,FALSE,other,chart_120000000,l10n_id_sicepat.user_type_fixed_asset,Kendaraan,l10n_id_sicepat.chart_sicepat
+chart_121000000,121.000.000,FALSE,view,chart_120000000,l10n_id_sicepat.user_type_accumulated_depreciation,Akumulasi Penyusutan Aset Tetap,l10n_id_sicepat.chart_sicepat
+chart_121001000,121.001.000,FALSE,other,chart_121000000,l10n_id_sicepat.user_type_accumulated_depreciation,Akum. Peny. Peralatan Kantor,l10n_id_sicepat.chart_sicepat
+chart_121002000,121.002.000,FALSE,other,chart_121000000,l10n_id_sicepat.user_type_accumulated_depreciation,Akum. Peny. Kendaraan,l10n_id_sicepat.chart_sicepat
+chart_200000000,200.000.000,FALSE,view,chart_sicepat_root,l10n_id_sicepat.user_type_current_liability,Hutang,l10n_id_sicepat.chart_sicepat
+chart_200001000,200.001.000,FALSE,view,chart_200000000,l10n_id_sicepat.user_type_account_payable,Hutang Jangka Pendek,l10n_id_sicepat.chart_sicepat
+chart_200001001,200.001.001,TRUE,payable,chart_200001000,l10n_id_sicepat.user_type_account_payable,Hutang Supplier,l10n_id_sicepat.chart_sicepat
+chart_200001002,200.001.002,FALSE,other,chart_200001000,l10n_id_sicepat.user_type_account_payable,Hutang Leasing Jangka Pendek,l10n_id_sicepat.chart_sicepat
+chart_200002000,200.002.000,FALSE,view,chart_200000000,l10n_id_sicepat.user_type_account_payable,Hutang Jangka Panjang,l10n_id_sicepat.chart_sicepat
+chart_200002001,200.002.001,FALSE,other,chart_200002000,l10n_id_sicepat.user_type_account_payable,Hutang Leasing Jangka Panjang,l10n_id_sicepat.chart_sicepat
+chart_200003000,200.003.000,FALSE,view,chart_200000000,l10n_id_sicepat.user_type_other_current_liability,Hutang Lain-Lain,l10n_id_sicepat.chart_sicepat
+chart_200003001,200.003.001,TRUE,receivable,chart_200003000,l10n_id_sicepat.user_type_other_current_liability,Pendapatan Jasa Diterima Dimuka,l10n_id_sicepat.chart_sicepat
+chart_200003002,200.003.002,FALSE,other,chart_200003000,l10n_id_sicepat.user_type_other_current_liability,Hutang Pihak Berelasi,l10n_id_sicepat.chart_sicepat
+chart_200004000,200.004.000,FALSE,view,chart_200000000,l10n_id_sicepat.user_type_other_current_liability,Hutang Pajak,l10n_id_sicepat.chart_sicepat
+chart_200004001,200.004.001,FALSE,other,chart_200004000,l10n_id_sicepat.user_type_other_current_liability,PPh Pasal 4(2) YMH Dibayar,l10n_id_sicepat.chart_sicepat
+chart_200004002,200.004.002,FALSE,other,chart_200004000,l10n_id_sicepat.user_type_other_current_liability,PPh Pasal 21 YMH Dibayar,l10n_id_sicepat.chart_sicepat
+chart_200004003,200.004.003,FALSE,other,chart_200004000,l10n_id_sicepat.user_type_other_current_liability,PPh Pasal 23 YMH Dibayar,l10n_id_sicepat.chart_sicepat
+chart_200004004,200.004.004,FALSE,other,chart_200004000,l10n_id_sicepat.user_type_other_current_liability,PPh Pasal 25 YMH Dibayar,l10n_id_sicepat.chart_sicepat
+chart_200004005,200.004.005,FALSE,other,chart_200004000,l10n_id_sicepat.user_type_other_current_liability,PPh Pasal 29 YMH Dibayar,l10n_id_sicepat.chart_sicepat
+chart_200004006,200.004.006,FALSE,other,chart_200004000,l10n_id_sicepat.user_type_other_current_liability,PPN Keluaran,l10n_id_sicepat.chart_sicepat
+chart_200005000,200.005.000,FALSE,view,chart_200000000,l10n_id_sicepat.user_type_other_current_liability,Biaya Yang Masih Harus Dibayar,l10n_id_sicepat.chart_sicepat
+chart_200005001,200.005.001,FALSE,other,chart_200005000,l10n_id_sicepat.user_type_other_current_liability,Biaya Gaji YMH Dibayar,l10n_id_sicepat.chart_sicepat
+chart_200005002,200.005.002,FALSE,other,chart_200005000,l10n_id_sicepat.user_type_other_current_liability,Biaya Handling YMH Dibayar,l10n_id_sicepat.chart_sicepat
+chart_200005003,200.005.003,FALSE,other,chart_200005000,l10n_id_sicepat.user_type_other_current_liability,Biaya Komisi YMH Dibayar,l10n_id_sicepat.chart_sicepat
+chart_300000000,300.000.000,FALSE,view,chart_sicepat_root,l10n_id_sicepat.user_type_equity,Modal,l10n_id_sicepat.chart_sicepat
+chart_300001000,300.001.000,FALSE,other,chart_300000000,l10n_id_sicepat.user_type_equity,Modal Disetor,l10n_id_sicepat.chart_sicepat
+chart_300002000,300.002.000,FALSE,view,chart_300000000,l10n_id_sicepat.user_type_equity,Prive,l10n_id_sicepat.chart_sicepat
+chart_300002001,300.002.001,FALSE,other,chart_300002000,l10n_id_sicepat.user_type_equity,Prive Rudy Darwin Swigo,l10n_id_sicepat.chart_sicepat
+chart_300002002,300.002.002,FALSE,other,chart_300002000,l10n_id_sicepat.user_type_equity,Prive Hartono Franscesco,l10n_id_sicepat.chart_sicepat
+chart_300003000,300.003.000,FALSE,other,chart_300000000,l10n_id_sicepat.user_type_equity,Saldo Awal,l10n_id_sicepat.chart_sicepat
+chart_300004000,300.004.000,FALSE,other,chart_300000000,l10n_id_sicepat.user_type_equity,Laba Ditahan,l10n_id_sicepat.chart_sicepat
+chart_300005000,300.005.000,FALSE,other,chart_300000000,l10n_id_sicepat.user_type_equity,Prive Rudy Darwin Swigo,l10n_id_sicepat.chart_sicepat
+chart_300006000,300.006.000,FALSE,other,chart_300000000,l10n_id_sicepat.user_type_equity,Prive Hartono Franscesco,l10n_id_sicepat.chart_sicepat
+chart_400000000,400.000.000,FALSE,view,chart_sicepat_root,l10n_id_sicepat.user_type_income,Pendapatan,l10n_id_sicepat.chart_sicepat
+chart_400001000,400.001.000,FALSE,other,chart_400000000,l10n_id_sicepat.user_type_income,Pendapatan Usaha,l10n_id_sicepat.chart_sicepat
+chart_500000000,500.000.000,FALSE,view,chart_sicepat_root,l10n_id_sicepat.user_type_cogs,Biaya Langsung,l10n_id_sicepat.chart_sicepat
+chart_500001000,500.001.000,FALSE,view,chart_500000000,l10n_id_sicepat.user_type_cogs,"Biaya Sigesit,Helper & Driver",l10n_id_sicepat.chart_sicepat
+chart_500001001,500.001.001,FALSE,other,chart_500001000,l10n_id_sicepat.user_type_cogs,Biaya Pulsa ,l10n_id_sicepat.chart_sicepat
+chart_500001002,500.001.002,FALSE,other,chart_500001000,l10n_id_sicepat.user_type_cogs,Biaya Bensin ,l10n_id_sicepat.chart_sicepat
+chart_500001003,500.001.003,FALSE,other,chart_500001000,l10n_id_sicepat.user_type_cogs,Biaya Parkir ,l10n_id_sicepat.chart_sicepat
+chart_500001004,500.001.004,FALSE,other,chart_500001000,l10n_id_sicepat.user_type_cogs,Biaya Tol,l10n_id_sicepat.chart_sicepat
+chart_500001005,500.001.005,FALSE,other,chart_500001000,l10n_id_sicepat.user_type_cogs,Biaya Seragam,l10n_id_sicepat.chart_sicepat
+chart_500001006,500.001.006,FALSE,other,chart_500001000,l10n_id_sicepat.user_type_cogs,Biaya Helm,l10n_id_sicepat.chart_sicepat
+chart_500001007,500.001.007,FALSE,other,chart_500001000,l10n_id_sicepat.user_type_cogs,Biaya Tas,l10n_id_sicepat.chart_sicepat
+chart_500005000,500.005.000,FALSE,view,chart_500000000,l10n_id_sicepat.user_type_cogs,Biaya Gaji,l10n_id_sicepat.chart_sicepat
+chart_500005001,500.005.001,FALSE,other,chart_500005000,l10n_id_sicepat.user_type_cogs,Gaji Pokok,l10n_id_sicepat.chart_sicepat
+chart_500005002,500.005.002,FALSE,other,chart_500005000,l10n_id_sicepat.user_type_cogs,Uang Makan,l10n_id_sicepat.chart_sicepat
+chart_500005003,500.005.003,FALSE,other,chart_500005000,l10n_id_sicepat.user_type_cogs,Uang Transport,l10n_id_sicepat.chart_sicepat
+chart_500005004,500.005.004,FALSE,other,chart_500005000,l10n_id_sicepat.user_type_cogs,Kerajinan,l10n_id_sicepat.chart_sicepat
+chart_500005005,500.005.005,FALSE,other,chart_500005000,l10n_id_sicepat.user_type_cogs,Bonus Paket,l10n_id_sicepat.chart_sicepat
+chart_500005006,500.005.006,FALSE,other,chart_500005000,l10n_id_sicepat.user_type_cogs,Insentif,l10n_id_sicepat.chart_sicepat
+chart_500005007,500.005.007,FALSE,other,chart_500005000,l10n_id_sicepat.user_type_cogs,Tunjangan Operasional,l10n_id_sicepat.chart_sicepat
+chart_500005008,500.005.008,FALSE,other,chart_500005000,l10n_id_sicepat.user_type_cogs,Tunjangan Jabatan,l10n_id_sicepat.chart_sicepat
+chart_500005009,500.005.009,FALSE,other,chart_500005000,l10n_id_sicepat.user_type_cogs,Service Motor,l10n_id_sicepat.chart_sicepat
+chart_500005010,500.005.010,FALSE,other,chart_500005000,l10n_id_sicepat.user_type_cogs,Lemburan,l10n_id_sicepat.chart_sicepat
+chart_500006000,500.006.000,FALSE,view,chart_500000000,l10n_id_sicepat.user_type_cogs,Biaya Operasional,l10n_id_sicepat.chart_sicepat
+chart_500006001,500.006.001,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Transit Sentral Cargo,l10n_id_sicepat.chart_sicepat
+chart_500006002,500.006.002,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Transit Ekspedisi Lain,l10n_id_sicepat.chart_sicepat
+chart_500006003,500.006.003,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Transit JNE Pusat,l10n_id_sicepat.chart_sicepat
+chart_500006004,500.006.004,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Transit JNE Daerah,l10n_id_sicepat.chart_sicepat
+chart_500006005,500.006.005,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Handling Daerah,l10n_id_sicepat.chart_sicepat
+chart_500006006,500.006.006,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Surat Muatan Udara,l10n_id_sicepat.chart_sicepat
+chart_500006007,500.006.007,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Sewa Gudang Bandara,l10n_id_sicepat.chart_sicepat
+chart_500006008,500.006.008,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Plastik,l10n_id_sicepat.chart_sicepat
+chart_500006009,500.006.009,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Tali,l10n_id_sicepat.chart_sicepat
+chart_500006010,500.006.010,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Lakban,l10n_id_sicepat.chart_sicepat
+chart_500006011,500.006.011,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Keranjang,l10n_id_sicepat.chart_sicepat
+chart_500006012,500.006.012,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Kerugian Penggantian Paket,l10n_id_sicepat.chart_sicepat
+chart_500006013,500.006.013,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Pengembalian Ongkos Kirim,l10n_id_sicepat.chart_sicepat
+chart_500006014,500.006.014,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Operasional Lain-lain,l10n_id_sicepat.chart_sicepat
+chart_500006015,500.006.015,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Karung,l10n_id_sicepat.chart_sicepat
+chart_500006016,500.006.016,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Kardus,l10n_id_sicepat.chart_sicepat
+chart_500007000,500.007.000,FALSE,view,chart_500000000,l10n_id_sicepat.user_type_cogs,Biaya Pengembalian Selisih Diskon,l10n_id_sicepat.chart_sicepat
+chart_500007001,500.007.001,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Pengembalian Selisih Diskon,l10n_id_sicepat.chart_sicepat
+chart_600000000,600.000.000,FALSE,view,chart_sicepat_root,l10n_id_sicepat.user_type_expense,Biaya Tidak Langsung,l10n_id_sicepat.chart_sicepat
+chart_600001000,600.001.000,FALSE,view,chart_600000000,l10n_id_sicepat.user_type_expense,Biaya Pemasaran,l10n_id_sicepat.chart_sicepat
+chart_600001001,600.001.001,FALSE,other,chart_600001000,l10n_id_sicepat.user_type_expense,Biaya Iklan Marketing,l10n_id_sicepat.chart_sicepat
+chart_600002000,600.002.000,FALSE,view,chart_600000000,l10n_id_sicepat.user_type_expense,Biaya Komisi,l10n_id_sicepat.chart_sicepat
+chart_600002001,600.002.001,FALSE,other,chart_600002000,l10n_id_sicepat.user_type_expense,Biaya Komisi Marketing,l10n_id_sicepat.chart_sicepat
+chart_600002002,600.002.002,FALSE,other,chart_600002000,l10n_id_sicepat.user_type_expense,Biaya Komisi Cabang,l10n_id_sicepat.chart_sicepat
+chart_600003000,600.003.000,FALSE,view,chart_600001000,l10n_id_sicepat.user_type_expense,Biaya Gaji,l10n_id_sicepat.chart_sicepat
+chart_600003001,600.003.001,FALSE,other,chart_600003000,l10n_id_sicepat.user_type_expense,Gaji Pokok,l10n_id_sicepat.chart_sicepat
+chart_600003002,600.003.002,FALSE,other,chart_600003000,l10n_id_sicepat.user_type_expense,Uang Makan,l10n_id_sicepat.chart_sicepat
+chart_600003003,600.003.003,FALSE,other,chart_600003000,l10n_id_sicepat.user_type_expense,Uang Transport,l10n_id_sicepat.chart_sicepat
+chart_600003004,600.003.004,FALSE,other,chart_600003000,l10n_id_sicepat.user_type_expense,Kerajinan,l10n_id_sicepat.chart_sicepat
+chart_600003005,600.003.005,FALSE,other,chart_600003000,l10n_id_sicepat.user_type_expense,Insentif,l10n_id_sicepat.chart_sicepat
+chart_600003006,600.003.006,FALSE,other,chart_600003000,l10n_id_sicepat.user_type_expense,Tunjangan Operasional,l10n_id_sicepat.chart_sicepat
+chart_600003007,600.003.007,FALSE,other,chart_600003000,l10n_id_sicepat.user_type_expense,Lemburan,l10n_id_sicepat.chart_sicepat
+chart_600004000,600.004.000,FALSE,view,chart_600000000,l10n_id_sicepat.user_type_expense,Biaya Umum & Administrasi,l10n_id_sicepat.chart_sicepat
+chart_600004001,600.004.001,FALSE,other,chart_600004000,l10n_id_sicepat.user_type_expense,Biaya Bensin Karyawan,l10n_id_sicepat.chart_sicepat
+chart_600004002,600.004.002,FALSE,other,chart_600004000,l10n_id_sicepat.user_type_expense,Biaya Pulsa Karyawan,l10n_id_sicepat.chart_sicepat
+chart_600004003,600.004.003,FALSE,other,chart_600004000,l10n_id_sicepat.user_type_expense,Biaya Parkir Karyawan,l10n_id_sicepat.chart_sicepat
+chart_600004004,600.004.004,FALSE,other,chart_600004000,l10n_id_sicepat.user_type_expense,Biaya Perjalanan Dinas,l10n_id_sicepat.chart_sicepat
+chart_600004005,600.004.005,FALSE,other,chart_600004000,l10n_id_sicepat.user_type_expense,Biaya Listrik,l10n_id_sicepat.chart_sicepat
+chart_600004006,600.004.006,FALSE,other,chart_600004000,l10n_id_sicepat.user_type_expense,Biaya Air PAM,l10n_id_sicepat.chart_sicepat
+chart_600004007,600.004.007,FALSE,other,chart_600004000,l10n_id_sicepat.user_type_expense,Biaya Telepon,l10n_id_sicepat.chart_sicepat
+chart_600004008,600.004.008,FALSE,other,chart_600004000,l10n_id_sicepat.user_type_expense,Biaya Internet,l10n_id_sicepat.chart_sicepat
+chart_600004009,600.004.009,FALSE,other,chart_600004000,l10n_id_sicepat.user_type_expense,Biaya ATK ,l10n_id_sicepat.chart_sicepat
+chart_600004010,600.004.010,FALSE,other,chart_600004000,l10n_id_sicepat.user_type_expense,Biaya Perjamuan,l10n_id_sicepat.chart_sicepat
+chart_600004011,600.004.011,FALSE,other,chart_600004000,l10n_id_sicepat.user_type_expense,Biaya Perijinan,l10n_id_sicepat.chart_sicepat
+chart_600004012,600.004.012,FALSE,other,chart_600004000,l10n_id_sicepat.user_type_expense,Biaya Retribusi & Iuran,l10n_id_sicepat.chart_sicepat
+chart_600004013,600.004.013,FALSE,other,chart_600004000,l10n_id_sicepat.user_type_expense,Biaya Konsultan,l10n_id_sicepat.chart_sicepat
+chart_600004014,600.004.014,FALSE,other,chart_600004000,l10n_id_sicepat.user_type_expense,Biaya Rumah Tangga Kantor,l10n_id_sicepat.chart_sicepat
+chart_600004015,600.004.015,FALSE,other,chart_600004000,l10n_id_sicepat.user_type_expense,Biaya Perlengkapan Kantor,l10n_id_sicepat.chart_sicepat
+chart_600004016,600.004.016,FALSE,other,chart_600004000,l10n_id_sicepat.user_type_expense,Biaya Direksi,l10n_id_sicepat.chart_sicepat
+chart_600004017,600.004.017,FALSE,other,chart_600004000,l10n_id_sicepat.user_type_expense,Biaya Pembelian Software,l10n_id_sicepat.chart_sicepat
+chart_600004018,600.004.018,FALSE,other,chart_600004000,l10n_id_sicepat.user_type_expense,Biaya Pulsa Kantor,l10n_id_sicepat.chart_sicepat
+chart_600004019,600.004.019,FALSE,other,chart_600004000,l10n_id_sicepat.user_type_expense,Biaya Percetakan,l10n_id_sicepat.chart_sicepat
+chart_600004020,600.004.020,FALSE,other,chart_600004000,l10n_id_sicepat.user_type_expense,Biaya Sumbangan,l10n_id_sicepat.chart_sicepat
+chart_600004021,600.004.021,FALSE,other,chart_600004000,l10n_id_sicepat.user_type_expense,Biaya Pengobatan Karyawan,l10n_id_sicepat.chart_sicepat
+chart_600005000,600.005.000,FALSE,view,chart_600000000,l10n_id_sicepat.user_type_expense,Biaya Asuransi,l10n_id_sicepat.chart_sicepat
+chart_600005001,600.005.001,FALSE,other,chart_600005000,l10n_id_sicepat.user_type_expense,Biaya Asuransi Kendaraan,l10n_id_sicepat.chart_sicepat
+chart_600005002,600.005.002,FALSE,other,chart_600005000,l10n_id_sicepat.user_type_expense,Biaya Asuransi Kesehatan,l10n_id_sicepat.chart_sicepat
+chart_600006000,600.006.000,FALSE,view,chart_600000000,l10n_id_sicepat.user_type_expense,Biaya Sewa,l10n_id_sicepat.chart_sicepat
+chart_600006001,600.006.001,FALSE,other,chart_600006000,l10n_id_sicepat.user_type_expense,Biaya Sewa Ruko/Rumah,l10n_id_sicepat.chart_sicepat
+chart_600006002,600.006.002,FALSE,other,chart_600006000,l10n_id_sicepat.user_type_expense,Biaya Sewa Kendaraan,l10n_id_sicepat.chart_sicepat
+chart_600007000,600.007.000,FALSE,view,chart_600000000,l10n_id_sicepat.user_type_expense,Biaya Bunga,l10n_id_sicepat.chart_sicepat
+chart_600007001,600.007.001,FALSE,other,chart_600007000,l10n_id_sicepat.user_type_expense,Biaya Bunga Leasing,l10n_id_sicepat.chart_sicepat
+chart_600008000,600.008.000,FALSE,view,chart_600000000,l10n_id_sicepat.user_type_expense,Biaya Depresiasi,l10n_id_sicepat.chart_sicepat
+chart_600008001,600.008.001,FALSE,other,chart_600008000,l10n_id_sicepat.user_type_expense,Biaya Depresiasi Peralatan Kantor,l10n_id_sicepat.chart_sicepat
+chart_600008002,600.008.002,FALSE,other,chart_600008000,l10n_id_sicepat.user_type_expense,Biaya Depresiasi Kendaraan,l10n_id_sicepat.chart_sicepat
+chart_600009000,600.009.000,FALSE,view,chart_600000000,l10n_id_sicepat.user_type_expense,Biaya Pemeliharaan Dan Perbaikan,l10n_id_sicepat.chart_sicepat
+chart_600009001,600.009.001,FALSE,other,chart_600009000,l10n_id_sicepat.user_type_expense,Biaya Pemeliharaan Dan Perbaikan Ruko/Rumah,l10n_id_sicepat.chart_sicepat
+chart_600009002,600.009.002,FALSE,other,chart_600009000,l10n_id_sicepat.user_type_expense,Biaya Pemeliharaan Dan Perbaikan Peralatan Kantor,l10n_id_sicepat.chart_sicepat
+chart_600009003,600.009.003,FALSE,other,chart_600009000,l10n_id_sicepat.user_type_expense,Biaya Pemeliharaan Dan Perbaikan Kendaraan,l10n_id_sicepat.chart_sicepat
+chart_600009004,600.009.004,FALSE,other,chart_600009000,l10n_id_sicepat.user_type_expense,Biaya Pemeliharaan Dan Perbaikan Software,l10n_id_sicepat.chart_sicepat
+chart_700000000,700.000.000,FALSE,view,chart_sicepat_root,l10n_id_sicepat.user_type_other_income,Pendapatan Lain-Lain,l10n_id_sicepat.chart_sicepat
+chart_700001000,700.001.000,FALSE,other,chart_700000000,l10n_id_sicepat.user_type_other_income,Pendapatan Bunga,l10n_id_sicepat.chart_sicepat
+chart_700002000,700.002.000,FALSE,other,chart_700000000,l10n_id_sicepat.user_type_other_income,Jasa Giro,l10n_id_sicepat.chart_sicepat
+chart_700003000,700.003.000,FALSE,other,chart_700000000,l10n_id_sicepat.user_type_other_income,Pendapatan Lain-Lain,l10n_id_sicepat.chart_sicepat
+chart_800000000,800.000.000,FALSE,view,chart_sicepat_root,l10n_id_sicepat.user_type_other_expense,Biaya Lain-Lain,l10n_id_sicepat.chart_sicepat
+chart_800001000,800.001.000,FALSE,view,chart_800000000,l10n_id_sicepat.user_type_other_expense,Biaya Pajak,l10n_id_sicepat.chart_sicepat
+chart_800001001,800.001.001,FALSE,other,chart_800001000,l10n_id_sicepat.user_type_other_expense,Biaya Pph 21,l10n_id_sicepat.chart_sicepat
+chart_800002000,800.002.000,FALSE,other,chart_800000000,l10n_id_sicepat.user_type_other_expense,Biaya Administrasi Bank,l10n_id_sicepat.chart_sicepat
+chart_800003000,800.003.000,FALSE,other,chart_800000000,l10n_id_sicepat.user_type_other_expense,Biaya Lain-Lain,l10n_id_sicepat.chart_sicepat

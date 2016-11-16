@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="1">
+		<!-- TAX CODE -->
+		<record id="tc_root" model="account.tax.code.template">
+			<field name="name">SCE - Tax Code</field>
+		</record>
+
+			<!-- TAX BASES -->
+			<record id="tc_base" model="account.tax.code.template">
+				<field name="name">Dasar Pengenaan Pajak</field>
+				<field name="parent_id" ref="tc_root"/>
+			</record>
+
+				<!-- Purchases -->
+				<record id="tc_base_pur" model="account.tax.code.template">
+					<field name="name">Dasar Pembelian Kena Pajak</field>
+					<field name="parent_id" eval="tc_base"/>
+				</record>
+					<record id="tc_base_pur_vat" model="account.tax.code.template">
+						<field name="name">Dasar Pembelian Kena Pajak (PPn)</field>
+						<field name="parent_id" eval="tc_base_pur"/>
+					</record>
+						<record id="tc_base_pur_vat_in1" model="account.tax.code.template">
+							<field name="name">Base PPn Masukan 10%</field>
+							<field name="parent_id" ref="tc_base_pur_vat"/>
+						</record>
+						<record id="tc_base_pur_vat_in2" model="account.tax.code.template">
+							<field name="name">Base PPn Masukan 10% (include)</field>
+							<field name="parent_id" ref="tc_base_pur_vat"/>
+						</record>
+
+				<!-- Sales -->
+				<record id="tc_base_sale" model="account.tax.code.template">
+					<field name="name">Dasar Penjualan Kena Pajak</field>
+					<field name="parent_id" eval="tc_base"/>
+				</record>
+					<record id="tc_base_sale_vat" model="account.tax.code.template">
+						<field name="name">Dasar Penjualan Kena Pajak (PPn)</field>
+						<field name="parent_id" eval="tc_base_sale"/>
+					</record>
+						<record id="tc_base_sale_vat_out2" model="account.tax.code.template">
+							<field name="name">Base PPn Keluaran 1% (include)</field>
+							<field name="parent_id" ref="tc_base_sale_vat"/>
+						</record>
+						<record id="tc_base_sale_vat_out1" model="account.tax.code.template">
+							<field name="name">Base PPn Keluaran 1%</field>
+							<field name="parent_id" ref="tc_base_sale_vat"/>
+						</record>
+						<record id="tc_base_sale_vat_out3" model="account.tax.code.template">
+							<field name="name">Base PPn Keluaran 10%</field>
+							<field name="parent_id" ref="tc_base_sale_vat"/>
+						</record>
+						<record id="tc_base_sale_vat_out4" model="account.tax.code.template">
+							<field name="name">Base PPn Keluaran 10% (include)</field>
+							<field name="parent_id" ref="tc_base_sale_vat"/>
+						</record>
+					<record id="tc_base_sale_wht" model="account.tax.code.template">
+						<field name="name">Dasar Penjualan Kena Pajak (W/holding)</field>
+						<field name="parent_id" eval="tc_base_sale"/>
+					</record>
+						<record id="tc_base_sale_wht22_1" model="account.tax.code.template">
+							<field name="name">Base PPh 22 1,5%</field>
+							<field name="parent_id" ref="tc_base_sale_wht"/>
+						</record>
+						<record id="tc_base_sale_wht23_1" model="account.tax.code.template">
+							<field name="name">Base PPh 23 2%</field>
+							<field name="parent_id" ref="tc_base_sale_wht"/>
+						</record>
+
+			<!-- TAXABLE AMOUNTS -->
+			<record id="tc_bal" model="account.tax.code.template">
+				<field name="name">Saldo Kena Pajak</field>
+				<field name="parent_id" ref="tc_root"/>
+			</record>
+
+				<!-- Input Tax -->
+				<record id="tc_bal_paid" model="account.tax.code.template">
+					<field name="name">Pajak Pembelian</field>
+					<field name="parent_id" eval="tc_bal"/>
+				</record>
+					<record id="tc_bal_paid_vat" model="account.tax.code.template">
+						<field name="name">Pajak Pembelian (PPn)</field>
+						<field name="parent_id" eval="tc_bal_paid"/>
+					</record>
+						<record id="tc_bal_paid_vat_in1" model="account.tax.code.template">
+							<field name="name">PPn Masukan 10%</field>
+							<field name="parent_id" ref="tc_bal_paid_vat"/>
+						</record>
+						<record id="tc_bal_paid_vat_in2" model="account.tax.code.template">
+							<field name="name">PPn Masukan 10% (include)</field>
+							<field name="parent_id" ref="tc_bal_paid_vat"/>
+						</record>
+
+				<!-- Output Tax -->
+				<record id="tc_bal_reci" model="account.tax.code.template">
+					<field name="name">Pajak Penjualan</field>
+					<field name="parent_id" eval="tc_bal"/>
+				</record>
+					<record id="tc_bal_reci_vat" model="account.tax.code.template">
+						<field name="name">Pajak Penjualan (PPn)</field>
+						<field name="parent_id" eval="tc_bal_reci"/>
+					</record>
+						<record id="tc_bal_reci_vat_out2" model="account.tax.code.template">
+							<field name="name">PPn Keluaran 1% (include)</field>
+							<field name="parent_id" ref="tc_bal_reci_vat"/>
+						</record>
+						<record id="tc_bal_reci_vat_out1" model="account.tax.code.template">
+							<field name="name">PPn Keluaran 1%</field>
+							<field name="parent_id" ref="tc_bal_reci_vat"/>
+						</record>
+						<record id="tc_bal_reci_vat_out3" model="account.tax.code.template">
+							<field name="name">PPn Keluaran 10%</field>
+							<field name="parent_id" ref="tc_bal_reci_vat"/>
+						</record>
+						<record id="tc_bal_reci_vat_out4" model="account.tax.code.template">
+							<field name="name">PPn Keluaran 10% (include)</field>
+							<field name="parent_id" ref="tc_bal_reci_vat"/>
+						</record>
+					<record id="tc_bal_reci_wht" model="account.tax.code.template">
+						<field name="name">Pajak Penjualan (W/holding)</field>
+						<field name="parent_id" eval="tc_bal_reci"/>
+					</record>
+						<record id="tc_bal_reci_wht22_1" model="account.tax.code.template">
+							<field name="name">PPh 22 1,5%</field>
+							<field name="parent_id" ref="tc_bal_reci_wht"/>
+						</record>
+						<record id="tc_bal_reci_wht23_1" model="account.tax.code.template">
+							<field name="name">PPh 23 2%</field>
+							<field name="parent_id" ref="tc_bal_reci_wht"/>
+						</record>
+	</data>
+</openerp>

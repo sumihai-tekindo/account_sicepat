@@ -1,0 +1,112 @@
+body {
+ color: #808284;
+ word-wrap: break-word;
+ font-family: 'Titillium Web', Helvetica, Arial, sans-serif;
+ font-size: 11pt;
+ font-weight: 400;
+}
+.border-black td {
+ border-top: 1px solid black !important;
+}
+.table-striped > thead {
+ font-size: 9pt;
+ font-weight: 600;
+ color: white;
+ background-color: #AD1E2B;
+}
+.table-striped > thead > tr > th {
+ height: 42px;
+ vertical-align: middle;
+ text-align: center;
+ border-bottom: hidden !important;
+}
+.table-striped > tbody {
+ font-size: 8pt;
+ font-weight: 600;
+}
+.table-striped > tbody > tr {
+ page-break-inside: avoid !important;
+}
+.table-striped > tbody > tr > td {
+ border: hidden !important;
+}
+.table-striped > tbody > tr:nth-child(even) > td,
+.table-striped > tbody > tr:nth-child(even) > th {
+ background-color: #e7e8ea;
+}
+.table-striped > tbody > tr:nth-child(odd) > td,
+.table-striped > tbody > tr:nth-child(odd) > th {
+ background-color: transparent;
+}
+.table-grandtotal > tbody > tr > td {
+  border: hidden !important;
+}
+.grandtotaltext {
+  background-color: #AD1E2B;
+}
+.grandtotalamt {
+  background-color: #808284;
+}
+.zero_min_height {
+ min-height: 0px !important;
+}
+.inv-text, .inv-amount, .total-text, .partner-name, .inv-nbr, .grand-total {
+ font-weight: 700;
+}
+.partner-info, .inv-info-2, .bank-name, .name-mgr {
+ font-weight: 600;
+}
+.inv-text {
+ font-size: 34pt;
+}
+.inv-amount {
+ font-size: 31pt;
+}
+.partner-name {
+ font-size: 18pt;
+ margin-bottom: .5em;
+}
+.name-mgr {
+ font-size: 12pt;
+}
+.inv-info-2, .bank-name, .bank-info, .title-mgr {
+ font-size: 9pt;
+}
+.footer-text, .page-text {
+ font-size: 7pt;
+}
+.inv-text, .partner-name, .bank-name {
+ color: #D32229;
+}
+.inv-amount, .total-text, .grand-total {
+ color: white;
+}
+.page-text {
+ color: black;
+}
+.inv-text, .total-text {
+ letter-spacing: 0.096em;
+}
+.inv-info1, .inv-nbr, .inv-info2, .grand-total, .name-mgr {
+ letter-spacing: 0.05em;
+}
+.partner-name {
+ letter-spacing: 0.025em;
+}
+.inv-info1, .inv-nbr{
+ text-align: right;
+}
+.col-inv-text, .col-total-text {
+ position: relative;
+ float: left;
+ height: 155px;
+}
+.col-inv-text {
+ width: 54%;
+}
+.col-total-text {
+ width: 46%;
+ padding-top: 44px;
+ padding-left: 27px;
+ background-color: #AD1E2B;
+}

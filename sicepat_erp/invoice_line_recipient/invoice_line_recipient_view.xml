@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_invoice_line_form_sicepat_recipient" model="ir.ui.view">
+            <field name="name">account.invoice.line.form.sicepat.recipient</field>
+            <field name="model">account.invoice.line</field>
+            <field name="inherit_id" ref="sicepat_erp.view_invoice_line_form_sicepat_dest_code"/>
+            <field name="arch" type="xml">
+            	<field name="destination_code" position="after">
+	            	<field name="recipient_name"/>
+	            	<field name="recipient_phone"/>
+            	</field>
+            </field>
+        </record>
+        
+        <record id="invoice_form_sicepat_recipient" model="ir.ui.view">
+            <field name="name">account.invoice.form.sicepat.recipient</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="sicepat_erp.invoice_form_sicepat_dest_code"/>
+            <field name="arch" type="xml">
+            	<field name="destination_code" position="after">
+	            	<field name="recipient_name"/>
+            	</field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="1">
+
+<!--		<delete model="account.fiscal.position.template" search="[('chart_template_id','=',ref('account.configurable_chart_template'))]"/>-->
+<!--		<delete model="account.tax.template" search="[('chart_template_id','=',ref('account.configurable_chart_template'))]"/>-->
+        <!-- Account Templates-->
+<!--        <delete id="account.conf_chart0" model="account.account.template"/>-->
+<!--        <delete id="account.conf_bal" model="account.account.template"/>-->
+<!--        <delete id="account.conf_fas" model="account.account.template"/>-->
+<!--        <delete id="account.conf_xfa" model="account.account.template"/>-->
+<!--        <delete id="account.conf_nca" model="account.account.template"/>-->
+<!--        <delete id="account.conf_cas" model="account.account.template"/>-->
+<!--        <delete id="account.conf_stk" model="account.account.template"/>-->
+<!--        <delete id="account.conf_a_recv" model="account.account.template"/>-->
+<!--        <delete id="account.conf_ova" model="account.account.template"/>-->
+<!--        <delete id="account.conf_bnk" model="account.account.template"/>-->
+<!--        <delete id="account.conf_o_income" model="account.account.template"/>-->
+<!--        <delete id="account.conf_cli" model="account.account.template"/>-->
+<!--        <delete id="account.conf_a_pay" model="account.account.template"/>-->
+<!--        <delete id="account.conf_iva" model="account.account.template"/>-->
+<!--        <delete id="account.conf_a_reserve_and_surplus" model="account.account.template"/>-->
+<!--        <delete id="account.conf_o_expense" model="account.account.template"/>-->
+<!--        <delete id="account.conf_gpf" model="account.account.template"/>-->
+<!--        <delete id="account.conf_rev" model="account.account.template"/>-->
+<!--        <delete id="account.conf_a_sale" model="account.account.template"/>-->
+<!--        <delete id="account.conf_cos" model="account.account.template"/>-->
+<!--        <delete id="account.conf_cog" model="account.account.template"/>-->
+<!--        <delete id="account.conf_ovr" model="account.account.template"/>-->
+<!--        <delete id="account.conf_a_expense" model="account.account.template"/>-->
+<!--        <delete id="account.conf_a_salary_expense" model="account.account.template"/>-->
+<!--		<delete model="account.chart.template" id="account.configurable_chart_template"/>-->
+<!--		<delete model="account.tax.code.template" id="account.tax_code_sales_O"/>-->
+<!--		<delete model="account.tax.code.template" id="account.tax_code_sales_X"/>-->
+<!--		<delete model="account.tax.code.template" id="account.tax_code_sales_R"/>-->
+<!--		<delete model="account.tax.code.template" id="account.tax_code_sales_S"/>-->
+<!--		<delete model="account.tax.code.template" id="account.tax_code_base_sales"/>-->
+<!--		<delete model="account.tax.code.template" id="account.tax_code_purch_O"/>-->
+<!--		<delete model="account.tax.code.template" id="account.tax_code_purch_X"/>-->
+<!--		<delete model="account.tax.code.template" id="account.tax_code_purch_R"/>-->
+<!--		<delete model="account.tax.code.template" id="account.tax_code_purch_S"/>-->
+<!--		<delete model="account.tax.code.template" id="account.tax_code_base_purchases"/>-->
+<!--		<delete model="account.tax.code.template" id="account.tax_code_base_net"/>-->
+<!--		<delete model="account.tax.code.template" id="account.tax_code_output_O"/>-->
+<!--		<delete model="account.tax.code.template" id="account.tax_code_output_X"/>-->
+<!--		<delete model="account.tax.code.template" id="account.tax_code_output_R"/>-->
+<!--		<delete model="account.tax.code.template" id="account.tax_code_output_S"/>-->
+<!--		<delete model="account.tax.code.template" id="account.tax_code_output"/>-->
+<!--		<delete model="account.tax.code.template" id="account.tax_code_input_O"/>-->
+<!--		<delete model="account.tax.code.template" id="account.tax_code_input_X"/>-->
+<!--		<delete model="account.tax.code.template" id="account.tax_code_input_R"/>-->
+<!--		<delete model="account.tax.code.template" id="account.tax_code_input_S"/>-->
+<!--		<delete model="account.tax.code.template" id="account.tax_code_input"/>-->
+<!--		<delete model="account.tax.code.template" id="account.tax_code_balance_net"/>-->
+<!--		<delete model="account.tax.code.template" id="account.tax_code_chart_root"/>-->
+<!--		<delete model="account.account.type" id="account.conf_account_type_chk"/>-->
+<!--		<delete model="account.account.type" id="account.conf_account_type_equity"/>-->
+<!--		<delete model="account.account.type" id="account.conf_account_type_tax"/>-->
+<!--		<delete model="account.account.type" id="account.account_type_liability_view1"/>-->
+<!--		<delete model="account.account.type" id="account.account_type_asset_view1"/>-->
+<!--		<delete model="account.account.type" id="account.account_type_expense_view1"/>-->
+<!--		<delete model="account.account.type" id="account.account_type_income_view1"/>-->
+<!--		<delete model="account.account.type" id="account.data_account_type_expense"/>-->
+<!--		<delete model="account.account.type" id="account.data_account_type_income"/>-->
+<!--		<delete model="account.account.type" id="account.data_account_type_liability"/>-->
+<!--		<delete model="account.account.type" id="account.data_account_type_asset"/>-->
+<!--		<delete model="account.account.type" id="account.data_account_type_payable"/>-->
+<!--		<delete model="account.account.type" id="account.data_account_type_receivable"/>-->
+<!--		<delete model="account.account.type" id="account.data_account_type_view"/>-->
+		
+        <!-- account.account.type -->
+        <record id="user_type_view" model="account.account.type">
+            <field name="name">View</field>
+            <field name="code">view</field>
+            <field name="close_method">none</field>
+        </record>
+
+        <!-- Asset -->
+
+        <record id="user_type_current_asset" model="account.account.type">
+            <field name="name">Current Asset</field>
+            <field name="code">current-asset</field>
+            <field name="report_type">asset</field>
+            <field name="close_method">balance</field>
+        </record>
+        <record id="user_type_cash_bank" model="account.account.type">
+            <field name="name">Cash/Bank</field>
+            <field name="code">cash_bank</field>
+            <field name="report_type">asset</field>
+            <field name="close_method">balance</field>
+        </record>        
+        <record id="user_type_account_receivable" model="account.account.type">
+            <field name="name">Account Receivable</field>
+            <field name="code">account-receivable</field>
+            <field name="report_type">asset</field>
+            <field name="close_method">unreconciled</field>
+        </record>
+        <record id="user_type_inventory" model="account.account.type">
+            <field name="name">Inventory</field>
+            <field name="code">inventory</field>
+            <field name="report_type">asset</field>
+            <field name="close_method">balance</field>
+        </record>
+        <record id="user_type_other_current_asset" model="account.account.type">
+            <field name="name">Other Current Asset</field>
+            <field name="code">other-current-asset</field>
+            <field name="report_type">asset</field>
+            <field name="close_method">unreconciled</field>
+        </record>
+        <record id="user_type_fixed_asset" model="account.account.type">
+            <field name="name">Fixed Asset</field>
+            <field name="code">fixe-asset</field>
+            <field name="report_type">asset</field>
+            <field name="close_method">balance</field>
+        </record>
+        <record id="user_type_accumulated_depreciation" model="account.account.type">
+            <field name="name">Accumulated Depreciation</field>
+            <field name="code">accum-depreciation</field>
+            <field name="report_type">asset</field>
+            <field name="close_method">balance</field>
+        </record>        
+        <record id="user_type_other_asset" model="account.account.type">
+            <field name="name">Other Asset</field>
+            <field name="code">other-asset</field>
+            <field name="report_type">asset</field>
+            <field name="close_method">balance</field>
+        </record>
+        
+        <!-- liability -->
+        <record id="user_type_account_payable" model="account.account.type">
+            <field name="name">Account Payable</field>
+            <field name="code">account-payable</field>
+            <field name="report_type">liability</field>
+            <field name="close_method">unreconciled</field>
+        </record>
+        <record id="user_type_current_liability" model="account.account.type">
+            <field name="name">Current Liability</field>
+            <field name="code">current-liability</field>
+            <field name="report_type">liability</field>
+            <field name="close_method">balance</field>
+        </record>
+        <record id="user_type_other_current_liability" model="account.account.type">
+            <field name="name">Other Current Liability</field>
+            <field name="code">other-current-liability</field>
+            <field name="report_type">liability</field>
+            <field name="close_method">unreconciled</field>
+        </record>
+        <record id="user_type_long_term_liability" model="account.account.type">
+            <field name="name">Long term Liability</field>
+            <field name="code">long-term-liability</field>
+            <field name="report_type">liability</field>
+            <field name="close_method">balance</field>
+        </record>
+        <record id="user_type_liability" model="account.account.type">
+            <field name="name">Liability</field>
+            <field name="code">liability</field>
+            <field name="report_type">liability</field>
+            <field name="close_method">balance</field>
+        </record>
+        <!-- Equity -->
+        <record id="user_type_equity" model="account.account.type">
+            <field name="name">Equity</field>
+            <field name="code">equity</field>
+            <field name="report_type">liability</field>
+            <field name="close_method">balance</field>
+        </record>
+
+        <!-- Income -->
+        <record id="user_type_income" model="account.account.type">
+            <field name="name">Income</field>
+            <field name="code">income</field>
+            <field name="report_type">income</field>
+            <field name="close_method">none</field>
+        </record>
+        <record id="user_type_other_income" model="account.account.type">
+            <field name="name">Other Income</field>
+            <field name="code">other-income</field>
+            <field name="report_type">expense</field>
+            <field name="close_method">none</field>
+        </record>
+
+        <!-- Expense -->  
+        <record id="user_type_expense" model="account.account.type">
+            <field name="name">Expense</field>
+            <field name="code">expense</field>
+            <field name="report_type">expense</field>
+            <field name="close_method">none</field>
+        </record>
+        <record id="user_type_other_expense" model="account.account.type">
+            <field name="name">Other Expense</field>
+            <field name="code">other-expense</field>
+            <field name="report_type">expense</field>
+            <field name="close_method">none</field>
+        </record>
+        
+        <record id="user_type_cogs" model="account.account.type">
+            <field name="name">Cost of Goods Sold</field>
+            <field name="code">cogs</field>
+            <field name="report_type">expense</field>
+            <field name="close_method">none</field>
+        </record>
+
+	</data>
+</openerp>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_vendor_receipt_form_group_account" model="ir.ui.view">
+            <field name="name">account.voucher.receipt.form.group.account</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_receipt_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook/page[1]/field[@name='line_cr_ids']/tree/field[@name='move_line_id']" position="attributes">
+                	<attribute name="groups"></attribute>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page[1]/field[@name='line_cr_ids']/tree/field[@name='amount_unreconciled']" position="attributes">
+                	<attribute name="groups"></attribute>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page[1]/field[@name='line_cr_ids']/tree/field[@name='reconcile']" position="attributes">
+                	<attribute name="groups"></attribute>
+                </xpath>
+            </field>
+        </record>
+    	
+    </data>
+</openerp>

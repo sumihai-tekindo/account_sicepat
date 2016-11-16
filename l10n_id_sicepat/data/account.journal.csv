@@ -1,0 +1,59 @@
+id,type,name,code,company_id:id,centralisation,entry_posted,update_posted
+journal_111001001,cash,Kas Pusat,1001,base.main_company,FALSE,TRUE,TRUE
+journal_111001002,cash,Kas Bandung (BDO),1002,base.main_company,FALSE,TRUE,TRUE
+journal_111001003,cash,Kas Bekasi (BKI),1003,base.main_company,FALSE,TRUE,TRUE
+journal_111001004,cash,Kas Bogor (BOO),1004,base.main_company,FALSE,TRUE,TRUE
+journal_111001005,cash,Kas Purwokerto (PWT),1005,base.main_company,FALSE,TRUE,TRUE
+journal_111001006,cash,Kas Semarang (SRG),1006,base.main_company,FALSE,TRUE,TRUE
+journal_111001007,cash,Kas Banjarmasin (BDJ),1007,base.main_company,FALSE,TRUE,TRUE
+journal_111001008,cash,Kas Bengkulu (BKS),1008,base.main_company,FALSE,TRUE,TRUE
+journal_111001009,cash,Kas Balikpapan (BPN),1009,base.main_company,FALSE,TRUE,TRUE
+journal_111001010,cash,Kas Jambi (DJB),1010,base.main_company,FALSE,TRUE,TRUE
+journal_111001011,cash,Kas Denpasar (DPS),1011,base.main_company,FALSE,TRUE,TRUE
+journal_111001012,cash,Kas Pekanbaru (PKU),1012,base.main_company,FALSE,TRUE,TRUE
+journal_111001013,cash,Kas Palembang (PLM),1013,base.main_company,FALSE,TRUE,TRUE
+journal_111001014,cash,Kas Surabaya (SUB),1014,base.main_company,FALSE,TRUE,TRUE
+journal_111001015,cash,Kas Samarinda (SRI),1015,base.main_company,FALSE,TRUE,TRUE
+journal_111001016,cash,Kas Ujung Padang (UPG),1016,base.main_company,FALSE,TRUE,TRUE
+journal_111001017,cash,Kas Medan (MES),1017,base.main_company,FALSE,TRUE,TRUE
+journal_111001018,cash,Kas Malang (MLG),1018,base.main_company,FALSE,TRUE,TRUE
+journal_111001019,cash,Kas Lampung TKG/LPG,1019,base.main_company,FALSE,TRUE,TRUE
+journal_111001020,cash,Kas Lautze ,1020,base.main_company,FALSE,TRUE,TRUE
+journal_111001021,cash,Kas Depok (DPK),1021,base.main_company,FALSE,TRUE,TRUE
+journal_111001022,cash,Kas Sukabumi (SMI),1022,base.main_company,FALSE,TRUE,TRUE
+journal_111001023,cash,Kas Tanjung Pinang (TNJ),1023,base.main_company,FALSE,TRUE,TRUE
+journal_111001024,cash,Kas Jogja (JOG),1024,base.main_company,FALSE,TRUE,TRUE
+journal_111001025,cash,Kas Serang (CLG),1025,base.main_company,FALSE,TRUE,TRUE
+journal_111001026,cash,Kas Gading Serpong (GS),1026,base.main_company,FALSE,TRUE,TRUE
+journal_111001027,cash,Kas Manado (MDC),1027,base.main_company,FALSE,TRUE,TRUE
+journal_111001028,cash,Kas Solo,1028,base.main_company,FALSE,TRUE,TRUE
+journal_111001029,cash,Kas Garut (GRT),1029,base.main_company,FALSE,TRUE,TRUE
+journal_111001030,cash,Kas Jakarta Barat,1030,base.main_company,FALSE,TRUE,TRUE
+journal_111001031,cash,Kas Pemalang (PML),1031,base.main_company,FALSE,TRUE,TRUE
+journal_111001032,cash,Kas Palu (PLW),1032,base.main_company,FALSE,TRUE,TRUE
+journal_111001033,cash,Kas Palangkaraya (PKY),1033,base.main_company,FALSE,TRUE,TRUE
+journal_111001034,cash,Kas Tasikmalaya (TSI),1034,base.main_company,FALSE,TRUE,TRUE
+journal_111001035,cash,Kas Jakarta Timur (JAKTIM),1035,base.main_company,FALSE,TRUE,TRUE
+journal_111001036,cash,Kas Ternate (TTE),1036,base.main_company,FALSE,TRUE,TRUE
+journal_111001037,cash,Kas Purwakarta (PWA),1037,base.main_company,FALSE,TRUE,TRUE
+journal_111001038,cash,Kas Cikarang (CKR),1038,base.main_company,FALSE,TRUE,TRUE
+journal_111001039,cash,Kas Ciamis,1039,base.main_company,FALSE,TRUE,TRUE
+journal_111001040,cash,Kas Jakarta Selatan (JAKSEL),1040,base.main_company,FALSE,TRUE,TRUE
+journal_111001041,cash,Kas Banyuwangi (BWI),1041,base.main_company,FALSE,TRUE,TRUE
+journal_111001042,cash,Kas Jember (JBR),1042,base.main_company,FALSE,TRUE,TRUE
+journal_111001043,cash,Kas Kediri (KDR),1043,base.main_company,FALSE,TRUE,TRUE
+journal_111001044,cash,Kas Sumedang (SMD),1044,base.main_company,FALSE,TRUE,TRUE
+journal_111001045,cash,Kas Batam (BTH),1045,base.main_company,FALSE,TRUE,TRUE
+journal_111001046,cash,Kas Blora (BLA),1046,base.main_company,FALSE,TRUE,TRUE
+journal_111001047,cash,Kas Bandung Timur (BDT),1047,base.main_company,FALSE,TRUE,TRUE
+journal_111001048,cash,Kas Ambon,1048,base.main_company,FALSE,TRUE,TRUE
+journal_111001049,cash,Kas Cengkareng,1049,base.main_company,FALSE,TRUE,TRUE
+journal_111001050,cash,Kas Kupang,1050,base.main_company,FALSE,TRUE,TRUE
+journal_111001051,cash,Kas Sangiang,1051,base.main_company,FALSE,TRUE,TRUE
+journal_111002001,bank,Bank BCA 4970609429,2001,base.main_company,FALSE,TRUE,TRUE
+journal_111002002,bank,Bank BCA 2703027211,2002,base.main_company,FALSE,TRUE,TRUE
+journal_111002003,bank,Bank BCA 2703029311,2003,base.main_company,FALSE,TRUE,TRUE
+journal_111002004,bank,Bank BCA 2700889966,2004,base.main_company,FALSE,TRUE,TRUE
+journal_111002005,bank,Bank Mandiri 1640001045675,2005,base.main_company,FALSE,TRUE,TRUE
+journal_111002006,bank,Bank CIMB Niaga 111.002.006,2006,base.main_company,FALSE,TRUE,TRUE
+journal_111002007,bank,Bank CIMB Niaga 111.002.007,2007,base.main_company,FALSE,TRUE,TRUE

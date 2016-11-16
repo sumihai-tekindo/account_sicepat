@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+        <record id="view_invoice_line_tree_display_discount" model="ir.ui.view">
+            <field name="name">account.invoice.line.tree.display.discount</field>
+            <field name="model">account.invoice.line</field>
+            <field name="inherit_id" ref="account.view_invoice_line_tree"/>
+            <field name="arch" type="xml">
+                <field name="discount" position="attributes">
+                	<attribute name="groups"></attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_invoice_line_form_display_discount" model="ir.ui.view">
+            <field name="name">account.invoice.line.form.display.discount</field>
+            <field name="model">account.invoice.line</field>
+            <field name="inherit_id" ref="account.view_invoice_line_form"/>
+            <field name="arch" type="xml">
+                <field name="discount" position="attributes">
+                	<attribute name="groups"></attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="invoice_supplier_form_display_discount" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.form.display.discount</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@string='Invoice']/field[@name='invoice_line']/tree/field[@name='discount']" position="attributes">
+                	<attribute name="groups"></attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="invoice_form_display_discount" model="ir.ui.view">
+            <field name="name">account.invoice.form.display.discount</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@string='Invoice Lines']/field[@name='invoice_line']/tree/field[@name='discount']" position="attributes">
+                	<attribute name="groups"></attribute>
+                </xpath>
+            </field>
+        </record>
+        
+<!--        <record id="account.act_open" model="workflow.activity">-->
+<!--            <field name="action">action_date_assign()-->
+<!--action_move_create()-->
+<!--action_number()-->
+<!--invoice_validate()-->
+<!--action_send_invoice_mail()</field>-->
+<!--        </record>-->
+
+        <report 
+            id="action_account_3rdparty_account_outstanding" 
+            model="account.invoice" 
+            string="Outstanding Invoices"
+            report_type="qweb-pdf" 
+            name="account.report_partneroutstanding" 
+            file="account.report_partneroutstanding" 
+            menu="False" 
+        />
+		
+	</data>
+</openerp>

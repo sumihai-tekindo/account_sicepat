@@ -1,0 +1,29 @@
+<openerp>
+    <data>
+        <template id="sicepat_template" name="Sicepat Template" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+            	<link rel="stylesheet" href="/sicepat_erp/static/src/css/base.css"/>
+                <script type="text/javascript" src="/sicepat_erp/static/src/js/chrome.js"></script>
+            </xpath>
+        </template>
+        
+		<template id="login_layout" inherit_id="web.login_layout" priority="8">
+			<xpath expr="//div[@class='oe_single_form_footer']/a" position="replace">
+				<a href="http://www.sicepat.com" target="_blank">Sicepat Ekspres</a>
+			</xpath>
+		</template>
+                
+        <template id="sicepat_title" inherit_id="web.layout">
+        	<xpath expr="//title" position="replace">
+				<title>Sicepat Ekspres</title>
+        	</xpath>
+        </template>
+        
+        <template id="sicepat_favico" inherit_id="web.layout">
+        	<xpath expr="//link[@rel='shortcut icon']" position="replace">
+        	 	<link rel="shortcut icon" href="/sicepat_erp/static/src/img/sicepat_favicon.ico" type="image/x-icon"/>
+        	</xpath>
+        </template>
+        
+    </data>
+</openerp>

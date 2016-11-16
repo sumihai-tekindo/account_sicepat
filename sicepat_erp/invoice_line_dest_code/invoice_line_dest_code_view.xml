@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_invoice_line_form_sicepat_dest_code" model="ir.ui.view">
+            <field name="name">account.invoice.line.form.sicepat.dest_code</field>
+            <field name="model">account.invoice.line</field>
+            <field name="inherit_id" ref="account.view_invoice_line_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/group[2]" position="after">
+                	<group name="delivery_info">
+	                	<field name="destination_code"/>
+                	</group>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="invoice_form_sicepat_dest_code" model="ir.ui.view">
+            <field name="name">account.invoice.form.sicepat.dest_code</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//form/sheet/notebook/page[1]/field[1]/tree/field[@name='product_id']" position="replace"/>
+            	<xpath expr="//form/sheet/notebook/page[1]/field[1]/tree/field[@name='account_id']" position="after">
+	            	<field name="destination_code"/>
+            	</xpath>
+            	<xpath expr="//form/sheet/notebook/page[1]/field[1]/tree/field[@name='account_id']" position="replace"/>
+            </field>
+        </record>
+
+    </data>
+</openerp>

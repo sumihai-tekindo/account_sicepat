@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="account.report_partneroutstanding">
+    <t t-call="report.html_container">
+        <t t-call="report.internal_layout">
+            <div class="page">
+                <h2>Outstanding Invoices</h2>
+
+                <div class="row">
+                    <div class="col-xs-3">
+                        <strong>Target Moves:</strong>
+                        <p t-esc="get_target_move(data)"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Filter By:</strong>
+                        <p>
+                            <span t-if="data['form']['filter'] == 'filter_no'">As of Today</span>
+                            <span t-if="data['form']['filter'] == 'filter_date'">As of Date:</span>
+                            <p t-if="data['form']['filter'] == 'filter_date'">
+                                <span t-esc="formatLang(get_asof_date(data), date=True)"/>
+                            </p>
+                        </p>
+                    </div>
+                    <div class="col-xs-3" t-if="get_partners()">
+                        <strong>Partner's</strong>
+                        <p t-esc="get_partners()"/>
+                    </div>
+                </div>
+
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>(Customer/Invoice Date)</th>
+                            <th>Invoice Number</th>
+                            <th class="text-right">Total Invoice</th>
+                            <th class="text-right">Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+<!--                        <tr>-->
+<!--                            <td><strong>Total:</strong></td>-->
+<!--                            <td></td>-->
+<!--                            <td class="text-right">-->
+<!--                                <strong t-esc="formatLang(sum_debit())"/>-->
+<!--                            </td>-->
+<!--                            <td class="text-right">-->
+<!--                                <strong t-esc="formatLang(sum_credit())"/>-->
+<!--                            </td>-->
+<!--                            <td class="text-right">-->
+<!--                                <strong t-esc="formatLang(sum_debit()-sum_credit(), currency_obj=res_company.currency_id)"/>-->
+<!--                            </td>-->
+<!--                            <td class="text-right">-->
+<!--                                <strong t-esc="formatLang(sum_litige(), currency_obj=res_company.currency_id)"/>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+                        <tr t-foreach="lines()" t-as="line">
+                            <td t-if="line['type'] == 3">
+                                <strong t-esc="line['name']"/>
+                            </td>
+                            <td t-if="line['type'] != 3">
+                                <span t-esc="line['name']"/>
+                            </td>
+                            <td t-if="line['type'] == 3">
+                                <strong t-esc="line['number']"/>
+                            </td>
+                            <td t-if="line['type'] != 3">
+                                <span t-esc="line['number']"/>
+                            </td>
+                            <td t-if="line['type'] == 3" class="text-right">
+                                <strong t-esc="formatLang(line['amount_total'], currency_obj=res_company.currency_id)"/>
+                            </td>
+                            <td t-if="line['type'] != 3" class="text-right">
+                                <span t-esc="formatLang(line['amount_total'], currency_obj=res_company.currency_id)"/>
+                            </td>
+                            <td t-if="line['type'] == 3" class="text-right">
+                                <strong t-esc="formatLang(line['balance'], currency_obj=res_company.currency_id)"/>
+                            </td>
+                            <td t-if="line['type'] != 3" class="text-right">
+                                <span t-esc="formatLang(line['balance'], currency_obj=res_company.currency_id)"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

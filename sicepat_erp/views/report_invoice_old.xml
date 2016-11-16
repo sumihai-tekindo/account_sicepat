@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="account.report_invoice_document">
+    <t t-if="o and 'company_id' in o">
+        <t t-set="company" t-value="o.company_id"></t>
+    </t>
+    <t t-if="not o or not 'company_id' in o">
+        <t t-set="company" t-value="res_company"></t>
+    </t>
+    <t t-raw="0" />
+    <div class="header">
+        <div class="row" style="display: table;">
+            <div class="col-xs-8" style="display: table-cell; height: 180px; float: none; background-color: #ed1c24; vertical-align: middle;">
+                <h2 style="color: #ffffff; padding-left: 25px;">
+                	<strong>
+	                <span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">INVOICE</span>
+	                <span t-if="o.type == 'out_invoice' and o.state == 'proforma2'">PRO-FORMA</span>
+	                <span t-if="o.type == 'out_invoice' and o.state == 'draft'">DRAFT Invoice</span>
+	                <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</span>
+	                <span t-if="o.type == 'out_refund'">Refund</span>
+	                <span t-if="o.type == 'in_refund'">Supplier Refund</span>
+	                <span t-if="o.type == 'in_invoice'">Supplier Invoice</span>
+	                </strong>
+                </h2>
+            </div>
+            <div class="col-xs-4 text-center" style="display: table-cell; height: 180px; float: none; background-color: #9e0b0f; vertical-align: middle;">
+                <h4 style="color: #ffffff; margin-bottom: 0px;">Amount Due (<span t-field="o.currency_id.name"/>)</h4>
+                <h3 style="color: #ffffff; margin-top: 0px;">
+                	<strong>
+                	<span t-field="o.amount_total" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                	</strong>
+                </h3>
+            </div>
+        </div>
+    </div>
+    <div class="page">
+        <div class="row mt32 mb32" style="padding-top: 80px !important;">
+            <div class="col-xs-7">
+            	<span style="color: grey"><strong>BILL TO</strong></span>
+                <div t-field="o.partner_id"
+                    t-field-options='{"widget": "contact", "fields": ["name"], "no_marker": true}' 
+                	style="font-weight: bold;"/>
+                <address t-field="o.partner_id"
+                    t-field-options='{"widget": "contact", "fields": ["address"], "no_marker": true}' />
+                <div t-if="o.partner_id.phone"><span t-field="o.partner_id.phone"/></div>
+                <div t-if="o.partner_id.mobile"><span t-field="o.partner_id.mobile"/></div>
+                <div t-if="o.partner_id.email"><span t-field="o.partner_id.email"/></div>
+            </div>
+            <div class="col-xs-2" style="text-align:right;">
+                <strong>Invoice Number:</strong><br/>
+                <strong>Invoice Date:</strong><br/>
+                <strong>Payment Due:</strong>
+            </div>
+            <div class="col-xs-3">
+                <span t-field="o.number"/><br/>
+                <span t-field="o.date_invoice"/><br/>
+				<span t-field="o.date_due"/>
+            </div>
+        </div>
+
+        <table class="table" style="margin-top: 30px; margin-bottom: 80px;">
+            <thead>
+                <tr style="color: grey;">
+                    <th>SERVICES</th>
+                    <th class="text-right">AMOUNT</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="active" style="border-bottom: 2px solid #dededf; height: 30px;">
+                    <td>Expedition Services</td>
+                    <td class="text-right">
+                        <span t-field="o.amount_total" 
+                            t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p t-if="o.payment_term.note">
+            <strong>Payment Term:</strong>
+            <span t-field="o.payment_term.note"/>
+        </p>
+        <p t-if="o.comment">
+            <strong>Notes:</strong><br/>
+            <span t-field="o.comment"/>
+        </p>
+    </div>
+    <div class="footer">
+        <div class="row" style="display: table; border-top: 1px solid grey;">
+            <div class="col-xs-4 text-center" style="display: table-cell; height: 100px; float: none; vertical-align: middle;">
+                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height: 50px;"/>
+            </div>
+            <div class="col-xs-8" style="display: table-cell; height: 100px; float: none; vertical-align: middle;">
+                <div t-field="company.partner_id" 
+                    t-field-options='{"widget": "contact", "fields": ["name"], "no_marker": true}'
+                    style="padding-left: 25px; font-weight: bold; font-size: 16px;"/>
+                <div t-field="company.partner_id" 
+                    t-field-options='{"widget": "contact", "fields": ["address"], "no_marker": true}'
+                    style="padding-left: 25px;"/>
+            </div>
+        </div>
+    </div>
+    <div style="page-break-after: always;"><span style="display: none;"> </span></div>
+    <div class="header">
+    	<div class="row">
+    		<h4>Laporan Pengiriman per Resi</h4>
+    	</div>
+        <div class="row" style="display: table;">
+            <div class="col-xs-2" style="display: table-cell; height: 100%; float: none;">
+                <strong>Pengirim:</strong><br/>
+                <strong>Tanggal:</strong>
+            </div>
+            <div class="col-xs-10" style="display: table-cell; height: 100%; float: none;">
+                <span t-field="o.partner_id.name"/><br/>
+                <span t-field="o.date_invoice"/>
+            </div>
+        </div>
+    </div>
+    <div class="page">
+        <table class="table table-condensed" style="font-size: 10px;">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>No Resi</th>
+                    <th>Tujuan</th>
+                    <th>Penerima</th>
+                    <th>Hp Penerima</th>
+                    <th>Resi JNE</th>
+                    <th>Berat</th>
+                    <th class="text-right">Biaya</th>
+                    <th class="text-right">Diskon (%)</th>
+                    <th class="text-right">Total</th>
+                </tr>
+            </thead>
+            <tbody class="invoice_tbody">
+                <tr t-foreach="o.invoice_line" t-as="l">
+                    <td class="text-right"><span t-esc="l_index + 1"/></td>
+                    <td><span t-field="l.name"/></td>
+                    <td><span t-field="l.destination_code"/></td>
+                    <td><span t-field="l.recipient_name"/></td>
+                    <td><span t-field="l.recipient_phone"/></td>
+                    <td><span t-field="l.jne_number"/></td>
+                    <td class="text-right">
+                        <span t-esc="'%.f'%(l.quantity)"/>
+                    </td>
+                    <td class="text-right">
+                        <span t-esc="(l.quantity * l.price_unit)"
+                        	t-esc-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                    </td>
+                    <td class="text-right"><span t-esc="'%.f'%(l.discount)"/></td>
+                    <td class="text-right">
+                        <span t-field="l.price_subtotal"
+                        	t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                    </td>
+                </tr>
+                <tr class="border-black">
+                    <td colspan="6" class="text-right"><strong>Total</strong></td>
+                    <td class="text-right">
+                        <strong><span t-esc="'%.f'%(o.quantity_total)"/></strong>
+                    </td>
+                    <td class="text-right">
+                        <strong><span t-field="o.price_unit_total" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/></strong>
+                    </td>
+                    <td></td>
+                    <td class="text-right">
+                        <strong><span t-field="o.amount_total" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/></strong>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="footer">
+        <div class="row" style="display: table; border-top: 1px solid grey;">
+            <div class="col-xs-4 text-center" style="display: table-cell; height: 100px; float: none; vertical-align: middle;">
+                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height: 50px;"/>
+            </div>
+            <div class="col-xs-8" style="display: table-cell; height: 100px; float: none; vertical-align: middle;">
+                <div t-field="company.partner_id" 
+                    t-field-options='{"widget": "contact", "fields": ["name"], "no_marker": true}'
+                    style="padding-left: 25px; font-weight: bold; font-size: 16px;"/>
+                <div t-field="company.partner_id" 
+                    t-field-options='{"widget": "contact", "fields": ["address"], "no_marker": true}'
+                    style="padding-left: 25px;"/>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template id="account.report_invoice">
+    <t t-call="report.html_container">
+        <t t-foreach="doc_ids" t-as="doc_id">
+            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'account.report_invoice_document')"/>
+        </t>
+    </t>
+</template>
+
+</data>
+</openerp>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_invoice_line_form_sicepat_exp_cost" model="ir.ui.view">
+            <field name="name">account.invoice.line.form.sicepat.exp_cost</field>
+            <field name="model">account.invoice.line</field>
+            <field name="inherit_id" ref="account.view_invoice_line_form"/>
+            <field name="arch" type="xml">
+            	<field name="product_id" position="attributes">
+            		<attribute name="invisible">1</attribute>
+            	</field>
+            	<field name="discount" position="after">
+            		<field name="extra_shipping_cost"/>
+            	</field>
+                <xpath expr="//group" position="inside">
+                	<group name="expedition_cost">
+	                	<field name="insurance_value"/>
+	                	<field name="insurance_fee"/>
+	                	<field name="admcost_insurance"/>
+	                	<field name="packing_cost"/>
+                	</group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
