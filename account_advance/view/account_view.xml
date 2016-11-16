@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Chart of Accounts Templates -->
+        <record id="view_account_chart_template_advance_payment_form" model="ir.ui.view">
+            <field name="name">account.chart.template.advance_payment.form</field>
+            <field name="model">account.chart.template</field>
+            <field name="inherit_id" ref="account.view_account_chart_template_form"/>
+            <field name="arch" type="xml">
+                <field name="property_account_payable" position="after">
+		            <field name="property_account_advance_receivable" domain="[('id', 'child_of', [account_root_id])]"/>
+		            <field name="property_account_advance_payable" domain="[('id', 'child_of', [account_root_id])]"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

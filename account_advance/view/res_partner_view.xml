@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <openerp>
+        <data>
+        <record model="ir.ui.view" id="res_partner_advance_payment_view">
+                <field name="name">res.partner.advance.payment.view</field>
+                <field name="model">res.partner</field>
+                <field name="inherit_id" ref="account.view_partner_property_form"/>
+                <field name="arch" type="xml">
+                    <xpath expr="//field[@name='property_account_payable']" position="after" >
+                        <field name="property_account_advance_payable"/>
+                    </xpath>
+                    <xpath expr="//field[@name='property_account_receivable']" position="after" >
+                        <field name="property_account_advance_receivable"/>
+                    </xpath>
+               </field>
+            </record>
+        </data>
+</openerp>
