@@ -4,57 +4,78 @@ chart_100000000,100.000.000,FALSE,view,chart_sicepat_root,l10n_id_sicepat.user_t
 chart_110000000,110.000.000,FALSE,view,chart_100000000,l10n_id_sicepat.user_type_current_asset,Aset Lancar,l10n_id_sicepat.chart_sicepat
 chart_111000000,111.000.000,FALSE,view,chart_110000000,l10n_id_sicepat.user_type_cash_bank,Kas dan Bank,l10n_id_sicepat.chart_sicepat
 chart_111001000,111.001.000,FALSE,view,chart_111000000,account.data_account_type_cash,Kas,l10n_id_sicepat.chart_sicepat
-chart_111001001,111.001.001,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Pusat,l10n_id_sicepat.chart_sicepat
-chart_111001002,111.001.002,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Bandung (BDO),l10n_id_sicepat.chart_sicepat
-chart_111001003,111.001.003,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Bekasi (BKI),l10n_id_sicepat.chart_sicepat
-chart_111001004,111.001.004,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Bogor (BOO),l10n_id_sicepat.chart_sicepat
-chart_111001005,111.001.005,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Purwokerto (PWT),l10n_id_sicepat.chart_sicepat
-chart_111001006,111.001.006,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Semarang (SRG),l10n_id_sicepat.chart_sicepat
+chart_111001001,111.001.001,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Kantor Pusat,l10n_id_sicepat.chart_sicepat
+chart_111001002,111.001.002,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Bandung (Ciateul),l10n_id_sicepat.chart_sicepat
+chart_111001003,111.001.003,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Bekasi (Delta Pekayon),l10n_id_sicepat.chart_sicepat
+chart_111001004,111.001.004,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Bogor (Tanah Sereal),l10n_id_sicepat.chart_sicepat
+chart_111001005,111.001.005,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Purwokerto (Jatisari),l10n_id_sicepat.chart_sicepat
+chart_111001006,111.001.006,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Semarang (Suratmo),l10n_id_sicepat.chart_sicepat
 chart_111001007,111.001.007,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Banjarmasin (BDJ),l10n_id_sicepat.chart_sicepat
-chart_111001008,111.001.008,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Bengkulu (BKS),l10n_id_sicepat.chart_sicepat
-chart_111001009,111.001.009,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Balikpapan (BPN),l10n_id_sicepat.chart_sicepat
-chart_111001010,111.001.010,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jambi (DJB),l10n_id_sicepat.chart_sicepat
-chart_111001011,111.001.011,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Denpasar (DPS),l10n_id_sicepat.chart_sicepat
-chart_111001012,111.001.012,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Pekanbaru (PKU),l10n_id_sicepat.chart_sicepat
-chart_111001013,111.001.013,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Palembang (PLM),l10n_id_sicepat.chart_sicepat
-chart_111001014,111.001.014,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Surabaya (SUB),l10n_id_sicepat.chart_sicepat
-chart_111001015,111.001.015,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Samarinda (SRI),l10n_id_sicepat.chart_sicepat
-chart_111001016,111.001.016,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Ujung Padang (UPG),l10n_id_sicepat.chart_sicepat
-chart_111001017,111.001.017,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Medan (MES),l10n_id_sicepat.chart_sicepat
-chart_111001018,111.001.018,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Malang (MLG),l10n_id_sicepat.chart_sicepat
-chart_111001019,111.001.019,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Lampung TKG/LPG,l10n_id_sicepat.chart_sicepat
-chart_111001020,111.001.020,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Lautze ,l10n_id_sicepat.chart_sicepat
-chart_111001021,111.001.021,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Depok (DPK),l10n_id_sicepat.chart_sicepat
-chart_111001022,111.001.022,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Sukabumi (SMI),l10n_id_sicepat.chart_sicepat
-chart_111001023,111.001.023,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Tanjung Pinang (TNJ),l10n_id_sicepat.chart_sicepat
-chart_111001024,111.001.024,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jogja (JOG),l10n_id_sicepat.chart_sicepat
-chart_111001025,111.001.025,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Serang (CLG),l10n_id_sicepat.chart_sicepat
-chart_111001026,111.001.026,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Gading Serpong (GS),l10n_id_sicepat.chart_sicepat
-chart_111001027,111.001.027,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Manado (MDC),l10n_id_sicepat.chart_sicepat
-chart_111001028,111.001.028,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Solo,l10n_id_sicepat.chart_sicepat
-chart_111001029,111.001.029,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Garut (GRT),l10n_id_sicepat.chart_sicepat
-chart_111001030,111.001.030,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jakarta Barat,l10n_id_sicepat.chart_sicepat
-chart_111001031,111.001.031,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Pemalang (PML),l10n_id_sicepat.chart_sicepat
-chart_111001032,111.001.032,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Palu (PLW),l10n_id_sicepat.chart_sicepat
-chart_111001033,111.001.033,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Palangkaraya (PKY),l10n_id_sicepat.chart_sicepat
+chart_111001008,111.001.008,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Bengkulu (Timur Indah),l10n_id_sicepat.chart_sicepat
+chart_111001009,111.001.009,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Balikpapan (Sepinggan),l10n_id_sicepat.chart_sicepat
+chart_111001010,111.001.010,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jambi (P.Antasari),l10n_id_sicepat.chart_sicepat
+chart_111001011,111.001.011,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Denpasar (Pelita),l10n_id_sicepat.chart_sicepat
+chart_111001012,111.001.012,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Pekanbaru (Paus Ujung),l10n_id_sicepat.chart_sicepat
+chart_111001013,111.001.013,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Palembang (Angkatan 45),l10n_id_sicepat.chart_sicepat
+chart_111001014,111.001.014,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Surabaya (Gubeng Kertajaya),l10n_id_sicepat.chart_sicepat
+chart_111001015,111.001.015,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Samarinda (P. Suryanata),l10n_id_sicepat.chart_sicepat
+chart_111001016,111.001.016,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Ujung Pandang (Pelita Raya),l10n_id_sicepat.chart_sicepat
+chart_111001017,111.001.017,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Medan (Brigjend Katamso),l10n_id_sicepat.chart_sicepat
+chart_111001018,111.001.018,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Malang (Bandara Abdul Rahman Saleh),l10n_id_sicepat.chart_sicepat
+chart_111001019,111.001.019,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Lampung (Teluk Betung),l10n_id_sicepat.chart_sicepat
+chart_111001020,111.001.020,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jakarta Pusat (Lautze),l10n_id_sicepat.chart_sicepat
+chart_111001021,111.001.021,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Depok (Beji Timur),l10n_id_sicepat.chart_sicepat
+chart_111001022,111.001.022,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Sukabumi (Cisaat),l10n_id_sicepat.chart_sicepat
+chart_111001023,111.001.023,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Tanjung Pinang (Srikaton),l10n_id_sicepat.chart_sicepat
+chart_111001024,111.001.024,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jogjakarta (Sagan),l10n_id_sicepat.chart_sicepat
+chart_111001025,111.001.025,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Cilegon (Walantaka),l10n_id_sicepat.chart_sicepat
+chart_111001026,111.001.026,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Tangerang Selatan (Melati Mas),l10n_id_sicepat.chart_sicepat
+chart_111001027,111.001.027,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Manado (Tuminting),l10n_id_sicepat.chart_sicepat
+chart_111001028,111.001.028,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Solo (Laweyan),l10n_id_sicepat.chart_sicepat
+chart_111001029,111.001.029,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Garut (Citisung),l10n_id_sicepat.chart_sicepat
+chart_111001030,111.001.030,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jakarta Barat (Daan Mogot),l10n_id_sicepat.chart_sicepat
+chart_111001031,111.001.031,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Pemalang (Raya Petarukan),l10n_id_sicepat.chart_sicepat
+chart_111001032,111.001.032,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Palu (Rajawali),l10n_id_sicepat.chart_sicepat
+chart_111001033,111.001.033,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Palangkaraya (Penarung),l10n_id_sicepat.chart_sicepat
 chart_111001034,111.001.034,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Tasikmalaya (TSI),l10n_id_sicepat.chart_sicepat
-chart_111001035,111.001.035,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jakarta Timur (JAKTIM),l10n_id_sicepat.chart_sicepat
-chart_111001036,111.001.036,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Ternate (TTE),l10n_id_sicepat.chart_sicepat
+chart_111001035,111.001.035,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jakarta Timur (Ciracas),l10n_id_sicepat.chart_sicepat
+chart_111001036,111.001.036,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Ternate (Bastiong Talangame),l10n_id_sicepat.chart_sicepat
 chart_111001037,111.001.037,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Purwakarta (PWA),l10n_id_sicepat.chart_sicepat
 chart_111001038,111.001.038,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Cikarang (CKR),l10n_id_sicepat.chart_sicepat
 chart_111001039,111.001.039,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Ciamis,l10n_id_sicepat.chart_sicepat
-chart_111001040,111.001.040,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jakarta Selatan (JAKSEL),l10n_id_sicepat.chart_sicepat
+chart_111001040,111.001.040,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jakarta Selatan (Mampang),l10n_id_sicepat.chart_sicepat
 chart_111001041,111.001.041,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Banyuwangi (BWI),l10n_id_sicepat.chart_sicepat
 chart_111001042,111.001.042,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jember (JBR),l10n_id_sicepat.chart_sicepat
 chart_111001043,111.001.043,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Kediri (KDR),l10n_id_sicepat.chart_sicepat
 chart_111001044,111.001.044,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Sumedang (SMD),l10n_id_sicepat.chart_sicepat
-chart_111001045,111.001.045,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Batam (BTH),l10n_id_sicepat.chart_sicepat
-chart_111001046,111.001.046,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Blora (BLA),l10n_id_sicepat.chart_sicepat
-chart_111001047,111.001.047,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Bandung Timur (BDT),l10n_id_sicepat.chart_sicepat
+chart_111001045,111.001.045,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Batam (Batam Centre),l10n_id_sicepat.chart_sicepat
+chart_111001046,111.001.046,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Blora ,l10n_id_sicepat.chart_sicepat
+chart_111001047,111.001.047,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Bandung (Timur),l10n_id_sicepat.chart_sicepat
 chart_111001048,111.001.048,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Ambon,l10n_id_sicepat.chart_sicepat
 chart_111001049,111.001.049,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Cengkareng,l10n_id_sicepat.chart_sicepat
-chart_111001050,111.001.050,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Kupang,l10n_id_sicepat.chart_sicepat
-chart_111001051,111.001.051,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Sangiang,l10n_id_sicepat.chart_sicepat
+chart_111001050,111.001.050,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Kupang (Kakatua),l10n_id_sicepat.chart_sicepat
+chart_111001051,111.001.051,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Tangerang (Sangiang),l10n_id_sicepat.chart_sicepat
+chart_111001052,111.001.052,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Bekasi (Utara),l10n_id_sicepat.chart_sicepat
+chart_111001053,111.001.053,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Bekasi (Galaxy),l10n_id_sicepat.chart_sicepat
+chart_111001054,111.001.054,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Cianjur,l10n_id_sicepat.chart_sicepat
+chart_111001055,111.001.055,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Berau,l10n_id_sicepat.chart_sicepat
+chart_111001056,111.001.056,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Cimahi,l10n_id_sicepat.chart_sicepat
+chart_111001057,111.001.057,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jakarta Timur (Cawang),l10n_id_sicepat.chart_sicepat
+chart_111001058,111.001.058,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Bogor (Tapos),l10n_id_sicepat.chart_sicepat
+chart_111001059,111.001.059,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jakarta Selatan (Gandaria),l10n_id_sicepat.chart_sicepat
+chart_111001060,111.001.060,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jakarta Selatan (Pasar Minggu),l10n_id_sicepat.chart_sicepat
+chart_111001061,111.001.061,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jakarta Utara (Cempaka Putih),l10n_id_sicepat.chart_sicepat
+chart_111001062,111.001.062,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jakarta Utara (Teluk Gong),l10n_id_sicepat.chart_sicepat
+chart_111001063,111.001.063,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jakarta Timur (Duren Sawit),l10n_id_sicepat.chart_sicepat
+chart_111001064,111.001.064,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Tarakan (Kampung Bugis),l10n_id_sicepat.chart_sicepat
+chart_111001065,111.001.065,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jakarta Barat (Tambora),l10n_id_sicepat.chart_sicepat
+chart_111001066,111.001.066,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jakarta Barat (Kebon Jeruk),l10n_id_sicepat.chart_sicepat
+chart_111001067,111.001.067,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jakarta Barat (Cengkareng),l10n_id_sicepat.chart_sicepat
+chart_111001068,111.001.068,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Depok (Cimanggis),l10n_id_sicepat.chart_sicepat
+chart_111001069,111.001.069,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Tangerang Selatan (Pamulang),l10n_id_sicepat.chart_sicepat
+chart_111001070,111.001.070,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Tangerang (Tigaraksa),l10n_id_sicepat.chart_sicepat
+chart_111001071,111.001.071,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jakarta Pusat (Bendungan Hilir),l10n_id_sicepat.chart_sicepat
+chart_111001072,111.001.072,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Tangerang (Ciledug),l10n_id_sicepat.chart_sicepat
 chart_111002000,111.002.000,FALSE,view,chart_111000000,account.data_account_type_bank,Bank,l10n_id_sicepat.chart_sicepat
 chart_111002001,111.002.001,FALSE,liquidity,chart_111002000,account.data_account_type_bank,BCA 497.060.9429,l10n_id_sicepat.chart_sicepat
 chart_111002002,111.002.002,FALSE,liquidity,chart_111002000,account.data_account_type_bank,BCA 270.302.7211,l10n_id_sicepat.chart_sicepat
@@ -66,6 +87,12 @@ chart_111002007,111.002.007,FALSE,liquidity,chart_111002000,account.data_account
 chart_111002008,111.002.008,FALSE,liquidity,chart_111002000,account.data_account_type_bank,BCA 270.061.8989,l10n_id_sicepat.chart_sicepat
 chart_111002009,111.002.009,FALSE,liquidity,chart_111002000,account.data_account_type_bank,Mandiri 121.000.655.7171,l10n_id_sicepat.chart_sicepat
 chart_111002010,111.002.010,FALSE,liquidity,chart_111002000,account.data_account_type_bank,BRI 0338-01-000906-30-4,l10n_id_sicepat.chart_sicepat
+chart_111002011,111.002.011,FALSE,liquidity,chart_111002000,account.data_account_type_bank,BCA 270.390.3088,l10n_id_sicepat.chart_sicepat
+chart_111002012,111.002.012,FALSE,liquidity,chart_111002000,account.data_account_type_bank,BCA 270.390.3886,l10n_id_sicepat.chart_sicepat
+chart_111003000,111.003.000,FALSE,view,chart_111000000,account.data_account_type_bank,Dana Transit,l10n_id_sicepat.chart_sicepat
+chart_111003001,111.003.001,FALSE,liquidity,chart_111003000,account.data_account_type_bank,Dana Transit Bank,l10n_id_sicepat.chart_sicepat
+chart_111003002,111.003.002,FALSE,liquidity,chart_111003000,account.data_account_type_bank,Dana Transit Kas,l10n_id_sicepat.chart_sicepat
+chart_111003003,111.003.003,FALSE,liquidity,chart_111003000,account.data_account_type_bank,Adjusment Pettycash Cabang,l10n_id_sicepat.chart_sicepat
 chart_112000000,112.000.000,FALSE,view,chart_110000000,l10n_id_sicepat.user_type_account_receivable,Piutang,l10n_id_sicepat.chart_sicepat
 chart_112001000,112.001.000,TRUE,receivable,chart_112000000,l10n_id_sicepat.user_type_account_receivable,Piutang Usaha,l10n_id_sicepat.chart_sicepat
 chart_112002000,112.002.000,TRUE,receivable,chart_112000000,l10n_id_sicepat.user_type_account_receivable,Piutang Karyawan,l10n_id_sicepat.chart_sicepat
@@ -76,8 +103,7 @@ chart_113000000,113.000.000,FALSE,view,chart_110000000,l10n_id_sicepat.user_type
 chart_113001000,113.001.000,FALSE,other,chart_113000000,l10n_id_sicepat.user_type_account_receivable,Uang Muka Pembelian Barang/Jasa,l10n_id_sicepat.chart_sicepat
 chart_113002000,113.002.000,FALSE,other,chart_113000000,l10n_id_sicepat.user_type_account_receivable,Uang Muka Operasional Karyawan,l10n_id_sicepat.chart_sicepat
 chart_114000000,114.000.000,FALSE,view,chart_110000000,l10n_id_sicepat.user_type_inventory,Persediaan,l10n_id_sicepat.chart_sicepat
-chart_114001000,114.001.000,FALSE,other,chart_114000000,l10n_id_sicepat.user_type_inventory,Persediaan Lakban,l10n_id_sicepat.chart_sicepat
-chart_114002000,114.002.000,FALSE,other,chart_114000000,l10n_id_sicepat.user_type_inventory,Persediaan Plastik,l10n_id_sicepat.chart_sicepat
+chart_114001000,114.001.000,FALSE,other,chart_114000000,l10n_id_sicepat.user_type_inventory,Persediaan Barang,l10n_id_sicepat.chart_sicepat
 chart_115000000,115.000.000,FALSE,view,chart_110000000,l10n_id_sicepat.user_type_other_current_asset,Pajak Dibayar Dimuka,l10n_id_sicepat.chart_sicepat
 chart_115001000,115.001.000,FALSE,other,chart_115000000,l10n_id_sicepat.user_type_other_current_asset,PPh Pasal 4(2) Dibayar Dimuka,l10n_id_sicepat.chart_sicepat
 chart_115002000,115.002.000,FALSE,other,chart_115000000,l10n_id_sicepat.user_type_other_current_asset,PPh Pasal 21 Dibayar Dimuka,l10n_id_sicepat.chart_sicepat
@@ -93,7 +119,8 @@ chart_116002000,116.002.000,FALSE,view,chart_116000000,l10n_id_sicepat.user_type
 chart_116002001,116.002.001,FALSE,other,chart_116002000,l10n_id_sicepat.user_type_other_current_asset,Sewa Ruko / Rumah Dibayar Dimuka,l10n_id_sicepat.chart_sicepat
 chart_117000000,117.000.000,FALSE,view,chart_110000000,l10n_id_sicepat.user_type_other_current_asset,Akun Temporer,l10n_id_sicepat.chart_sicepat
 chart_117001000,117.001.000,FALSE,other,chart_117000000,l10n_id_sicepat.user_type_other_current_asset,Transaksi Temporer,l10n_id_sicepat.chart_sicepat
-chart_117001001,117.002.000,TRUE,receivable,chart_117000000,l10n_id_sicepat.user_type_other_current_asset,Piutang NN,l10n_id_sicepat.chart_sicepat
+chart_117002000,117.002.000,TRUE,receivable,chart_117000000,l10n_id_sicepat.user_type_other_current_asset,Piutang NN,l10n_id_sicepat.chart_sicepat
+chart_117003000,117.003.000,FALSE,other,chart_117000000,l10n_id_sicepat.user_type_other_current_asset,Hutang Supplier Akrual,l10n_id_sicepat.chart_sicepat
 chart_120000000,120.000.000,FALSE,view,chart_100000000,l10n_id_sicepat.user_type_fixed_asset,Aset Tetap,l10n_id_sicepat.chart_sicepat
 chart_120001000,120.001.000,FALSE,other,chart_120000000,l10n_id_sicepat.user_type_fixed_asset,Peralatan Kantor,l10n_id_sicepat.chart_sicepat
 chart_120002000,120.002.000,FALSE,other,chart_120000000,l10n_id_sicepat.user_type_fixed_asset,Kendaraan,l10n_id_sicepat.chart_sicepat
@@ -127,8 +154,8 @@ chart_300002001,300.002.001,FALSE,other,chart_300002000,l10n_id_sicepat.user_typ
 chart_300002002,300.002.002,FALSE,other,chart_300002000,l10n_id_sicepat.user_type_equity,Prive Hartono Franscesco,l10n_id_sicepat.chart_sicepat
 chart_300003000,300.003.000,FALSE,other,chart_300000000,l10n_id_sicepat.user_type_equity,Saldo Awal,l10n_id_sicepat.chart_sicepat
 chart_300004000,300.004.000,FALSE,other,chart_300000000,l10n_id_sicepat.user_type_equity,Laba Ditahan,l10n_id_sicepat.chart_sicepat
-chart_300005000,300.005.000,FALSE,other,chart_300000000,l10n_id_sicepat.user_type_equity,Prive Rudy Darwin Swigo,l10n_id_sicepat.chart_sicepat
-chart_300006000,300.006.000,FALSE,other,chart_300000000,l10n_id_sicepat.user_type_equity,Prive Hartono Franscesco,l10n_id_sicepat.chart_sicepat
+chart_300005000,300.005.000,FALSE,other,chart_300000000,l10n_id_sicepat.user_type_equity,Dividen Rudy Darwin Swigo,l10n_id_sicepat.chart_sicepat
+chart_300006000,300.006.000,FALSE,other,chart_300000000,l10n_id_sicepat.user_type_equity,Dividen Hartono Franscesco,l10n_id_sicepat.chart_sicepat
 chart_400000000,400.000.000,FALSE,view,chart_sicepat_root,l10n_id_sicepat.user_type_income,Pendapatan,l10n_id_sicepat.chart_sicepat
 chart_400001000,400.001.000,FALSE,other,chart_400000000,l10n_id_sicepat.user_type_income,Pendapatan Usaha,l10n_id_sicepat.chart_sicepat
 chart_500000000,500.000.000,FALSE,view,chart_sicepat_root,l10n_id_sicepat.user_type_cogs,Biaya Langsung,l10n_id_sicepat.chart_sicepat
@@ -139,7 +166,7 @@ chart_500001003,500.001.003,FALSE,other,chart_500001000,l10n_id_sicepat.user_typ
 chart_500001004,500.001.004,FALSE,other,chart_500001000,l10n_id_sicepat.user_type_cogs,Biaya Tol,l10n_id_sicepat.chart_sicepat
 chart_500001005,500.001.005,FALSE,other,chart_500001000,l10n_id_sicepat.user_type_cogs,Biaya Seragam,l10n_id_sicepat.chart_sicepat
 chart_500001006,500.001.006,FALSE,other,chart_500001000,l10n_id_sicepat.user_type_cogs,Biaya Helm,l10n_id_sicepat.chart_sicepat
-chart_500001007,500.001.007,FALSE,other,chart_500001000,l10n_id_sicepat.user_type_cogs,Biaya Tas,l10n_id_sicepat.chart_sicepat
+chart_500001007,500.001.007,FALSE,other,chart_500001000,l10n_id_sicepat.user_type_cogs,Biaya Sadle Bag,l10n_id_sicepat.chart_sicepat
 chart_500005000,500.005.000,FALSE,view,chart_500000000,l10n_id_sicepat.user_type_cogs,Biaya Gaji,l10n_id_sicepat.chart_sicepat
 chart_500005001,500.005.001,FALSE,other,chart_500005000,l10n_id_sicepat.user_type_cogs,Gaji Pokok,l10n_id_sicepat.chart_sicepat
 chart_500005002,500.005.002,FALSE,other,chart_500005000,l10n_id_sicepat.user_type_cogs,Uang Makan,l10n_id_sicepat.chart_sicepat
@@ -168,6 +195,13 @@ chart_500006013,500.006.013,FALSE,other,chart_500006000,l10n_id_sicepat.user_typ
 chart_500006014,500.006.014,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Operasional Lain-lain,l10n_id_sicepat.chart_sicepat
 chart_500006015,500.006.015,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Karung,l10n_id_sicepat.chart_sicepat
 chart_500006016,500.006.016,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Kardus,l10n_id_sicepat.chart_sicepat
+chart_500006017,500.006.017,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Packing Kayu,l10n_id_sicepat.chart_sicepat
+chart_500006018,500.006.018,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Kertas Thermal,l10n_id_sicepat.chart_sicepat
+chart_500006019,500.006.019,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Brosur,l10n_id_sicepat.chart_sicepat
+chart_500006020,500.006.020,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Surat Jalan,l10n_id_sicepat.chart_sicepat
+chart_500006021,500.006.021,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Jaket,l10n_id_sicepat.chart_sicepat
+chart_500006022,500.006.022,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Stiker,l10n_id_sicepat.chart_sicepat
+chart_500006023,500.006.023,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Benang Jahit,l10n_id_sicepat.chart_sicepat
 chart_500007000,500.007.000,FALSE,view,chart_500000000,l10n_id_sicepat.user_type_cogs,Biaya Pengembalian Selisih Diskon,l10n_id_sicepat.chart_sicepat
 chart_500007001,500.007.001,FALSE,other,chart_500006000,l10n_id_sicepat.user_type_cogs,Biaya Pengembalian Selisih Diskon,l10n_id_sicepat.chart_sicepat
 chart_600000000,600.000.000,FALSE,view,chart_sicepat_root,l10n_id_sicepat.user_type_expense,Biaya Tidak Langsung,l10n_id_sicepat.chart_sicepat
@@ -206,6 +240,7 @@ chart_600004018,600.004.018,FALSE,other,chart_600004000,l10n_id_sicepat.user_typ
 chart_600004019,600.004.019,FALSE,other,chart_600004000,l10n_id_sicepat.user_type_expense,Biaya Percetakan,l10n_id_sicepat.chart_sicepat
 chart_600004020,600.004.020,FALSE,other,chart_600004000,l10n_id_sicepat.user_type_expense,Biaya Sumbangan,l10n_id_sicepat.chart_sicepat
 chart_600004021,600.004.021,FALSE,other,chart_600004000,l10n_id_sicepat.user_type_expense,Biaya Pengobatan Karyawan,l10n_id_sicepat.chart_sicepat
+chart_600004022,600.004.022,FALSE,other,chart_600004000,l10n_id_sicepat.user_type_expense,Biaya Trash Bag,l10n_id_sicepat.chart_sicepat
 chart_600005000,600.005.000,FALSE,view,chart_600000000,l10n_id_sicepat.user_type_expense,Biaya Asuransi,l10n_id_sicepat.chart_sicepat
 chart_600005001,600.005.001,FALSE,other,chart_600005000,l10n_id_sicepat.user_type_expense,Biaya Asuransi Kendaraan,l10n_id_sicepat.chart_sicepat
 chart_600005002,600.005.002,FALSE,other,chart_600005000,l10n_id_sicepat.user_type_expense,Biaya Asuransi Kesehatan,l10n_id_sicepat.chart_sicepat
@@ -215,8 +250,8 @@ chart_600006002,600.006.002,FALSE,other,chart_600006000,l10n_id_sicepat.user_typ
 chart_600007000,600.007.000,FALSE,view,chart_600000000,l10n_id_sicepat.user_type_expense,Biaya Bunga,l10n_id_sicepat.chart_sicepat
 chart_600007001,600.007.001,FALSE,other,chart_600007000,l10n_id_sicepat.user_type_expense,Biaya Bunga Leasing,l10n_id_sicepat.chart_sicepat
 chart_600008000,600.008.000,FALSE,view,chart_600000000,l10n_id_sicepat.user_type_expense,Biaya Depresiasi,l10n_id_sicepat.chart_sicepat
-chart_600008001,600.008.001,FALSE,other,chart_600008000,l10n_id_sicepat.user_type_expense,Biaya Depresiasi Peralatan Kantor,l10n_id_sicepat.chart_sicepat
-chart_600008002,600.008.002,FALSE,other,chart_600008000,l10n_id_sicepat.user_type_expense,Biaya Depresiasi Kendaraan,l10n_id_sicepat.chart_sicepat
+chart_600008001,600.008.001,FALSE,other,chart_600008000,l10n_id_sicepat.user_type_expense,Biaya Depresiasi Kendaraan,l10n_id_sicepat.chart_sicepat
+chart_600008002,600.008.002,FALSE,other,chart_600008000,l10n_id_sicepat.user_type_expense,Biaya Depresiasi Peralatan Kantor,l10n_id_sicepat.chart_sicepat
 chart_600009000,600.009.000,FALSE,view,chart_600000000,l10n_id_sicepat.user_type_expense,Biaya Pemeliharaan Dan Perbaikan,l10n_id_sicepat.chart_sicepat
 chart_600009001,600.009.001,FALSE,other,chart_600009000,l10n_id_sicepat.user_type_expense,Biaya Pemeliharaan Dan Perbaikan Ruko/Rumah,l10n_id_sicepat.chart_sicepat
 chart_600009002,600.009.002,FALSE,other,chart_600009000,l10n_id_sicepat.user_type_expense,Biaya Pemeliharaan Dan Perbaikan Peralatan Kantor,l10n_id_sicepat.chart_sicepat
