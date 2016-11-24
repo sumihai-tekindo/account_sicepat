@@ -1,0 +1,65 @@
+<openerp>
+	<data>
+		<record id="view_stock_location_inherit_analytic_form" model="ir.ui.view">
+			<field name="name">view.stock.location.inherit.analytic.form</field>
+			<field name="model">stock.location</field>
+			<field name="inherit_id" ref="stock.view_location_form"/>
+			<field name="arch" type="xml">
+				<field name="usage" position="after">
+					<field name="account_analytic_id"/>
+				</field>
+			</field>
+		</record>
+
+		<record id="view_stock_move_picking_inherit_analytic_form" model="ir.ui.view">
+			<field name="name">view.stock.move.picking.inherit.analytic.form</field>
+			<field name="model">stock.move</field>
+			<field name="inherit_id" ref="stock.view_move_picking_form"/>
+			<field name="arch" type="xml">
+				<field name="location_id" position="after">
+					<field name="account_analytic_id" domain="[('type','=','normal')]" attrs="{'invisible':['&amp;',('location_id_usage','!=','internal'),('location_dest_id_usage','!=','production')]}"/>
+				</field>
+				<field name="location_dest_id" position="after">
+					<field name="account_analytic_dest_id" domain="[('type','=','normal')]" attrs="{'invisible':['&amp;',('location_id_usage','!=','internal'),('location_dest_id_usage','!=','production')]}"/>
+				</field>
+				<field name="location_id" position="after">
+					<field name="location_id_usage" invisible="1"/>
+				</field>
+				<field name="location_dest_id" position="after">
+					<field name="location_dest_id_usage" invisible="1"/>
+				</field>
+				<field name="location_id" position="attributes">
+					<attribute name="on_change">onchange_locations(location_id,location_dest_id)</attribute>
+				</field>
+				<field name="location_dest_id" position="attributes">
+					<attribute name="on_change">onchange_locations(location_id,location_dest_id)</attribute>
+				</field>
+			</field>
+		</record>
+		<record id="view_stock_move_inherit_analytic_form" model="ir.ui.view">
+			<field name="name">view.stock.move.inherit.analytic.form</field>
+			<field name="model">stock.move</field>
+			<field name="inherit_id" ref="stock.view_move_form"/>
+			<field name="arch" type="xml">
+				<field name="location_id" position="after">
+					<field name="account_analytic_id" domain="[('type','=','normal')]" attrs="{'invisible':['&amp;',('location_id_usage','!=','internal'),('location_dest_id_usage','!=','production')]}"/>
+				</field>
+				<field name="location_dest_id" position="after">
+					<field name="account_analytic_dest_id" domain="[('type','=','normal')]" attrs="{'invisible':['&amp;',('location_id_usage','!=','internal'),('location_dest_id_usage','!=','production')]}"/>
+				</field>
+				<field name="location_id" position="after">
+					<field name="location_id_usage" invisible="0"/>
+				</field>
+				<field name="location_dest_id" position="after">
+					<field name="location_dest_id_usage" invisible="0"/>
+				</field>
+				<field name="location_id" position="attributes">
+					<attribute name="on_change">onchange_locations(location_id,location_dest_id)</attribute>
+				</field>
+				<field name="location_dest_id" position="attributes">
+					<attribute name="on_change">onchange_locations(location_id,location_dest_id)</attribute>
+				</field>
+			</field>
+		</record>
+	</data>
+</openerp>
