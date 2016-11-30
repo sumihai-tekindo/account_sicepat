@@ -15,6 +15,7 @@
     ],
     'data': [
             'views/stock_analytic_view.xml',
+            'views/stock_transfer_view.xml',
     ],
     'demo': [],
     'installable': True,

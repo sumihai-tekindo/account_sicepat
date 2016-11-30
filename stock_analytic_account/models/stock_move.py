@@ -1,4 +1,7 @@
 from openerp.osv import fields,osv
+from openerp.tools.translate import _
+
+from openerp import SUPERUSER_ID, api
 
 class stock_location(osv.osv):
 	_inherit = "stock.location"
@@ -70,15 +73,49 @@ class stock_move(osv.osv):
 
 class stock_quant(osv.osv):
 	_inherit = "stock.quant"
-
+	_columns ={
+		"account_analytic_id":fields.many2one("account.analytic.account","Analytic Account",required=False),
+		"account_analytic_dest_id":fields.many2one("account.analytic.account","Destination Analytic Account",required=False),
+	}
 	def _prepare_account_move_line(self, cr, uid, move, qty, cost, credit_account_id, debit_account_id, context=None):
 		"""
 		Generate the account.move.line values to post to track the stock valuation difference due to the
 		processing of the given quant.
 		"""
 		res = super(stock_quant,self)._prepare_account_move_line(cr, uid, move, qty, cost, credit_account_id, debit_account_id, context=context)
-		if res and move.account_analytic_id and move.account_analytic_id.id and move.account_analytic_dest_id and move.account_analytic_dest_id.id:
-			res[0][2]['analytic_account_id'] = move.account_analytic_dest_id and move.account_analytic_dest_id.id or False
-			res[1][2]['analytic_account_id'] = move.account_analytic_id and move.account_analytic_id.id or False
-			
+		
+		account_analytic_id = context.get('account_analytic_id',False)
+		account_analytic_dest_id = context.get('account_analytic_dest_id',False)
+		if res and account_analytic_id and account_analytic_dest_id:
+			res[0][2]['analytic_account_id']=account_analytic_dest_id
+			res[1][2]['analytic_account_id']=account_analytic_id
 		return res
+
+	def _create_account_move_line(self, cr, uid, quants, move, credit_account_id, debit_account_id, journal_id, context=None):
+		#group quants by cost
+		quant_cost_qty = {}
+		quant_analytic = {}
+		for quant in quants:
+			if quant_cost_qty.get(quant.cost):
+				quant_cost_qty[quant.cost] += quant.qty
+			else:
+				quant_cost_qty[quant.cost] = quant.qty
+			quant_analytic[quant.cost] = {
+											'account_analytic_id':quant.account_analytic_id and quant.account_analytic_id.id or False,
+											'account_analytic_dest_id':quant.account_analytic_dest_id and quant.account_analytic_dest_id.id or False,
+										}
+		move_obj = self.pool.get('account.move')
+		for cost, qty in quant_cost_qty.items():
+			if quant_analytic.get(cost,False):
+				context.update({
+					'account_analytic_id':quant_analytic.get(cost,False) and quant_analytic.get(cost).get('account_analytic_id',False),
+					'account_analytic_dest_id':quant_analytic.get(cost,False) and quant_analytic.get(cost).get('account_analytic_dest_id',False),
+					})
+			move_lines = self._prepare_account_move_line(cr, uid, move, qty, cost, credit_account_id, debit_account_id, context=context)
+			period_id = context.get('force_period', self.pool.get('account.period').find(cr, uid, context=context)[0])
+
+			move_obj.create(cr, uid, {'journal_id': journal_id,
+									  'line_id': move_lines,
+									  'period_id': period_id,
+									  'date': fields.date.context_today(self, cr, uid, context=context),
+									  'ref': move.picking_id.name}, context=context)
