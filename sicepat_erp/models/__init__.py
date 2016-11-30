@@ -19,7 +19,6 @@
 #
 ##############################################################################
 
-import ir_sequence
 import ir_qweb
 import account_invoice
 import res_config
