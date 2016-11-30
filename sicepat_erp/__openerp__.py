@@ -53,6 +53,7 @@ Feature
     'depends': [
         'account_followup',
         'account_accountant',
+        'stock_analytic_account',
         'invoice_line_comment',
         'account_invoice_revision',
         'invoice_send_mail',
