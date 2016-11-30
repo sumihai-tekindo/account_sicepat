@@ -21,6 +21,7 @@
 
 import csv
 import datetime
+from dateutil.relativedelta import relativedelta
 import itertools
 import logging
 import operator
@@ -486,6 +487,7 @@ class ir_import(orm.TransientModel):
                 if record.res_model == 'account.invoice' and (context.get('type', False) and context['type'] == 'out_invoice'):
                     if import_result['ids']:
                         _logger.info('processing into cron...')
+                        date_start = datetime.datetime.utcnow()
                         for res_id in import_result['ids']:
                             cron_vals = {
                                 'name': 'process_after_action',
@@ -494,13 +496,14 @@ class ir_import(orm.TransientModel):
                                 'interval_type': 'minutes',
                                 'numbercall': 1,
                                 'doall': True,
-                                'nextcall': datetime.datetime.utcnow().strftime(DEFAULT_SERVER_DATETIME_FORMAT),
+                                'nextcall': date_start.strftime(DEFAULT_SERVER_DATETIME_FORMAT),
                                 'model': record.res_model,
                                 'function': 'process_after_action',
                                 'args': repr([[res_id]]),
                                 'priority': 5,
                             }
                             self.pool['ir.cron'].create(cr, SUPERUSER_ID, cron_vals)
+                            date_start += relativedelta(seconds=5)
                         _logger.info('done processing into cron')
                 cr.execute('RELEASE SAVEPOINT import')
         except psycopg2.InternalError:
