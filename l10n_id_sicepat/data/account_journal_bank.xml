@@ -937,6 +937,32 @@
 		  <field name="update_posted" eval="True"/>
 		  <field name="with_last_closing_balance" eval="False"/>
 		</record>
+		<record id="l10n_id_sicepat.journal_111001073" model="account.journal">
+		  <field name="type">cash</field>
+		  <field name="name">Kas Toko</field>
+		  <field name="code">1073</field>
+		  <field name="company_id" ref="base.main_company"/>
+		  <field search="[('code','=','111.001.073')]" model='account.account' name='default_debit_account_id'/>
+		  <field search="[('code','=','111.001.073')]" model='account.account' name='default_credit_account_id'/>
+		  <!--            <field search="[('code','=','111.003.002')]" model='account.account' name='internal_account_id'/>-->
+		  <field name="centralisation" eval="False"/>
+		  <field name="entry_posted" eval="True"/>
+		  <field name="update_posted" eval="True"/>
+		  <field name="with_last_closing_balance" eval="False"/>
+		</record>
+		<record id="l10n_id_sicepat.journal_111001074" model="account.journal">
+		  <field name="type">cash</field>
+		  <field name="name">Kas Jakarta Selatan (Pancoran)</field>
+		  <field name="code">1074</field>
+		  <field name="company_id" ref="base.main_company"/>
+		  <field search="[('code','=','111.001.074')]" model='account.account' name='default_debit_account_id'/>
+		  <field search="[('code','=','111.001.074')]" model='account.account' name='default_credit_account_id'/>
+		  <!--            <field search="[('code','=','111.003.002')]" model='account.account' name='internal_account_id'/>-->
+		  <field name="centralisation" eval="False"/>
+		  <field name="entry_posted" eval="True"/>
+		  <field name="update_posted" eval="True"/>
+		  <field name="with_last_closing_balance" eval="False"/>
+		</record>
 		<record id="l10n_id_sicepat.journal_111002001" model="account.journal">
 		  <field name="type">bank</field>
 		  <field name="name">BCA 497.060.9429</field>
