@@ -196,6 +196,11 @@
 	        <field name="name">DKI Jakarta / Jakarta Pusat / Bendungan Hilir</field>
 	        <field name="type">normal</field>
 	    </record>
+	    <record id="1101007" model="account.analytic.account">
+	        <field name="code">1101007</field>
+	        <field name="name">DKI Jakarta / Jakarta Pusat / Salemba</field>
+	        <field name="type">normal</field>
+	    </record>
 	    <record id="1102002" model="account.analytic.account">
 	        <field name="code">1102002</field>
 	        <field name="name">DKI Jakarta / Jakarta Utara / Toko ITC Mangga Dua</field>
@@ -221,6 +226,11 @@
 	        <field name="name">DKI Jakarta / Jakarta Barat / Tambora</field>
 	        <field name="type">normal</field>
 	    </record>
+	    <record id="1103006" model="account.analytic.account">
+	        <field name="code">1103006</field>
+	        <field name="name">DKI Jakarta / Jakarta Barat / Pesing Poglar</field>
+	        <field name="type">normal</field>
+	    </record>
 	    <record id="1104002" model="account.analytic.account">
 	        <field name="code">1104002</field>
 	        <field name="name">DKI Jakarta / Jakarta Selatan / Gandaria Selatan</field>
@@ -234,6 +244,11 @@
 	    <record id="1104004" model="account.analytic.account">
 	        <field name="code">1104004</field>
 	        <field name="name">DKI Jakarta / Jakarta Selatan / Toko ITC Kuningan</field>
+	        <field name="type">normal</field>
+	    </record>
+	    <record id="1104005" model="account.analytic.account">
+	        <field name="code">1104005</field>
+	        <field name="name">DKI Jakarta / Jakarta Selatan / Pancoran</field>
 	        <field name="type">normal</field>
 	    </record>
 	    <record id="1105002" model="account.analytic.account">
