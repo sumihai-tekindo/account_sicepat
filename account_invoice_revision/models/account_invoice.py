@@ -69,7 +69,7 @@ class account_invoice(models.Model):
             revno = self.revision_number
             self.write({
                 'revision_number': revno + 1,
-                'internal_number': '%s-%02d' % (self.unrevisioned_name, revno + 1)
+                'internal_number': self.unrevisioned_name and '%s-%02d' % (self.unrevisioned_name, revno + 1)
             })
             defaults.update({
                 'internal_number': prev_number,
