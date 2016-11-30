@@ -76,6 +76,8 @@ chart_111001069,111.001.069,FALSE,liquidity,chart_111001000,account.data_account
 chart_111001070,111.001.070,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Tangerang (Tigaraksa),l10n_id_sicepat.chart_sicepat
 chart_111001071,111.001.071,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jakarta Pusat (Bendungan Hilir),l10n_id_sicepat.chart_sicepat
 chart_111001072,111.001.072,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Tangerang (Ciledug),l10n_id_sicepat.chart_sicepat
+chart_111001073,111.001.073,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Toko,l10n_id_sicepat.chart_sicepat
+chart_111001074,111.001.074,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jakarta Selatan (Pancoran),l10n_id_sicepat.chart_sicepat
 chart_111002000,111.002.000,FALSE,view,chart_111000000,account.data_account_type_bank,Bank,l10n_id_sicepat.chart_sicepat
 chart_111002001,111.002.001,FALSE,liquidity,chart_111002000,account.data_account_type_bank,BCA 497.060.9429,l10n_id_sicepat.chart_sicepat
 chart_111002002,111.002.002,FALSE,liquidity,chart_111002000,account.data_account_type_bank,BCA 270.302.7211,l10n_id_sicepat.chart_sicepat
