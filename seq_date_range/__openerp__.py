@@ -45,6 +45,7 @@
     # always loaded
     'data': [
         'view/ir_sequence_view.xml',
+        'security/ir.model.access.csv',
    ],
 
     # only loaded in demonstration mode

@@ -100,7 +100,6 @@ Feature
         'views/report_partner_outstanding.xml',
         'edi/invoice_action_data.xml',
         'views/sicepat_template.xml',
-        'security/ir.model.access.csv',
     ],
 
     # only loaded in demonstration mode
