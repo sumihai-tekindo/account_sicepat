@@ -125,6 +125,21 @@ class account_invoice(models.Model):
         store=True, readonly=True, compute='_compute_overpaid', help="Overpaid amount.")
     amount_total_plus = fields.Float(string='Total Due', digits=dp.get_precision('Account'),
         store=True, readonly=True, compute='_compute_amount_plus')
+    state = fields.Selection([
+            ('draft','Draft'),
+            # ('proforma','Pro-forma'),
+            ('proforma2','Submitted'),
+            ('open','Open'),
+            ('paid','Paid'),
+            ('cancel','Cancelled'),
+        ], string='Status', index=True, readonly=True, default='draft',
+        track_visibility='onchange', copy=False,
+        help=" * The 'Draft' status is used when a user is encoding a new and unconfirmed Invoice.\n"
+             " * The 'Pro-forma' when invoice is in Pro-forma status,invoice does not have an invoice number.\n"
+             " * The 'Submit' when invoice is in Submit status,invoice does not have an invoice number and ready to be validated by Accounting.\n"
+             " * The 'Open' status is used when user create invoice,a invoice number is generated.Its in open status till user does not pay invoice.\n"
+             " * The 'Paid' status is set automatically when the invoice is paid. Its related journal entries may or may not be reconciled.\n"
+             " * The 'Cancelled' status is used when user cancel invoice.")
 
     @api.multi
     def invoice_id_residual_get(self):
