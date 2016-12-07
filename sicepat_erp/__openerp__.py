@@ -69,7 +69,7 @@ Feature
         'base_setup',
         'web_sheet_full_width',
         'web_groupby_expand',
-        'web_export_view',
+        #'web_export_view',
         'l10n_id_country_state',
         'seq_date_range',
         'report',

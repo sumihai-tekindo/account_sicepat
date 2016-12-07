@@ -1,0 +1,84 @@
+<openerp>
+	<data>
+        <record id="view_account_invoice_filter_extra" model="ir.ui.view">
+            <field name="name">view.account.invoice.filter.extra</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="/search/group[1]" position="before">
+                    <filter name="followup_user_id" domain="[('followup_user_id','in',[uid,False])]" help="My Follow-up"/>
+                </xpath>
+                <xpath expr="/search/group[1]/filter[@name='group_by_partner_id']" position="after">
+                    <filter name="group_by_followup_user_id" string="Group by Follow-up user" context="{'group_by':'followup_user_id'}"/>
+                </xpath>
+            </field>
+        </record>
+
+		<record id="invoice_tree_extra" model="ir.ui.view">
+			<field name="name">account.invoice.tree.extra</field>
+			<field name="model">account.invoice</field>
+			<field name="arch" type="xml">
+				<tree colors="blue:state == 'draft';black:state in ('proforma','proforma2','open');gray:state == 'cancel'" string="Invoice">
+					<field name="partner_id" groups="base.group_user"/>
+					<field name="commercial_partner_id" invisible="1"/>
+					<field name="date_invoice"/>
+					<field name="number"/>
+					<field name="reference" invisible="1"/>
+					<field name="name" invisible="1"/>
+					<field name="journal_id" invisible="1"/>
+					<field name="period_id" invisible="1"/>
+					<field name="company_id" invisible="1"/>
+                    <field name="user_id" invisible="1"/>
+					<field name="followup_user_id" invisible="1"/>
+					<field name="date_due" invisible="1"/>
+					<field name="origin" invisible="1"/>
+					<field name="currency_id" invisible="1" groups="base.group_multi_currency"/>
+					<field name="residual" sum="Residual Amount"/>
+					<field name="amount_untaxed" invisible="1" sum="Untaxed Amount"/>
+					<field name="amount_total" sum="Total Amount" invisible="1"/>
+					<field name="state" invisible="1"/>
+					<field name="type" invisible="context.get('type',True)"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_invoice_tree_extra" model="ir.actions.act_window">
+			<field name="name">My Follow Up</field>
+			<field name="res_model">account.invoice</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form,calendar,graph</field>
+			<field eval="False" name="view_id"/>
+			<field name="domain">[('type','=','out_invoice'),('state','in',['open'])]</field>
+			<field name="context">{'default_followup_user_id':1, 'search_default_followup_user_id':1,'default_type':'out_invoice', 'type':'out_invoice', 'journal_type': 'sale', 'default_group_by_partner_id':1,'search_default_group_by_partner_id':1}</field>
+			<field name="search_view_id" ref="account.view_account_invoice_filter"/>
+			<field name="help" type="html">
+			  <p class="oe_view_nocontent_create">
+				Click to create a customer invoice.
+			  </p><p>
+				Odoo's electronic invoicing allows to ease and fasten the
+				collection of customer payments. Your customer receives the
+				invoice by email and he can pay online and/or import it
+				in his own system.
+			  </p><p>
+				The discussions with your customer are automatically displayed at
+				the bottom of each invoice.
+			  </p>
+			</field>
+		</record>
+
+        <record id="action_invoice_tree_extra_view1" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="account_invoice_extra_menu.invoice_tree_extra"/>
+            <field name="act_window_id" ref="account_invoice_extra_menu.action_invoice_tree_extra"/>
+        </record>
+
+        <record id="action_invoice_tree_extra_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account.invoice_form"/>
+            <field name="act_window_id" ref="account_invoice_extra_menu.action_invoice_tree_extra"/>
+        </record>
+        <menuitem action="account_invoice_extra_menu.action_invoice_tree_extra" id="menu_action_invoice_tree_extra" parent="account.menu_finance_receivables" sequence="3"/>
+	</data>
+</openerp>
