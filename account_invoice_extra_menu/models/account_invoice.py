@@ -34,14 +34,14 @@ class account_invoice_collection(osv.osv_memory):
 
 			unreconciled_payment = [('partner_id','=',inv.partner_id and inv.partner_id.id),('reconcile_id','=',False),('account_id.type','=','receivable'),('credit','>',0.0)]
 			aml_ids = self.pool.get('account.move.line').search(cr,uid,unreconciled_payment)
-			print "===================",aml_ids
+
+			unreconciled=0.0
 			if aml_ids:
-				unreconciled=0.0
 				amls = self.pool.get('account.move.line').browse(cr,uid,aml_ids)
 				for aml in amls :
 					unreconciled+= aml.amount_residual
 				text+="Lebih bayar : %s"%(rml_parser.formatLang((unreconciled), currency_obj=inv.currency_id))
-				text+="\nTotal : %s\n"%(rml_parser.formatLang((total_unpaid-unreconciled), currency_obj=inv.currency_id))
+			text+="\nTotal : %s\n"%(rml_parser.formatLang((total_unpaid-unreconciled), currency_obj=inv.currency_id))
 			text+="\nPembayaran dapat melalui : \n\nBANK BCA \nNO rekening : 270 390 3088 \nAtas Nama: Sicepat Ekspres Indonesia\n\nBANK MANDIRI \nNO rekening : 121 000 655 7171 \nAtas Nama : Sicepat Ekspres Indonesia"
 		
 		res.update({
