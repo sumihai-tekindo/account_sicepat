@@ -19,10 +19,10 @@
 			<field name="model">account.invoice</field>
 			<field name="arch" type="xml">
 				<tree colors="blue:state == 'draft';black:state in ('proforma','proforma2','open');gray:state == 'cancel'" string="Invoice">
-					<field name="partner_id" groups="base.group_user"/>
+					<field name="partner_id" groups="base.group_user" invisible="1"/>
 					<field name="commercial_partner_id" invisible="1"/>
 					<field name="date_invoice"/>
-					<field name="number"/>
+					<field name="number" invisible="1"/>
 					<field name="reference" invisible="1"/>
 					<field name="name" invisible="1"/>
 					<field name="journal_id" invisible="1"/>
@@ -80,5 +80,41 @@
             <field name="act_window_id" ref="account_invoice_extra_menu.action_invoice_tree_extra"/>
         </record>
         <menuitem action="account_invoice_extra_menu.action_invoice_tree_extra" id="menu_action_invoice_tree_extra" parent="account.menu_finance_receivables" sequence="3"/>
+
+
+        <record id="account_invoice_collection_form" model="ir.ui.view">
+			<field name="name">account.invoice.collection.form</field>
+			<field name="model">account.invoice.collection</field>
+			<field name="arch" type="xml">
+				<form string="Invoice Collection">
+					<group string="Collection Notes">
+						<field name="name" colspan="4" nolabel="1"/>
+					</group>
+					<footer>
+						<button string="Close" class="oe_link" special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_account_invoice_collection" model="ir.actions.act_window">
+            <field name="name">Create Collection Notes</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.invoice.collection</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_invoice_collection_form"/>
+            <field name="context">{}</field>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.values" id="account_invoice_collection_values">
+            <field name="model_id" ref="account_invoice_extra_menu.model_account_invoice_collection" />
+            <field name="name">Create Collection Notes</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_account_invoice_collection'))" />
+            <field name="key">action</field>
+            <field name="model">account.invoice</field>
+        </record>
 	</data>
 </openerp>

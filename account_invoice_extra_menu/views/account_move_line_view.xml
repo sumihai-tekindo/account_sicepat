@@ -1,0 +1,111 @@
+<openerp>
+	<data>
+		<record id="view_account_move_line_filter_extra" model="ir.ui.view">
+            <field name="name">Journal Items</field>
+            <field name="model">account.move.line</field>
+            <field name="arch" type="xml">
+                <search string="Search Journal Items">
+                    <field name="name" filter_domain="['|', ('name','ilike',self), ('ref','ilike',self)]" string="Move"/>
+                    <field name="date"/>
+                    <field name="move_id" string="Number (Move)"/>
+                    <field name="account_id"/>
+                    <field name="partner_id"/>
+                    <field name="journal_id" context="{'journal_name':self}" widget="selection"/> <!-- it's important to keep widget='selection' in this filter viewbecause without that the value passed in the context is not the ID but the textual value (name) of the selected journal -->
+                    <field name="period_id" context="{'period_id':self}" widget="selection"/> <!-- it's important to keep the widget='selection' in this field, for the same reason as explained above -->
+                    <separator/>
+                    <filter icon="terp-document-new" string="Unbalanced" domain="[('state','=','draft')]" help="Unbalanced Journal Items"/>
+                    <filter icon="terp-document-new" string="Unposted" domain="[('move_id.state','=','draft')]" help="Unposted Journal Items"/>
+                    <filter name="posted" icon="terp-camera_test" string="Posted" domain="[('move_id.state','=','posted')]" help="Posted Journal Items"/>
+                    <separator/>
+                    <filter icon="terp-dolar_ok!" string="Unreconciled" domain="[('reconcile_id','=',False), ('account_id.reconcile','=',True)]" help="Unreconciled Journal Items" name="unreconciled"/>
+                    <separator/>
+                    <filter string="Next Partner to Reconcile" help="Next Partner Entries to reconcile" name="next_partner" context="{'next_partner_only': 1}" icon="terp-gtk-jump-to-ltr" domain="[('account_id.reconcile','=',True),('reconcile_id','=',False)]"/>
+                    <filter name="followup_user_id" domain="[('followup_user_id','in',[uid,False])]" help="My Follow-up"/>
+                    
+                    <group expand="0" string="Group By">
+                        <filter string="Partner" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter name="groupby_followup_user_id" string="Follow-up User" icon="terp-go-month" domain="[]" context="{'group_by':'followup_user_id'}"/>
+                        <filter string="Journal" icon="terp-folder-orange" domain="[]" context="{'group_by':'journal_id'}"/>
+                        <filter string="Account"  icon="terp-folder-green" context="{'group_by':'account_id'}"/>
+                        <filter string="Period" icon="terp-go-month" domain="[]" context="{'group_by':'period_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+		<record id="view_move_line_tree_extra" model="ir.ui.view">
+			<field name="name">account.move.line.tree.extra</field>
+			<field name="model">account.move.line</field>
+			<field eval="1" name="priority"/>
+			<field name="arch" type="xml">
+				<tree colors="red:state == 'draft';black:state == 'valid'" string="Journal Items" create="false" write="false" unlink="false">
+					<field name="journal_id" options='{"no_open":True}' invisible="1"/>
+					<field name="period_id" options='{"no_open":True}' invisible="1"/>
+					<field name="followup_user_id" invisible="1"/>
+					<field name="partner_id"
+						domain="['|', ('parent_id', '=', False), ('is_company', '=', True)]"
+						on_change="onchange_partner_id(move_id, partner_id, account_id, debit, credit, date, journal_id)"/>
+					<field name="invoice"/>
+					<field name="date"/>
+					<field name="name" invisible="1"/>
+					<field name="ref" invisible="1"/>
+					<field name="statement_id" invisible="1"/>
+					
+					<field name="account_id" options='{"no_open":True}' domain="[('journal_id','=',journal_id), ('company_id', '=', company_id)]" on_change="onchange_account_id(account_id, partner_id, context)" invisible="1"/>
+					<field name="account_tax_id" options='{"no_open":True}' invisible="1"/>
+					<field name="analytic_account_id" groups="analytic.group_analytic_accounting" domain="[('type','not in',['view','template'])]" invisible="1"/>
+					<field name="move_id" required="0" invisible="1"/>
+					<field name="debit" sum="Total Debit" invisible="1"/>
+					<field name="credit" sum="Total Credit" invisible="1"/>
+					<field name="date_maturity" invisible="context.get('journal_type', False) not in ['sale','sale_refund','purchase','purchase_refund']"/>
+					<field name="reconcile_ref" invisible="1"/>
+					
+					<field name="amount_currency" readonly="True" invisible="not context.get('currency',False)"/>
+					<field name="currency_id" readonly="True" invisible="not context.get('currency',False)" />
+					<field name="state" invisible="1"/>
+					<field name="company_id" invisible="1"/>
+					<field name="result"/>
+					<field name="balance" invisible="1"/>
+				</tree>
+			</field>
+		</record>
+		<record id="action_move_line_tree_extra" model="ir.actions.act_window">
+			<field name="name">My Follow Up Journal</field>
+			<field name="res_model">account.move.line</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field eval="False" name="view_id"/>
+			<field name="domain">[('move_id.state','=','posted'),('reconcile_id','=',False), 	('account_id.type','=','receivable')]</field>
+			<field name="context">{'default_followup_user_id':1, 'search_default_followup_user_id':1, 'default_group_by_partner_id':1,'search_default_group_by_partner_id':1}</field>
+			<field name="search_view_id" ref="view_account_move_line_filter_extra"/>
+			<field name="help" type="html">
+			  <p class="oe_view_nocontent_create">
+				Click to create a customer invoice.
+			  </p><p>
+				Odoo's electronic invoicing allows to ease and fasten the
+				collection of customer payments. Your customer receives the
+				invoice by email and he can pay online and/or import it
+				in his own system.
+			  </p><p>
+				The discussions with your customer are automatically displayed at
+				the bottom of each invoice.
+			  </p>
+			</field>
+		</record>
+
+        <record id="action_move_line_tree_extra_view1" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="account_invoice_extra_menu.view_move_line_tree_extra"/>
+            <field name="act_window_id" ref="account_invoice_extra_menu.action_move_line_tree_extra"/>
+        </record>
+
+        <record id="action_move_line_tree_extra_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account.view_move_line_form"/>
+            <field name="act_window_id" ref="account_invoice_extra_menu.action_move_line_tree_extra"/>
+        </record>
+        
+        <menuitem action="account_invoice_extra_menu.action_move_line_tree_extra" id="menu_action_move_line_tree_extra" parent="account.menu_finance_receivables" sequence="4"/>
+	</data>
+</openerp>
