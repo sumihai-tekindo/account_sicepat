@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2016 Pambudi Satria (<https://github.com/pambudisatria>).
-#    @author Pambudi Satria <pambudi.satria@yahoo.com>
+#    Copyright (C) 2016 STI (<https://github.com/sumihai-tekindo>).
+#    @author: - Pambudi Satria <pambudi.satria@yahoo.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,8 +19,10 @@
 #
 ##############################################################################
 
+# 1 : imports of python lib
 import logging
 
+# 2 :  imports of openerp
 from openerp import fields, models, api
 from openerp.osv import osv
 from openerp.tools.translate import _
@@ -126,6 +128,7 @@ class account_invoice(models.Model):
     amount_total_plus = fields.Float(string='Total Due', digits=dp.get_precision('Account'),
         store=True, readonly=True, compute='_compute_amount_plus')
 
+    # compute and search fields, in the same order that fields declaration
     @api.multi
     def invoice_id_residual_get(self):
         # Deprecated
@@ -194,6 +197,32 @@ class account_invoice(models.Model):
             overpaid -= overpaid_amount
         return min(overpaid, 0.0)
 
+    # Constraints and onchanges
+    @api.multi
+    def onchange_partner_id(self, type, partner_id, date_invoice=False,
+            payment_term=False, partner_bank_id=False, company_id=False):
+        
+        result = super(account_invoice, self).onchange_partner_id(type, partner_id, date_invoice=date_invoice, \
+            payment_term=payment_term, partner_bank_id=partner_bank_id, company_id=company_id)
+
+        if partner_id:
+            p = self.env['res.partner'].browse(partner_id)
+            rec_user = p.user_id
+            if not rec_user:
+                rec_user = self.env.user
+
+            if type in ('out_invoice', 'out_refund'):
+                result['value']['user_id'] = rec_user.id
+
+        return result
+
+    # CRUD methods
+
+
+    # Action methods
+
+    
+    # Business methods
     def remove_after_process(self, cr, uid, cron_ids=None):
         if not cron_ids:
             cr.execute("""SELECT id FROM ir_cron
