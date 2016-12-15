@@ -8,7 +8,7 @@
             <field name="inherit_id" ref="account.invoice_supplier_form"/>
             <field name="arch" type="xml">
                 <button name="invoice_open" position="before">
-                	<button name="invoice_submit" states="draft" string="Submit" class="oe_highlight" groups="invoice_supplier_validate.group_submit_invoices"/>
+                	<button name="invoice_submit" states="draft,proforma2" string="Submit" class="oe_highlight" groups="invoice_supplier_validate.group_submit_invoices"/>
                 	<button name="invoice_acknowledge" states="submit" string="Acknowledge" class="oe_highlight" groups="invoice_supplier_validate.group_acknowledge_invoices"/>
                 	<button name="invoice_approve" states="submit,acknowledge" string="Approve" class="oe_highlight" groups="invoice_supplier_validate.group_approve_invoices"/>
                 </button>
