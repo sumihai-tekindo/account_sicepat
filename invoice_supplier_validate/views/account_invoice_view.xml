@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="invoice_supplier_form_validate" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.form.validate</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <button name="invoice_open" position="before">
+                	<button name="invoice_submit" states="draft" string="Submit" class="oe_highlight" groups="invoice_supplier_validate.group_submit_invoices"/>
+                	<button name="invoice_acknowledge" states="submit" string="Acknowledge" class="oe_highlight" groups="invoice_supplier_validate.group_acknowledge_invoices"/>
+                	<button name="invoice_approve" states="submit,acknowledge" string="Approve" class="oe_highlight" groups="invoice_supplier_validate.group_approve_invoices"/>
+                </button>
+            	<button name="invoice_open" position="attributes">
+                	<attribute name="states">approved</attribute>
+                	<attribute name="groups">invoice_supplier_validate.group_validate_invoices</attribute>
+                </button>
+            </field>
+        </record>
+    	
+    </data>
+</openerp>
+    	

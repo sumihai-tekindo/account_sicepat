@@ -54,6 +54,7 @@ Feature
         'account_followup',
         'account_accountant',
         'stock_analytic_account',
+        'invoice_supplier_validate',
         'invoice_line_comment',
         'account_invoice_revision',
         'invoice_send_mail',

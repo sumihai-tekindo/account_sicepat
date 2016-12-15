@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="0">
+
+    <record id="group_submit_invoices" model="res.groups">
+        <field name="name">Submit Supplier Invoice</field>
+    </record>
+
+    <record id="group_acknowledge_invoices" model="res.groups">
+        <field name="name">Acknowledge Supplier Invoice</field>
+    </record>
+
+    <record id="group_approve_invoices" model="res.groups">
+        <field name="name">Approve Supplier Invoice</field>
+    </record>
+
+    <record id="group_validate_invoices" model="res.groups">
+        <field name="name">Validate Supplier Invoice</field>
+    </record>
+        
+</data>
+</openerp>

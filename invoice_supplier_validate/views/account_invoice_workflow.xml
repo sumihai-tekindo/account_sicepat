@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="act_submit" model="workflow.activity">
+            <field name="wkf_id" ref="account.wkf"/>
+            <field name="name">submit</field>
+            <field name="action">write({'state':'submit'})</field>
+            <field name="kind">function</field>
+        </record>
+        <record id="act_acknowledge" model="workflow.activity">
+            <field name="wkf_id" ref="account.wkf"/>
+            <field name="name">aknowledge</field>
+            <field name="action">write({'state':'acknowledge'})</field>
+            <field name="kind">function</field>
+        </record>
+        <record id="act_approve" model="workflow.activity">
+            <field name="wkf_id" ref="account.wkf"/>
+            <field name="name">approve</field>
+            <field name="action">write({'state':'approved'})</field>
+            <field name="kind">function</field>
+        </record>
+                
+
+        <record id="draft_submit" model="workflow.transition">
+            <field name="act_from" ref="account.act_draft"/>
+            <field name="act_to" ref="act_submit"/>
+            <field name="signal">invoice_submit</field>
+        </record>
+        <record id="submit_acknowledge" model="workflow.transition">
+            <field name="act_from" ref="act_submit"/>
+            <field name="act_to" ref="act_acknowledge"/>
+            <field name="signal">invoice_acknowledge</field>
+        </record>
+        <record id="submit_approve" model="workflow.transition">
+            <field name="act_from" ref="act_submit"/>
+            <field name="act_to" ref="act_approve"/>
+            <field name="signal">invoice_approve</field>
+        </record>
+        <record id="acknowledge_approve" model="workflow.transition">
+            <field name="act_from" ref="act_acknowledge"/>
+            <field name="act_to" ref="act_approve"/>
+            <field name="signal">invoice_approve</field>
+        </record>
+        <record id="approve_open" model="workflow.transition">
+            <field name="act_from" ref="act_approve"/>
+            <field name="act_to" ref="account.act_open"/>
+            <field name="signal">invoice_open</field>
+        </record>
+
+    </data>
+</openerp>
