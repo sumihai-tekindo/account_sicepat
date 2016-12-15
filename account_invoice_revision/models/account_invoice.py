@@ -36,7 +36,7 @@ class account_invoice(models.Model):
     ]
 
     @api.multi
-    def action_cancel_draft(self):
+    def action_cancel_copy_draft(self):
         self.ensure_one()
         old_revision = self.with_context(new_invoice_revision=True).copy()
         view_ref = self.env['ir.model.data'].get_object_reference('account', 'invoice_form')

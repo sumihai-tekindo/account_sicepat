@@ -7,8 +7,8 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_form"/>
             <field name="arch" type="xml">
-                <button name="action_cancel_draft" position="attributes">
-                	<attribute name="string">New copy of Invoice</attribute>
+                <button name="action_cancel_draft" position="replace">
+                	<button name="action_cancel_copy_draft" states="cancel" string="New copy of Invoice" type="object" groups="base.group_user"/>
                 </button>
                 <notebook position="inside">
                     <page string="Revisions">
