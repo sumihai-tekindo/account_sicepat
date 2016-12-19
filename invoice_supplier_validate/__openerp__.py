@@ -41,7 +41,6 @@ Validation on Supplier Invoices
     # Check https://github.com/odoo/odoo/blob/master/openerp/addons/base/module/module_data.xml
     # for the full list
     'category': 'Accounting & Finance',
-    'sequence': 1,
     'version': '8.0.0.1.0',
 
     # any module necessary for this one to work correctly
@@ -54,6 +53,7 @@ Validation on Supplier Invoices
         'security/account_security.xml',
         'views/account_invoice_view.xml',
         'views/account_invoice_workflow.xml',
+        'wizard/account_invoice_state.xml',
     ],
 
     # only loaded in demonstration mode

@@ -27,10 +27,20 @@
             <field name="act_to" ref="act_submit"/>
             <field name="signal">invoice_submit</field>
         </record>
+        <record id="submit_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_submit"/>
+            <field name="act_to" ref="account.act_cancel"/>
+            <field name="signal">invoice_cancel</field>
+        </record>
         <record id="submit_acknowledge" model="workflow.transition">
             <field name="act_from" ref="act_submit"/>
             <field name="act_to" ref="act_acknowledge"/>
             <field name="signal">invoice_acknowledge</field>
+        </record>
+        <record id="acknowledge_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_acknowledge"/>
+            <field name="act_to" ref="account.act_cancel"/>
+            <field name="signal">invoice_cancel</field>
         </record>
         <record id="submit_approve" model="workflow.transition">
             <field name="act_from" ref="act_submit"/>
@@ -41,6 +51,11 @@
             <field name="act_from" ref="act_acknowledge"/>
             <field name="act_to" ref="act_approve"/>
             <field name="signal">invoice_approve</field>
+        </record>
+        <record id="approve_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_approve"/>
+            <field name="act_to" ref="account.act_cancel"/>
+            <field name="signal">invoice_cancel</field>
         </record>
         <record id="approve_open" model="workflow.transition">
             <field name="act_from" ref="act_approve"/>
