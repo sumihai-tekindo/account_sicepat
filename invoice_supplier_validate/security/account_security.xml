@@ -45,7 +45,7 @@
         <field name="name">Approve Invoice Supplier</field>
         <field name="model_id" ref="model_account_invoice"/>
         <field name="groups" eval="[(4, ref('invoice_supplier_validate.group_approve_invoices'))]"/>
-        <field name="domain_force">[('state','=','acknowledge')]</field>
+        <field name="domain_force">[('state','in',['submit', 'acknowledge'])]</field>
     </record>
 </data>
 </openerp>
