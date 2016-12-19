@@ -52,14 +52,14 @@
 					<field name="analytic_account_id" groups="analytic.group_analytic_accounting" domain="[('type','not in',['view','template'])]" invisible="1"/>
 					<field name="move_id" required="0" invisible="1"/>
 					<field name="debit" sum="Total Debit" invisible="1"/>
-					<field name="credit" sum="Total Credit" invisible="1"/>
+					<field name="credit" sum="Total Credit" invisible="0"/>
 					<field name="reconcile_ref" invisible="1"/>
 					
 					<field name="amount_currency" readonly="True" invisible="not context.get('currency',False)"/>
 					<field name="currency_id" readonly="True" invisible="not context.get('currency',False)" />
 					<field name="state" invisible="1"/>
 					<field name="company_id" invisible="1"/>
-					<field name="balance" invisible="1"/>
+					
 				</tree>
 			</field>
 		</record>
