@@ -1,0 +1,47 @@
+<openerp>
+	<data>
+		<record id="account_move_line_statement_form" model="ir.ui.view">
+			<field name="name">account.move.line.statement.form</field>
+			<field name="model">account.move.line.statement</field>
+			<field name="arch" type="xml">
+				<form string="Create Bank Statement">
+					<group>
+						<group string="Bank Statement Entry" colspan="4">
+							<field name="name" domain="[('type','=','bank')]"/>
+							<field name="into_existing"/>
+							<field name="statement_id" domain="[('state','=','draft'),('journal_id','=',name)]" attrs="{'invisible':[('into_existing','=',False)]}"/>
+							<field name="payment_date" attrs="{'invisible':[('into_existing','=',True)]}"/>
+						</group>
+						<group colspan="4">
+							<field name="move_line_ids" colspan="4" nolabel="1"/>
+						</group>
+					</group>
+					<footer>
+						<button type="object" name="generate_bank_statement" string="Create Bank Statement" class="oe_highlight"/>
+						<button string="Close" class="oe_link" special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_account_move_line_statement" model="ir.actions.act_window">
+            <field name="name">Create Bank Statement</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.move.line.statement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_move_statement.account_move_line_statement_form"/>
+            <field name="context">{}</field>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.values" id="account_move_line_statement_values">
+            <field name="model_id" ref="account_move_statement.model_account_move_line_statement" />
+            <field name="name">Create Bank Statement</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_account_move_line_statement'))" />
+            <field name="key">action</field>
+            <field name="model">account.move.line</field>
+        </record>
+	</data>
+</openerp>

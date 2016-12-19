@@ -1,0 +1,106 @@
+<openerp>
+	<data>
+		<record id="view_account_move_line_statement_search" model="ir.ui.view">
+            <field name="name">Journal Items</field>
+            <field name="model">account.move.line</field>
+            <field name="arch" type="xml">
+                <search string="Search Journal Items">
+                    <field name="name" filter_domain="['|', ('name','ilike',self), ('ref','ilike',self)]" string="Move"/>
+                    <field name="date"/>
+                    <field name="move_id" string="Number (Move)"/>
+                    <field name="account_id"/>
+                    <field name="partner_id"/>
+                    <field name="journal_id" context="{'journal_name':self}" widget="selection"/> <!-- it's important to keep widget='selection' in this filter viewbecause without that the value passed in the context is not the ID but the textual value (name) of the selected journal -->
+                    <field name="period_id" context="{'period_id':self}" widget="selection"/> <!-- it's important to keep the widget='selection' in this field, for the same reason as explained above -->
+                    <separator/>
+                    <filter icon="terp-document-new" string="Unbalanced" domain="[('state','=','draft')]" help="Unbalanced Journal Items"/>
+                    <filter icon="terp-document-new" string="Unposted" domain="[('move_id.state','=','draft')]" help="Unposted Journal Items"/>
+                    <filter name="posted" icon="terp-camera_test" string="Posted" domain="[('move_id.state','=','posted')]" help="Posted Journal Items"/>
+                    <separator/>
+                    <filter icon="terp-dolar_ok!" string="Unreconciled" domain="[('reconcile_id','=',False), ('account_id.reconcile','=',True)]" help="Unreconciled Journal Items" name="unreconciled"/>
+                    <separator/>
+                    <filter name="today" string="On Due Today" domain="[('date_maturity','&lt;=',(context_today()).strftime('%Y-%m-%d'))]" help="Overdue Today"/>
+                    <filter name="week" string="On Due in a Week" domain="[('date_maturity','&lt;=',(context_today()+datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]" help="Overdue in a week"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Partner" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Journal" icon="terp-folder-orange" domain="[]" context="{'group_by':'journal_id'}"/>
+                        <filter string="Account"  icon="terp-folder-green" context="{'group_by':'account_id'}"/>
+                        <filter string="Period" icon="terp-go-month" domain="[]" context="{'group_by':'period_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+		<record id="view_move_line_statement_tree" model="ir.ui.view">
+			<field name="name">account.move.line.statement.tree</field>
+			<field name="model">account.move.line</field>
+			<field eval="1" name="priority"/>
+			<field name="arch" type="xml">
+				<tree colors="red:state == 'draft';black:state == 'valid'" string="Journal Items" create="false" write="false" unlink="false">
+					<field name="journal_id" options='{"no_open":True}' invisible="1"/>
+					<field name="period_id" options='{"no_open":True}' invisible="1"/>
+					<field name="partner_id"
+						domain="['|', ('parent_id', '=', False), ('is_company', '=', True)]"
+						on_change="onchange_partner_id(move_id, partner_id, account_id, debit, credit, date, journal_id)"/>
+					<field name="invoice"/>
+					<field name="date"/>
+					<field name="date_maturity"/>
+					<field name="name"/>
+					<field name="ref"/>
+					<field name="statement_id" invisible="1"/>
+					<field name="account_id" options='{"no_open":True}' domain="[('journal_id','=',journal_id), ('company_id', '=', company_id)]" on_change="onchange_account_id(account_id, partner_id, context)" invisible="1"/>
+					<field name="account_tax_id" options='{"no_open":True}' invisible="1"/>
+					<field name="analytic_account_id" groups="analytic.group_analytic_accounting" domain="[('type','not in',['view','template'])]" invisible="1"/>
+					<field name="move_id" required="0" invisible="1"/>
+					<field name="debit" sum="Total Debit" invisible="1"/>
+					<field name="credit" sum="Total Credit" invisible="1"/>
+					<field name="reconcile_ref" invisible="1"/>
+					
+					<field name="amount_currency" readonly="True" invisible="not context.get('currency',False)"/>
+					<field name="currency_id" readonly="True" invisible="not context.get('currency',False)" />
+					<field name="state" invisible="1"/>
+					<field name="company_id" invisible="1"/>
+					<field name="balance" invisible="1"/>
+				</tree>
+			</field>
+		</record>
+		<record id="action_move_line_statement_tree" model="ir.actions.act_window">
+			<field name="name">Invoices to pay</field>
+			<field name="res_model">account.move.line</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field eval="False" name="view_id"/>
+			<field name="domain">[('move_id.state','=','posted'),('reconcile_id','=',False),('account_id.type','=','payable')]</field>
+			<field name="context">{}</field>
+			<field name="search_view_id" ref="view_account_move_line_statement_search"/>
+			<field name="help" type="html">
+			  <p class="oe_view_nocontent_create">
+				Click to create a customer invoice.
+			  </p><p>
+				Odoo's electronic invoicing allows to ease and fasten the
+				collection of customer payments. Your customer receives the
+				invoice by email and he can pay online and/or import it
+				in his own system.
+			  </p><p>
+				The discussions with your customer are automatically displayed at
+				the bottom of each invoice.
+			  </p>
+			</field>
+		</record>
+
+        <record id="action_move_line_statement_tree_view1" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="account_move_statement.view_move_line_statement_tree"/>
+            <field name="act_window_id" ref="account_move_statement.action_move_line_statement_tree"/>
+        </record>
+
+        <record id="action_move_line_statement_tree_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account.view_move_line_form"/>
+            <field name="act_window_id" ref="account_move_statement.action_move_line_statement_tree"/>
+        </record>
+        
+        <menuitem action="account_move_statement.action_move_line_statement_tree" id="menu_action_move_line_statement_tree" parent="account.menu_finance_bank_and_cash" sequence="1"/>
+	</data>
+</openerp>
