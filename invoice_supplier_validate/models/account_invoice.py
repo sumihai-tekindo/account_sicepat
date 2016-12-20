@@ -42,7 +42,9 @@ class AccountInvoiceLine(models.Model):
         ],string='Status',
         related='invoice_id.state')
 
-
+    _defaults = {
+        "state":'draft'
+    }
 class AccountInvoice(models.Model):
     # Private attributes
     _inherit = "account.invoice"
