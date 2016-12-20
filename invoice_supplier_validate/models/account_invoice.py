@@ -26,6 +26,22 @@
 from openerp import models, fields, api, _
 
 # 3 :  imports from odoo modules
+class AccountInvoiceLine(models.Model):
+    _inherit = "account.invoice.line"
+
+    state = fields.Selection([
+            ('draft','Draft'),
+            ('proforma','Pro-forma'),
+            ('proforma2','Pro-forma'),
+            ('submit','Submit'),
+            ('acknowledge','Acknowledge'),
+            ('approved','Approve'),
+            ('open','Open'),
+            ('paid','Paid'),
+            ('cancel','Cancelled'),
+        ],string='Status',
+        related='invoice_id.state')
+
 
 class AccountInvoice(models.Model):
     # Private attributes
@@ -35,6 +51,8 @@ class AccountInvoice(models.Model):
 
 
     # Fields declaration
+    invoice_line = fields.One2many('account.invoice.line', 'invoice_id', string='Invoice Lines',
+        readonly=True, states={'draft': [('readonly', False)],'approved': [('readonly', False)]}, copy=True)
     state = fields.Selection([
             ('draft','Draft'),
             ('proforma','Pro-forma'),
