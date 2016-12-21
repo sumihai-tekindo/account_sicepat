@@ -1,6 +1,7 @@
 from openerp.osv import fields,osv
 import datetime
 
+
 class account_move_line_statement_wiz(osv.osv_memory):
 	_name = "account.move.line.statement"
 	_columns  = {
@@ -57,6 +58,9 @@ class account_move_line_statement_wiz(osv.osv_memory):
 		line_date = statement.date
 		# for each selected move lines
 		for line in line_ids:
+			if line.statement_recon_id and line.statement_recon_id.id:
+				inv_name = line.invoice and line.invoice.number or line.ref
+				raise osv.except_osv(_('Error!'),_("This line %s already exists in statement %s"%(inv_name,line.statement_recon_id.name)))
 			ctx = context.copy()
 			#  take the date for computation of currency => use payment date
 			ctx['date'] = line_date
@@ -91,10 +95,17 @@ class account_move_line_statement_wiz(osv.osv_memory):
 				'amount_currency': line.amount_currency,
 				'currency_id': line.currency_id.id,
 			}, context=context)
-
+		self.pool.get('account.move.line').write(cr,uid,[x.id for x in line_ids],{'statement_recon_id':statement_id})
 		result = mod_obj.get_object_reference(cr, uid, 'account', 'action_bank_statement_tree')
 		id = result and result[1] or False
 		result = act_obj.read(cr, uid, [id], context=context)[0]
 		result['domain'] = "[('id','in', [" + ','.join(map(str, [statement_id])) + "])]"
 
 		return result
+
+class account_move_line(osv.osv):
+	_inherit="account.move.line"
+
+	_columns = {
+		"statement_recon_id"	: fields.many2one("account.bank.statement","Bank Statement"),
+	}
