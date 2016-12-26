@@ -36,7 +36,7 @@
 						<thead>
 							<tr>
 								<th>QTY</th>
-								<th>kETERANGAN</th>
+								<th>KETERANGAN</th>
 								<th>HARGA SATUAN</th>
 								<th>SUBTOTAL</th>
 							</tr>
@@ -45,12 +45,12 @@
 							<tr t-foreach="o.invoice_line" t-as="line">
 								<td><span t-field="line.quantity"/></td>
 								<td><span t-field="line.name"/></td>
-								<td><span t-field="line.price_unit"/></td>
-								<td><span t-field="line.price_subtotal"/></td>
+								<td><span t-field="line.price_unit" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/></td>
+								<td><span t-field="line.price_subtotal" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/></td>
 							</tr>
 							<tr>
 								<td colspan="3" style="text-align:right;"><b>Total</b></td>
-								<td><span t-field="o.amount_total"/></td>
+								<td><span t-field="o.amount_total" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/></td>
 							</tr>
 						</tbody>
 					</table>
@@ -61,10 +61,12 @@
 						<span t-field="o.comment"/>
 					</span>
 					<br/>
-					Dibayarkan: Transfer
+					Dibayarkan: <span t-if="o.partner_bank_id">Transfer
 					Bank			: <span t-field="o.partner_bank_id.bank_name"/><br/>
 					No. Rekening	: <span t-field="o.partner_bank_id.acc_number"/><br/>
 					Atas Nama	: <span t-field="o.partner_bank_id.owner_name"/><br/>
+					</span>
+					<span t-if="not o.partner_bank_id">Cash</span>
 				</div>
 			</div>
 		</template>
