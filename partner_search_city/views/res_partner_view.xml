@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_partner_form_city" model="ir.ui.view">
+            <field name="name">res.partner.form.city</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="website" position="before">
+                	<field name="show_city"/>
+                </field>
+            </field>
+        </record>
+       <record id="view_res_partner_filter_city" model="ir.ui.view">
+            <field name="name">res.partner.select</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+               <field name="name" position="attributes">
+					<attribute name="filter_domain">['|','|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self),('city','ilike',self)]</attribute>
+               </field>
+            </field>
+        </record>
+    </data>
+</openerp>
+    	
