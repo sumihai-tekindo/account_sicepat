@@ -102,6 +102,8 @@ Feature
 #         'views/report_partner_outstanding.xml',
         'edi/invoice_action_data.xml',
         'views/sicepat_template.xml',
+        'views/supplier_invoice_action_view.xml',
+        'views/report_supplier_invoice_view.xml',
     ],
 
     # only loaded in demonstration mode

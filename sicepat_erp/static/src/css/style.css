@@ -1,0 +1,9 @@
+.img_logo{
+	max-width: 100px;
+	height: auto;
+}
+
+.bordered {
+	border:1px solid black;
+	border-collapse: collapse;
+}

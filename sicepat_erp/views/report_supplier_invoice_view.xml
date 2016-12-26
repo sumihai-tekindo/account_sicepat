@@ -1,0 +1,80 @@
+<openerp>
+	<data>
+		<template id="report_supplier_invoice_document">
+			<link rel='stylesheet' href="/sicepat_erp/static/src/css/style.css"/>
+			<div class="page">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 bordered" style="border:1px solid black; border-collapse:collapse;margin-bottom:10px; font-weight:bold;"><center>PENGAJUAN DANA</center></div>
+				</div>
+				<div class="row">
+					<div class="col-xs-5 col-sm-5 col-md-5">
+						<img class="img_logo" style="max-width:200px;" t-attf-src="data:image/*;base64,{{o.company_id.logo}}"
+							t-att-alt="o.company_id.name" />
+					</div>
+					<div class="col-xs-2 col-sm-2 col-md-2">
+						<center style="vertical-align:middle; font-weight:bold;">URGENT</center>
+					</div>
+					<div class="col-xs-5 col-sm-5 col-md-5">
+						<table style="border:1px solid black; border-collapse:collapse; padding:5px; right:0px; float:right;" width="100%">
+							<tr>
+								<td>NO. PR</td>
+								<td>: <span t-field="o.number"/></td>
+							</tr>
+							<tr>
+								<td>Date</td>
+								<td>: <span t-field="o.date_invoice"/></td>
+							</tr>
+							<tr>
+								<td>User</td>
+								<td>: <span t-field="o.user_id"/></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="row">
+					<table class="table table-condensed tab-items">
+						<thead>
+							<tr>
+								<th>QTY</th>
+								<th>kETERANGAN</th>
+								<th>HARGA SATUAN</th>
+								<th>SUBTOTAL</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr t-foreach="o.invoice_line" t-as="line">
+								<td><span t-field="line.quantity"/></td>
+								<td><span t-field="line.name"/></td>
+								<td><span t-field="line.price_unit"/></td>
+								<td><span t-field="line.price_subtotal"/></td>
+							</tr>
+							<tr>
+								<td colspan="3" style="text-align:right;"><b>Total</b></td>
+								<td><span t-field="o.amount_total"/></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="row">
+					Notes: 
+					<span t-if="o.comment">
+						<span t-field="o.comment"/>
+					</span>
+					<br/>
+					Dibayarkan: Transfer
+					Bank			: <span t-field="o.partner_bank_id.bank_name"/><br/>
+					No. Rekening	: <span t-field="o.partner_bank_id.acc_number"/><br/>
+					Atas Nama	: <span t-field="o.partner_bank_id.owner_name"/><br/>
+				</div>
+			</div>
+		</template>
+
+		<template id="report_supplier_invoice">
+			<t t-call="report.html_container">
+				<t t-foreach="doc_ids" t-as="doc_id">
+					<t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'sicepat_erp.report_supplier_invoice_document')"/>
+				</t>
+			</t>
+		</template>
+	</data>
+</openerp>
