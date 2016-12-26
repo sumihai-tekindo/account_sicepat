@@ -28,24 +28,24 @@
 
 </data>
 
-<data noupdate="1">
-    <record id="account_invoice_submit_rule" model="ir.rule">
-        <field name="name">Submit Invoice Supplier</field>
-        <field name="model_id" ref="model_account_invoice"/>
-        <field name="groups" eval="[(4, ref('invoice_supplier_validate.group_submit_invoices'))]"/>
-        <field name="domain_force">[('state','in',['draft', 'proforma', 'proforma2'])]</field>
-    </record>
-    <record id="account_invoice_acknowledge_rule" model="ir.rule">
-        <field name="name">Acknowledge Invoice Supplier</field>
-        <field name="model_id" ref="model_account_invoice"/>
-        <field name="groups" eval="[(4, ref('invoice_supplier_validate.group_acknowledge_invoices'))]"/>
-        <field name="domain_force">[('state','=','submit')]</field>
-    </record>
-    <record id="account_invoice_approve_rule" model="ir.rule">
-        <field name="name">Approve Invoice Supplier</field>
-        <field name="model_id" ref="model_account_invoice"/>
-        <field name="groups" eval="[(4, ref('invoice_supplier_validate.group_approve_invoices'))]"/>
-        <field name="domain_force">[('state','in',['submit', 'acknowledge'])]</field>
-    </record>
-</data>
+<!--<data noupdate="1">-->
+<!--    <record id="account_invoice_submit_rule" model="ir.rule">-->
+<!--        <field name="name">Submit Invoice Supplier</field>-->
+<!--        <field name="model_id" ref="model_account_invoice"/>-->
+<!--        <field name="groups" eval="[(4, ref('invoice_supplier_validate.group_submit_invoices'))]"/>-->
+<!--        <field name="domain_force">[('state','in',['draft', 'proforma', 'proforma2', 'submit', 'cancel'])]</field>-->
+<!--    </record>-->
+<!--    <record id="account_invoice_acknowledge_rule" model="ir.rule">-->
+<!--        <field name="name">Acknowledge Invoice Supplier</field>-->
+<!--        <field name="model_id" ref="model_account_invoice"/>-->
+<!--        <field name="groups" eval="[(4, ref('invoice_supplier_validate.group_acknowledge_invoices'))]"/>-->
+<!--        <field name="domain_force">[('state','in',['submit', 'acknowledge', 'cancel'])]</field>-->
+<!--    </record>-->
+<!--    <record id="account_invoice_approve_rule" model="ir.rule">-->
+<!--        <field name="name">Approve Invoice Supplier</field>-->
+<!--        <field name="model_id" ref="model_account_invoice"/>-->
+<!--        <field name="groups" eval="[(4, ref('invoice_supplier_validate.group_approve_invoices'))]"/>-->
+<!--        <field name="domain_force">[('state','in',['submit', 'acknowledge', 'approved', 'cancel'])]</field>-->
+<!--    </record>-->
+<!--</data>-->
 </openerp>

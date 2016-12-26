@@ -66,15 +66,15 @@
 <!--action_send_invoice_mail()</field>-->
 <!--        </record>-->
 
-        <report 
-            id="action_account_3rdparty_account_outstanding" 
-            model="account.invoice" 
-            string="Outstanding Invoices"
-            report_type="qweb-pdf" 
-            name="account.report_partneroutstanding" 
-            file="account.report_partneroutstanding" 
-            menu="False" 
-        />
+<!--        <report -->
+<!--            id="action_account_3rdparty_account_outstanding" -->
+<!--            model="account.invoice" -->
+<!--            string="Outstanding Invoices"-->
+<!--            report_type="qweb-pdf" -->
+<!--            name="account.report_partneroutstanding" -->
+<!--            file="account.report_partneroutstanding" -->
+<!--            menu="False" -->
+<!--        />-->
 		
 	</data>
 </openerp>
