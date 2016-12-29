@@ -12,7 +12,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001002" model="account.journal">
 		  <field name="type">cash</field>
@@ -25,7 +25,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001003" model="account.journal">
 		  <field name="type">cash</field>
@@ -38,7 +38,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001004" model="account.journal">
 		  <field name="type">cash</field>
@@ -51,7 +51,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001005" model="account.journal">
 		  <field name="type">cash</field>
@@ -64,7 +64,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001006" model="account.journal">
 		  <field name="type">cash</field>
@@ -77,7 +77,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001007" model="account.journal">
 		  <field name="type">cash</field>
@@ -90,7 +90,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001008" model="account.journal">
 		  <field name="type">cash</field>
@@ -103,7 +103,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001009" model="account.journal">
 		  <field name="type">cash</field>
@@ -116,7 +116,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001010" model="account.journal">
 		  <field name="type">cash</field>
@@ -129,7 +129,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001011" model="account.journal">
 		  <field name="type">cash</field>
@@ -142,7 +142,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001012" model="account.journal">
 		  <field name="type">cash</field>
@@ -155,7 +155,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001013" model="account.journal">
 		  <field name="type">cash</field>
@@ -168,7 +168,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001014" model="account.journal">
 		  <field name="type">cash</field>
@@ -181,7 +181,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001015" model="account.journal">
 		  <field name="type">cash</field>
@@ -194,7 +194,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001016" model="account.journal">
 		  <field name="type">cash</field>
@@ -207,7 +207,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001017" model="account.journal">
 		  <field name="type">cash</field>
@@ -220,7 +220,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001018" model="account.journal">
 		  <field name="type">cash</field>
@@ -233,7 +233,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001019" model="account.journal">
 		  <field name="type">cash</field>
@@ -246,7 +246,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001020" model="account.journal">
 		  <field name="type">cash</field>
@@ -259,7 +259,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001021" model="account.journal">
 		  <field name="type">cash</field>
@@ -272,7 +272,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001022" model="account.journal">
 		  <field name="type">cash</field>
@@ -285,7 +285,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001023" model="account.journal">
 		  <field name="type">cash</field>
@@ -298,7 +298,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001024" model="account.journal">
 		  <field name="type">cash</field>
@@ -311,7 +311,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001025" model="account.journal">
 		  <field name="type">cash</field>
@@ -324,7 +324,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001026" model="account.journal">
 		  <field name="type">cash</field>
@@ -337,7 +337,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001027" model="account.journal">
 		  <field name="type">cash</field>
@@ -350,7 +350,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001028" model="account.journal">
 		  <field name="type">cash</field>
@@ -363,7 +363,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001029" model="account.journal">
 		  <field name="type">cash</field>
@@ -376,7 +376,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001030" model="account.journal">
 		  <field name="type">cash</field>
@@ -389,7 +389,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001031" model="account.journal">
 		  <field name="type">cash</field>
@@ -402,7 +402,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001032" model="account.journal">
 		  <field name="type">cash</field>
@@ -415,7 +415,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001033" model="account.journal">
 		  <field name="type">cash</field>
@@ -428,7 +428,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001034" model="account.journal">
 		  <field name="type">cash</field>
@@ -441,7 +441,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001035" model="account.journal">
 		  <field name="type">cash</field>
@@ -454,7 +454,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001036" model="account.journal">
 		  <field name="type">cash</field>
@@ -467,7 +467,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001037" model="account.journal">
 		  <field name="type">cash</field>
@@ -480,7 +480,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001038" model="account.journal">
 		  <field name="type">cash</field>
@@ -493,7 +493,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001039" model="account.journal">
 		  <field name="type">cash</field>
@@ -506,7 +506,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001040" model="account.journal">
 		  <field name="type">cash</field>
@@ -519,7 +519,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001041" model="account.journal">
 		  <field name="type">cash</field>
@@ -532,7 +532,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001042" model="account.journal">
 		  <field name="type">cash</field>
@@ -545,7 +545,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001043" model="account.journal">
 		  <field name="type">cash</field>
@@ -558,7 +558,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001044" model="account.journal">
 		  <field name="type">cash</field>
@@ -571,7 +571,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001045" model="account.journal">
 		  <field name="type">cash</field>
@@ -584,7 +584,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001046" model="account.journal">
 		  <field name="type">cash</field>
@@ -597,7 +597,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001047" model="account.journal">
 		  <field name="type">cash</field>
@@ -610,7 +610,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001048" model="account.journal">
 		  <field name="type">cash</field>
@@ -623,7 +623,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001049" model="account.journal">
 		  <field name="type">cash</field>
@@ -636,7 +636,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001050" model="account.journal">
 		  <field name="type">cash</field>
@@ -649,7 +649,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001051" model="account.journal">
 		  <field name="type">cash</field>
@@ -662,7 +662,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001052" model="account.journal">
 		  <field name="type">cash</field>
@@ -675,7 +675,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001053" model="account.journal">
 		  <field name="type">cash</field>
@@ -688,7 +688,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001054" model="account.journal">
 		  <field name="type">cash</field>
@@ -701,7 +701,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001055" model="account.journal">
 		  <field name="type">cash</field>
@@ -714,7 +714,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001056" model="account.journal">
 		  <field name="type">cash</field>
@@ -727,7 +727,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001057" model="account.journal">
 		  <field name="type">cash</field>
@@ -740,7 +740,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001058" model="account.journal">
 		  <field name="type">cash</field>
@@ -753,7 +753,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001059" model="account.journal">
 		  <field name="type">cash</field>
@@ -766,7 +766,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001060" model="account.journal">
 		  <field name="type">cash</field>
@@ -779,7 +779,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001061" model="account.journal">
 		  <field name="type">cash</field>
@@ -792,7 +792,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001062" model="account.journal">
 		  <field name="type">cash</field>
@@ -805,7 +805,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001063" model="account.journal">
 		  <field name="type">cash</field>
@@ -818,7 +818,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001064" model="account.journal">
 		  <field name="type">cash</field>
@@ -831,7 +831,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001065" model="account.journal">
 		  <field name="type">cash</field>
@@ -844,7 +844,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001066" model="account.journal">
 		  <field name="type">cash</field>
@@ -857,7 +857,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001067" model="account.journal">
 		  <field name="type">cash</field>
@@ -870,7 +870,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001068" model="account.journal">
 		  <field name="type">cash</field>
@@ -883,7 +883,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001069" model="account.journal">
 		  <field name="type">cash</field>
@@ -896,7 +896,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001070" model="account.journal">
 		  <field name="type">cash</field>
@@ -909,7 +909,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001071" model="account.journal">
 		  <field name="type">cash</field>
@@ -922,7 +922,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001072" model="account.journal">
 		  <field name="type">cash</field>
@@ -935,7 +935,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001073" model="account.journal">
 		  <field name="type">cash</field>
@@ -948,7 +948,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111001074" model="account.journal">
 		  <field name="type">cash</field>
@@ -961,7 +961,46 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
+		</record>
+		<record id="l10n_id_sicepat.journal_111001075" model="account.journal">
+		  <field name="type">cash</field>
+		  <field name="name">Kas Jakarta Pusat (Salemba)</field>
+		  <field name="code">1075</field>
+		  <field name="company_id" ref="base.main_company"/>
+		  <field search="[('code','=','111.001.075')]" model='account.account' name='default_debit_account_id'/>
+		  <field search="[('code','=','111.001.075')]" model='account.account' name='default_credit_account_id'/>
+		  <!--            <field search="[('code','=','111.003.002')]" model='account.account' name='internal_account_id'/>-->
+		  <field name="centralisation" eval="False"/>
+		  <field name="entry_posted" eval="True"/>
+		  <field name="update_posted" eval="True"/>
+		  <field name="with_last_closing_balance" eval="True"/>
+		</record>
+		<record id="l10n_id_sicepat.journal_111001076" model="account.journal">
+		  <field name="type">cash</field>
+		  <field name="name">Kas Bekasi (Timur)</field>
+		  <field name="code">1076</field>
+		  <field name="company_id" ref="base.main_company"/>
+		  <field search="[('code','=','111.001.076')]" model='account.account' name='default_debit_account_id'/>
+		  <field search="[('code','=','111.001.076')]" model='account.account' name='default_credit_account_id'/>
+		  <!--            <field search="[('code','=','111.003.002')]" model='account.account' name='internal_account_id'/>-->
+		  <field name="centralisation" eval="False"/>
+		  <field name="entry_posted" eval="True"/>
+		  <field name="update_posted" eval="True"/>
+		  <field name="with_last_closing_balance" eval="True"/>
+		</record>
+		<record id="l10n_id_sicepat.journal_111001077" model="account.journal">
+		  <field name="type">cash</field>
+		  <field name="name">Kas Jakarta Utara (Cilincing)</field>
+		  <field name="code">1077</field>
+		  <field name="company_id" ref="base.main_company"/>
+		  <field search="[('code','=','111.001.077')]" model='account.account' name='default_debit_account_id'/>
+		  <field search="[('code','=','111.001.077')]" model='account.account' name='default_credit_account_id'/>
+		  <!--            <field search="[('code','=','111.003.002')]" model='account.account' name='internal_account_id'/>-->
+		  <field name="centralisation" eval="False"/>
+		  <field name="entry_posted" eval="True"/>
+		  <field name="update_posted" eval="True"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111002001" model="account.journal">
 		  <field name="type">bank</field>
@@ -974,7 +1013,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111002002" model="account.journal">
 		  <field name="type">bank</field>
@@ -987,7 +1026,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111002003" model="account.journal">
 		  <field name="type">bank</field>
@@ -1000,7 +1039,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111002004" model="account.journal">
 		  <field name="type">bank</field>
@@ -1013,7 +1052,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111002005" model="account.journal">
 		  <field name="type">bank</field>
@@ -1026,7 +1065,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111002006" model="account.journal">
 		  <field name="type">bank</field>
@@ -1039,7 +1078,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111002007" model="account.journal">
 		  <field name="type">bank</field>
@@ -1052,7 +1091,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111002008" model="account.journal">
 		  <field name="type">bank</field>
@@ -1065,7 +1104,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111002009" model="account.journal">
 		  <field name="type">bank</field>
@@ -1078,7 +1117,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111002010" model="account.journal">
 		  <field name="type">bank</field>
@@ -1091,7 +1130,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111002011" model="account.journal">
 		  <field name="type">bank</field>
@@ -1104,7 +1143,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 		<record id="l10n_id_sicepat.journal_111002012" model="account.journal">
 		  <field name="type">bank</field>
@@ -1117,7 +1156,7 @@
 		  <field name="centralisation" eval="False"/>
 		  <field name="entry_posted" eval="True"/>
 		  <field name="update_posted" eval="True"/>
-		  <field name="with_last_closing_balance" eval="False"/>
+		  <field name="with_last_closing_balance" eval="True"/>
 		</record>
 	</data>
 </openerp>

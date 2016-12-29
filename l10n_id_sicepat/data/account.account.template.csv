@@ -78,6 +78,9 @@ chart_111001071,111.001.071,FALSE,liquidity,chart_111001000,account.data_account
 chart_111001072,111.001.072,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Tangerang (Ciledug),l10n_id_sicepat.chart_sicepat
 chart_111001073,111.001.073,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Toko,l10n_id_sicepat.chart_sicepat
 chart_111001074,111.001.074,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jakarta Selatan (Pancoran),l10n_id_sicepat.chart_sicepat
+chart_111001075,111.001.075,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jakarta Pusat (Salemba),l10n_id_sicepat.chart_sicepat
+chart_111001076,111.001.076,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Bekasi (Timur),l10n_id_sicepat.chart_sicepat
+chart_111001077,111.001.077,FALSE,liquidity,chart_111001000,account.data_account_type_cash,Kas Jakarta Utara (Cilincing),l10n_id_sicepat.chart_sicepat
 chart_111002000,111.002.000,FALSE,view,chart_111000000,account.data_account_type_bank,Bank,l10n_id_sicepat.chart_sicepat
 chart_111002001,111.002.001,FALSE,liquidity,chart_111002000,account.data_account_type_bank,BCA 497.060.9429,l10n_id_sicepat.chart_sicepat
 chart_111002002,111.002.002,FALSE,liquidity,chart_111002000,account.data_account_type_bank,BCA 270.302.7211,l10n_id_sicepat.chart_sicepat
@@ -101,9 +104,11 @@ chart_112002000,112.002.000,TRUE,receivable,chart_112000000,l10n_id_sicepat.user
 chart_112003000,112.003.000,FALSE,other,chart_112000000,l10n_id_sicepat.user_type_account_receivable,Piutang Pemegang Saham,l10n_id_sicepat.chart_sicepat
 chart_112004000,112.004.000,FALSE,other,chart_112000000,l10n_id_sicepat.user_type_account_receivable,Piutang Pihak Berelasi,l10n_id_sicepat.chart_sicepat
 chart_112005000,112.005.000,TRUE,payable,chart_112000000,l10n_id_sicepat.user_type_account_receivable,Piutang Lain-lain,l10n_id_sicepat.chart_sicepat
+chart_112006000,112.006.000,TRUE,payable,chart_112000000,l10n_id_sicepat.user_type_account_receivable,Deposit Sewa Ruko,l10n_id_sicepat.chart_sicepat
 chart_113000000,113.000.000,FALSE,view,chart_110000000,l10n_id_sicepat.user_type_account_receivable,Uang Muka,l10n_id_sicepat.chart_sicepat
 chart_113001000,113.001.000,FALSE,other,chart_113000000,l10n_id_sicepat.user_type_account_receivable,Uang Muka Pembelian Barang/Jasa,l10n_id_sicepat.chart_sicepat
 chart_113002000,113.002.000,FALSE,other,chart_113000000,l10n_id_sicepat.user_type_account_receivable,Uang Muka Operasional Karyawan,l10n_id_sicepat.chart_sicepat
+chart_113003000,113.003.000,FALSE,other,chart_113000000,l10n_id_sicepat.user_type_account_receivable,Uang Muka Sewa Ruko,l10n_id_sicepat.chart_sicepat
 chart_114000000,114.000.000,FALSE,view,chart_110000000,l10n_id_sicepat.user_type_inventory,Persediaan,l10n_id_sicepat.chart_sicepat
 chart_114001000,114.001.000,FALSE,other,chart_114000000,l10n_id_sicepat.user_type_inventory,Persediaan Barang,l10n_id_sicepat.chart_sicepat
 chart_115000000,115.000.000,FALSE,view,chart_110000000,l10n_id_sicepat.user_type_other_current_asset,Pajak Dibayar Dimuka,l10n_id_sicepat.chart_sicepat
@@ -133,6 +138,8 @@ chart_200000000,200.000.000,FALSE,view,chart_sicepat_root,l10n_id_sicepat.user_t
 chart_200001000,200.001.000,FALSE,view,chart_200000000,l10n_id_sicepat.user_type_account_payable,Hutang Jangka Pendek,l10n_id_sicepat.chart_sicepat
 chart_200001001,200.001.001,TRUE,payable,chart_200001000,l10n_id_sicepat.user_type_account_payable,Hutang Supplier,l10n_id_sicepat.chart_sicepat
 chart_200001002,200.001.002,FALSE,other,chart_200001000,l10n_id_sicepat.user_type_account_payable,Hutang Leasing Jangka Pendek,l10n_id_sicepat.chart_sicepat
+chart_200001003,200.001.003,FALSE,other,chart_200001000,l10n_id_sicepat.user_type_account_payable,Hutang Modal Sentral Cargo,l10n_id_sicepat.chart_sicepat
+chart_200001004,200.001.004,FALSE,other,chart_200001000,l10n_id_sicepat.user_type_account_payable,Hutang Handling Sentral Cargo,l10n_id_sicepat.chart_sicepat
 chart_200002000,200.002.000,FALSE,view,chart_200000000,l10n_id_sicepat.user_type_account_payable,Hutang Jangka Panjang,l10n_id_sicepat.chart_sicepat
 chart_200002001,200.002.001,FALSE,other,chart_200002000,l10n_id_sicepat.user_type_account_payable,Hutang Leasing Jangka Panjang,l10n_id_sicepat.chart_sicepat
 chart_200003000,200.003.000,FALSE,view,chart_200000000,l10n_id_sicepat.user_type_other_current_liability,Hutang Lain-Lain,l10n_id_sicepat.chart_sicepat

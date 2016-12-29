@@ -311,6 +311,11 @@
 	        <field name="name">Jawa Barat / Bekasi / Bekasi Timur</field>
 	        <field name="type">normal</field>
 	    </record>
+	    <record id="1209006" model="account.analytic.account">
+	        <field name="code">1209006</field>
+	        <field name="name">Jawa Barat / Bekasi / Bekasi Cakung</field>
+	        <field name="type">normal</field>
+	    </record>
 	    <record id="1211001" model="account.analytic.account">
 	        <field name="code">1211001</field>
 	        <field name="name">Jawa Barat / Sumedang / Sumedang1</field>
