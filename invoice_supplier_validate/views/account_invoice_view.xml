@@ -17,7 +17,7 @@
                 	<attribute name="groups">invoice_supplier_validate.group_validate_invoices</attribute>
                 </button>
                 <button name="invoice_cancel" position="attributes">
-                    <attribute name="states">draft,proforma2,submit,acknowledge,approved</attribute>
+                    <attribute name="states">draft,proforma2,submit,acknowledge,approved,open</attribute>
                 </button>
 
                 <xpath expr="//field[@name='invoice_line']/tree/field[@name='sequence']" position="before">

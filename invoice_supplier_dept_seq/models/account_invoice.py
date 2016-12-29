@@ -45,7 +45,7 @@ class account_invoice(osv.Model):
         if vals.get('department_id') and vals['department_id']:
             department = obj_dept.browse(cr, uid, vals['department_id'])
         
-        if context.get('type', False) in ('in_invoice', 'in_refund'):
+        if context.get('type', False) in ('in_invoice', 'in_refund') or (vals.get('type') and vals['type'] in ('in_invoice', 'in_refund')):
             if journal.sequence_id:
                 context['ir_sequence_date'] = date_invoice
                 number = obj_sequence.next_by_id(cr, uid, journal.sequence_id.id, context)

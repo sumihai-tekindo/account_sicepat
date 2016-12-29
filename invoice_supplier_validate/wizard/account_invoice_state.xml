@@ -1,11 +1,18 @@
 <openerp>
     <data>
 
-        <act_window id="action_account_invoice_cancel"
-            multi="True"
-            key2="client_action_multi" name="Cancel Invoices"
-            res_model="account.invoice.cancel" src_model="account.invoice"
-            view_mode="form" target="new" view_type="form" />
+        <record id="account.action_account_invoice_confirm" model="ir.actions.act_window">
+            <field name="name">Confirm Invoices</field>
+            <field name="groups_id" eval="[(4, ref('invoice_supplier_validate.group_validate_invoices'))]"/>
+        </record>
+        <record model="ir.values" id="values_account_invoice_cancel">
+            <field name="model_id" ref="account.model_account_invoice" />
+            <field name="name">action_account_invoice_cancel</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('account.action_account_invoice_cancel'))" />
+            <field name="key">action</field>
+            <field name="model">account.invoice</field>
+        </record>
 
         <record id="account_invoice_submit_view" model="ir.ui.view">
             <field name="name">account.invoice.submit.form</field>
@@ -24,12 +31,29 @@
             </field>
         </record>
 
-        <act_window id="action_account_invoice_submit"
-            multi="True"
-            key2="client_action_multi" name="Submit Draft Invoices"
-            res_model="account.invoice.submit" src_model="account.invoice"
-            view_mode="form" target="new" view_type="form" />
-
+<!--        <act_window id="action_account_invoice_submit"-->
+<!--            multi="True"-->
+<!--            key2="client_action_multi" name="Submit Draft Invoices"-->
+<!--            res_model="account.invoice.submit" src_model="account.invoice"-->
+<!--            view_mode="form" target="new" view_type="form" />-->
+        <record id="action_account_invoice_submit" model="ir.actions.act_window">
+            <field name="name">Submit Draft Invoices</field>
+            <field name="res_model">account.invoice.submit</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="invoice_supplier_validate.account_invoice_submit_view"/>
+            <field name="target">new</field>
+        </record>
+        <record model="ir.values" id="values_account_invoice_submit">
+            <field name="model_id" ref="account.model_account_invoice" />
+            <field name="name">action_account_invoice_submit</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('invoice_supplier_validate.action_account_invoice_submit'))" />
+            <field name="key">action</field>
+            <field name="model">account.invoice</field>
+            <field name="groups_id" eval="[(4, ref('invoice_supplier_validate.group_submit_invoices'))]"/>
+        </record>
+	
         <record id="account_invoice_acknowledge_view" model="ir.ui.view">
             <field name="name">account.invoice.acknowledge.form</field>
             <field name="model">account.invoice.acknowledge</field>
@@ -47,11 +71,28 @@
             </field>
         </record>
 
-        <act_window id="action_account_invoice_acknowledge"
-            multi="True"
-            key2="client_action_multi" name="Acknowledge Invoices"
-            res_model="account.invoice.acknowledge" src_model="account.invoice"
-            view_mode="form" target="new" view_type="form" />
+<!--        <act_window id="action_account_invoice_acknowledge"-->
+<!--            multi="True"-->
+<!--            key2="client_action_multi" name="Acknowledge Invoices"-->
+<!--            res_model="account.invoice.acknowledge" src_model="account.invoice"-->
+<!--            view_mode="form" target="new" view_type="form" />-->
+        <record id="action_account_invoice_acknowledge" model="ir.actions.act_window">
+            <field name="name">Acknowledge Invoices</field>
+            <field name="res_model">account.invoice.acknowledge</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="invoice_supplier_validate.account_invoice_acknowledge_view"/>
+            <field name="target">new</field>
+        </record>
+        <record model="ir.values" id="values_account_invoice_acknowledge">
+            <field name="model_id" ref="account.model_account_invoice" />
+            <field name="name">action_account_invoice_acknowledge</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('invoice_supplier_validate.action_account_invoice_acknowledge'))" />
+            <field name="key">action</field>
+            <field name="model">account.invoice</field>
+            <field name="groups_id" eval="[(4, ref('invoice_supplier_validate.group_acknowledge_invoices'))]"/>
+        </record>
 
         <record id="account_invoice_approve_view" model="ir.ui.view">
             <field name="name">account.invoice.approve.form</field>
@@ -70,11 +111,28 @@
             </field>
         </record>
 
-        <act_window id="action_account_invoice_approve"
-            multi="True"
-            key2="client_action_multi" name="Approve Invoices"
-            res_model="account.invoice.approve" src_model="account.invoice"
-            view_mode="form" target="new" view_type="form" />
+<!--        <act_window id="action_account_invoice_approve"-->
+<!--            multi="True"-->
+<!--            key2="client_action_multi" name="Approve Invoices"-->
+<!--            res_model="account.invoice.approve" src_model="account.invoice"-->
+<!--            view_mode="form" target="new" view_type="form" />-->
+        <record id="action_account_invoice_approve" model="ir.actions.act_window">
+            <field name="name">Approve Invoices</field>
+            <field name="res_model">account.invoice.approve</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="invoice_supplier_validate.account_invoice_approve_view"/>
+            <field name="target">new</field>
+        </record>
+        <record model="ir.values" id="values_account_invoice_approve">
+            <field name="model_id" ref="account.model_account_invoice" />
+            <field name="name">action_account_invoice_approve</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('invoice_supplier_validate.action_account_invoice_approve'))" />
+            <field name="key">action</field>
+            <field name="model">account.invoice</field>
+            <field name="groups_id" eval="[(4, ref('invoice_supplier_validate.group_approve_invoices'))]"/>
+        </record>
             	            	
     </data>
 </openerp>
