@@ -56,7 +56,8 @@ class account_invoice(osv.Model):
                 vals['internal_number'] = number
 
         res_id = super(account_invoice, self).create(cr, uid, vals, context)
-        self.write(cr, uid, [res_id], {'number': number})
+        if context.get('type', False) in ('in_invoice', 'in_refund') or (vals.get('type') and vals['type'] in ('in_invoice', 'in_refund')):
+            self.write(cr, uid, [res_id], {'number': number})
         return res_id
 
 class account_invoice_department(osv.Model):
