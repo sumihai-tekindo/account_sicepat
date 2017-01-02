@@ -1,0 +1,43 @@
+<openerp>
+	<data>
+		<record id="view_account_extra_report_wizard" model="ir.ui.view">
+			<field name="name">Accounting Extra Reports</field>
+			<field name="model">account.extra.report.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Accounting Extra Reports">
+					<group string="Filters">
+						<field name="report_type"/>
+						<field name="start_date" placeholder="Start Date"/>
+						<field name="end_date" placeholder="End Date"/>
+					</group>
+					<notebook>
+						<page string="Filter Accounts">
+							<field name="account_ids" nolabel="1" colspan="4"/>
+						</page>
+					</notebook>
+					<footer>
+						<button icon="gtk-print" name="print_report" string="Print" type="object" class="oe_highlight" context="{'xls':1}"/> or 
+						<button string="Cancel" class="oe_link" special="cancel"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_account_extra_report_wizard" model="ir.actions.act_window">
+			<field name="name">Accounting Extra Reports</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">account.extra.report.wizard</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_account_extra_report_wizard"/>
+			<field name="target">new</field>
+		</record>
+		<menuitem
+			name="Accounting Extra Reports"
+			sequence="1"
+			parent="account.menu_finance_reporting"
+			action="action_account_extra_report_wizard"
+			id="menu_action_account_extra_report_wizard"
+			icon="STOCK_PRINT"/>
+	</data>
+</openerp>

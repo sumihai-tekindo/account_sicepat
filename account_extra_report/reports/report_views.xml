@@ -1,0 +1,44 @@
+<openerp>
+	<data>
+		<record id="action_report_daily_receivable_xls" model="ir.actions.report.xml">
+			<field name="name">Daily Receivables</field>
+			<field name="model">account.move.line</field>
+			<field name="type">ir.actions.report.xml</field>
+			<field name="report_name">daily.receivable.report.xls</field>
+			<field name="report_type">xls</field>
+			<field name="auto" eval="False"/>
+		</record>
+		<record id="action_report_daily_payment_xls" model="ir.actions.report.xml">
+			<field name="name">Daily Payments</field>
+			<field name="model">account.move.line</field>
+			<field name="type">ir.actions.report.xml</field>
+			<field name="report_name">daily.payment.report.xls</field>
+			<field name="report_type">xls</field>
+			<field name="auto" eval="False"/>
+		</record>
+		<record id="action_report_daily_cashflow_xls" model="ir.actions.report.xml">
+			<field name="name">Daily Cashflow</field>
+			<field name="model">account.move.line</field>
+			<field name="type">ir.actions.report.xml</field>
+			<field name="report_name">daily.cashflow.report.xls</field>
+			<field name="report_type">xls</field>
+			<field name="auto" eval="False"/>
+		</record>
+		<record id="action_report_monthly_cashflow_xls" model="ir.actions.report.xml">
+			<field name="name">Monthly Cashflow</field>
+			<field name="model">account.move.line</field>
+			<field name="type">ir.actions.report.xml</field>
+			<field name="report_name">monthly.cashflow.report.xls</field>
+			<field name="report_type">xls</field>
+			<field name="auto" eval="False"/>
+		</record>
+		<record id="action_report_outstanding_followup_xls" model="ir.actions.report.xml">
+			<field name="name">Outstanding Receivable by Follow-up</field>
+			<field name="model">account.move.line</field>
+			<field name="type">ir.actions.report.xml</field>
+			<field name="report_name">outstanding.followup.report.xls</field>
+			<field name="report_type">xls</field>
+			<field name="auto" eval="False"/>
+		</record>
+	</data>
+</openerp>
