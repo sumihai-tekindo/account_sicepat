@@ -23,7 +23,7 @@
                     <filter name="followup_user_id" domain="[('followup_user_id','in',[uid,False])]" help="My Follow-up"/>
                     
                     <group expand="0" string="Group By">
-                        <filter string="Partner" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter name="group_by_partner_id" string="Partner" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
                         <filter name="groupby_followup_user_id" string="Follow-up User" icon="terp-go-month" domain="[]" context="{'group_by':'followup_user_id'}"/>
                         <filter string="Journal" icon="terp-folder-orange" domain="[]" context="{'group_by':'journal_id'}"/>
                         <filter string="Account"  icon="terp-folder-green" context="{'group_by':'account_id'}"/>
@@ -63,7 +63,7 @@
 					<field name="currency_id" readonly="True" invisible="not context.get('currency',False)" />
 					<field name="state" invisible="1"/>
 					<field name="company_id" invisible="1"/>
-					<field name="result"/>
+					<field name="result" sum="Total Outstanding"/>
 					<field name="balance" invisible="1"/>
 				</tree>
 			</field>
@@ -74,7 +74,7 @@
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
 			<field eval="False" name="view_id"/>
-			<field name="domain">[('move_id.state','=','posted'),('reconcile_id','=',False), 	('account_id.type','=','receivable')]</field>
+			<field name="domain">[('move_id.state','=','posted'),('reconcile_id','=',False),('account_id.type','=','receivable'),('journal_id.type','not in',('bank','cash','purchase','purchase_refund')),('partner_id','!=',False)]</field>
 			<field name="context">{'default_followup_user_id':1, 'search_default_followup_user_id':1, 'default_group_by_partner_id':1,'search_default_group_by_partner_id':1}</field>
 			<field name="search_view_id" ref="view_account_move_line_filter_extra"/>
 			<field name="help" type="html">
@@ -107,5 +107,40 @@
         </record>
         
         <menuitem action="account_invoice_extra_menu.action_move_line_tree_extra" id="menu_action_move_line_tree_extra" parent="account.menu_finance_receivables" sequence="4"/>
+
+        <record id="account_invoice_collection_form" model="ir.ui.view">
+			<field name="name">account.invoice.collection.form</field>
+			<field name="model">account.invoice.collection</field>
+			<field name="arch" type="xml">
+				<form string="Invoice Collection">
+					<group string="Collection Notes">
+						<field name="name" colspan="4" nolabel="1"/>
+					</group>
+					<footer>
+						<button string="Close" class="oe_link" special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_account_invoice_collection" model="ir.actions.act_window">
+            <field name="name">Create Collection Notes</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.invoice.collection</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_invoice_collection_form"/>
+            <field name="context">{}</field>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.values" id="account_invoice_collection_values">
+            <field name="model_id" ref="account_invoice_extra_menu.model_account_invoice_collection" />
+            <field name="name">Create Collection Notes</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_account_invoice_collection'))" />
+            <field name="key">action</field>
+            <field name="model">account.move.line</field>
+        </record>
 	</data>
 </openerp>
