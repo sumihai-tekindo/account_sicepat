@@ -74,7 +74,7 @@
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
 			<field eval="False" name="view_id"/>
-			<field name="domain">[('move_id.state','=','posted'),('reconcile_id','=',False),('account_id.type','=','receivable'),('journal_id.type','not in',('bank','cash','purchase','purchase_refund')),('partner_id','!=',False)]</field>
+			<field name="domain">[('move_id.state','=','posted'),('reconcile_id','=',False),('account_id.type','=','receivable'),('journal_id.type','not in',('bank','cash','purchase','purchase_refund')),('partner_id','!=',False),('debit','&gt;',0.0)]</field>
 			<field name="context">{'default_followup_user_id':1, 'search_default_followup_user_id':1, 'default_group_by_partner_id':1,'search_default_group_by_partner_id':1}</field>
 			<field name="search_view_id" ref="view_account_move_line_filter_extra"/>
 			<field name="help" type="html">

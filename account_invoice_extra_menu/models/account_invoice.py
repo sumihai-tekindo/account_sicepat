@@ -1,6 +1,6 @@
 from openerp.osv import osv,fields
 from openerp.report import report_sxw
-
+from datetime import datetime
 
 class account_invoice(osv.osv):
 	_inherit = "account.invoice"
@@ -55,7 +55,20 @@ class account_invoice_collection(osv.osv_memory):
 			for inv in invoices:
 				cust.append(inv.partner_id and inv.partner_id.id)
 				total_unpaid += inv.result or 0.0
-				text += "%s %s\n"%(inv.date,rml_parser.formatLang(inv.result, currency_obj=inv.currency_id or inv.company_id.currency_id))
+				substring=inv.name[-10:]
+				subst_date = False
+				try:
+					import locale
+					locale.setlocale(locale.LC_TIME,"id_ID.UTF-8")
+					subst_date = datetime.strptime(subst_date,'%d-%b-%y')
+					locale.setlocale(locale.LC_TIME,"en_US.UTF-8")
+				except:
+					subst_date=False
+				inv_date = datetime.strptime(inv.date,'%Y-%m-%d')
+				if subst_date and subst_date != inv_date:
+					inv_date = subst_date
+				inv_date=datetime.strftime(inv_date,'%Y-%m-%d')
+				text += "%s %s\n"%(inv_date,rml_parser.formatLang(inv.result, currency_obj=inv.currency_id or inv.company_id.currency_id))
 			text+="\nSubTotal : %s\n"%(rml_parser.formatLang(total_unpaid, currency_obj=inv.currency_id or inv.company_id.currency_id))
 
 			unreconciled_payment = [('partner_id','=',inv.partner_id and inv.partner_id.id),('reconcile_id','=',False),('account_id.type','=','receivable'),('credit','>',0.0)]
