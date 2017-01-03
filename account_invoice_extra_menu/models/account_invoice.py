@@ -60,7 +60,8 @@ class account_invoice_collection(osv.osv_memory):
 				result = re.findall("(\d\d)\-(.*?)\-(\w+)",inv.name)
 				substring=False
 				if result and result[0]:
-					substring=result[0][0]+"-"+result[0][1]+result[0][2]
+					substring=result[0][0]+"-"+result[0][1]+"-"+result[0][2]
+				print "substring----------",substring
 				subst_date = False
 				try:
 					try:
@@ -77,10 +78,11 @@ class account_invoice_collection(osv.osv_memory):
 				except:
 					subst_date=False
 				inv_date = datetime.strptime(inv.date,'%Y-%m-%d')
+
 				if subst_date and subst_date != inv_date:
 					inv_date = subst_date
 				inv_date=datetime.strftime(inv_date,'%Y-%m-%d')
-				print "xxxxxxxxxxxxxxxxxxxxxxxxxxx",inv_date
+				print "xxxxxxxxxxxxxxxxxxxxxxxxxxx",inv_date,subst_date
 				text += "%s %s\n"%(inv_date,rml_parser.formatLang(inv.result, currency_obj=inv.currency_id or inv.company_id.currency_id))
 			text+="\nSubTotal : %s\n"%(rml_parser.formatLang(total_unpaid, currency_obj=inv.currency_id or inv.company_id.currency_id))
 
