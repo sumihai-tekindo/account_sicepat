@@ -60,7 +60,10 @@ class account_invoice_collection(osv.osv_memory):
 				try:
 					import locale
 					locale.setlocale(locale.LC_TIME,"id_ID.UTF-8")
-					subst_date = datetime.strptime(subst_date,'%d-%b-%y')
+					try:
+						subst_date = datetime.strptime(subst_date,'%d-%b-%y')
+					except:
+						subst_date = datetime.strptime(subst_date,'%d-%m-%y')
 					locale.setlocale(locale.LC_TIME,"en_US.UTF-8")
 				except:
 					subst_date=False
