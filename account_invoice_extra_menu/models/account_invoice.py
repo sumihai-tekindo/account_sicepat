@@ -63,7 +63,7 @@ class account_invoice_collection(osv.osv_memory):
 					try:
 						subst_date = datetime.strptime(subst_date,'%d-%b-%y')
 					except:
-						subst_date = datetime.strptime(subst_date,'%d-%m-%y')
+						subst_date = datetime.strptime(subst_date,'%d-%m-%Y')
 					locale.setlocale(locale.LC_TIME,"en_US.UTF-8")
 				except:
 					subst_date=False
