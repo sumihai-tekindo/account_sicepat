@@ -102,7 +102,7 @@ class outstanding_followup_xls_parser(report_sxw.rml_parse):
 				where aml2.date<='%s'::timestamp -INTERVAL '30 days' and aml2.reconcile_partial_id is not NULL
 				group by aml2.reconcile_partial_id) partial on aml.reconcile_partial_id=partial.reconcile_partial_id
 			where 
-			aml.date<='%s'::timestamp -INTERVAL '30 days'
+			aml.date_maturity<='%s'::timestamp -INTERVAL '30 days'
 			and aa.type='receivable'
 			and aml.reconcile_id is NULL
 			group by rpu.name,aml.partner_id
