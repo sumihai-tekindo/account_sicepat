@@ -72,7 +72,23 @@ class daily_receivable_xls_parser(report_sxw.rml_parse):
 		return res
 		
 	def get_nonamed(self,data,objects):
-		return 0.0
+		cr = self.cr
+		uid = self.uid
+		qq=''
+		start_date = data['start_date']
+		end_date = data['end_date']
+		query = """select 
+			sum(coalesce(aml2.credit,0.00)) as debit
+			from account_move_line aml
+			left join account_account aa on aml.account_id=aa.id
+			left join account_move_line aml2 on aml.reconcile_partial_id=aml2.reconcile_partial_id
+			where aa.type='receivable'
+			and aml.date<='%s'
+			and aml.reconcile_id is NULL
+			and aml.credit>0.00"""%(end_date)
+		cr.execute(query)
+		result = cr.dictfetchone()
+		return result or 0.00
 class daily_receivable_xls(report_xls):
 
 	def __init__(self, name, table, rml=False, parser=False, header=True,
@@ -172,12 +188,16 @@ class daily_receivable_xls(report_xls):
 				ws.write(row_pos,col_pos+1,xlwt.Formula("SUM($"+chr_ord+"$10:$"+chr_ord+"$"+str(row_pos)+")"),subtotal_style2)
 				col_pos+=2
 			row_pos+=1
+			PIUTANG_NN=_p.get_nonamed(data,objects)
+			print "xxxxxxxxxxxxxxxxxxxxx",PIUTANG_NN
 			ws.write(row_pos,0,"Total Piutang",subtotal_style2)
 			ws.write(row_pos,1,GRANDTOTAL,subtotal_style2)
 			row_pos +=1
 			ws.write(row_pos,0,"Tanpa Keterangan",subtotal_style2)
-			ws.write(row_pos,1,_p.get_nonamed(data,objects),subtotal_style2)
-
+			ws.write(row_pos,1,PIUTANG_NN['debit'],subtotal_style2)
+			row_pos +=1
+			ws.write(row_pos,0,"TOTAL",subtotal_style2)
+			ws.write(row_pos,1,GRANDTOTAL-PIUTANG_NN['debit'],subtotal_style2)
 
 daily_receivable_xls('report.daily.receivable.report.xls', 'account.move.line',
 					parser=daily_receivable_xls_parser)
