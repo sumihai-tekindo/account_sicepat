@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_account_invoice_filter_topay" model="ir.ui.view">
+            <field name="name">account.invoice.select.topay</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+            	<filter name="invoices" position="before">
+            		<filter name="tobe_paid" string="To be Paid" domain="[('state','not in',['draft','paid','cancel'])]" help="Invoices to be Paid"/>
+            	</filter>
+            </field>
+        </record>
+		<record id="action_invoice_tobe_paid_report_xls" model="ir.actions.report.xml">
+			<field name="name">To be Paid</field>
+			<field name="model">account.invoice</field>
+			<field name="type">ir.actions.report.xml</field>
+			<field name="report_name">invoice.tobe_paid.report.xls</field>
+			<field name="report_type">xls</field>
+			<field name="multi" eval="True"/>
+		</record>
+        <record model="ir.values" id="values_invoice_tobe_paid_report_xls">
+            <field name="model_id" ref="account.model_account_invoice" />
+            <field name="name">invoice_tobe_paid_report_xls</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.report.xml,' + str(ref('invoice_topay_report.action_invoice_tobe_paid_report_xls'))" />
+            <field name="key">action</field>
+            <field name="model">account.invoice</field>
+            <field name="groups_id" eval="[(4, ref('invoice_topay_report.group_invoices_tobe_paid'))]"/>
+        </record>
+    </data>
+</openerp>
+    	
