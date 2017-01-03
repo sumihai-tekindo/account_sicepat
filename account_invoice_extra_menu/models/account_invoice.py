@@ -52,19 +52,26 @@ class account_invoice_collection(osv.osv_memory):
 			cust = []
 			total_unpaid = 0.0
 			text = "%s \n"%(invoices and invoices[0] and invoices[0].partner_id and invoices[0].partner_id.name)
+			import locale
+			import re
 			for inv in invoices:
 				cust.append(inv.partner_id and inv.partner_id.id)
 				total_unpaid += inv.result or 0.0
-				
+				result = re.findall("(\d\d)\-(.*?)\-(\w+)",inv.name)
+				substring=False
+				if result and result[0]:
+					substring=result[0][0]+"-"+result[0][1]+result[0][2]
 				subst_date = False
 				try:
-					import locale
-					locale.setlocale(locale.LC_TIME,"id_ID.UTF-8")
 					try:
-						substring=inv.name[-12:]
-						subst_date = datetime.strptime(substring,'%d-%b-%y')
+						try:
+							locale.setlocale(locale.LC_TIME,"id_ID.UTF-8")
+							subst_date = datetime.strptime(substring,'%d-%b-%y')
+						except:
+							locale.setlocale(locale.LC_TIME,"en_US.UTF-8")
+							subst_date = datetime.strptime(substring,'%d-%b-%y')
 					except:
-						substring=inv.name[-10:]
+						locale.setlocale(locale.LC_TIME,"en_US.UTF-8")
 						subst_date = datetime.strptime(substring,'%d-%m-%Y')
 					locale.setlocale(locale.LC_TIME,"en_US.UTF-8")
 				except:
@@ -73,6 +80,7 @@ class account_invoice_collection(osv.osv_memory):
 				if subst_date and subst_date != inv_date:
 					inv_date = subst_date
 				inv_date=datetime.strftime(inv_date,'%Y-%m-%d')
+				print "xxxxxxxxxxxxxxxxxxxxxxxxxxx",inv_date
 				text += "%s %s\n"%(inv_date,rml_parser.formatLang(inv.result, currency_obj=inv.currency_id or inv.company_id.currency_id))
 			text+="\nSubTotal : %s\n"%(rml_parser.formatLang(total_unpaid, currency_obj=inv.currency_id or inv.company_id.currency_id))
 
