@@ -61,7 +61,7 @@ class account_invoice_collection(osv.osv_memory):
 				substring=False
 				if result and result[0]:
 					substring=result[0][0]+"-"+result[0][1]+"-"+result[0][2]
-				print "substring----------",substring
+
 				subst_date = False
 				try:
 					try:
