@@ -55,15 +55,17 @@ class account_invoice_collection(osv.osv_memory):
 			for inv in invoices:
 				cust.append(inv.partner_id and inv.partner_id.id)
 				total_unpaid += inv.result or 0.0
-				substring=inv.name[-10:]
+				
 				subst_date = False
 				try:
 					import locale
 					locale.setlocale(locale.LC_TIME,"id_ID.UTF-8")
 					try:
-						subst_date = datetime.strptime(subst_date,'%d-%b-%y')
+						substring=inv.name[-12:]
+						subst_date = datetime.strptime(substring,'%d-%b-%y')
 					except:
-						subst_date = datetime.strptime(subst_date,'%d-%m-%Y')
+						substring=inv.name[-10:]
+						subst_date = datetime.strptime(substring,'%d-%m-%Y')
 					locale.setlocale(locale.LC_TIME,"en_US.UTF-8")
 				except:
 					subst_date=False
