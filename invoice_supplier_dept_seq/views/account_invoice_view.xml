@@ -26,6 +26,9 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.view_account_invoice_filter"/>
             <field name="arch" type="xml">
+            	<field name="period_id" position="after">
+            		<field name="department_id"/>
+            	</field>
             	<xpath expr="//filter[@string='Status']" position="after">
             		<filter name="group_by_dept" string="Department" context="{'group_by':'department_id'}" invisible="context.get('type') in ('out_invoice', 'out_refund')"/>
             	</xpath>
