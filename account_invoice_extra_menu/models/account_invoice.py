@@ -82,7 +82,7 @@ class account_invoice_collection(osv.osv_memory):
 				if subst_date and subst_date != inv_date:
 					inv_date = subst_date
 				inv_date=datetime.strftime(inv_date,'%Y-%m-%d')
-				print "xxxxxxxxxxxxxxxxxxxxxxxxxxx",inv_date,subst_date
+				
 				text += "%s %s\n"%(inv_date,rml_parser.formatLang(inv.result, currency_obj=inv.currency_id or inv.company_id.currency_id))
 			text+="\nSubTotal : %s\n"%(rml_parser.formatLang(total_unpaid, currency_obj=inv.currency_id or inv.company_id.currency_id))
 
