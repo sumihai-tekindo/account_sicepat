@@ -85,33 +85,11 @@ class account_invoice(models.Model):
     @api.multi
     def action_number(self):
         #TODO: not correct fix but required a fresh values before reading it.
+        res = super(account_invoice,self).action_number()
         self.write({})
 
         for inv in self:
-            self.write({'internal_number': inv.number})
-
             if not inv.unrevisioned_name:
                 self.write({'unrevisioned_name': inv.number})
-                
-            if inv.type in ('in_invoice', 'in_refund'):
-                if not inv.reference:
-                    ref = inv.number
-                else:
-                    ref = inv.reference
-            else:
-                ref = inv.number
-
-            self._cr.execute(""" UPDATE account_move SET ref=%s
-                           WHERE id=%s AND (ref IS NULL OR ref = '')""",
-                        (ref, inv.move_id.id))
-            self._cr.execute(""" UPDATE account_move_line SET ref=%s
-                           WHERE move_id=%s AND (ref IS NULL OR ref = '')""",
-                        (ref, inv.move_id.id))
-            self._cr.execute(""" UPDATE account_analytic_line SET ref=%s
-                           FROM account_move_line
-                           WHERE account_move_line.move_id = %s AND
-                                 account_analytic_line.move_id = account_move_line.id""",
-                        (ref, inv.move_id.id))
-            self.invalidate_cache()
-
+            
         return True
