@@ -98,6 +98,7 @@ class invoice_tobe_paid_xls(report_xls):
 
         # Column Line Rows
         c_line_cell_style = xlwt.easyxf(cell_format)
+        c_line_cell_style_center = xlwt.easyxf(cell_format + _xs['center'])
         c_line_cell_style_date = xlwt.easyxf(cell_format + _xs['right'], num_format_str='DD-MMM-YYYY')
         c_line_cell_style_decimal = xlwt.easyxf(cell_format + _xs['right'], num_format_str=report_xls.decimal_format)
         
@@ -115,7 +116,9 @@ class invoice_tobe_paid_xls(report_xls):
                 ]
                 if line_row == 0:
                     c_specs = [
-                        ('date_invoice', 1, 0, 'date', datetime.strptime(inv.date_invoice, DF), None, c_line_cell_style_date),
+                        inv.date_invoice and
+                        ('date_invoice', 1, 0, 'date', datetime.strptime(inv.date_invoice, DF), None, c_line_cell_style_date) or
+                        ('date_invoice', 1, 0, 'text', '-', None, c_line_cell_style_center),
                         ('bank_name', 1, 0, 'text', inv.partner_bank_id.bank_name, None, c_line_cell_style),
                         ('bank_account', 1, 0, 'text', inv.partner_bank_id.acc_number, None, c_line_cell_style),
                         ('bank_owner', 1, 0, 'text', inv.partner_bank_id.owner_name, None, c_line_cell_style),
