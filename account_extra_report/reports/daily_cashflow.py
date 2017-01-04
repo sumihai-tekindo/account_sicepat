@@ -168,13 +168,16 @@ class daily_cashflow_xls(report_xls):
 			SUBTOTAL_D =0.0
 			SUBTOTAL_C =0.0
 			GRANDTOTAL =0.0
+			prev_date = False
 			for cash in cashflow:
-				print "===========>",cash
+				
 				ws.write(row_pos,0,cash['date'],normal_style)
-				ws.write(row_pos,1,cash['credit'],normal_style_float)
+				if cash['date']!=prev_date:
+					ws.write(row_pos,1,cash['credit'],normal_style_float)
+					prev_date = cash['credit']
+					SUBTOTAL_C +=cash['credit'] or 0.00
 				ws.write(row_pos,2,cash['name'],normal_style_float)
 				ws.write(row_pos,3,cash['debit'],normal_style_float)
-				SUBTOTAL_C +=cash['credit'] or 0.00
 				SUBTOTAL_D +=cash['debit'] or 0.00
 				row_pos+=1
 
