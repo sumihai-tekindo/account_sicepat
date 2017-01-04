@@ -24,7 +24,7 @@ class account_extra_report_wizard(osv.osv_memory):
 	def get_daily_receivable(self,cr,uid,ids,wiz,context=None):
 		if not context:context={}
 		if not wiz.account_ids:
-			account_ids = self.pool.get('account.account').search(cr,uid,[('type','=','receivable')])
+			account_ids = self.pool.get('account.account').search(cr,uid,[('type','=','receivable'),('reconcile','=',True)])
 		else:
 			account_ids = [x.id for x in wiz.account_ids]
 		credit_note_journal = self.pool.get('account.journal').search(cr,uid,[('type','=','sale_refund')])

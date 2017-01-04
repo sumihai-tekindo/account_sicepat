@@ -78,6 +78,7 @@ class outstanding_followup_xls_parser(report_sxw.rml_parse):
 				group by aml2.reconcile_partial_id) partial on aml.reconcile_partial_id=partial.reconcile_partial_id
 			where 
 			aml.date<='%s'
+			and aa.reconcile=True
 			and aa.type='receivable'
 			and aml.reconcile_id is NULL
 			group by rpu.name,aml.partner_id
@@ -103,6 +104,7 @@ class outstanding_followup_xls_parser(report_sxw.rml_parse):
 				group by aml2.reconcile_partial_id) partial on aml.reconcile_partial_id=partial.reconcile_partial_id
 			where 
 			aml.date_maturity<='%s'::timestamp -INTERVAL '30 days'
+			and aa.reconcile=True
 			and aa.type='receivable'
 			and aml.reconcile_id is NULL
 			group by rpu.name,aml.partner_id

@@ -70,6 +70,7 @@ class monthly_cashflow_xls_parser(report_sxw.rml_parse):
 			aml.date>='%s'
 			and aml.date<='%s'
 			and aa.type='receivable'
+			and aa.reconcile=True
 			and aj.type!='sale_refund'
 			and aml.credit>0.0
 			and (aml.reconcile_id is NOT NULL or aml.reconcile_partial_id is NOT NULL)
@@ -85,6 +86,7 @@ class monthly_cashflow_xls_parser(report_sxw.rml_parse):
 			aml2.date>='%s'
 			and aml2.date<='%s'
 			and aa2.type='payable'
+			and aa2.reconcile=True
 			and aj2.type!='purchase_refund'
 			and aml2.debit>0.0
 			and (aml2.reconcile_id is NOT NULL or aml2.reconcile_partial_id is NOT NULL)
