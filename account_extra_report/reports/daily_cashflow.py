@@ -174,7 +174,7 @@ class daily_cashflow_xls(report_xls):
 				ws.write(row_pos,0,cash['date'],normal_style)
 				if cash['date']!=prev_date:
 					ws.write(row_pos,1,cash['credit'],normal_style_float)
-					prev_date = cash['credit']
+					prev_date = cash['date']
 					SUBTOTAL_C +=cash['credit'] or 0.00
 				ws.write(row_pos,2,cash['name'],normal_style_float)
 				ws.write(row_pos,3,cash['debit'],normal_style_float)
