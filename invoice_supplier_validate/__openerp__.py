@@ -46,6 +46,8 @@ Validation on Supplier Invoices
     # any module necessary for this one to work correctly
     'depends': [
         'account',
+        'purchase',
+        'purchase_requisition',
     ],
 
     # always loaded
@@ -54,6 +56,7 @@ Validation on Supplier Invoices
         'views/account_invoice_view.xml',
         'views/account_invoice_workflow.xml',
         'wizard/account_invoice_state.xml',
+        'views/purchase_order_view.xml',
     ],
 
     # only loaded in demonstration mode
