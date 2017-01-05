@@ -40,6 +40,9 @@ class account_invoice_collection(osv.osv_memory):
 			if aml_ids:
 				amls = self.pool.get('account.move.line').browse(cr,uid,aml_ids)
 				for aml in amls :
+					if aml.amount_residual>0.0:
+					
+						unreconciled+= aml.amount_residual
 					unreconciled+= aml.amount_residual
 				text+="Lebih bayar : %s"%(rml_parser.formatLang(abs(unreconciled), currency_obj=inv.currency_id))
 			text+="\nTotal : %s\n"%(rml_parser.formatLang((total_unpaid-abs(unreconciled)), currency_obj=inv.currency_id))
@@ -56,7 +59,8 @@ class account_invoice_collection(osv.osv_memory):
 			import re
 			for inv in invoices:
 				cust.append(inv.partner_id and inv.partner_id.id)
-				total_unpaid += inv.result or 0.0
+				total_unpaid += inv.amount_residual or 0.0
+				# print "=================",inv.amount_residual,total_unpaid
 				result = re.findall("(\d\d)\-(.*?)\-(\w+)",inv.name)
 				substring=False
 				if result and result[0]:
@@ -83,7 +87,7 @@ class account_invoice_collection(osv.osv_memory):
 					inv_date = subst_date
 				inv_date=datetime.strftime(inv_date,'%Y-%m-%d')
 				
-				text += "%s %s\n"%(inv_date,rml_parser.formatLang(inv.result, currency_obj=inv.currency_id or inv.company_id.currency_id))
+				text += "%s %s\n"%(inv_date,rml_parser.formatLang(inv.amount_residual, currency_obj=inv.currency_id or inv.company_id.currency_id))
 			text+="\nSubTotal : %s\n"%(rml_parser.formatLang(total_unpaid, currency_obj=inv.currency_id or inv.company_id.currency_id))
 
 			unreconciled_payment = [('partner_id','=',inv.partner_id and inv.partner_id.id),('reconcile_id','=',False),('account_id.type','=','receivable'),('credit','>',0.0)]
@@ -93,7 +97,9 @@ class account_invoice_collection(osv.osv_memory):
 			if aml_ids:
 				amls = self.pool.get('account.move.line').browse(cr,uid,aml_ids)
 				for aml in amls :
-					unreconciled+= aml.amount_residual
+					if aml.amount_residual>0.0:
+						
+						unreconciled+= aml.amount_residual
 				text+="Lebih bayar : %s"%(rml_parser.formatLang(abs(unreconciled), currency_obj=inv.currency_id))
 			text+="\nTotal : %s\n"%(rml_parser.formatLang((total_unpaid-abs(unreconciled)), currency_obj=inv.currency_id))
 			text+="\nPembayaran dapat melalui : \n\nBANK BCA \nNO rekening : 270 390 3088 \nAtas Nama: Sicepat Ekspres Indonesia\n\nBANK MANDIRI \nNO rekening : 121 000 655 7171 \nAtas Nama : Sicepat Ekspres Indonesia"
