@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_bank_statement_form2_analytic" model="ir.ui.view">
+            <field name="name">account.bank.statement.form</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account.view_bank_statement_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook/page[@string='Cash Transactions']/field/tree/field[@name='partner_id']" position="before">
+                	<field name="account_id" required="1" domain="[('type', 'not in', ('view', 'closed', 'consolidation'))]"/>
+                	<field name="analytic_account_id"/>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page[@string='Cash Transactions']/field/form/group/field[@name='partner_id']" position="before">
+                	<field name="account_id" required="1" domain="[('type', 'not in', ('view', 'closed', 'consolidation'))]"/>
+                	<field name="analytic_account_id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
+    	

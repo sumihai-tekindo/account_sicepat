@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="cash_bank_analytic_journal" model="account.analytic.journal">
+            <field name="code">CSBK</field>
+            <field name="name">Cash and Bank Journal</field>
+            <field name="type">cash</field>
+        </record>
+        
+    </data>
+</openerp>
