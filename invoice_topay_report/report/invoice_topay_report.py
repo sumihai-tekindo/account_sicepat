@@ -19,12 +19,16 @@
 #
 ##############################################################################
 
+import pytz
+import logging
 import xlwt
 from datetime import datetime
 from openerp.addons.report_xls.report_xls import report_xls
 from openerp.report import report_sxw
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 from openerp.tools.translate import _
+
+_logger = logging.getLogger(__name__)
 
 class report_invoice_tobe_paid_xls(report_sxw.rml_parse):
     def __init__(self, cr, uid, name, context=None):
@@ -66,7 +70,17 @@ class invoice_tobe_paid_xls(report_xls):
 
         # print datetime
         cell_style = xlwt.easyxf(_xs['bold'])
-        datetime_print = datetime.now().strftime('%d-%B-%Y %H:%M:%S')
+        today = datetime.utcnow()
+        context_today = None
+        tz_name = _p.user.tz
+        if tz_name:
+            try:
+                today_utc = pytz.timezone('UTC').localize(today, is_dst=False)  # UTC = no DST
+                context_today = today_utc.astimezone(pytz.timezone(tz_name))
+            except Exception:
+                _logger.debug("failed to compute context/client-specific today date, using UTC value for `today`",
+                    exc_info=True)
+        datetime_print = (context_today or today).strftime('%d-%B-%Y %H:%M:%S')
         c_specs = [
             ('report_name', 1, 0, 'text', datetime_print),
         ]
