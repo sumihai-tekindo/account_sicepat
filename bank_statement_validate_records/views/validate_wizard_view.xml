@@ -1,0 +1,57 @@
+<openerp>
+	<data>
+		<record id="bank_statement_validate_wiz_form" model="ir.ui.view">
+			<field name="name">bank.statement.validate.wiz.form</field>
+			<field name="model">bank.statement.validate.wiz</field>
+			<field name="arch" type="xml">
+				<form string="Open/Close Cash Registers">
+					<footer>
+						<button name="open_close_bank_statement" type="object" string="Open Cash Box" class="oe_highlight" invisible="context.get('action_button',False)=='open' and True"/>
+						<button name="open_close_bank_statement" type="object" string="Close Cash Box" class="oe_highlight" invisible="context.get('action_button',False)=='close' and True"/>
+						<button string="Cancel" class="oe_link" special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_bank_statement_validate_wiz" model="ir.actions.act_window">
+            <field name="name">Open Cash Register</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">bank.statement.validate.wiz</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="bank_statement_validate_wiz_form"/>
+            <field name="context">{'action_button':'open'}</field>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.values" id="action_bank_statement_validate_wiz_values">
+            <field name="model_id" ref="bank_statement_validate_records.model_bank_statement_validate_wiz" />
+            <field name="name">Open Cash Register</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_bank_statement_validate_wiz'))" />
+            <field name="key">action</field>
+            <field name="model">account.bank.statement</field>
+        </record>
+
+        <record id="action_bank_statement_validate_wiz_2" model="ir.actions.act_window">
+            <field name="name">Close Cash Register</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">bank.statement.validate.wiz</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="bank_statement_validate_wiz_form"/>
+            <field name="context">{'action_button':'close'}</field>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.values" id="action_bank_statement_validate_wiz_2_values">
+            <field name="model_id" ref="bank_statement_validate_records.model_bank_statement_validate_wiz" />
+            <field name="name">Close Cash Register</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_bank_statement_validate_wiz_2'))" />
+            <field name="key">action</field>
+            <field name="model">account.bank.statement</field>
+        </record>
+	</data>
+</openerp>
