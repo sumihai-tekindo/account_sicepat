@@ -20,47 +20,23 @@
 ##############################################################################
 
 {
-    'name': "Validation on Supplier Invoices",
-
-    'summary': """
-        Validation on Supplier Invoices
-    """,
-
+    'name' : 'Groups for Double Validation on Purchases',
+    'version' : '1.0',
+    'category': 'Purchase Management',
+    'depends' : ['base','purchase'],
+    'author' : 'Pambudi Satria',
     'description': """
-===============================
-Validation on Supplier Invoices
-===============================
-
-
     """,
-
-    'author': "Pambudi Satria",
-    'website': "https://github.com/sumihai-tekindo",
-
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/master/openerp/addons/base/module/module_data.xml
-    # for the full list
-    'category': 'Accounting & Finance',
-    'version': '8.0.0.1.0',
-
-    # any module necessary for this one to work correctly
-    'depends': [
-        'account',
-    ],
-
-    # always loaded
+    'website': 'https://github.com/sumihai-tekindo',
     'data': [
-        'security/account_security.xml',
-        'views/account_invoice_view.xml',
-        'views/account_invoice_workflow.xml',
-        'wizard/account_invoice_state.xml',
+        'purchase_double_validation_security.xml',
+        'purchase_double_validation_view.xml',
+        'purchase_double_validation_wizard.xml',
     ],
-
-    # only loaded in demonstration mode
-    'demo': [
-    ],
-
-    'qweb': [],
+    'test': [],
+    'demo': [],
     'installable': True,
-    'auto_install': False,
+    'auto_install': False
 }
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

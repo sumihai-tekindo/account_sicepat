@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+    	<record id="purchase_order_form" model="ir.ui.view">
+            <field name="name">purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+            	<data>
+            		<xpath expr="/form/header/button[@id='draft_confirm']" position="attributes">
+            			<attribute name="groups">purchase_group_double_validation.group_confirm_po</attribute>
+            		</xpath>
+            		<xpath expr="/form/header/button[@id='bid_confirm']" position="attributes">
+            			<attribute name="groups">purchase_group_double_validation.group_confirm_po</attribute>
+            		</xpath>
+            		<xpath expr="/form/header/button[@name='purchase_approve']" position="attributes">
+            			<attribute name="groups">purchase_group_double_validation.group_approve_po</attribute>
+            		</xpath>
+            	</data>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="purchase_order_confirm_view" model="ir.ui.view">
+            <field name="name">purchase.order.confirm.form</field>
+            <field name="model">purchase.order.confirm</field>
+            <field name="arch" type="xml">
+                <form string="Confirm Order">
+                    <p class="oe_grey">
+                        This wizard will confirm the all the selected Draft PO, RFQ or Bid Received orders.
+                    </p>
+                    <footer>
+                        <button string="Confirm Order" name="purchase_confirm" type="object" default_focus="1" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_purchase_order_confirm" model="ir.actions.act_window">
+            <field name="name">Confirm Order</field>
+            <field name="res_model">purchase.order.confirm</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="purchase_group_double_validation.purchase_order_confirm_view"/>
+            <field name="target">new</field>
+        </record>
+        <record model="ir.values" id="values_purchase_order_confirm">
+            <field name="model_id" ref="purchase.model_purchase_order" />
+            <field name="name">action_purchase_order_confirm</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('purchase_group_double_validation.action_purchase_order_confirm'))" />
+            <field name="key">action</field>
+            <field name="model">purchase.order</field>
+            <field name="groups_id" eval="[(4, ref('purchase_group_double_validation.group_confirm_po'))]"/>
+        </record>
+
+        <record id="purchase_order_approve_view" model="ir.ui.view">
+            <field name="name">purchase.order.approve.form</field>
+            <field name="model">purchase.order.approve</field>
+            <field name="arch" type="xml">
+                <form string="Approve Order">
+                    <p class="oe_grey">
+                        This wizard will Approve the all the selected Waiting Approval orders.
+                    </p>
+                    <footer>
+                        <button string="Approve Order" name="purchase_approve" type="object" default_focus="1" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_purchase_order_approve" model="ir.actions.act_window">
+            <field name="name">Approve Order</field>
+            <field name="res_model">purchase.order.approve</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="purchase_group_double_validation.purchase_order_approve_view"/>
+            <field name="target">new</field>
+        </record>
+        <record model="ir.values" id="values_purchase_order_approve">
+            <field name="model_id" ref="purchase.model_purchase_order" />
+            <field name="name">action_purchase_order_approve</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('purchase_group_double_validation.action_purchase_order_approve'))" />
+            <field name="key">action</field>
+            <field name="model">purchase.order</field>
+            <field name="groups_id" eval="[(4, ref('purchase_group_double_validation.group_approve_po'))]"/>
+        </record>
+
+    </data>
+</openerp>
