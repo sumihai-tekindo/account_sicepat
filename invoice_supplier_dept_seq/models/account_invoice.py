@@ -19,6 +19,7 @@
 #
 ##############################################################################
 
+from openerp import api
 from openerp.osv import osv, fields
 from openerp.osv.expression import get_unaccent_wrapper
 
@@ -47,8 +48,9 @@ class account_invoice(osv.Model):
         
         if context.get('type', False) in ('in_invoice', 'in_refund') or (vals.get('type') and vals['type'] in ('in_invoice', 'in_refund')):
             if journal.sequence_id:
-                context['ir_sequence_date'] = date_invoice
-                number = obj_sequence.next_by_id(cr, uid, journal.sequence_id.id, context)
+                ctx = dict(context)
+                ctx['ir_sequence_date'] = date_invoice
+                number = obj_sequence.next_by_id(cr, uid, journal.sequence_id.id, ctx)
             else:
                 raise osv.except_osv(_('Error!'), _('Please define a sequence on the journal.'))
             if number:
@@ -59,6 +61,13 @@ class account_invoice(osv.Model):
         if context.get('type', False) in ('in_invoice', 'in_refund') or (vals.get('type') and vals['type'] in ('in_invoice', 'in_refund')):
             self.write(cr, uid, [res_id], {'number': number})
         return res_id
+
+    @api.multi
+    def action_cancel(self):
+        res = super(account_invoice, self).action_cancel()
+        if self.type in ('in_invoice', 'in_refund'):
+            self.write({'number': self.internal_number})
+        return res
 
 class account_invoice_department(osv.Model):
     _name = "account.invoice.department"

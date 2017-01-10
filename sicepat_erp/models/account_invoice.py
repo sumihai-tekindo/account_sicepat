@@ -217,6 +217,30 @@ class account_invoice(models.Model):
         return result
 
     # CRUD methods
+    @api.model
+    def create(self, vals):
+        type = vals.get('type', False) or self._context.get('type', False)
+        partner_id = vals.get('partner_id', False)
+        date_invoice = vals.get('date_invoice', False)
+        payment_term = vals.get('payment_term', False)
+        partner_bank_id = vals.get('partner_bank_id', False)
+        company_id = vals.get('company_id', False)
+        if partner_id and not vals.get('user_id'):
+            res_partner = self.onchange_partner_id(type, partner_id, date_invoice=date_invoice, \
+                payment_term=payment_term, partner_bank_id=partner_bank_id, company_id=company_id)
+            vals['user_id'] = res_partner['value']['user_id']
+            vals['payment_term'] = res_partner['value']['payment_term']
+        return super(account_invoice, self).create(vals)
+    
+    @api.multi
+    def write(self, vals):
+        self.ensure_one()
+        partner_id = vals.get('partner_id', False) or self.partner_id.id
+        if partner_id:
+            p = self.env['res.partner'].browse(partner_id)
+            if self.type in ('out_invoice', 'out_refund'):
+                vals['user_id'] = p.user_id and p.user_id.id or self.env.user.id
+        return super(account_invoice, self).write(vals)
 
 
     # Action methods
