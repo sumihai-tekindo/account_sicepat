@@ -225,11 +225,13 @@ class account_invoice(models.Model):
         payment_term = vals.get('payment_term', False)
         partner_bank_id = vals.get('partner_bank_id', False)
         company_id = vals.get('company_id', False)
-        if partner_id and not vals.get('user_id'):
+        if partner_id:
             res_partner = self.onchange_partner_id(type, partner_id, date_invoice=date_invoice, \
                 payment_term=payment_term, partner_bank_id=partner_bank_id, company_id=company_id)
-            vals['user_id'] = res_partner['value']['user_id']
-            vals['payment_term'] = res_partner['value']['payment_term']
+            if not vals.get('user_id'):
+                vals['user_id'] = res_partner['value']['user_id']
+            if not vals.get('payment_term'):
+                vals['payment_term'] = res_partner['value']['payment_term']
         return super(account_invoice, self).create(vals)
     
     @api.multi
