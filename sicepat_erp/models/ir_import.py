@@ -534,7 +534,11 @@ def import_one_chunk(session, res_model, att_id, options):
     if error_message:
         raise FailedJobError('\n'.join(error_message))
     if res_model == 'account.invoice':
-        model_obj.browse(session.cr, session.uid, result['ids']).signal_workflow('invoice_open')
+        if result['ids']:
+            from openerp import workflow
+            for res_id in result['ids']:
+                workflow.trg_validate(session.uid, res_model, res_id, 'invoice_open', session.cr)
+#         model_obj.browse(session.cr, session.uid, result['ids']).signal_workflow('invoice_open')
     return result
 
 openerp.addons.base_import_async.models.base_import_async.import_one_chunk = import_one_chunk
