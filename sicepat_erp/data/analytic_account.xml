@@ -1,470 +1,1097 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
 	<data noupdate="1">
-	    <record id="GadingSerpong01" model="account.analytic.account">
-	        <field name="code">1303002</field>
-	        <field name="name">Banten / Tangerang Selatan / Melati Mas</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="Denpasar01" model="account.analytic.account">
-	        <field name="code">1701001</field>
-	        <field name="name">Bali / Denpasar / Pelita</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="Palembang01" model="account.analytic.account">
-	        <field name="code">0701001</field>
-	        <field name="name">Sumatera Selatan / Palembang / Angkatan 45</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="Jogja01" model="account.analytic.account">
-	        <field name="code">1501001</field>
-	        <field name="name">Daerah Istimewa Yogyakarta / Yogyakarta / Sagan</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="Makasar01" model="account.analytic.account">
-	        <field name="code">2901001</field>
-	        <field name="name">Sulawesi Selatan / Makassar / Pelita Raya</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="Roxy01" model="account.analytic.account">
-	        <field name="code">3601001</field>
-	        <field name="name">Kantor Pusat / Kantor Pusat</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="Lampung01" model="account.analytic.account">
-	        <field name="code">1001001</field>
-	        <field name="name">Lampung / Bandar Lampung / Teluk Betung</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="JakartaBarat01" model="account.analytic.account">
-	        <field name="code">1103002</field>
-	        <field name="name">DKI Jakarta / Jakarta Barat / Daan Mogot</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="JakartaTimur01" model="account.analytic.account">
-	        <field name="code">1105001</field>
-	        <field name="name">DKI Jakarta / Jakarta Timur / Cawang</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="JakartaSelatan01" model="account.analytic.account">
-	        <field name="code">1104001</field>
-	        <field name="name">DKI Jakarta / Jakarta Selatan / Mampang</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="Lause01" model="account.analytic.account">
-	        <field name="code">1101001</field>
-	        <field name="name">DKI Jakarta / Jakarta Pusat / Lautze</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="BandungTimur01" model="account.analytic.account">
-	        <field name="code">1201002</field>
-	        <field name="name">Jawa Barat / Bandung / Bandung Timur</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="Cengkareng01" model="account.analytic.account">
-	        <field name="code">1103001</field>
-	        <field name="name">DKI Jakarta / Jakarta Barat / Cengkareng</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="Sangiang01" model="account.analytic.account">
-	        <field name="code">1302001</field>
-	        <field name="name">Banten / Tangerang / Sangiang</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="Cikarang01" model="account.analytic.account">
-	        <field name="code">1209002</field>
-	        <field name="name">Jawa Barat / Bekasi / Cikarang</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="Cempaka" model="account.analytic.account">
-	        <field name="code">1102001</field>
-	        <field name="name">DKI Jakarta / Jakarta Utara / Cempaka Putih</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="BandungCimahi01" model="account.analytic.account">
-	        <field name="code">1206001</field>
-	        <field name="name">Jawa Barat / Cimahi / Cimahi1</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="KebonJeruk01" model="account.analytic.account">
-	        <field name="code">1103004</field>
-	        <field name="name">DKI Jakarta / Jakarta Barat / Kebon Jeruk</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="Bekasi01" model="account.analytic.account">
-	        <field name="code">1209001</field>
-	        <field name="name">Jawa Barat / Bekasi / Delta Pekayon</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="Depok01" model="account.analytic.account">
-	        <field name="code">1208001</field>
-	        <field name="name">Jawa Barat / Depok / Beji Timur</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="Bandung01" model="account.analytic.account">
-	        <field name="code">1201001</field>
-	        <field name="name">Jawa Barat / Bandung / Ciateul</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="Batam01" model="account.analytic.account">
-	        <field name="code">0502001</field>
-	        <field name="name">Kepulauan Riau / Batam / Batam Centre</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="Surabaya01" model="account.analytic.account">
-	        <field name="code">1601001</field>
-	        <field name="name">Jawa Timur / Surabaya / Gubeng Kertajaya</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="Bogor01" model="account.analytic.account">
-	        <field name="code">1207001</field>
-	        <field name="name">Jawa Barat / Bogor / Tanah Sereal</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="Purwakarta01" model="account.analytic.account">
-	        <field name="code">1210001</field>
-	        <field name="name">Jawa Barat / Purwakarta / Purwakarta1</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="Semarang01" model="account.analytic.account">
-	        <field name="code">1401001</field>
-	        <field name="name">Jawa Tengah / Semarang / Suratmo</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="Medan01" model="account.analytic.account">
-	        <field name="code">0201001</field>
-	        <field name="name">Sumatera Utara / Medan / Brigjend Katamso</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="0101001" model="account.analytic.account">
-	        <field name="code">0101001</field>
-	        <field name="name">Nanggro Aceh Darussalam / Banda Aceh / Keudah</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="0301001" model="account.analytic.account">
-	        <field name="code">0301001</field>
-	        <field name="name">Sumatera Barat / Padang / Veteran</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="0401001" model="account.analytic.account">
-	        <field name="code">0401001</field>
-	        <field name="name">Riau / Pekan Baru / Paus Ujung</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="0501001" model="account.analytic.account">
-	        <field name="code">0501001</field>
-	        <field name="name">Kepulauan Riau / Tanjung Pinang / Srikaton</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="0601001" model="account.analytic.account">
-	        <field name="code">0601001</field>
-	        <field name="name">Jambi / Jambi / P. Antasari</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="0801001" model="account.analytic.account">
-	        <field name="code">0801001</field>
-	        <field name="name">Bangka Belitung / Pangkal Pinang / Tanjung Pandan</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="0901001" model="account.analytic.account">
-	        <field name="code">0901001</field>
-	        <field name="name">Bengkulu / Bengkulu / Timur Indah</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1101002" model="account.analytic.account">
-	        <field name="code">1101002</field>
-	        <field name="name">DKI Jakarta / Jakarta Pusat / Toko ITC Roxy Mas</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1101003" model="account.analytic.account">
-	        <field name="code">1101003</field>
-	        <field name="name">DKI Jakarta / Jakarta Pusat / Toko ITC Cempaka Mas</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1101004" model="account.analytic.account">
-	        <field name="code">1101004</field>
-	        <field name="name">DKI Jakarta / Jakarta Pusat / Toko Pasar Senen</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1101005" model="account.analytic.account">
-	        <field name="code">1101005</field>
-	        <field name="name">DKI Jakarta / Jakarta Pusat / Toko Tanah Abang</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1101006" model="account.analytic.account">
-	        <field name="code">1101006</field>
-	        <field name="name">DKI Jakarta / Jakarta Pusat / Bendungan Hilir</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1101007" model="account.analytic.account">
-	        <field name="code">1101007</field>
-	        <field name="name">DKI Jakarta / Jakarta Pusat / Salemba</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1102002" model="account.analytic.account">
-	        <field name="code">1102002</field>
-	        <field name="name">DKI Jakarta / Jakarta Utara / Toko ITC Mangga Dua</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1102003" model="account.analytic.account">
-	        <field name="code">1102003</field>
-	        <field name="name">DKI Jakarta / Jakarta Utara / Teluk Gong</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1102004" model="account.analytic.account">
-	        <field name="code">1102004</field>
-	        <field name="name">DKI Jakarta / Jakarta Utara / Cilincing</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1103003" model="account.analytic.account">
-	        <field name="code">1103003</field>
-	        <field name="name">DKI Jakarta / Jakarta Barat / Toko Season City</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1103005" model="account.analytic.account">
-	        <field name="code">1103005</field>
-	        <field name="name">DKI Jakarta / Jakarta Barat / Tambora</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1103006" model="account.analytic.account">
-	        <field name="code">1103006</field>
-	        <field name="name">DKI Jakarta / Jakarta Barat / Pesing Poglar</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1104002" model="account.analytic.account">
-	        <field name="code">1104002</field>
-	        <field name="name">DKI Jakarta / Jakarta Selatan / Gandaria Selatan</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1104003" model="account.analytic.account">
-	        <field name="code">1104003</field>
-	        <field name="name">DKI Jakarta / Jakarta Selatan / Pasar Minggu</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1104004" model="account.analytic.account">
-	        <field name="code">1104004</field>
-	        <field name="name">DKI Jakarta / Jakarta Selatan / Toko ITC Kuningan</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1104005" model="account.analytic.account">
-	        <field name="code">1104005</field>
-	        <field name="name">DKI Jakarta / Jakarta Selatan / Pancoran</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1105002" model="account.analytic.account">
-	        <field name="code">1105002</field>
-	        <field name="name">DKI Jakarta / Jakarta Timur / Ciracas</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1105003" model="account.analytic.account">
-	        <field name="code">1105003</field>
-	        <field name="name">DKI Jakarta / Jakarta Timur / Duren Sawit</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1201003" model="account.analytic.account">
-	        <field name="code">1201003</field>
-	        <field name="name">Jawa Barat / Bandung / Bandung Selatan</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1202001" model="account.analytic.account">
-	        <field name="code">1202001</field>
-	        <field name="name">Jawa Barat / Garut / Citisung</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1203001" model="account.analytic.account">
-	        <field name="code">1203001</field>
-	        <field name="name">Jawa Barat / Sukabumi / Cisaat</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1204001" model="account.analytic.account">
-	        <field name="code">1204001</field>
-	        <field name="name">Jawa Barat / Tasikmalaya / Tasikmalaya1</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1205001" model="account.analytic.account">
-	        <field name="code">1205001</field>
-	        <field name="name">Jawa Barat / Cianjur / Cianjur1</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1207002" model="account.analytic.account">
-	        <field name="code">1207002</field>
-	        <field name="name">Jawa Barat / Bogor / Tapos</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1208002" model="account.analytic.account">
-	        <field name="code">1208002</field>
-	        <field name="name">Jawa Barat / Depok / Cimanggis</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1209003" model="account.analytic.account">
-	        <field name="code">1209003</field>
-	        <field name="name">Jawa Barat / Bekasi / Bekasi Utara</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1209004" model="account.analytic.account">
-	        <field name="code">1209004</field>
-	        <field name="name">Jawa Barat / Bekasi / Galaxy</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1209005" model="account.analytic.account">
-	        <field name="code">1209005</field>
-	        <field name="name">Jawa Barat / Bekasi / Bekasi Timur</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1209006" model="account.analytic.account">
-	        <field name="code">1209006</field>
-	        <field name="name">Jawa Barat / Bekasi / Bekasi Cakung</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1211001" model="account.analytic.account">
-	        <field name="code">1211001</field>
-	        <field name="name">Jawa Barat / Sumedang / Sumedang1</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1301001" model="account.analytic.account">
-	        <field name="code">1301001</field>
-	        <field name="name">Banten / Cilegon / Walantaka</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1302004" model="account.analytic.account">
-	        <field name="code">1302004</field>
-	        <field name="name">Banten / Tangerang / Tigaraksa</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1302005" model="account.analytic.account">
-	        <field name="code">1302005</field>
-	        <field name="name">Banten / Tangerang / Sepatan</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1302006" model="account.analytic.account">
-	        <field name="code">1302006</field>
-	        <field name="name">Banten / Tangerang / Ciledug</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1303003" model="account.analytic.account">
-	        <field name="code">1303003</field>
-	        <field name="name">Banten / Tangerang Selatan / Pamulang</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1402001" model="account.analytic.account">
-	        <field name="code">1402001</field>
-	        <field name="name">Jawa Tengah / Solo / Laweyan</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1403001" model="account.analytic.account">
-	        <field name="code">1403001</field>
-	        <field name="name">Jawa Tengah / Pemalang / Raya Petarukan</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1404001" model="account.analytic.account">
-	        <field name="code">1404001</field>
-	        <field name="name">Jawa Tengah / Blora / Blora1</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1405001" model="account.analytic.account">
-	        <field name="code">1405001</field>
-	        <field name="name">Jawa Tengah / Purwokerto / Jatisari</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1602001" model="account.analytic.account">
-	        <field name="code">1602001</field>
-	        <field name="name">Jawa Timur / Malang / Bandara Abdul Rahman Saleh</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1801001" model="account.analytic.account">
-	        <field name="code">1801001</field>
-	        <field name="name">Nusa Tenggara Barat / Mataram / Brawijaya</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="1901001" model="account.analytic.account">
-	        <field name="code">1901001</field>
-	        <field name="name">Nusa Tenggara Timur / Kupang / Kakatua</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="2001001" model="account.analytic.account">
-	        <field name="code">2001001</field>
-	        <field name="name">Kalimantan Barat / Pontianak / Adi Sucipto</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="2101001" model="account.analytic.account">
-	        <field name="code">2101001</field>
-	        <field name="name">Kalimantan Tengah / Palangkaraya / Penarung</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="2201001" model="account.analytic.account">
-	        <field name="code">2201001</field>
-	        <field name="name">Kalimantan Selatan / Banjarmasin / Gambut</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="2301001" model="account.analytic.account">
-	        <field name="code">2301001</field>
-	        <field name="name">Kalimantan Timur / Samarinda / P.Suryanata</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="2302001" model="account.analytic.account">
-	        <field name="code">2302001</field>
-	        <field name="name">Kalimantan Timur / Balikpapan / Sepinggan</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="2303001" model="account.analytic.account">
-	        <field name="code">2303001</field>
-	        <field name="name">Kalimantan Timur / Berau / Berau1</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="2401001" model="account.analytic.account">
-	        <field name="code">2401001</field>
-	        <field name="name">Kalimantan Utara / Tarakan / Kampung Bugis</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="2501001" model="account.analytic.account">
-	        <field name="code">2501001</field>
-	        <field name="name">Sulawesi Utara / Manado / Tuminting</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="2601001" model="account.analytic.account">
-	        <field name="code">2601001</field>
-	        <field name="name">Sulawesi Barat / Mamuju / Mamuju1</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="2701001" model="account.analytic.account">
-	        <field name="code">2701001</field>
-	        <field name="name">Sulawesi Tengah / Palu / Rajawali</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="2801001" model="account.analytic.account">
-	        <field name="code">2801001</field>
-	        <field name="name">Sulawesi Tenggara / Kendari / RA.Kartini</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="3001001" model="account.analytic.account">
-	        <field name="code">3001001</field>
-	        <field name="name">Gorontalo / Gorontalo / Beringin</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="3101001" model="account.analytic.account">
-	        <field name="code">3101001</field>
-	        <field name="name">Maluku / Ambon / Ambon1</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="3201001" model="account.analytic.account">
-	        <field name="code">3201001</field>
-	        <field name="name">Maluku Utara / Ternate / Bastiong Talangame</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="3301001" model="account.analytic.account">
-	        <field name="code">3301001</field>
-	        <field name="name">Papua Barat / Manokwari / Trikora Rendani</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="3401001" model="account.analytic.account">
-	        <field name="code">3401001</field>
-	        <field name="name">Papua / Jayapura / Youmakhe</field>
-	        <field name="type">normal</field>
-	    </record>
-	    <record id="3501001" model="account.analytic.account">
-	        <field name="code">3501001</field>
-	        <field name="name">Operasional Pusat / Operasional Pusat</field>
-	        <field name="type">normal</field>
-	    </record>
+		<record id="01" model="account.analytic.account">
+		  <field name="code">01</field>
+		  <field name="name">Nanggro Aceh Darussalam</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="0101" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.01"/>
+		  <field name="code">0101</field>
+		  <field name="name">Banda Aceh</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="0101001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.0101"/>
+		  <field name="code">0101001</field>
+		  <field name="name">Keudah</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="02" model="account.analytic.account">
+		  <field name="code">02</field>
+		  <field name="name">Sumatera Utara</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="0201" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.02"/>
+		  <field name="code">0201</field>
+		  <field name="name">Medan</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="Medan01" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.0201"/>
+		  <field name="code">0201001</field>
+		  <field name="name">Brigjend Katamso</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="03" model="account.analytic.account">
+		  <field name="code">03</field>
+		  <field name="name">Sumatera Barat</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="0301" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.03"/>
+		  <field name="code">0301</field>
+		  <field name="name">Padang</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="0301001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.0301"/>
+		  <field name="code">0301001</field>
+		  <field name="name">Veteran</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="04" model="account.analytic.account">
+		  <field name="code">04</field>
+		  <field name="name">Riau</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="0401" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.04"/>
+		  <field name="code">0401</field>
+		  <field name="name">Pekan Baru</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="0401001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.0401"/>
+		  <field name="code">0401001</field>
+		  <field name="name">Paus Ujung</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="05" model="account.analytic.account">
+		  <field name="code">05</field>
+		  <field name="name">Kepulauan Riau</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="0501" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.05"/>
+		  <field name="code">0501</field>
+		  <field name="name">Tanjung Pinang</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="0501001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.0501"/>
+		  <field name="code">0501001</field>
+		  <field name="name">Srikaton</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="0502" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.05"/>
+		  <field name="code">0502</field>
+		  <field name="name">Batam</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="Batam01" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.0502"/>
+		  <field name="code">0502001</field>
+		  <field name="name">Batam Centre</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="06" model="account.analytic.account">
+		  <field name="code">06</field>
+		  <field name="name">Jambi</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="0601" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.06"/>
+		  <field name="code">0601</field>
+		  <field name="name">Jambi</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="0601001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.0601"/>
+		  <field name="code">0601001</field>
+		  <field name="name">P. Antasari</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="07" model="account.analytic.account">
+		  <field name="code">07</field>
+		  <field name="name">Sumatera Selatan</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="0701" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.07"/>
+		  <field name="code">0701</field>
+		  <field name="name">Palembang</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="Palembang01" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.0701"/>
+		  <field name="code">0701001</field>
+		  <field name="name">Angkatan 45</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="08" model="account.analytic.account">
+		  <field name="code">08</field>
+		  <field name="name">Bangka Belitung</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="0801" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.08"/>
+		  <field name="code">0801</field>
+		  <field name="name">Pangkal Pinang</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="0801001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.0801"/>
+		  <field name="code">0801001</field>
+		  <field name="name">Tanjung Pandan</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="09" model="account.analytic.account">
+		  <field name="code">09</field>
+		  <field name="name">Bengkulu</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="0901" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.09"/>
+		  <field name="code">0901</field>
+		  <field name="name">Bengkulu</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="0901001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.0901"/>
+		  <field name="code">0901001</field>
+		  <field name="name">Timur Indah</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="10" model="account.analytic.account">
+		  <field name="code">10</field>
+		  <field name="name">Lampung</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="1001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.10"/>
+		  <field name="code">1001</field>
+		  <field name="name">Bandar Lampung</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="Lampung01" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1001"/>
+		  <field name="code">1001001</field>
+		  <field name="name">Teluk Betung</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="11" model="account.analytic.account">
+		  <field name="code">11</field>
+		  <field name="name">DKI Jakarta</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="1101" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.11"/>
+		  <field name="code">1101</field>
+		  <field name="name">Jakarta Pusat</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="Lause01" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1101"/>
+		  <field name="code">1101001</field>
+		  <field name="name">Lautze</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1101002" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1101"/>
+		  <field name="code">1101002</field>
+		  <field name="name">Toko ITC Roxy Mas</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1101003" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1101"/>
+		  <field name="code">1101003</field>
+		  <field name="name">Toko ITC Cempaka Mas</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1101004" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1101"/>
+		  <field name="code">1101004</field>
+		  <field name="name">Toko Pasar Senen</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1101005" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1101"/>
+		  <field name="code">1101005</field>
+		  <field name="name">Toko Tanah Abang</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1101006" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1101"/>
+		  <field name="code">1101006</field>
+		  <field name="name">Bendungan Hilir</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1101007" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1101"/>
+		  <field name="code">1101007</field>
+		  <field name="name">Salemba</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1102" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.11"/>
+		  <field name="code">1102</field>
+		  <field name="name">Jakarta Utara</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="Cempaka" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1102"/>
+		  <field name="code">1102001</field>
+		  <field name="name">Cempaka Putih</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1102002" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1102"/>
+		  <field name="code">1102002</field>
+		  <field name="name">Toko ITC Mangga Dua</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1102003" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1102"/>
+		  <field name="code">1102003</field>
+		  <field name="name">Teluk Gong</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1102004" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1102"/>
+		  <field name="code">1102004</field>
+		  <field name="name">Cilincing</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1103" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.11"/>
+		  <field name="code">1103</field>
+		  <field name="name">Jakarta Barat</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="Cengkareng01" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1103"/>
+		  <field name="code">1103001</field>
+		  <field name="name">Cengkareng</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="JakartaBarat01" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1103"/>
+		  <field name="code">1103002</field>
+		  <field name="name">Daan Mogot</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1103003" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1103"/>
+		  <field name="code">1103003</field>
+		  <field name="name">Toko Season City</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="KebonJeruk01" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1103"/>
+		  <field name="code">1103004</field>
+		  <field name="name">Kebon Jeruk</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1103005" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1103"/>
+		  <field name="code">1103005</field>
+		  <field name="name">Tambora</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1103006" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1103"/>
+		  <field name="code">1103006</field>
+		  <field name="name">Pesing Poglar</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1104" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.11"/>
+		  <field name="code">1104</field>
+		  <field name="name">Jakarta Selatan</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="JakartaSelatan01" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1104"/>
+		  <field name="code">1104001</field>
+		  <field name="name">Mampang</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1104002" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1104"/>
+		  <field name="code">1104002</field>
+		  <field name="name">Gandaria Selatan</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1104003" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1104"/>
+		  <field name="code">1104003</field>
+		  <field name="name">Pasar Minggu</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1104004" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1104"/>
+		  <field name="code">1104004</field>
+		  <field name="name">Toko ITC Kuningan</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1104005" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1104"/>
+		  <field name="code">1104005</field>
+		  <field name="name">Pancoran</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1105" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.11"/>
+		  <field name="code">1105</field>
+		  <field name="name">Jakarta Timur</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="JakartaTimur01" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1105"/>
+		  <field name="code">1105001</field>
+		  <field name="name">Cawang</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1105002" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1105"/>
+		  <field name="code">1105002</field>
+		  <field name="name">Ciracas</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1105003" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1105"/>
+		  <field name="code">1105003</field>
+		  <field name="name">Duren Sawit</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="12" model="account.analytic.account">
+		  <field name="code">12</field>
+		  <field name="name">Jawa Barat</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="1201" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.12"/>
+		  <field name="code">1201</field>
+		  <field name="name">Bandung</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="Bandung01" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1201"/>
+		  <field name="code">1201001</field>
+		  <field name="name">Ciateul</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="BandungTimur01" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1201"/>
+		  <field name="code">1201002</field>
+		  <field name="name">Bandung Timur</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1201003" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1201"/>
+		  <field name="code">1201003</field>
+		  <field name="name">Bandung Selatan</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1201004" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1201"/>
+		  <field name="code">1201004</field>
+		  <field name="name">Toko Pasar Baru</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1202" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.12"/>
+		  <field name="code">1202</field>
+		  <field name="name">Garut</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="1202001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1202"/>
+		  <field name="code">1202001</field>
+		  <field name="name">Citisung</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1203" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.12"/>
+		  <field name="code">1203</field>
+		  <field name="name">Sukabumi</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="1203001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1203"/>
+		  <field name="code">1203001</field>
+		  <field name="name">Cisaat</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1204" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.12"/>
+		  <field name="code">1204</field>
+		  <field name="name">Tasikmalaya</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="1204001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1204"/>
+		  <field name="code">1204001</field>
+		  <field name="name">Tasikmalaya1</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1205" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.12"/>
+		  <field name="code">1205</field>
+		  <field name="name">Cianjur</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="1205001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1205"/>
+		  <field name="code">1205001</field>
+		  <field name="name">Cianjur1</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1206" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.12"/>
+		  <field name="code">1206</field>
+		  <field name="name">Cimahi</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="BandungCimahi01" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1206"/>
+		  <field name="code">1206001</field>
+		  <field name="name">Cimahi1</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1207" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.12"/>
+		  <field name="code">1207</field>
+		  <field name="name">Bogor</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="Bogor01" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1207"/>
+		  <field name="code">1207001</field>
+		  <field name="name">Tanah Sereal</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1207002" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1207"/>
+		  <field name="code">1207002</field>
+		  <field name="name">Tapos</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1208" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.12"/>
+		  <field name="code">1208</field>
+		  <field name="name">Depok</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="Depok01" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1208"/>
+		  <field name="code">1208001</field>
+		  <field name="name">Beji Timur</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1208002" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1208"/>
+		  <field name="code">1208002</field>
+		  <field name="name">Cimanggis</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1209" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.12"/>
+		  <field name="code">1209</field>
+		  <field name="name">Bekasi</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="Bekasi01" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1209"/>
+		  <field name="code">1209001</field>
+		  <field name="name">Delta Pekayon</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="Cikarang01" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1209"/>
+		  <field name="code">1209002</field>
+		  <field name="name">Cikarang</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1209003" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1209"/>
+		  <field name="code">1209003</field>
+		  <field name="name">Bekasi Utara</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1209004" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1209"/>
+		  <field name="code">1209004</field>
+		  <field name="name">Galaxy</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1209005" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1209"/>
+		  <field name="code">1209005</field>
+		  <field name="name">Bekasi Timur</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1209006" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1209"/>
+		  <field name="code">1209006</field>
+		  <field name="name">Bekasi Cakung</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1210" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.12"/>
+		  <field name="code">1210</field>
+		  <field name="name">Purwakarta</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="Purwakarta01" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1210"/>
+		  <field name="code">1210001</field>
+		  <field name="name">Purwakarta1</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1211" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.12"/>
+		  <field name="code">1211</field>
+		  <field name="name">Sumedang</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="1211001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1211"/>
+		  <field name="code">1211001</field>
+		  <field name="name">Sumedang1</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="13" model="account.analytic.account">
+		  <field name="code">13</field>
+		  <field name="name">Banten</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="1301" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.13"/>
+		  <field name="code">1301</field>
+		  <field name="name">Cilegon</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="1301001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1301"/>
+		  <field name="code">1301001</field>
+		  <field name="name">Walantaka</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1302" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.13"/>
+		  <field name="code">1302</field>
+		  <field name="name">Tangerang</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="Sangiang01" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1302"/>
+		  <field name="code">1302001</field>
+		  <field name="name">Sangiang</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1302004" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1302"/>
+		  <field name="code">1302004</field>
+		  <field name="name">Tigaraksa</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1302005" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1302"/>
+		  <field name="code">1302005</field>
+		  <field name="name">Sepatan</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1302006" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1302"/>
+		  <field name="code">1302006</field>
+		  <field name="name">Ciledug</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1303" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.13"/>
+		  <field name="code">1303</field>
+		  <field name="name">Tangerang Selatan</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="GadingSerpong01" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1303"/>
+		  <field name="code">1303002</field>
+		  <field name="name">Melati Mas</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1303003" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1303"/>
+		  <field name="code">1303003</field>
+		  <field name="name">Pamulang</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="14" model="account.analytic.account">
+		  <field name="code">14</field>
+		  <field name="name">Jawa Tengah</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="1401" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.14"/>
+		  <field name="code">1401</field>
+		  <field name="name">Semarang</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="Semarang01" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1401"/>
+		  <field name="code">1401001</field>
+		  <field name="name">Suratmo</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1402" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.14"/>
+		  <field name="code">1402</field>
+		  <field name="name">Solo</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="1402001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1402"/>
+		  <field name="code">1402001</field>
+		  <field name="name">Laweyan</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1403" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.14"/>
+		  <field name="code">1403</field>
+		  <field name="name">Pemalang</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="1403001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1403"/>
+		  <field name="code">1403001</field>
+		  <field name="name">Raya Petarukan</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1404" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.14"/>
+		  <field name="code">1404</field>
+		  <field name="name">Blora</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="1404001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1404"/>
+		  <field name="code">1404001</field>
+		  <field name="name">Blora1</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1405" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.14"/>
+		  <field name="code">1405</field>
+		  <field name="name">Purwokerto</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="1405001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1405"/>
+		  <field name="code">1405001</field>
+		  <field name="name">Jatisari</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="15" model="account.analytic.account">
+		  <field name="code">15</field>
+		  <field name="name">Daerah Istimewa Yogyakarta</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="1501" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.15"/>
+		  <field name="code">1501</field>
+		  <field name="name">Yogyakarta</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="Jogja01" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1501"/>
+		  <field name="code">1501001</field>
+		  <field name="name">Sagan</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="16" model="account.analytic.account">
+		  <field name="code">16</field>
+		  <field name="name">Jawa Timur</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="1601" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.16"/>
+		  <field name="code">1601</field>
+		  <field name="name">Surabaya</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="Surabaya01" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1601"/>
+		  <field name="code">1601001</field>
+		  <field name="name">Gubeng Kertajaya</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="1602" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.16"/>
+		  <field name="code">1602</field>
+		  <field name="name">Malang</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="1602001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1602"/>
+		  <field name="code">1602001</field>
+		  <field name="name">Bandara Abdul Rahman Saleh</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="17" model="account.analytic.account">
+		  <field name="code">17</field>
+		  <field name="name">Bali</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="1701" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.17"/>
+		  <field name="code">1701</field>
+		  <field name="name">Denpasar</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="Denpasar01" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1701"/>
+		  <field name="code">1701001</field>
+		  <field name="name">Pelita</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="18" model="account.analytic.account">
+		  <field name="code">18</field>
+		  <field name="name">Nusa Tenggara Barat</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="1801" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.18"/>
+		  <field name="code">1801</field>
+		  <field name="name">Mataram</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="1801001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1801"/>
+		  <field name="code">1801001</field>
+		  <field name="name">Brawijaya</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="19" model="account.analytic.account">
+		  <field name="code">19</field>
+		  <field name="name">Nusa Tenggara Timur</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="1901" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.19"/>
+		  <field name="code">1901</field>
+		  <field name="name">Kupang</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="1901001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.1901"/>
+		  <field name="code">1901001</field>
+		  <field name="name">Kakatua</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="20" model="account.analytic.account">
+		  <field name="code">20</field>
+		  <field name="name">Kalimantan Barat</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="2001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.20"/>
+		  <field name="code">2001</field>
+		  <field name="name">Pontianak</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="2001001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.2001"/>
+		  <field name="code">2001001</field>
+		  <field name="name">Adi Sucipto</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="21" model="account.analytic.account">
+		  <field name="code">21</field>
+		  <field name="name">Kalimantan Tengah</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="2101" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.21"/>
+		  <field name="code">2101</field>
+		  <field name="name">Palangkaraya</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="2101001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.2101"/>
+		  <field name="code">2101001</field>
+		  <field name="name">Penarung</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="22" model="account.analytic.account">
+		  <field name="code">22</field>
+		  <field name="name">Kalimantan Selatan</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="2201" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.22"/>
+		  <field name="code">2201</field>
+		  <field name="name">Banjarmasin</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="2201001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.2201"/>
+		  <field name="code">2201001</field>
+		  <field name="name">Gambut</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="23" model="account.analytic.account">
+		  <field name="code">23</field>
+		  <field name="name">Kalimantan Timur</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="2301" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.23"/>
+		  <field name="code">2301</field>
+		  <field name="name">Samarinda</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="2301001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.2301"/>
+		  <field name="code">2301001</field>
+		  <field name="name">P.Suryanata</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="2302" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.23"/>
+		  <field name="code">2302</field>
+		  <field name="name">Balikpapan</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="2302001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.2302"/>
+		  <field name="code">2302001</field>
+		  <field name="name">Sepinggan</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="2303" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.23"/>
+		  <field name="code">2303</field>
+		  <field name="name">Berau</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="2303001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.2303"/>
+		  <field name="code">2303001</field>
+		  <field name="name">Berau1</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="24" model="account.analytic.account">
+		  <field name="code">24</field>
+		  <field name="name">Kalimantan Utara</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="2401" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.24"/>
+		  <field name="code">2401</field>
+		  <field name="name">Tarakan</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="2401001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.2401"/>
+		  <field name="code">2401001</field>
+		  <field name="name">Kampung Bugis</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="25" model="account.analytic.account">
+		  <field name="code">25</field>
+		  <field name="name">Sulawesi Utara</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="2501" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.25"/>
+		  <field name="code">2501</field>
+		  <field name="name">Manado</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="2501001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.2501"/>
+		  <field name="code">2501001</field>
+		  <field name="name">Tuminting</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="26" model="account.analytic.account">
+		  <field name="code">26</field>
+		  <field name="name">Sulawesi Barat</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="2601" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.26"/>
+		  <field name="code">2601</field>
+		  <field name="name">Mamuju</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="2601001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.2601"/>
+		  <field name="code">2601001</field>
+		  <field name="name">Mamuju1</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="27" model="account.analytic.account">
+		  <field name="code">27</field>
+		  <field name="name">Sulawesi Tengah</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="2701" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.27"/>
+		  <field name="code">2701</field>
+		  <field name="name">Palu</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="2701001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.2701"/>
+		  <field name="code">2701001</field>
+		  <field name="name">Rajawali</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="28" model="account.analytic.account">
+		  <field name="code">28</field>
+		  <field name="name">Sulawesi Tenggara</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="2801" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.28"/>
+		  <field name="code">2801</field>
+		  <field name="name">Kendari</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="2801001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.2801"/>
+		  <field name="code">2801001</field>
+		  <field name="name">RA.Kartini</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="29" model="account.analytic.account">
+		  <field name="code">29</field>
+		  <field name="name">Sulawesi Selatan</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="2901" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.29"/>
+		  <field name="code">2901</field>
+		  <field name="name">Makassar</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="Makasar01" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.2901"/>
+		  <field name="code">2901001</field>
+		  <field name="name">Pelita Raya</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="30" model="account.analytic.account">
+		  <field name="code">30</field>
+		  <field name="name">Gorontalo</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="3001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.30"/>
+		  <field name="code">3001</field>
+		  <field name="name">Gorontalo</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="3001001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.3001"/>
+		  <field name="code">3001001</field>
+		  <field name="name">Beringin</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="31" model="account.analytic.account">
+		  <field name="code">31</field>
+		  <field name="name">Maluku</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="3101" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.31"/>
+		  <field name="code">3101</field>
+		  <field name="name">Ambon</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="3101001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.3101"/>
+		  <field name="code">3101001</field>
+		  <field name="name">Ambon1</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="32" model="account.analytic.account">
+		  <field name="code">32</field>
+		  <field name="name">Maluku Utara</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="3201" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.32"/>
+		  <field name="code">3201</field>
+		  <field name="name">Ternate</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="3201001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.3201"/>
+		  <field name="code">3201001</field>
+		  <field name="name">Bastiong Talangame</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="33" model="account.analytic.account">
+		  <field name="code">33</field>
+		  <field name="name">Papua Barat</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="3301" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.33"/>
+		  <field name="code">3301</field>
+		  <field name="name">Manokwari</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="3301001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.3301"/>
+		  <field name="code">3301001</field>
+		  <field name="name">Trikora Rendani</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="34" model="account.analytic.account">
+		  <field name="code">34</field>
+		  <field name="name">Papua</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="3401" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.34"/>
+		  <field name="code">3401</field>
+		  <field name="name">Jayapura</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="3401001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.3401"/>
+		  <field name="code">3401001</field>
+		  <field name="name">Youmakhe</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="35" model="account.analytic.account">
+		  <field name="code">35</field>
+		  <field name="name">Operasional Pusat</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="3501001" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.35"/>
+		  <field name="code">3501001</field>
+		  <field name="name">Operasional Pusat</field>
+		  <field name="type">normal</field>
+		</record>
+		<record id="36" model="account.analytic.account">
+		  <field name="code">36</field>
+		  <field name="name">Kantor Pusat</field>
+		  <field name="type">view</field>
+		</record>
+		<record id="Roxy01" model="account.analytic.account">
+		  <field name="parent_id" ref="sicepat_erp.36"/>
+		  <field name="code">3601001</field>
+		  <field name="name">Kantor Pusat</field>
+		  <field name="type">normal</field>
+		</record>
 	</data>
 </openerp>
