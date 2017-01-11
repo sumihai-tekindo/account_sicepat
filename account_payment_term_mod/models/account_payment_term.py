@@ -63,3 +63,5 @@ class account_payment_term_line(osv.osv):
 	_columns = {
 		"days3":fields.integer("Date of month",help="If > 0 and <=31, it will generate due date based on the date, if it is larger than last date of month, it will be automatically corrected as last date of month")
 		}
+
+	_order = "id asc,value desc,days"
