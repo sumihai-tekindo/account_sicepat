@@ -26,6 +26,7 @@
             <field name="view_mode">form</field>
             <field name="view_id" ref="purchase_group_double_validation.purchase_order_confirm_view"/>
             <field name="target">new</field>
+            <field name="groups_id" eval="[(4, ref('purchase_group_double_validation.group_confirm_po'))]"/>
         </record>
         <record model="ir.values" id="values_purchase_order_confirm">
             <field name="model_id" ref="purchase.model_purchase_order" />
@@ -34,7 +35,6 @@
             <field name="value" eval="'ir.actions.act_window,' + str(ref('purchase_group_double_validation.action_purchase_order_confirm'))" />
             <field name="key">action</field>
             <field name="model">purchase.order</field>
-            <field name="groups_id" eval="[(4, ref('purchase_group_double_validation.group_confirm_po'))]"/>
         </record>
 
         <record id="purchase_order_approve_view" model="ir.ui.view">
@@ -61,6 +61,7 @@
             <field name="view_mode">form</field>
             <field name="view_id" ref="purchase_group_double_validation.purchase_order_approve_view"/>
             <field name="target">new</field>
+            <field name="groups_id" eval="[(4, ref('purchase_group_double_validation.group_approve_po'))]"/>
         </record>
         <record model="ir.values" id="values_purchase_order_approve">
             <field name="model_id" ref="purchase.model_purchase_order" />
@@ -69,7 +70,6 @@
             <field name="value" eval="'ir.actions.act_window,' + str(ref('purchase_group_double_validation.action_purchase_order_approve'))" />
             <field name="key">action</field>
             <field name="model">purchase.order</field>
-            <field name="groups_id" eval="[(4, ref('purchase_group_double_validation.group_approve_po'))]"/>
         </record>
 
     </data>
