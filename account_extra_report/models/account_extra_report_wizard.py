@@ -58,7 +58,8 @@ class account_extra_report_wizard(osv.osv_memory):
 			't_report': wiz.report_type,
 			}
 		if wiz.report_type=='daily_receivable':
-			move_ids = self.get_daily_receivable(cr,uid,ids,wiz,context=context)
+			#move_ids = self.get_daily_receivable(cr,uid,ids,wiz,context=context)
+			move_ids = self.pool.get('account.move.line').search(cr,uid,[],limit=1)
 			datas.update({'ids':move_ids})
 			return {
 					'type': 'ir.actions.report.xml',

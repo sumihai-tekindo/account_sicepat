@@ -56,7 +56,7 @@ class daily_receivable_xls_parser(report_sxw.rml_parse):
 		fiscal = [datetime.strptime(o.date,'%Y-%m-%d').strftime('%Y') for o in objects]
 		return list(set(fiscal))
 
-	def get_outstanding_receivables(self,data,objects):
+	def get_outstanding_receivables2(self,data,objects):
 		fiscal = [datetime.strptime(o.date,'%Y-%m-%d').strftime('%Y') for o in objects]
 		fiscal = list(set(fiscal))
 		res = {}
@@ -70,7 +70,68 @@ class daily_receivable_xls_parser(report_sxw.rml_parse):
 			month = dt.strftime('%m')
 			res[year][month]+=(o.debit>0.0 and o.amount_residual or 0.0) - (o.credit>0.0 and o.amount_residual or 0.0)
 		return res
+	
+	def get_outstanding_receivables(self,data,objects):
+		cr = self.cr
+		start_date = data['start_date']
+		end_date = data['end_date']
+		account_ids = data['account_ids']
+
+		q1=""""""
+		q2=""""""
 		
+		if start_date:
+			q1+="""aml.date>='"""+start_date+"""' and """
+		if end_date:
+			q1+="""aml.date<='"""+end_date+"""' and """
+		if account_ids:
+			q2+="""where aad.id in """+str(tuple(account_ids))+""" """
+		query = """select af.name as fiscal,apd.code as period_name,af.id as fiscal_id,period_id,
+					sum(coalesce(d1,0.0)-coalesce(c1,0.0)+coalesce(d2,0.0)-coalesce(c2,0.0)+coalesce(d3,0.0)-coalesce(c3,0.0)) as balance
+					from 
+						(select 
+							aml.id,aml.account_id,aml.partner_id,aml.date,aml.period_id,aml.debit as d1,aml.credit as c1,
+							aml2.id,aml2.debit as d2,aml2.credit as c2,
+							aml3.id,aml3.debit as d3,aml3.credit as c3
+						from account_move_line aml
+							left join account_period ap on aml.period_id=ap.id
+							left join account_account aa on aml.account_id=aa.id
+							left join account_journal aj on aml.journal_id=aj.id
+							left join res_partner rp on aml.partner_id=ap.id
+							full outer join account_move_line aml2 on aml.reconcile_partial_id=aml2.reconcile_partial_id and aml2.date<='%s' and aml.id!=aml2.id
+							full outer join account_move_line aml3 on aml.reconcile_id=aml3.reconcile_id and aml3.date<='%s' and aml.id!=aml3.id
+						where """%(end_date,end_date)+q1+"""
+						aa.type='receivable'
+						and aa.reconcile=TRUE
+						and aml.partner_id is not NULL
+						and ((aj.type !='sale_refund' and aml.debit>0.0) or (aj.type ='sale_refund' and aml.credit>0.0))
+						and (coalesce(aml.debit,0.0)-coalesce(aml.credit,0.0)+coalesce(aml2.debit,0.0)-coalesce(aml2.credit,0.0)+coalesce(aml3.debit,0.0)-coalesce(aml3.credit,0.0))>=0.0
+						order by aml.partner_id, aml.id
+						)dummy
+					left join account_period apd on dummy.period_id=apd.id 
+					left join account_account aad on dummy.account_id=aad.id 
+					left join account_fiscalyear af on apd.fiscalyear_id=af.id 
+					"""+q2+"""
+					group by af.id,apd.id,period_id
+				"""
+		cr.execute(query)
+		result = cr.dictfetchall()
+		fiscal = []
+		temp = {}
+		for res in result:
+			fiscal.append(res.get('fiscal',False))
+		fiscal=list(set(fiscal))
+		for f in fiscal:
+			temp[f]={}
+			for m in ['00','01','02','03','04','05','06','07','08','09','10','11','12']:
+				temp[f][m]=0.00
+		for o in result:
+			dt = o.get('period_name',False).split('/')
+			year = dt[1]
+			month = dt[0]
+			temp[year][month]=o.get('balance',0.00)
+		return (temp,fiscal)
+
 	def get_nonamed(self,data,objects):
 		cr = self.cr
 		uid = self.uid
@@ -78,14 +139,12 @@ class daily_receivable_xls_parser(report_sxw.rml_parse):
 		start_date = data['start_date']
 		end_date = data['end_date']
 		query = """select 
-			sum(coalesce(aml2.credit,0.00)) as debit
-			from account_move_line aml
-			left join account_account aa on aml.account_id=aa.id
-			left join account_move_line aml2 on aml.reconcile_partial_id=aml2.reconcile_partial_id
-			where aa.type='receivable'
-			and aml.date<='%s'
-			and aml.reconcile_id is NULL
-			and aml.credit>0.00"""%(end_date)
+				sum(aml.credit-aml.debit) as balance
+				from account_move_line aml
+				left join account_account aa on aml.account_id=aa.id
+				where aa.type='receivable'
+				and aml.date <='%s'
+				and partner_id is NULL"""%(end_date)
 		cr.execute(query)
 		result = cr.dictfetchone()
 		return result or 0.00
@@ -151,7 +210,8 @@ class daily_receivable_xls(report_xls):
 			TOTAL ={}
 
 			GRANDTOTAL=0.0
-			for fis in _p.get_outstanding_fiscal(data,objects):
+			moves,fiscal = _p.get_outstanding_receivables(data,objects)
+			for fis in fiscal:
 				headers.append(fis)
 				TOTAL[fis]=0.0
 
@@ -167,10 +227,8 @@ class daily_receivable_xls(report_xls):
 				col_pos+=2
 
 			row_pos = 10
-			MONTHS = {	'01':"JANUARI",'02':"FEBRUARI",'03':"MARET",'04':"APRIL",'05':"MEI",'06':"JUNI",
+			MONTHS = {	'00':"OPENING PERIOD",'01':"JANUARI",'02':"FEBRUARI",'03':"MARET",'04':"APRIL",'05':"MEI",'06':"JUNI",
 						'07':"JULI",'08':"AGUSTUS",'09':"SEPTEMBER",'10':"OCTOBER",'11':"NOVEMBER",'12':"DESEMBER"}
-			
-			moves = _p.get_outstanding_receivables(data,objects)
 			
 			for m in sorted(MONTHS):
 				col_pos = 0
@@ -189,15 +247,15 @@ class daily_receivable_xls(report_xls):
 				col_pos+=2
 			row_pos+=1
 			PIUTANG_NN=_p.get_nonamed(data,objects)
-			print "xxxxxxxxxxxxxxxxxxxxx",PIUTANG_NN
+
 			ws.write(row_pos,0,"Total Piutang",subtotal_style2)
 			ws.write(row_pos,1,GRANDTOTAL,subtotal_style2)
 			row_pos +=1
 			ws.write(row_pos,0,"Tanpa Keterangan",subtotal_style2)
-			ws.write(row_pos,1,PIUTANG_NN['debit'],subtotal_style2)
+			ws.write(row_pos,1,PIUTANG_NN['balance'],subtotal_style2)
 			row_pos +=1
 			ws.write(row_pos,0,"TOTAL",subtotal_style2)
-			ws.write(row_pos,1,GRANDTOTAL-PIUTANG_NN['debit'],subtotal_style2)
+			ws.write(row_pos,1,GRANDTOTAL-PIUTANG_NN['balance'],subtotal_style2)
 
 daily_receivable_xls('report.daily.receivable.report.xls', 'account.move.line',
 					parser=daily_receivable_xls_parser)
