@@ -81,7 +81,7 @@ class daily_cashflow_xls_parser(report_sxw.rml_parse):
 			left join account_account aa2 on aml2.account_id=aa2.id
 			left join account_journal aj2 on aml2.journal_id=aj2.id
 			left join account_invoice ai on aml3.move_id=ai.move_id
-			left join account_invoice_department aid on ai.department_id=aid.id
+			inner join account_invoice_department aid on ai.department_id=aid.id
 			where 
 			aml2.date='%s'
 			and aa2.type='payable'
