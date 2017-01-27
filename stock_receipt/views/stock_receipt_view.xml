@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+    	<record id="view_stock_receipt_line_tree" model="ir.ui.view">
+            <field name="name">Stock Receipt Line</field>
+            <field name="model">stock.receipt.line</field>
+            <field name="arch" type="xml">
+                <tree colors="grey:state == 'cancel'" string="Product">
+                    <field name="product_id"/>
+                    <field name="product_uom_qty"/>
+                    <field name="product_receipt"/>
+                    <field name="product_packaging"/>
+                    <field name="picking_id"/>
+                    <field name="location_id"/>
+                    <field name="location_dest_id"/>
+                    <field name="date"/>
+                    <field name="date_expected"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_stock_receipt_form" model="ir.ui.view">
+            <field name="name">stock.receipt.line.form</field>
+            <field name="model">stock.receipt.line</field>
+            <field eval="20" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Stock Receipt">
+                <group>
+                    <group>
+                        <field name="product_id"/>
+                        <field name="procure_method"/>
+                        <field name="picking_id" invisible="1"/>
+                        <label for="product_uom_qty"/>
+                        <div>
+                            <field name="product_uom_qty"/>
+                            <field name="product_uom" string="Unit Of Measure"/>
+                        </div>
+                        <label for="product_uos_qty"/>
+                        <div>
+                            <field name="product_uos_qty"/>
+                            <field name="product_uos"/>
+                        </div>
+                        <field name="name"/>
+                        <field name="product_packaging"/>
+                    </group>
+                    <group>
+                        <field name="create_date" invisible="1"/>
+                        <field name="date"/>
+                        <field name="date_expected"/>
+                    </group>
+                    <group string="Locations">
+                        <field name="location_id"/>
+                        <field name="account_analytic_id"/>
+                        <field name="location_dest_id"/>
+                        <field name="account_analytic_dest_id"/>
+                    </group>
+                </group>
+                </form>
+            </field>
+        </record>
+    	
+    	<record id="receipt_stock_tree" model="ir.ui.view">
+            <field name="name">stock.receipt.tree</field>
+            <field name="model">stock.receipt</field>
+            <field name="arch" type="xml">
+                <tree colors="blue:state == 'draft';grey:state == 'cancel';red:state not in ('cancel', 'done') and min_date &lt; current_date" string="Picking list">
+                    <field name="name"/>
+                    <field name="issue_id"/>
+                    <field name="location_dest_id"/>
+                    <field name="partner_id"/>
+                    <field name="date"/>
+                    <field name="min_date" invisible="1"/>
+                    <field name="origin"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="receipt_stock_from" model="ir.ui.view">
+            <field name="name">stock.receipt.form</field>
+            <field name="model">stock.receipt</field>
+            <field eval="12" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Receipt">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,receipt,cancel" />
+                </header>
+                <sheet>
+                    <h1>
+                        <field name="name" class="oe_inline" attrs="{'invisible': [('name','=','/')]}" readonly="1"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="issue_id"/>
+                            <field name="date_done"/>                   
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="min_date"/>
+                            <field name="origin" placeholder="e.g. PO0032" class="oe_inline"/>
+                            <label for="owner_id" groups="stock.group_tracking_owner"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Products">
+                            <separator string="Stock Moves"/>
+                            <field name="stock_receipt_line"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_receipt_stock_form" model="ir.actions.act_window">
+            <field name="name">Stock Receipt</field>
+            <field name="res_model">stock.receipt</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    	
+    	<menuitem
+            action="action_receipt_stock_form"
+            id="menu_action_receipt_stock_form"
+            parent="stock.menu_stock_warehouse_mgmt" sequence="2"/>
+        
+    </data>
+</openerp>
