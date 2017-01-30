@@ -6,16 +6,13 @@
             <field name="name">Stock Receipt Line</field>
             <field name="model">stock.receipt.line</field>
             <field name="arch" type="xml">
-                <tree colors="grey:state == 'cancel'" string="Product">
-                    <field name="product_id"/>
-                    <field name="product_uom_qty"/>
+                <tree string="Product" editable="top" create="false">
+                    <field name="product_id" readonly="1"/>
+                    <field name="product_uom_qty" readonly="1"/>
                     <field name="product_receipt"/>
-                    <field name="product_packaging"/>
-                    <field name="picking_id"/>
-                    <field name="location_id"/>
-                    <field name="location_dest_id"/>
-                    <field name="date"/>
-                    <field name="date_expected"/>
+                    <field name="picking_id" readonly="1"/>
+                    <field name="account_analytic_dest_id" readonly="1"/>
+                    <!-- <field name="date"/> -->
                 </tree>
             </field>
         </record>
@@ -26,6 +23,7 @@
             <field eval="20" name="priority"/>
             <field name="arch" type="xml">
                 <form string="Stock Receipt">
+                    
                 <group>
                     <group>
                         <field name="product_id"/>
@@ -40,7 +38,9 @@
                         <div>
                             <field name="product_uos_qty"/>
                             <field name="product_uos"/>
+                           
                         </div>
+                        <field name="product_receipt" required="True"/>
                         <field name="name"/>
                         <field name="product_packaging"/>
                     </group>
@@ -64,7 +64,7 @@
             <field name="name">stock.receipt.tree</field>
             <field name="model">stock.receipt</field>
             <field name="arch" type="xml">
-                <tree colors="blue:state == 'draft';grey:state == 'cancel';red:state not in ('cancel', 'done') and min_date &lt; current_date" string="Picking list">
+                <tree colors="blue:state == 'draft';grey:state == 'cancel';" string="Picking list">
                     <field name="name"/>
                     <field name="issue_id"/>
                     <field name="location_dest_id"/>
@@ -84,16 +84,21 @@
             <field name="arch" type="xml">
                 <form string="Receipt">
                 <header>
-                    <field name="state" widget="statusbar" statusbar_visible="draft,receipt,cancel" />
+                    <header>
+                        <button name="action_receipt" type="object" states="draft" string="Receipt"/>
+                        <button name="action_draft" type="object" states="cancel" string="Set to Draft"/>
+                        <button name="action_cancel" type="object" states="receipt" string="Cancel"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,receipt,cancel" />
+                    </header>
                 </header>
                 <sheet>
                     <h1>
-                        <field name="name" class="oe_inline" attrs="{'invisible': [('name','=','/')]}" readonly="1"/>
+                        <field name="name" class="oe_inline"/>
                     </h1>
                     <group>
                         <group>
-                            <field name="partner_id"/>
-                            <field name="issue_id"/>
+                            <!-- <field name="partner_id"/> -->
+                            <field name="issue_id" domain="[('stock_receipt_id','=',False),('picking_type_code','=','internal'),('state','!=','cancel')]"/>
                             <field name="date_done"/>                   
                         </group>
                         <group>
@@ -106,7 +111,7 @@
                     <notebook>
                         <page string="Products">
                             <separator string="Stock Moves"/>
-                            <field name="stock_receipt_line"/>
+                            <field name="stock_receipt_line" editable="1"/>
                         </page>
                     </notebook>
                 </sheet>
