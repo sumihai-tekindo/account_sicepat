@@ -59,19 +59,16 @@ class daily_cashflow_xls_parser(report_sxw.rml_parse):
 		end_date = data['end_date']
 		if data['account_ids']:
 			qq ="and name in "+str(tuple(account_ids))
-		query="""select coalesce(receivable.date,payment.date) as date,coalesce(receivable.credit,0.00) as credit,coalesce(payment.debit,0.00) as debit,payment.id,payment.name
-			from (select
-			aml.date,sum(coalesce(aml.credit,0.00)) as credit
+		query="""select coalesce(receivable.date,payment.date) as date,coalesce(receivable.debit,0.00) as debit,coalesce(payment.debit,0.00) as credit,payment.id,payment.name
+			from (select aml.date,sum(coalesce(aml.debit,0.00)) as debit
 			from account_move_line aml
-			left join account_account aa on aml.account_id=aa.id
+			left join account_account aa on aml.account_id=aa.id 
 			left join account_journal aj on aml.journal_id=aj.id
-			where 
-			aml.date='%s'
-			and aa.type='receivable'
-			and aa.reconcile=True
-			and aj.type!='sale_refund'
-			and aml.credit>0.0
-			and (aml.reconcile_id is NOT NULL or aml.reconcile_partial_id is NOT NULL)
+			
+			where aml.debit>0.0 and aml.date='%s'
+			and aj.type='bank'
+			and aml.partner_id is not NULL
+			and aa.id in (select aax.id from account_account aax left join account_account_type aat on aax.user_type=aat.id where aat.code='bank' and aax.type='liquidity')
 			group by aml.date
 			) receivable
 			full outer join (
@@ -159,7 +156,7 @@ class daily_cashflow_xls(report_xls):
 			ws.write(5,0,"Accounts",normal_bold_style_a)
 			ws.write_merge(5,8,1,2,"",normal_style)
 			ws.write(9,0,"Keterangan Penerimaan")
-			ws.write(9,1,"Pelunasan AR",normal_bold_style_a)
+			ws.write(9,1,"Penerimaan Uang",normal_bold_style_a)
 			ws.write(9,2,"Keterangan Pengeluaran",normal_bold_style_a)
 			ws.write(9,3,"Pengeluaran",normal_bold_style_a)
 			ws.write(9,4,"Surplus/Defisit",normal_bold_style_a)
@@ -173,12 +170,12 @@ class daily_cashflow_xls(report_xls):
 				
 				ws.write(row_pos,0,cash['date'],normal_style)
 				if cash['date']!=prev_date:
-					ws.write(row_pos,1,cash['credit'],normal_style_float)
+					ws.write(row_pos,1,cash['debit'],normal_style_float)
 					prev_date = cash['date']
-					SUBTOTAL_C +=cash['credit'] or 0.00
+					SUBTOTAL_C +=cash['debit'] or 0.00
 				ws.write(row_pos,2,cash['name'],normal_style_float)
-				ws.write(row_pos,3,cash['debit'],normal_style_float)
-				SUBTOTAL_D +=cash['debit'] or 0.00
+				ws.write(row_pos,3,cash['credit'],normal_style_float)
+				SUBTOTAL_D +=cash['credit'] or 0.00
 				row_pos+=1
 
 			GRANDTOTAL =SUBTOTAL_C-SUBTOTAL_D
