@@ -1,0 +1,252 @@
+<openerp>
+	<data>
+		<record id="account_cash_back_rule_tree" model="ir.ui.view">
+			<field name="name">account.cashback.rule.tree</field>
+			<field name="model">account.cashback.rule</field>
+			<field name="arch" type="xml">
+				<tree string="Cashback Rule">
+					<field name="name"/>
+					<field name="rules"/>
+					<field name="next_disc"/>
+					<field name="cash_back_amt_rule"/>
+				</tree>
+			</field>
+		</record>
+		<record id="account_cash_back_rule_form" model="ir.ui.view">
+			<field name="name">account.cashback.rule.form</field>
+			<field name="model">account.cashback.rule</field>
+			<field name="arch" type="xml">
+				<form string="Cashback Rule">
+					<group>
+						<group>
+							<field name="name"/>
+							<field name="rules"/>
+						</group>
+						<group>
+							<field name="next_disc"/>
+							<field name="cash_back_amt_rule"/>
+						</group>
+						<group>
+							<field name="product_id"/>
+							<field name="journal_id"/>
+							<field name="department_id"/>
+						</group>
+					</group>
+					<group colspan="4" string="Applied Customers">
+						<field name="partner_ids" colspan="4" nolabel="1"/>
+					</group>
+				</form>
+			</field>
+		</record>
+		<record id="account_cash_back_rule_search" model="ir.ui.view">
+			<field name="name">account.cashback.rule.search</field>
+			<field name="model">account.cashback.rule</field>
+			<field name="arch" type="xml">
+				<search string="Cashback Rule">
+					<field name="name"/>
+					<field name="rules"/>
+					<field name="next_disc"/>
+					<field name="cash_back_amt_rule"/>
+					<field name="product_id"/>
+					<field name="journal_id"/>
+				</search>
+			</field>
+		</record>
+		
+		<record id="action_account_cash_back_rule" model="ir.actions.act_window">
+			<field name="name">Cashback Rules</field>
+			<field name="res_model">account.cashback.rule</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field eval="False" name="view_id"/>
+			<field name="domain">[]</field>
+			<field name="context">{}</field>
+			<field name="search_view_id" ref="account_cash_back_rule_search"/>
+			<field name="help" type="html">
+			  <p class="oe_view_nocontent_create">
+				Click to create a cashback rule.</p>
+			</field>
+		</record>
+
+		<menuitem id="menu_cash_back_rule" name="Cashback Config" parent="account.menu_finance_configuration" sequence="12"/>
+		<menuitem id="menu_action_account_cash_back_rule" name="Cashback Rules" action="action_account_cash_back_rule" parent="menu_cash_back_rule" sequence="1"/>
+
+		<menuitem id="menu_cash_back" name="Cashback" parent="account.menu_finance" sequence="4"/>
+
+		<record id="account_cashback_line_tree" model="ir.ui.view">
+			<field name="name">account.cashback.line.tree</field>
+			<field name="model">account.cashback.line</field>
+			<field name="arch" type="xml">
+				<tree string="Cashback Lines">
+					<field name="name"/>
+					<field name="current_disc"/>
+					<field name="omzet_before_disc"/>
+					<field name="omzet_after_disc"/>
+					<field name="omzet_paid"/>
+					<field name="deposit"/>
+					<field name="proposed_disc"/>
+					<field name="cash_back_amt"/>
+					<field name="force_cb"/>
+					<field name="invoice_id"/>
+					<field name="state"/>
+					<button name="compute_cashback_lines" attrs="{'invisible':[('invoice_id','!=',False)]}" type="object" string="Compute" icon="gtk-execute"/>
+					<button name="create_invoice" attrs="{'invisible':[('invoice_id','!=',False)]}" type="object" string="Create Invoice" icon="gtk-apply"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="account_cashback_line_form" model="ir.ui.view">
+			<field name="name">account.cashback.line.form</field>
+			<field name="model">account.cashback.line</field>
+			<field name="arch" type="xml">
+				<form string="Cashback Lines">
+					<header>
+						<button name="compute_cashback_lines" attrs="{'invisible':[('invoice_id','!=',False)]}" type="object" string="Compute" icon="gtk-execute"/>
+						<button name="create_invoice" attrs="{'invisible':[('invoice_id','!=',False)]}" type="object" string="Create Invoice" icon="gtk-apply"/>
+						<field name="state" widget="statusbar"/>
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="name"/>
+								<field name="current_disc"/>
+								<field name="omzet_before_disc"/>
+								<field name="omzet_after_disc"/>
+								<field name="omzet_paid"/>
+								<field name="deposit"/>
+								<field name="proposed_disc"/>
+								<field name="cash_back_amt"/>
+								<field name="force_cb"/>
+							</group>
+							<group>
+								<field name="start_date"/>
+								<field name="end_date"/>
+								<field name="invoice_id"/>
+								<field name="product_id"/>
+								<field name="journal_id"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="account_cashback_line_search" model="ir.ui.view">
+			<field name="name">account.cashback.line.search</field>
+			<field name="model">account.cashback.line</field>
+			<field name="arch" type="xml">
+				<search string="Cashback Lines">
+					<field name="name"/>
+					<field name="current_disc"/>
+					<field name="omzet_before_disc"/>
+					<field name="omzet_after_disc"/>
+					<field name="omzet_paid"/>
+					<field name="proposed_disc"/>
+					<field name="cash_back_amt"/>
+					<field name="force_cb"/>
+					<field name="invoice_id"/>
+					<field name="state"/>
+				</search>
+			</field>
+		</record>
+
+		<record id="action_account_cashback_line" model="ir.actions.act_window">
+			<field name="name">Cashback Lines</field>
+			<field name="res_model">account.cashback.line</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field eval="False" name="view_id"/>
+			<field name="domain">[]</field>
+			<field name="context">{}</field>
+			<field name="search_view_id" ref="account_cashback_line_search"/>
+			<field name="help" type="html">
+			  <p class="oe_view_nocontent_create">
+				Click to create a cashback Line.</p>
+			</field>
+		</record>
+
+		
+		<menuitem id="menu_action_account_cash_back_line" name="Cashback Lines" action="action_account_cashback_line" parent="menu_cash_back" sequence="2"/>
+
+		<record id="account_cashback_tree" model="ir.ui.view">
+			<field name="name">account.cashback.tree</field>
+			<field name="model">account.cashback</field>
+			<field name="arch" type="xml">
+				<tree string="Cashback">
+					<field name="name"/>
+					<field name="start_date"/>
+					<field name="end_date"/>
+					<field name="state"/>
+					
+				</tree>
+			</field>
+		</record>
+
+		<record id="account_cashback_search" model="ir.ui.view">
+			<field name="name">account.cashback.search</field>
+			<field name="model">account.cashback</field>
+			<field name="arch" type="xml">
+				<search string="Cashback">
+					<field name="name"/>
+					<field name="start_date"/>
+					<field name="end_date"/>
+					<field name="state"/>
+				</search>
+			</field>
+		</record>
+
+		<record id="account_cashback_form" model="ir.ui.view">
+			<field name="name">account.cashback.form</field>
+			<field name="model">account.cashback</field>
+			<field name="arch" type="xml">
+				<form string="Cashback">
+					<header>
+						<button name="compute_cashback" type="object" string="Compute Cashback" states="draft" class="oe_highlight"/>
+						<button name="submit_cashback" type="object" string="Submit" states="draft" class="oe_highlight"/>
+						<button name="approve_cashback" type="object" string="Approve" states="submitted" class="oe_highlight"/>
+						<button name="cancel_cashback" type="object" string="Cancel" states="submitted,approved" class="oe_highlight"/>
+						<button name="set_to_draft" type="object" string="Set to Draft" states="cancelled" class="oe_highlight"/>
+						<field name="state" widget="statusbar"/>
+
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="name"/>
+								<field name="start_date"/>
+								<field name="end_date"/>
+							</group>
+							<group>
+								<button name="%(action_cashback_wizard)d" type="action" string="Import Customers" class="oe_highlight" attrs="{'invisible':[('state','!=','draft')]}"/>
+							</group>
+						</group>
+
+						<notebook>
+							<page string="Cashback lines">
+								<field name="line_ids" colspan="4" nolabel="1" editable="bottom"/>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+				
+		<record id="action_account_cashback" model="ir.actions.act_window">
+			<field name="name">Cashback</field>
+			<field name="res_model">account.cashback</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field eval="False" name="view_id"/>
+			<field name="domain">[]</field>
+			<field name="context">{}</field>
+			<field name="search_view_id" ref="account_cashback_search"/>
+			<field name="help" type="html">
+			  <p class="oe_view_nocontent_create">
+				Click to create a cashback.</p>
+			</field>
+		</record>
+		
+		<menuitem id="menu_action_account_cash_back" name="Cashback" action="action_account_cashback" parent="menu_cash_back" sequence="1"/>
+
+	</data>
+</openerp>

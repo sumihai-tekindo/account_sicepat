@@ -5,8 +5,15 @@
 			<field name="model">account.asset.asset</field>
 			<field name="inherit_id" ref="account_asset.view_account_asset_asset_form"/>
 			<field name="arch" type="xml">
+				<button name="validate" position="after">
+					<button name="compute_stock_move" string="Compute Account Analytic" type="object" class="oe_highlight"/>
+				</button>
 				<field name="currency_id" position="after">
 					<field name="account_analytic_id"/>
+					<field name="invoice_line_id"/>
+					<field name="invoice_id"/>
+					<field name="move_in_id"/>
+					<field name="move_out_id"/>
 				</field>
 			</field>
 		</record>
