@@ -40,12 +40,16 @@
         'stock',
         'base',
         'stock_analytic_account',
-        
+        'analytic',
+        "hr",
+        "mail",
     ],
 
     # always loaded
     'data': [
+        'data/stock_transfer_mail_template.xml',
         'views/stock_receipt_view.xml',
+        'views/account_analytic_view.xml',
     ],
 
     'demo': [

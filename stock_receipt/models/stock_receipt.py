@@ -24,9 +24,14 @@
 
 # 2 :  imports of openerp
 from openerp import models, fields, api, _
-from openerp.exceptions import except_orm, Warning, RedirectWarning
+from openerp.exceptions import except_orm, Warning, RedirectWarning, ValidationError
 # 3 :  imports from odoo modules
 import openerp.addons.decimal_precision as dp
+import base64
+import datetime
+from dateutil.relativedelta import relativedelta
+import xlwt
+import StringIO
 
 class StockPicking(models.Model):
     _inherit = "stock.picking"
@@ -45,14 +50,106 @@ class StockPicking(models.Model):
             except:
                 self.stock_receipt_id = receipt
 
+    @api.one
+    @api.depends(
+        'date_done'
+    )
+    def _compute_arrival(self,):
+        if self.date_done:
+            date_done = self.date_done
+        else:
+            date_done = self.date
+        dt = datetime.datetime.strptime(date_done,'%Y-%m-%d %H:%M:%S') + relativedelta(days=self.move_lines[0].account_analytic_dest_id.day_interval)
+        self.date_estimate_arrival = dt.strftime('%Y-%m-%d')
 
     stock_receipt_id = fields.Many2one("stock.receipt","Stock Receipt",compute='_compute_receipt_id',store=True,)
+    date_estimate_arrival = fields.Date("Estimated Arrival",compute='_compute_arrival')
+
+    @api.cr_uid_ids_context
+    def send_mail_transfer_stock(self,cr,uid,ids,context=None):
+        if not context:context={}
+        force_send =context.get('force_send',True)
+        raise_exception = context.get('raise_exception',False)
+        headstyle                = xlwt.easyxf('font: height 180, name Calibri, colour_index black, bold on; align: wrap on, vert centre, horiz centre; ')
+        normal_style             = xlwt.easyxf('font: height 180, name Calibri, colour_index black; align: wrap on, vert centre, horiz left;',num_format_str='#,##0.00;-#,##0.00')
+        normal_style_float_round = xlwt.easyxf('font: height 180, name Calibri, colour_index black; align: wrap on, vert centre, horiz right;',num_format_str='#,##0')
+        for pick in self.browse(cr,uid,ids):
+            workbook = xlwt.Workbook() 
+            ws = workbook.add_sheet(pick.name)
+            
+            header = ['No.','Nama Barang','Quantity Dikirim','Satuan','Quantity Diterima','Keterangan']
+            col=0
+
+            for head in header:
+                ws.write(0, col, head,headstyle)
+                col+=1
+            row = 1
+
+            for line in pick.move_lines:
+               ws.write(row,0,"%s"%str(row),normal_style_float_round)
+               ws.write(row,1,"%s"%line.product_id.name,normal_style)
+               ws.write(row,2,"%s"%line.product_uom_qty,normal_style_float_round)
+               ws.write(row,3,"%s"%line.product_uom.name,normal_style)
+               row+=1
+
+            file_data=StringIO.StringIO()
+            workbook.save(file_data)
+
+            doc_vals=base64.b64encode(file_data.getvalue())
+            # doc_vals=workbook
+            Mail = self.pool.get('mail.mail')
+            Attachment = self.pool.get('ir.attachment')
+            template_id = self.pool.get('ir.model.data').get_object_reference(cr,uid,"stock_receipt","email_template_stock_transfer")
+            # print "============",template_id
+            values = self.pool.get('email.template').generate_email(cr,uid,template_id[1],pick.id,context=context)
+            values['recipient_ids'] = [(4, pid) for pid in values.get('partner_ids', list())]
+            attachment_ids = values.pop('attachment_ids', [])
+            attachments = values.pop('attachments', [])
+            # add a protection against void email_from
+            if 'email_from' in values and not values.get('email_from'):
+                values.pop('email_from')
+            mail_id = Mail.create(cr,uid,values)
+            mail = Mail.browse(cr,uid,mail_id)
+            # manage attachments
+            
+            if doc_vals:
+               document_vals = {
+                               'name': "Pengiriman "+pick.name+".xls",
+                               'datas': doc_vals,
+                               'datas_fname': "Pengiriman "+pick.name+".xls",
+                               'res_model': 'mail.message',
+                               'res_id': mail.mail_message_id.id,
+                               'type': 'binary',
+                               'mimetype':"application/vnd.ms-excel",
+                               }
+
+               ir_id = Attachment.create(cr,uid,document_vals)
+               attachment_ids.append(ir_id)
+
+            if attachment_ids:
+               values['attachment_ids'] = [(6, 0, attachment_ids)]
+               mail.write({'attachment_ids': [(6, 0, attachment_ids)]})
+            if force_send:
+                Mail.send(cr, uid, [mail_id], raise_exception=raise_exception, context=context)
+        return True
+
+    @api.cr_uid_ids_context
+    def do_transfer(self, cr, uid, picking_ids, context=None):
+        res=super(StockPicking,self).do_transfer(cr,uid,picking_ids,context=context)
+        for picking in self.browse(cr,uid,picking_ids,context=context):
+            if picking.picking_type_id.default_location_src_id.usage=='internal' and picking.picking_type_id.default_location_dest_id.usage=='production':
+                picking.send_mail_transfer_stock()
+            else:
+                continue
+        return res
+        
 
 class StockReceipt(models.Model):
     # Private attributes
     _name = "stock.receipt"
     
     name = fields.Char("Name",states={'receipt': [('readonly', True)],'cancel': [('readonly', True)]})
+    notes = fields.Text("Notes")
     issue_id = fields.Many2one('stock.picking', 'Issue Number',
         states={'receipt': [('readonly', True)],'cancel': [('readonly', True)]})
     partner_id = fields.Many2one('res.partner', 'Destination Address ', states={'receipt': [('readonly', True)],'cancel': [('readonly', True)]})
@@ -144,7 +241,7 @@ class StockReceiptLine(models.Model):
     procure_method = fields.Selection([('make_to_stock', 'Default: Take From Stock'), ('make_to_order', 'Advanced: Apply Procurement Rules')], string='Supply Method', required=True)
     product_uom = fields.Many2one('product.uom', string='Unit of Measure',)
     product_uos = fields.Many2one('product.uom', string='Product UOS')
-    product_uom_qty = fields.Float(string='Quantity', digits_compute=dp.get_precision('Product Unit of Measure'))
+    product_uom_qty = fields.Float(string='Quantity Transferred', digits_compute=dp.get_precision('Product Unit of Measure'))
     product_uos_qty = fields.Float(string='Quantity (UOS)', digits_compute=dp.get_precision('Product UoS'))
     name = fields.Char(string='Description',)
     product_packaging = fields.Many2one('product.packaging', string='Prefered Packaging')
@@ -161,3 +258,9 @@ class StockReceiptLine(models.Model):
     account_analytic_id = fields.Many2one("account.analytic.account",string="Analytic Account",)
     location_dest_id = fields.Many2one('stock.location', string='Destination Location', )
     account_analytic_dest_id = fields.Many2one("account.analytic.account",string="Destination Analytic Account")
+
+    @api.onchange('product_receipt','product_uom_qty')
+    def onchange_receipt_qty(self):
+        if product_receipt and product_uom_qty:
+            if product.receipt > product_uom_qty:
+                raise ValidationError(_('Product Receipt should be less or equal than Product Transferred') % self.company_id.name)

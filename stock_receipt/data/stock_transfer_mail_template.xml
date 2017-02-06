@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="1">
+		<!--Email template -->
+		<record id="email_template_stock_transfer" model="email.template">
+			<field name="name">Stock Transfer Confirmation Mail</field>
+			<field name="email_from">${(user.email or '')|safe}</field>
+			<field name="email_cc">${(user.email or '')|safe}</field>
+			<field name="subject">${object.name} – pengiriman barang ke ${object.move_lines[0].account_analytic_dest_id.name}</field>
+			<field name="email_to">${object.move_lines[0].account_analytic_dest_id.user_admin_id.work_email | safe}</field>
+			<field name="model_id" ref="stock.model_stock_picking"/>
+			<field name="auto_delete" eval="True"/>
+			<field name="lang"></field>
+			<field name="body_html"><![CDATA[<p>Dear ${object.move_lines[0].account_analytic_dest_id.user_admin_id.name},<br/> 
+					Pada hari ini, tanggal ${object.date_done|format_date('%d-%b-%Y %H:%M:%S')} telah dilakukan pengiriman barang dari GA Pusat ke cabang ${object.move_lines[0].account_analytic_dest_id.name} (Attachment terlampir).<br/>
+					Dan diperkirakan akan sampai pada tanggal ${object.date_estimate_arrival|format_date()}. Silakan dipantau. Bila tidak diterima sesuai jadual, silakan update kami. 
+					Setelah menerima, mohon email kembali kepada kami data barang yang telah diterima menggunakan kolom yang tersedia pada file attachment.<br/>
+					<br/>
+					Hormat kami,<br/>
+					Tim GA Pusat<br/><br/><br/>
+
+
+					${user.name}
+				</p>
+			]]></field>
+		</record>
+	</data>
+</openerp>

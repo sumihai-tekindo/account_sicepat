@@ -85,9 +85,9 @@
                 <form string="Receipt">
                 <header>
                     <header>
-                        <button name="action_receipt" type="object" states="draft" string="Receipt"/>
-                        <button name="action_draft" type="object" states="cancel" string="Set to Draft"/>
-                        <button name="action_cancel" type="object" states="receipt" string="Cancel"/>
+                        <button name="action_receipt" type="object" states="draft" string="Receipt" class="oe_highlight"/>
+                        <button name="action_draft" type="object" states="cancel" string="Set to Draft" class="oe_highlight"/>
+                        <button name="action_cancel" type="object" states="receipt" string="Cancel" class="oe_highlight"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,receipt,cancel" />
                     </header>
                 </header>
