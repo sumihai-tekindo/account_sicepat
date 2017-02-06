@@ -69,11 +69,15 @@ class res_partner_discounts(osv.osv):
 		if not context:context={}
 		end_date = (datetime.now() + relativedelta(months=1)).strftime('%Y-%m-%d')
 		return end_date
-
+	def _get_partner(self,cr,uid,context=None):
+		if not context:context={}
+		if context.get('partner_id',False):
+			return partner_id
+		return False
 	_defaults = {
 		"name":0.0,
 		"sequence"	: _get_default_sequence,
-		"partner_id": lambda cr,uid,context:context.get('partner_id',False),
+		"partner_id": _get_partner,
 		"start_date": _get_start_date,
 		"end_date"	: _get_end_date
 	}
