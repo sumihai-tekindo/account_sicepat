@@ -151,14 +151,16 @@ class account_cashback_line(osv.osv):
 								group by aml3.reconcile_id,aml3.partner_id ) rec_aml3 
 								on aml.reconcile_id=rec_aml3.reconcile_id and aml.debit>0.0
 							left join (
-								select ai.partner_id,sum(ail.price_unit*ail.quantity) as omzet_before_disc
-								from account_invoice ai
-								left join account_invoice_line ail on ail.invoice_id=ai.id
-								where ai.type='out_invoice' 
-								and ai.date_invoice>='%s'
-								and ai.date_invoice<='%s'
-								and ai.state in ('open','paid')
-								group by ai.partner_id
+								select ail.partner_id,
+									round(sum(case when ai.type='out_invoice' then ail.quantity*ail.price_unit else (100.00/(100.00-rp.current_discount))*(-1*ail.price_unit)*ail.quantity end),2) as omzet_before_disc,
+									sum(case when ai.type='out_invoice' then ail.price_subtotal else -1*ail.price_subtotal end) as after_disc
+									from account_invoice_line ail 
+									left join account_invoice ai on ail.invoice_id=ai.id
+									left join res_partner rp on ai.partner_id=rp.id
+									where  ai.date_invoice >= '%s'
+									and ai.date_invoice <= '%s'
+									and ai.state in ('open','paid') and ai.type in ('out_invoice','out_refund')
+									group by ail.partner_id
 								) before_disc on rp.id=before_disc.partner_id
 							where 
 							aml.date >= '%s' 
@@ -244,14 +246,16 @@ class account_cashback_line(osv.osv):
 									group by aml3.reconcile_id,aml3.partner_id ) rec_aml3 
 									on aml.reconcile_id=rec_aml3.reconcile_id and aml.debit>0.0
 								left join (
-									select ai.partner_id,sum(ail.price_unit*ail.quantity) as omzet_before_disc
-									from account_invoice ai
-									left join account_invoice_line ail on ail.invoice_id=ai.id
-									where ai.type='out_invoice' 
-									and ai.date_invoice>='%s'
-									and ai.date_invoice<='%s'
-									and ai.state in ('open','paid')
-									group by ai.partner_id
+									select ail.partner_id,
+									round(sum(case when ai.type='out_invoice' then ail.quantity*ail.price_unit else (100.00/(100.00-rp.current_discount))*(-1*ail.price_unit)*ail.quantity end),2) as omzet_before_disc,
+									sum(case when ai.type='out_invoice' then ail.price_subtotal else -1*ail.price_subtotal end) as after_disc
+									from account_invoice_line ail 
+									left join account_invoice ai on ail.invoice_id=ai.id
+									left join res_partner rp on ai.partner_id=rp.id
+									where  ai.date_invoice >= '%s'
+									and ai.date_invoice <= '%s'
+									and ai.state in ('open','paid') and ai.type in ('out_invoice','out_refund')
+									group by ail.partner_id
 									) before_disc on rp.id=before_disc.partner_id
 								where 
 								aml.date >= '%s' 
