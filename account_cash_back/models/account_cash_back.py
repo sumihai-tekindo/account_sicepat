@@ -124,9 +124,11 @@ class account_cashback_line(osv.osv):
 
 	def compute_cashback_lines(self,cr,uid,ids,context=None):
 		if not context:context={}
-		rule_ids = self.pool.get('account.cashback.rule').search(cr,uid,[])
-		rules = self.pool.get('account.cashback.rule').browse(cr,uid,rule_ids)
+
+		
 		if context.get('start_date',False) and context.get('end_date',False):
+			rule_ids = self.pool.get('account.cashback.rule').search(cr,uid,[('date_start','>=',context.get('start_date',False)),('date_end','<=',context.get('date_end',False))])
+			rules = self.pool.get('account.cashback.rule').browse(cr,uid,rule_ids)
 			start_date = context.get('start_date')
 			end_date = context.get('end_date')
 			query_cashback = """select 
@@ -203,13 +205,14 @@ class account_cashback_line(osv.osv):
 				next_disc 			= line.name.current_discount or 0.0
 				partner_id 			= line.name and line.name.id
 				for rule in rules:
-					print "============1==============",rule.rules,"=",eval(rule.rules)
+					print "============1==============",rule.name,"=",eval(rule.rules)
 					if eval(rule.rules):
 						cash_back_amt = eval(rule.cash_back_amt_rule)
 						proposed_disc = rule.next_disc
 						product_id = rule.product_id and rule.product_id.id or False
 						journal_id = rule.journal_id and rule.journal_id.id
 						department_id = rule.department_id and rule.department_id.id
+						break
 				value = {
 						'current_disc'		: current_disc,
 						'omzet_before_disc'	: omzet_before_disc,
@@ -225,9 +228,13 @@ class account_cashback_line(osv.osv):
 
 				line.write(value)
 		else:
+			rule_ids = self.pool.get('account.cashback.rule').search(cr,uid,[])
+			rules = self.pool.get('account.cashback.rule').browse(cr,uid,rule_ids)
 			for line in self.browse(cr,uid,ids,context=context):
 				start_date=line.start_date
 				end_date=line.end_date
+				dt_line_start = datetime.datetime.strptime(start_date,'%Y-%m-%d')
+				dt_line_end = datetime.datetime.strptime(end_date,'%Y-%m-%d')
 				query_cashback = """select 
 								rp.id,
 								before_disc.omzet_before_disc,
@@ -301,13 +308,16 @@ class account_cashback_line(osv.osv):
 				next_disc 			= line.name.current_discount or 0.0
 				partner_id 			= line.name.id
 				for rule in rules:
-					print "============1==============",rule.rules,"=",eval(rule.rules),partner_id,[x.id for x in rule.partner_ids]
-					if eval(rule.rules):
+					dt_start = datetime.datetime.strptime(rule.date_start,'%Y-%m-%d')
+					dt_end = datetime.datetime.strptime(rule.date_end,'%Y-%m-%d')
+					print "============2==============",rule.name,"=",eval(rule.rules),rule.cash_back_amt_rule,eval(rule.cash_back_amt_rule)
+					if eval(rule.rules) and (dt_line_start >=dt_start and dt_line_end<=dt_end):
 						cash_back_amt = eval(rule.cash_back_amt_rule)
 						proposed_disc = rule.next_disc
 						product_id = rule.product_id and rule.product_id.id
 						journal_id = rule.journal_id and rule.journal_id.id
 						department_id = rule.department_id and rule.department_id.id
+						break
 				value = {
 						'current_disc'		: current_disc,
 						'omzet_before_disc'	: omzet_before_disc,
