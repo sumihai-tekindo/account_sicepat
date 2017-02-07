@@ -1,4 +1,5 @@
 from openerp.osv import fields,osv
+import datetime
 
 class account_cashback_rule(osv.osv):
 	_name = "account.cashback.rule"
@@ -11,11 +12,20 @@ class account_cashback_rule(osv.osv):
 		"partner_ids"		: fields.many2many('res.partner','cashback_rule_partner_rel', 'rule_id', 'partner_id', 'Applied Customers',),
 		"journal_id"		: fields.many2one("account.journal","Journal",required=True),
 		"department_id"		: fields.many2one("account.invoice.department","Department",required=False),
+		"active"			: fields.boolean("Active"),
+		"date_start"		: fields.date("Effective Start Date",required=True),
+		"date_end"			: fields.date("Effective End Date",required=True),
+		"sequence"			: fields.integer("Computation Sequence",required=True),
 	}
 	_defaults = {
 		"rules":"# Use this fields : current_disc, omzet_before_disc, omzet_after_disc, omzet_paid, deposit, cash_back_amt, proposed_disc",
 		"cash_back_amt_rule":"# Use this fields : current_disc, omzet_before_disc, omzet_after_disc, omzet_paid, deposit, cash_back_amt, proposed_disc",
+		"date_start"		: lambda *a: '2017-01-01',	
+		"date_end"			: lambda *a: '2017-01-31',	
+		"sequence"			: lambda *a: 1,	
+		"active"			: True
 	}
+	_order = "date_start desc, sequence asc"
 
 class account_cashback(osv.osv):
 	_name = "account.cashback"
@@ -191,7 +201,9 @@ class account_cashback_line(osv.osv):
 				cash_back_amt 		= 0.0
 				proposed_disc 		= 0.0
 				next_disc 			= line.name.current_discount or 0.0
+				partner_id 			= line.name and line.name.id
 				for rule in rules:
+					print "============1==============",rule.rules,"=",eval(rule.rules)
 					if eval(rule.rules):
 						cash_back_amt = eval(rule.cash_back_amt_rule)
 						proposed_disc = rule.next_disc
@@ -287,8 +299,9 @@ class account_cashback_line(osv.osv):
 				department_id		= False
 				cashback_amt 		= 0.0
 				next_disc 			= line.name.current_discount or 0.0
+				partner_id 			= line.name.id
 				for rule in rules:
-
+					print "============1==============",rule.rules,"=",eval(rule.rules),partner_id,[x.id for x in rule.partner_ids]
 					if eval(rule.rules):
 						cash_back_amt = eval(rule.cash_back_amt_rule)
 						proposed_disc = rule.next_disc

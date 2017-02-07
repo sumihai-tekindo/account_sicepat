@@ -27,9 +27,12 @@
 							<field name="cash_back_amt_rule"/>
 						</group>
 						<group>
+							<field name="sequence"/>
 							<field name="product_id"/>
 							<field name="journal_id"/>
-							<field name="department_id"/>
+							<field name="date_start"/>
+							<field name="date_end"/>
+							<field name="active"/>
 						</group>
 					</group>
 					<group colspan="4" string="Applied Customers">
