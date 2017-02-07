@@ -81,7 +81,7 @@
 			<field name="name">account.cashback.line.tree</field>
 			<field name="model">account.cashback.line</field>
 			<field name="arch" type="xml">
-				<tree string="Cashback Lines">
+				<tree string="Cashback Lines" colors="blue:omzet_paid&gt;=omzet_after_disc;">
 					<field name="name"/>
 					<field name="current_disc"/>
 					<field name="omzet_before_disc"/>

@@ -99,7 +99,7 @@ class account_cashback_line(osv.osv):
 		"invoice_id"		: fields.many2one("account.invoice","CB. Invoice"),
 		"product_id"		: fields.many2one("product.product","Cash Back Product"),
 		"journal_id"		: fields.many2one("account.journal","Journal"),
-		"department_id"		: fields.many2one("account.invoice.department","Journal",required=False),
+		"department_id"		: fields.many2one("account.invoice.department","Department",required=False),
 		"force_cb"			: fields.boolean("Force Rule"),
 		"state"				: fields.function(_get_state,type="selection",selection=[('draft','Draft'),
 											('proforma','Pro-forma'),
