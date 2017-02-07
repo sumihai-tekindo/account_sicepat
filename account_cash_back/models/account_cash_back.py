@@ -371,6 +371,7 @@ class account_cashback_line(osv.osv):
 				'payment_term': line.name.property_supplier_payment_term and line.name.property_supplier_payment_term.id or False,
 				'fiscal_position': line.name.property_account_position.id,
 				'department_id': line.department_id and line.department_id.id,
+				'user_id': uid,
 			}
 			
 			inv_id = self.pool.get('account.invoice').create(cr,uid,inv,context=context)
