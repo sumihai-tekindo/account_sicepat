@@ -7,7 +7,7 @@
 			<field name="email_from">${(user.email or '')|safe}</field>
 			<field name="email_cc">${(user.email or '')|safe}</field>
 			<field name="subject">${object.name} – pengiriman barang ke ${object.move_lines[0].account_analytic_dest_id.name}</field>
-			<field name="email_to">${object.move_lines[0].account_analytic_dest_id.user_admin_id.work_email | safe}</field>
+			<field name="email_to">${object.move_lines[0].account_analytic_dest_id.user_admin_id.partner_id.email | safe}</field>
 			<field name="model_id" ref="stock.model_stock_picking"/>
 			<field name="auto_delete" eval="True"/>
 			<field name="lang"></field>
