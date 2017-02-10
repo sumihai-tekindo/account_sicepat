@@ -302,7 +302,7 @@ class ir_sequence_date_range(openerp.osv.osv.osv):
             number_next = _select_nextval(self, cr, uid, 'ir_sequence_%03d_%03d' % (sequence['id'], seq_date_id), context=context)
         else:
             number_next = _update_nogap(self, cr, uid, seq_date, sequence['number_increment'], context=context)
-        context['ir_sequence_date_range'] = seq_date.date_from
+        dict(context).update({'ir_sequence_date_range': seq_date.date_from})
         return sequence_obj.get_next_char(cr, uid, sequence, number_next, context=context)
 
     def _alter_sequence(self, cr, uid, ids, number_increment=None, number_next=None):
