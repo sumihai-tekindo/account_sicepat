@@ -51,6 +51,7 @@ Feature
 
     # any module necessary for this one to work correctly
     'depends': [
+        'purchase_group_double_validation',
         'account_bank_statement_analytic',
         'account_followup',
         'account_accountant',
