@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="action_customer_churn_report_xls" model="ir.actions.report.xml">
+			<field name="name">Customer Churn</field>
+			<field name="model">account.move.line</field>
+			<field name="type">ir.actions.report.xml</field>
+			<field name="report_name">customer.churn.report.xls</field>
+			<field name="report_type">xls</field>
+			<field name="auto" eval="False"/>
+		</record>
+	    <record id="action_customer_churn_report" model="ir.actions.act_window">
+	        <field name="name">Customer Churn</field>
+	        <field name="res_model">customer.churn.wizard</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">form</field>
+	        <field name="target">new</field>
+	    </record>
+        <record id="customer_churn_wizard_view" model="ir.ui.view">
+            <field name="name">hr.loan.approve.form</field>
+            <field name="model">customer.churn.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Customer Churn">
+					<group string="Filters">
+						<field name="as_of_date"/>
+                		<label for="interval_cust_churn_number" string="Interval"/>
+ 						<div>
+                            <field name="interval_cust_churn_number" class="oe_inline"/>
+                            <field name="interval_cust_churn_type" style="width:20%"/>
+ 						</div>               		
+					</group>
+                    <footer>
+                        <button string="Print" icon="gtk-print" name="check_report" type="object" default_focus="1" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+	    <menuitem action="action_customer_churn_report" id="menu_report_customer_churn" parent="base.next_id_64"/>
+	</data>
+</openerp>
