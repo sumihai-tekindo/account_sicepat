@@ -1,6 +1,6 @@
 from openerp.osv import fields,osv
 from openerp.tools.translate import _
-
+import openerp.addons.decimal_precision as dp
 from openerp import SUPERUSER_ID, api
 
 class stock_location(osv.osv):
@@ -9,9 +9,12 @@ class stock_location(osv.osv):
 		"account_analytic_id":fields.many2one("account.analytic.account","Analytic Account",required=False),
 	}
 
+
+
 class stock_move(osv.osv):
 	_inherit = "stock.move"
 	_columns = {
+		"price_unit_replenish": fields.float("Unconsumed Unit Price",digits_compute=dp.get_precision('Product Unit of Measure')),
 		"account_analytic_id":fields.many2one("account.analytic.account","Analytic Account",required=False),
 		"account_analytic_dest_id":fields.many2one("account.analytic.account","Destination Analytic Account",required=False),
 		'location_id_usage': fields.selection([
@@ -53,6 +56,12 @@ class stock_move(osv.osv):
 					   \n* Transit Location: Counterpart location that should be used in inter-companies or inter-warehouses operations
 					  """, select=True),
 	}
+
+	def get_price_unit(self, cr, uid, move, context=None):
+		""" Returns the unit price to store on the quant """
+		res = super(stock_move,self).get_price_unit(cr,uid,move,context=context)
+
+		return move.price_unit_replenish or res
 
 	def onchange_locations(self,cr,uid,ids,location_id,location_dest_id,context=None):
 		value = {'location_id_usage':False,'location_dest_id_usage':False,'account_analytic_id':False,'account_analytic_dest_id':False}
