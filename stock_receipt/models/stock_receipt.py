@@ -35,7 +35,19 @@ import StringIO
 
 class StockPicking(models.Model):
     _inherit = "stock.picking"
-
+    
+    @api.one
+    @api.depends(
+        'move_lines','move_lines.account_analytic_dest_id'
+    )
+    def _compute_department(self):
+        analytic_dest = False
+        if self.move_lines:
+            for mv in self.move_lines:
+                if mv.account_analytic_dest_id and mv.account_analytic_dest_id.id:
+                    analytic_dest = mv.account_analytic_dest_id.id
+                    break
+        self.department_id = analytic_dest
 
     @api.one
     @api.depends(
@@ -63,6 +75,10 @@ class StockPicking(models.Model):
         self.date_estimate_arrival = dt.strftime('%Y-%m-%d')
 
     stock_receipt_id = fields.Many2one("stock.receipt","Stock Receipt",compute='_compute_receipt_id',store=True,)
+    department_id = fields.Many2one("account.analytic.account","Department",compute="_compute_department", store=True, readonly=True)
+    admin_id = fields.Many2one('res.users', string='Admin Cabang',
+        related='department_id.user_admin_id', store=False, readonly=True,
+        help="Admin Cabang")
     date_estimate_arrival = fields.Date("Estimated Arrival",compute='_compute_arrival')
 
     @api.cr_uid_ids_context
@@ -148,10 +164,24 @@ class StockReceipt(models.Model):
     # Private attributes
     _name = "stock.receipt"
     
+    @api.one
+    @api.depends(
+        'department_id','department_id.user_admin_id'
+    )
+    def _compute_user(self,):
+        if self.department_id:
+            self.user_id = self.department_id.user_admin_id and self.department_id.user_admin_id.id or False
+        else:
+            self.user_id = False
+
     name = fields.Char("Name",states={'receipt': [('readonly', True)],'cancel': [('readonly', True)]})
+    department_id = fields.Many2one("account.analytic.account","Department",required=True)
+    user_id = fields.Many2one('res.users', string='Admin Cabang',
+        compute='_compute_user', store=True, readonly=True,
+        help="Admin Cabang")
     notes = fields.Text("Notes")
     issue_id = fields.Many2one('stock.picking', 'Issue Number',
-        states={'receipt': [('readonly', True)],'cancel': [('readonly', True)]})
+        states={'receipt': [('readonly', True)],'cancel': [('readonly', True)]},required=True)
     partner_id = fields.Many2one('res.partner', 'Destination Address ', states={'receipt': [('readonly', True)],'cancel': [('readonly', True)]})
     date= fields.Date('Inventory Date', required=True, states={'receipt': [('readonly', True)],'cancel': [('readonly', True)]})
     min_date = fields.Datetime( string='Scheduled Date',states={'receipt': [('readonly', True)],'cancel': [('readonly', True)]})
@@ -165,6 +195,11 @@ class StockReceipt(models.Model):
         ('cancel','Cancel'),
         ], string='State', readonly=True, default='draft')
     stock_receipt_line = fields.One2many('stock.receipt.line','stock_receipt_id',"Receipt Lines",states={'receipt': [('readonly', True)],'cancel': [('readonly', True)]})
+
+    @api.model
+    def create(self, vals):
+        vals['user_id'] = self.env.user.id
+        return super(StockReceipt, self).create(vals)
 
     @api.onchange('issue_id','stock_receipt_line')
     def _onchange_issue_id(self,):
@@ -259,8 +294,9 @@ class StockReceiptLine(models.Model):
     location_dest_id = fields.Many2one('stock.location', string='Destination Location', )
     account_analytic_dest_id = fields.Many2one("account.analytic.account",string="Destination Analytic Account")
 
+
     @api.onchange('product_receipt','product_uom_qty')
-    def onchange_receipt_qty(self):
-        if product_receipt and product_uom_qty:
-            if product.receipt > product_uom_qty:
-                raise ValidationError(_('Product Receipt should be less or equal than Product Transferred') % self.company_id.name)
+    def _onchange_receipt_qty(self):
+        if self.product_receipt and self.product_uom_qty:
+            if self.product_receipt > self.product_uom_qty:
+                raise ValidationError(_('Product Receipt should be less or equal than Product Transferred'))

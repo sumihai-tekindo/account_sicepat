@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stock_receipt_cabang,stock.receipt.sicepat.stock.receipt.cabang,model_stock_receipt,stock_receipt.group_stock_receipt_cabang,1,1,1,0
+access_stock_receipt_line_cabang,stock.receipt.line.sicepat.stock.receipt.cabang,model_stock_receipt_line,stock_receipt.group_stock_receipt_cabang,1,1,1,1
+access_stock_receipt_ga,stock.receipt.sicepat.stock.receipt.ga,model_stock_receipt,stock_receipt.group_stock_receipt_ga,1,1,1,0
+access_stock_receipt_line_ga,stock.receipt.line.sicepat.stock.receipt.ga,model_stock_receipt_line,stock_receipt.group_stock_receipt_ga,1,1,1,1

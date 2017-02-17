@@ -47,6 +47,8 @@
 
     # always loaded
     'data': [
+        'security/stock_receipt_security.xml',
+        'security/ir.model.access.csv',
         'data/stock_transfer_mail_template.xml',
         'views/stock_receipt_view.xml',
         'views/account_analytic_view.xml',

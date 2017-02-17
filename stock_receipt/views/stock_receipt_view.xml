@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-    	
+    	<record id="view_stock_picking_receipt_dept_inherit" model="ir.ui.view">
+            <field name="name">view.stock.picking.receipt.dept.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <field name="backorder_id" position="after">
+                    <field name="department_id" invisible="1"/>
+                </field>
+            </field>
+        </record>
+
     	<record id="view_stock_receipt_line_tree" model="ir.ui.view">
             <field name="name">Stock Receipt Line</field>
             <field name="model">stock.receipt.line</field>
@@ -26,34 +36,34 @@
                     
                 <group>
                     <group>
-                        <field name="product_id"/>
-                        <field name="procure_method"/>
+                        <field name="product_id" readonly="1"/>
+                        <field name="procure_method" readonly="1"/>
                         <field name="picking_id" invisible="1"/>
                         <label for="product_uom_qty"/>
                         <div>
-                            <field name="product_uom_qty"/>
-                            <field name="product_uom" string="Unit Of Measure"/>
+                            <field name="product_uom_qty" readonly="1"/>
+                            <field name="product_uom" string="Unit Of Measure" readonly="1"/>
                         </div>
                         <label for="product_uos_qty"/>
                         <div>
-                            <field name="product_uos_qty"/>
-                            <field name="product_uos"/>
+                            <field name="product_uos_qty" readonly="1"/>
+                            <field name="product_uos" readonly="1"/>
                            
                         </div>
                         <field name="product_receipt" required="True"/>
-                        <field name="name"/>
-                        <field name="product_packaging"/>
+                        <field name="name" readonly="1"/>
+                        <field name="product_packaging" readonly="1"/>
                     </group>
                     <group>
                         <field name="create_date" invisible="1"/>
-                        <field name="date"/>
-                        <field name="date_expected"/>
+                        <field name="date" readonly="1"/>
+                        <field name="date_expected" readonly="1"/>
                     </group>
                     <group string="Locations">
-                        <field name="location_id"/>
-                        <field name="account_analytic_id"/>
-                        <field name="location_dest_id"/>
-                        <field name="account_analytic_dest_id"/>
+                        <field name="location_id" readonly="1"/>
+                        <field name="account_analytic_id" readonly="1"/>
+                        <field name="location_dest_id" readonly="1"/>
+                        <field name="account_analytic_dest_id" readonly="1"/>
                     </group>
                 </group>
                 </form>
@@ -98,8 +108,10 @@
                     <group>
                         <group>
                             <!-- <field name="partner_id"/> -->
-                            <field name="issue_id" domain="[('stock_receipt_id','=',False),('picking_type_code','=','internal'),('state','!=','cancel')]"/>
+                            <field name="department_id" domain="[('user_admin_id','=',uid)]"/>                   
+                            <field name="issue_id" domain="[('stock_receipt_id','=',False),('picking_type_code','=','internal'),('state','!=','cancel'),('department_id','=',department_id)]"/>
                             <field name="date_done"/>                   
+                            <field name="user_id"/>                   
                         </group>
                         <group>
                             <field name="date"/>
