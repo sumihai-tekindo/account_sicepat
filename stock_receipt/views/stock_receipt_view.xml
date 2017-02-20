@@ -139,10 +139,11 @@
             <field name="view_mode">tree,form</field>
         </record>
     	
-    	<menuitem
+        <menuitem parent="stock.menu_stock_root" name="Stock Receipt" id="menu_stock_receipt_root" sequence="2"/>
+    	<menuitem 
             action="action_receipt_stock_form"
             id="menu_action_receipt_stock_form"
-            parent="stock.menu_stock_warehouse_mgmt" sequence="2"/>
+            parent="menu_stock_receipt_root" sequence="2"/>
         
     </data>
 </openerp>
