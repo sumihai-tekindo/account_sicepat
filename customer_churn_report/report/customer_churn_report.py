@@ -129,7 +129,7 @@ class parser_customer_churn(report_sxw.rml_parse):
                         new_data['churn_rate'] = churn_rate
                         result.append(new_data)
         
-        result = sorted(result, key=lambda k: (k['churn_rate'], k['partner_name']))            
+        result = sorted(result, key=lambda k: (k['churn_rate'], k['partner_name']), reverse=True)            
         return result
 
 class customer_churn_report(report_xls):
