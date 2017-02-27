@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+     <data>
+
+		<record id="action_account_aged_balance_xls" model="ir.actions.report.xml">
+			<field name="name">Aged Partner Balance XLS</field>
+			<field name="model">account.move.line</field>
+			<field name="type">ir.actions.report.xml</field>
+			<field name="report_name">account.report_agedpartnerbalance_xls</field>
+			<field name="report_type">xls</field>
+			<field name="auto" eval="False"/>
+		</record>
+        <record id="account_aged_balance_view_xls" model="ir.ui.view">
+            <field name="name">Aged Partner Balance XLS</field>
+            <field name="model">account.aged.trial.balance</field>
+            <field name="inherit_id" ref="account.account_aged_balance_view" />
+            <field name="arch" type="xml">
+                <field name="target_move" position="after">
+                	<field name="report_type"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
