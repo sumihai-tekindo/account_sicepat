@@ -109,6 +109,7 @@ Feature
         'views/sicepat_template.xml',
         'views/supplier_invoice_action_view.xml',
         'views/report_supplier_invoice_view.xml',
+        'views/res_partner.xml',
     ],
 
     # only loaded in demonstration mode
