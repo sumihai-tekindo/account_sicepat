@@ -24,6 +24,8 @@
 
 # 2 :  imports of openerp
 from openerp import models, fields, api, _
+from openerp.exceptions import Warning
+
 
 # 3 :  imports from odoo modules
 class AccountInvoiceLine(models.Model):
