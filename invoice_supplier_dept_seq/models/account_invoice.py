@@ -27,7 +27,7 @@ class account_invoice(osv.Model):
     _inherit = "account.invoice"
 
     _columns = {
-        'department_id': fields.many2one('account.invoice.department', 'Department', copy=False, ondelete='set null'),
+        'department_id': fields.many2one('account.invoice.department', 'Department', readonly=True, states={'draft': [('readonly', False)]}, copy=False, ondelete='set null'),
     }
     
     def create(self, cr, uid, vals, context=None):
