@@ -61,10 +61,79 @@ class parser_customer_churn(report_sxw.rml_parse):
     def get_rev_head_2(self):
         return _('Revenue %s %s ago' % (self.interval_number, self.interval_type))
 
+#     def lines(self):
+#         partner = self.pool.get('res.partner')
+#         move_line = self.pool.get('account.move.line')
+#         analytic_account = self.pool.get('account.analytic.account')
+#         analytic_line = self.pool.get('account.analytic.line')
+#         result = []
+#         number_val_1 = self.interval_number * 2
+#         number_val_2 = self.interval_number
+#         as_of_date_1 = str(_as_date[self.interval_type](datetime.strptime(self.as_of_date, DF), number_val_1))[:10]
+#         as_of_date_2 = str(_as_date[self.interval_type](datetime.strptime(self.as_of_date, DF), number_val_2))[:10]
+#         account_income = self.pool.get('ir.property').get(self.cr, self.uid, 'property_account_income_categ', 'product.category')
+#         cust_ids = partner.search(self.cr, self.uid, [('customer', '=', True)], order='name asc')
+#         for customer in partner.browse(self.cr, self.uid, cust_ids):
+#             all_data = {}
+#             domain = [('partner_id', '=', customer.id), ('account_id', '=', account_income.id)]
+#             domain_1 = [('date', '<', as_of_date_2), ('date', '>=', as_of_date_1)]
+#             domain_2 = [('date', '<', self.as_of_date), ('date', '>=', as_of_date_2)]
+#             bal_1 = 0.0
+#             bal_2 = 0.0
+#             
+#             all_data['partner_id'] = customer.id
+#             all_data['partner_name'] = customer.name
+#             all_data['user_id'] = customer.user_id.id
+#             all_data['user_name'] = customer.user_id.name
+#             all_data['balance_1'] = {}
+#             all_data['balance_2'] = {}
+#             move_line_ids_1 = move_line.search(self.cr, self.uid, domain + domain_1)
+#             if move_line_ids_1:
+#                 self.cr.execute("SELECT DISTINCT account_id FROM account_analytic_line WHERE move_id IN %s ORDER BY account_id", (tuple(move_line_ids_1),))
+#                 analytic_ids_1 = [a for (a,) in self.cr.fetchall()]
+#                 for analytic_id_1 in analytic_ids_1:
+#                     analytic_account_1 = analytic_account.browse(self.cr, self.uid, [analytic_id_1])
+#                     analytic_line_ids_1 = analytic_line.search(self.cr, self.uid, [('account_id', '=', analytic_id_1), ('move_id', 'in', move_line_ids_1)])
+#                     analytic_line_1 = analytic_line.browse(self.cr, self.uid, analytic_line_ids_1)
+#                     bal_1 = sum(al.amount for al in analytic_line_1)
+#                     all_data['balance_1'][str(analytic_id_1)] = {'name': analytic_account_1.complete_name, 'balance': bal_1} 
+#             
+#             move_line_ids_2 = move_line.search(self.cr, self.uid, domain + domain_2)
+#             if move_line_ids_2:
+#                 self.cr.execute("SELECT DISTINCT account_id FROM account_analytic_line WHERE move_id IN %s ORDER BY account_id", (tuple(move_line_ids_2),))
+#                 analytic_ids_2 = [a for (a,) in self.cr.fetchall()]
+#                 for analytic_id_2 in analytic_ids_2:
+#                     analytic_account_2 = analytic_account.browse(self.cr, self.uid, [analytic_id_2]) 
+#                     analytic_line_ids_2 = analytic_line.search(self.cr, self.uid, [('account_id', '=', analytic_id_2), ('move_id', 'in', move_line_ids_2)])
+#                     analytic_line_2 = analytic_line.browse(self.cr, self.uid, analytic_line_ids_2)
+#                     bal_2 = sum(al.amount for al in analytic_line_2)
+#                     all_data['balance_2'][str(analytic_id_2)] = {'name': analytic_account_2.complete_name, 'balance': bal_2} 
+#             
+#             if all_data['balance_1']:
+#                 for key_id in all_data['balance_1']:
+#                     balance_1 = all_data['balance_1'][key_id]['balance']
+#                     balance_2 = 0.0
+#                     if all_data['balance_2'].get(key_id, False):
+#                         balance_2 = all_data['balance_2'][key_id]['balance']
+#                     if balance_2 < balance_1:
+#                         new_data = {}
+#                         new_data['partner_id'] = all_data['partner_id']
+#                         new_data['partner_name'] = all_data['partner_name']
+#                         new_data['user_id'] = all_data['user_id']
+#                         new_data['user_name'] = all_data['user_name']
+#                         new_data['analytic_id'] = int(key_id)
+#                         new_data['analytic_name'] = all_data['balance_1'][key_id]['name']
+#                         new_data['balance_1'] = balance_1
+#                         new_data['balance_2'] = balance_2
+#                         churn_rate = (balance_1 - balance_2) / balance_1
+#                         new_data['churn_rate'] = churn_rate
+#                         result.append(new_data)
+#         
+#         result = sorted(result, key=lambda k: (k['churn_rate'], k['partner_name']))            
+#         return result
     def lines(self):
         partner = self.pool.get('res.partner')
         move_line = self.pool.get('account.move.line')
-        analytic_account = self.pool.get('account.analytic.account')
         analytic_line = self.pool.get('account.analytic.line')
         result = []
         number_val_1 = self.interval_number * 2
@@ -78,58 +147,41 @@ class parser_customer_churn(report_sxw.rml_parse):
             domain = [('partner_id', '=', customer.id), ('account_id', '=', account_income.id)]
             domain_1 = [('date', '<', as_of_date_2), ('date', '>=', as_of_date_1)]
             domain_2 = [('date', '<', self.as_of_date), ('date', '>=', as_of_date_2)]
-            bal_1 = 0.0
-            bal_2 = 0.0
             
             all_data['partner_id'] = customer.id
             all_data['partner_name'] = customer.name
             all_data['user_id'] = customer.user_id.id
             all_data['user_name'] = customer.user_id.name
-            all_data['balance_1'] = {}
-            all_data['balance_2'] = {}
+            all_data['balance_1'] = 0.0
+            all_data['balance_2'] = 0.0
+            all_data['analytic_name'] = ''
             move_line_ids_1 = move_line.search(self.cr, self.uid, domain + domain_1)
             if move_line_ids_1:
-                self.cr.execute("SELECT DISTINCT account_id FROM account_analytic_line WHERE move_id IN %s ORDER BY account_id", (tuple(move_line_ids_1),))
-                analytic_ids_1 = [a for (a,) in self.cr.fetchall()]
-                for analytic_id_1 in analytic_ids_1:
-                    analytic_account_1 = analytic_account.browse(self.cr, self.uid, [analytic_id_1])
-                    analytic_line_ids_1 = analytic_line.search(self.cr, self.uid, [('account_id', '=', analytic_id_1), ('move_id', 'in', move_line_ids_1)])
+                analytic_line_ids_1 = analytic_line.search(self.cr, self.uid, [('move_id', 'in', move_line_ids_1)], order='create_date DESC')
+                if analytic_line_ids_1:
+                    analytic_account_1 = analytic_line.read(self.cr, self.uid, [analytic_line_ids_1[0]], ['account_id'])
+                    all_data['analytic_id'] = int(analytic_account_1[0]['account_id'][0])
+                    all_data['analytic_name'] = analytic_account_1[0]['account_id'][1]
                     analytic_line_1 = analytic_line.browse(self.cr, self.uid, analytic_line_ids_1)
-                    bal_1 = sum(al.amount for al in analytic_line_1)
-                    all_data['balance_1'][str(analytic_id_1)] = {'name': analytic_account_1.complete_name, 'balance': bal_1} 
+                    all_data['balance_1'] = sum(al.amount for al in analytic_line_1)
             
             move_line_ids_2 = move_line.search(self.cr, self.uid, domain + domain_2)
             if move_line_ids_2:
-                self.cr.execute("SELECT DISTINCT account_id FROM account_analytic_line WHERE move_id IN %s ORDER BY account_id", (tuple(move_line_ids_2),))
-                analytic_ids_2 = [a for (a,) in self.cr.fetchall()]
-                for analytic_id_2 in analytic_ids_2:
-                    analytic_account_2 = analytic_account.browse(self.cr, self.uid, [analytic_id_2]) 
-                    analytic_line_ids_2 = analytic_line.search(self.cr, self.uid, [('account_id', '=', analytic_id_2), ('move_id', 'in', move_line_ids_2)])
+                analytic_line_ids_2 = analytic_line.search(self.cr, self.uid, [('move_id', 'in', move_line_ids_2)], order='create_date DESC')
+                if analytic_line_ids_2:
+                    analytic_account_2 = analytic_line.read(self.cr, self.uid, [analytic_line_ids_2[0]], ['account_id'])
+                    all_data['analytic_id'] = int(analytic_account_2[0]['account_id'][0])
+                    all_data['analytic_name'] = analytic_account_2[0]['account_id'][1]
                     analytic_line_2 = analytic_line.browse(self.cr, self.uid, analytic_line_ids_2)
-                    bal_2 = sum(al.amount for al in analytic_line_2)
-                    all_data['balance_2'][str(analytic_id_2)] = {'name': analytic_account_2.complete_name, 'balance': bal_2} 
+                    all_data['balance_2'] = sum(al.amount for al in analytic_line_2)
             
             if all_data['balance_1']:
-                for key_id in all_data['balance_1']:
-                    balance_1 = all_data['balance_1'][key_id]['balance']
-                    balance_2 = 0.0
-                    if all_data['balance_2'].get(key_id, False):
-                        balance_2 = all_data['balance_2'][key_id]['balance']
-                    if balance_2 < balance_1:
-                        new_data = {}
-                        new_data['partner_id'] = all_data['partner_id']
-                        new_data['partner_name'] = all_data['partner_name']
-                        new_data['user_id'] = all_data['user_id']
-                        new_data['user_name'] = all_data['user_name']
-                        new_data['analytic_id'] = int(key_id)
-                        new_data['analytic_name'] = all_data['balance_1'][key_id]['name']
-                        new_data['balance_1'] = balance_1
-                        new_data['balance_2'] = balance_2
-                        churn_rate = (balance_1 - balance_2) / balance_1
-                        new_data['churn_rate'] = churn_rate
-                        result.append(new_data)
+                if all_data['balance_2'] < all_data['balance_1']:
+                    churn_rate = (all_data['balance_1'] - all_data['balance_2']) / all_data['balance_1']
+                    all_data['churn_rate'] = churn_rate
+                    result.append(all_data)
         
-        result = sorted(result, key=lambda k: (k['churn_rate'], k['partner_name']))            
+        result = sorted(result, key=lambda k: (k['churn_rate'], k['partner_name']), reverse=True)            
         return result
 
 class customer_churn_report(report_xls):

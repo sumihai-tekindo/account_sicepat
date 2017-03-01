@@ -24,27 +24,32 @@
 
 # 2 :  imports of openerp
 from openerp import models, fields, api, _
+from openerp.exceptions import Warning
+
 
 # 3 :  imports from odoo modules
 class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
 
-    state = fields.Selection([
-            ('draft','Draft'),
-            ('proforma','Pro-forma'),
-            ('proforma2','Pro-forma'),
-            ('submit','Submit'),
-            ('acknowledge','Acknowledge'),
-            ('approved','Approve'),
-            ('open','Open'),
-            ('paid','Paid'),
-            ('cancel','Cancelled'),
-        ],string='Status',
-        related='invoice_id.state')
+    state = fields.Selection(related='invoice_id.state', default='draft')
 
-    _defaults = {
-        "state":'draft'
-    }
+    @api.model
+    def create(self, vals):
+        if vals.get('invoice_id'):
+            invoice = self.env['account.invoice'].search([('id','=',vals['invoice_id'])])
+            if invoice.state not in ('draft', 'cancel'):
+                raise Warning(_('You cannot add an item which is not draft or cancelled. You should refund it instead.'))
+        return super(AccountInvoiceLine, self).create(vals)
+    
+    @api.multi
+    def unlink(self):
+        for line in self:
+            if line.state not in ('draft', 'cancel'):
+                raise Warning(_('You cannot delete an item which is not draft or cancelled. You should refund it instead.'))
+            elif line.invoice_id.internal_number:
+                raise Warning(_('You cannot delete an item after it has been validated (and received a number).  You can set it back to "Draft" state and modify its content, then re-confirm it.'))
+        return super(AccountInvoiceLine, self).unlink()
+
 class AccountInvoice(models.Model):
     # Private attributes
     _inherit = "account.invoice"

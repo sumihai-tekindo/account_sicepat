@@ -23,3 +23,4 @@ import ir_qweb
 import account_invoice
 import res_config
 import ir_import
+import res_partner
