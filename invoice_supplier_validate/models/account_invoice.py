@@ -37,7 +37,7 @@ class AccountInvoiceLine(models.Model):
     def create(self, vals):
         if vals.get('invoice_id'):
             invoice = self.env['account.invoice'].search([('id','=',vals['invoice_id'])])
-            if invoice.state not in ('draft', 'cancel'):
+            if invoice and invoice.state not in ('draft', 'cancel'):
                 raise Warning(_('You cannot add an item which is not draft or cancelled. You should refund it instead.'))
         return super(AccountInvoiceLine, self).create(vals)
     
