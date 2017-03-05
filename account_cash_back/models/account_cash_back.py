@@ -83,6 +83,12 @@ class account_cashback(osv.osv):
 		for cb in self.browse(cr,uid,ids,context=context):
 			self.pool.get('account.cashback.line').update_partner_disc(cr,uid,[x.id for x in cb.line_ids],context=context)
 		return True
+
+	def delete_zero_transaction(self,cr,uid,ids,context=None):
+		if not context:context={}
+		for cb in self.browse(cr,uid,ids,context=context):
+			self.pool.get('account.cashback.line').delete_zero_transaction(cr,uid,[x.id for x in cb.line_ids],context=context)
+		return True		
 class account_cashback_line(osv.osv):
 	_name = "account.cashback.line"
 
@@ -152,6 +158,170 @@ class account_cashback_line(osv.osv):
 				partner_disc.create(cr,uid,value)
 			else:
 				continue
+		return True
+
+	def delete_zero_transaction(self,cr,uid,ids,context=None):
+		if context.get('start_date',False) and context.get('end_date',False):
+			start_date = context.get('start_date')
+			end_date = context.get('end_date')
+			query_cashback = """select 
+							rp.id,
+							before_disc.omzet_before_disc,
+							(sum(case when aj.type='sale' then aml.debit else 0.0 END)-sum(case when aj.type ='sale_refund' then aml.credit else 0.00 END)) as omzet_after_disc,
+							round(100-((sum(case when aj.type='sale' then aml.debit else 0.0 END)-sum(case when aj.type ='sale_refund' then aml.credit else 0.00 END))/before_disc.omzet_before_disc)*100,2) as disc,
+							coalesce(rp.current_discount,0.00) as current_disc,
+							sum(case when aj.type ='sale_refund' then aml.credit else 0.00 END) as credit_note,
+							sum(case when aml.reconcile_id is not NULL and aml.debit>0.00  then coalesce(rec_aml3.credit,0.00)
+								when aml.reconcile_partial_id is not NULL and aml.debit>0.00 then coalesce(rec_aml2.credit,0.00)
+								else 0.00
+								END) as omzet_paid,
+							sum(case when aml.reconcile_id is NULL and aml.reconcile_partial_id is NULL and aml.credit>0.0 and aj.type != 'sale_refund' then coalesce(aml.credit,0.00)
+								else 0.00
+								END) as deposit
+							from account_move_line aml
+							left join account_account aa on aml.account_id=aa.id and aa.reconcile=True
+							left join account_journal aj on aml.journal_id=aj.id
+							left join res_partner rp on aml.partner_id=rp.id
+							left join account_period ap on aml.period_id=ap.id
+							left join (
+								select sum(aml2.credit) as credit,aml2.reconcile_partial_id,aml2.partner_id  
+								from account_move_line aml2 
+								where aml2.credit>0.0 and aml2.reconcile_partial_id is not NULL 
+								group by aml2.reconcile_partial_id,aml2.partner_id ) rec_aml2 
+								on aml.reconcile_partial_id=rec_aml2.reconcile_partial_id and aml.debit>0.0
+							left join (
+								select sum(aml3.credit) as credit,aml3.reconcile_id,aml3.partner_id  
+								from account_move_line aml3 
+								where aml3.credit>0.0 and aml3.reconcile_id is not NULL 
+								group by aml3.reconcile_id,aml3.partner_id ) rec_aml3 
+								on aml.reconcile_id=rec_aml3.reconcile_id and aml.debit>0.0
+							left join (
+								select ail.partner_id,
+									round(sum(
+											case 
+												when ai.type='out_invoice' and ail.discount=0.0 
+													then (100.00/(100.00-rp.current_discount))*(ail.price_unit)*ail.quantity 
+												when ai.type='out_invoice' and ail.discount<> 0.0 
+													then ail.price_unit*ail.quantity
+												when ai.type='out_refund' and ail.discount=0.0
+													then (100.00/(100.00-rp.current_discount))*(-1*ail.price_unit)*ail.quantity
+												when ai.type='out_refund' and ail.discount<>0.0
+													then -1*ail.price_unit*ail.quantity
+											end),2) as omzet_before_disc,
+									sum(case when ai.type='out_invoice' then ail.price_subtotal else -1*ail.price_subtotal end) as after_disc
+									from account_invoice_line ail 
+									left join account_invoice ai on ail.invoice_id=ai.id
+									left join res_partner rp on ai.partner_id=rp.id
+									where  ai.date_invoice >= '%s'
+									and ai.date_invoice <= '%s'
+									and ai.state in ('open','paid') and ai.type in ('out_invoice','out_refund')
+									group by ail.partner_id
+								) before_disc on rp.id=before_disc.partner_id
+							where 
+							aml.date >= '%s' 
+							and aml.date <= '%s'
+							and aa.type='receivable' and aa.reconcile=True
+							and aml.partner_id is not NULL
+							and ap.special=False
+							and aj.type in ('sale','sale_refund')
+							and before_disc.omzet_before_disc >0.0
+							group by rp.id,rp.current_discount,before_disc.omzet_before_disc
+							order by rp.name
+							"""%(start_date,end_date,start_date,end_date)
+			cr.execute(query_cashback)
+			res =cr.dictfetchall()
+			result = {}
+			for r in res:
+				result.update({r['id']:r})
+			to_unlink = []
+			for line in self.browse(cr,uid,ids,context=context):
+				if not result.get(line.name.id,False):
+					to_unlink.add(line.id)
+					continue
+			self.unlink(cr,uid,to_unlink)
+		else:
+			
+			for line in self.browse(cr,uid,ids,context=context):
+				start_date=line.start_date
+				end_date=line.end_date
+				dt_line_start = datetime.datetime.strptime(start_date,'%Y-%m-%d')
+				dt_line_end = datetime.datetime.strptime(end_date,'%Y-%m-%d')
+				query_cashback = """select 
+								rp.id,
+								before_disc.omzet_before_disc,
+								(sum(case when aj.type='sale' then aml.debit else 0.0 END)-sum(case when aj.type ='sale_refund' then aml.credit else 0.00 END)) as omzet_after_disc,
+								round(100-((sum(case when aj.type='sale' then aml.debit else 0.0 END)-sum(case when aj.type ='sale_refund' then aml.credit else 0.00 END))/before_disc.omzet_before_disc)*100,2) as disc,
+								coalesce(rp.current_discount,0.00) as current_disc,
+								sum(case when aj.type ='sale_refund' then aml.credit else 0.00 END) as credit_note,
+								sum(case when aml.reconcile_id is not NULL and aml.debit>0.00  then coalesce(rec_aml3.credit,0.00)
+									when aml.reconcile_partial_id is not NULL and aml.debit>0.00 then coalesce(rec_aml2.credit,0.00)
+									else 0.00
+									END) as omzet_paid,
+								sum(case when aml.reconcile_id is NULL and aml.reconcile_partial_id is NULL and aml.credit>0.0 and aj.type != 'sale_refund' then coalesce(aml.credit,0.00)
+									else 0.00
+									END) as deposit
+								from account_move_line aml
+								left join account_account aa on aml.account_id=aa.id and aa.reconcile=True
+								left join account_journal aj on aml.journal_id=aj.id
+								left join res_partner rp on aml.partner_id=rp.id
+								left join account_period ap on aml.period_id=ap.id
+								left join (
+									select sum(aml2.credit) as credit,aml2.reconcile_partial_id,aml2.partner_id  
+									from account_move_line aml2 
+									where aml2.credit>0.0 and aml2.reconcile_partial_id is not NULL 
+									group by aml2.reconcile_partial_id,aml2.partner_id ) rec_aml2 
+									on aml.reconcile_partial_id=rec_aml2.reconcile_partial_id and aml.debit>0.0
+								left join (
+									select sum(aml3.credit) as credit,aml3.reconcile_id,aml3.partner_id  
+									from account_move_line aml3 
+									where aml3.credit>0.0 and aml3.reconcile_id is not NULL 
+									group by aml3.reconcile_id,aml3.partner_id ) rec_aml3 
+									on aml.reconcile_id=rec_aml3.reconcile_id and aml.debit>0.0
+								left join (
+									select ail.partner_id,
+									round(sum(
+											case 
+												when ai.type='out_invoice' and ail.discount=0.0 
+													then (100.00/(100.00-rp.current_discount))*(ail.price_unit)*ail.quantity 
+												when ai.type='out_invoice' and ail.discount<> 0.0 
+													then ail.price_unit*ail.quantity
+												when ai.type='out_refund' and ail.discount=0.0
+													then (100.00/(100.00-rp.current_discount))*(-1*ail.price_unit)*ail.quantity
+												when ai.type='out_refund' and ail.discount<>0.0
+													then -1*ail.price_unit*ail.quantity
+											end),2) as omzet_before_disc,
+									sum(case when ai.type='out_invoice' then ail.price_subtotal else -1*ail.price_subtotal end) as after_disc
+									from account_invoice_line ail 
+									left join account_invoice ai on ail.invoice_id=ai.id
+									left join res_partner rp on ai.partner_id=rp.id
+									where  ai.date_invoice >= '%s'
+									and ai.date_invoice <= '%s'
+									and ai.state in ('open','paid') and ai.type in ('out_invoice','out_refund')
+									group by ail.partner_id
+									) before_disc on rp.id=before_disc.partner_id
+								where 
+								aml.date >= '%s' 
+								and aml.date <= '%s'
+								and aa.type='receivable' and aa.reconcile=True
+								and aml.partner_id is not NULL
+								and ap.special=False
+								and aml.partner_id=%s
+								and aj.type in ('sale','sale_refund')
+								and before_disc.omzet_before_disc >0.0
+								group by rp.id,rp.current_discount,before_disc.omzet_before_disc
+								order by rp.name
+							"""%(start_date,end_date,start_date,end_date,line.name.id)
+				cr.execute(query_cashback)
+				res =cr.dictfetchall()
+				result = {}
+				for r in res:
+					result.update({r['id']:r})
+				to_unlink=[]
+				for line in self.browse(cr,uid,ids,context=context):
+					if not result.get(line.name.id,False):
+						to_unlink.append(line.id)
+						continue
+				self.unlink(cr,uid,to_unlink)
 		return True
 
 	def compute_cashback_lines(self,cr,uid,ids,context=None):
@@ -344,6 +514,7 @@ class account_cashback_line(osv.osv):
 								and ap.special=False
 								and aml.partner_id=%s
 								and aj.type in ('sale','sale_refund')
+								and before_disc.omzet_before_disc >0.0
 								group by rp.id,rp.current_discount,before_disc.omzet_before_disc
 								order by rp.name
 							"""%(start_date,end_date,start_date,end_date,line.name.id)

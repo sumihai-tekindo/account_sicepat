@@ -93,6 +93,7 @@
 					<field name="force_cb"/>
 					<field name="invoice_id"/>
 					<field name="state"/>
+					<button name="delete_zero_transaction" type="object" string="Remove Zero Transaction" states="draft" class="oe_highlight" icon="gtk-cancel"/>
 					<button name="compute_cashback_lines" attrs="{'invisible':[('invoice_id','!=',False)]}" type="object" string="Compute" icon="gtk-execute"/>
 					<button name="update_partner_disc" attrs="{'invisible':[('invoice_id','=',False)]}" type="object" string="Upd. Disc" icon="gtk-execute"/>
 					<button name="create_invoice" attrs="{'invisible':[('invoice_id','!=',False)]}" type="object" string="Create Invoice" icon="gtk-apply"/>
@@ -106,6 +107,7 @@
 			<field name="arch" type="xml">
 				<form string="Cashback Lines">
 					<header>
+						<button name="delete_zero_transaction" type="object" string="Remove Zero Transaction" states="draft" class="oe_highlight" icon="gtk-cancel"/>
 						<button name="compute_cashback_lines" attrs="{'invisible':[('invoice_id','!=',False)]}" type="object" string="Compute" icon="gtk-execute"/>
 						<button name="update_partner_disc" attrs="{'invisible':[('invoice_id','=',False)]}" type="object" string="Upd. Disc" icon="gtk-execute"/>
 						<button name="create_invoice" attrs="{'invisible':[('invoice_id','!=',False)]}" type="object" string="Create Invoice" icon="gtk-apply"/>
@@ -207,6 +209,7 @@
 			<field name="arch" type="xml">
 				<form string="Cashback">
 					<header>
+						<button name="delete_zero_transaction" type="object" string="Remove Zero Transaction" states="draft" class="oe_highlight" icon="gtk-cancel"/>
 						<button name="compute_cashback" type="object" string="Compute Cashback" states="draft" class="oe_highlight"/>
 						<button name="submit_cashback" type="object" string="Submit" states="draft" class="oe_highlight"/>
 						<button name="approve_cashback" type="object" string="Approve" states="submitted" class="oe_highlight"/>
