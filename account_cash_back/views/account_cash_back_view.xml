@@ -94,6 +94,7 @@
 					<field name="invoice_id"/>
 					<field name="state"/>
 					<button name="compute_cashback_lines" attrs="{'invisible':[('invoice_id','!=',False)]}" type="object" string="Compute" icon="gtk-execute"/>
+					<button name="update_partner_disc" attrs="{'invisible':[('invoice_id','=',False)]}" type="object" string="Upd. Disc" icon="gtk-execute"/>
 					<button name="create_invoice" attrs="{'invisible':[('invoice_id','!=',False)]}" type="object" string="Create Invoice" icon="gtk-apply"/>
 				</tree>
 			</field>
@@ -106,6 +107,7 @@
 				<form string="Cashback Lines">
 					<header>
 						<button name="compute_cashback_lines" attrs="{'invisible':[('invoice_id','!=',False)]}" type="object" string="Compute" icon="gtk-execute"/>
+						<button name="update_partner_disc" attrs="{'invisible':[('invoice_id','=',False)]}" type="object" string="Upd. Disc" icon="gtk-execute"/>
 						<button name="create_invoice" attrs="{'invisible':[('invoice_id','!=',False)]}" type="object" string="Create Invoice" icon="gtk-apply"/>
 						<field name="state" widget="statusbar"/>
 					</header>
@@ -210,6 +212,7 @@
 						<button name="approve_cashback" type="object" string="Approve" states="submitted" class="oe_highlight"/>
 						<button name="cancel_cashback" type="object" string="Cancel" states="submitted,approved" class="oe_highlight"/>
 						<button name="set_to_draft" type="object" string="Set to Draft" states="cancelled" class="oe_highlight"/>
+						<button name="update_partner_disc" type="object" string="Update Cust. Disc." icon="gtk-execute"/>
 						<field name="state" widget="statusbar"/>
 
 					</header>

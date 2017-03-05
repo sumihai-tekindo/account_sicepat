@@ -1,5 +1,7 @@
 from openerp.osv import fields,osv
 import datetime
+from dateutil.relativedelta import relativedelta
+
 
 class account_cashback_rule(osv.osv):
 	_name = "account.cashback.rule"
@@ -74,7 +76,12 @@ class account_cashback(osv.osv):
 	def create_invoices(self,cr,uid,ids,context=None):
 		if not context:context={}
 		for cb in self.browse(cr,uid,ids,context=context):
-			self.pool.get('account.casback.line').create_invoice(cr,uid,[x.id for x in cb.line_ids],context=context)
+			self.pool.get('account.cashback.line').create_invoice(cr,uid,[x.id for x in cb.line_ids],context=context)
+		return True
+	def update_partner_disc(self,cr,uid,ids,context=None):
+		if not context:context={}
+		for cb in self.browse(cr,uid,ids,context=context):
+			self.pool.get('account.cashback.line').update_partner_disc(cr,uid,[x.id for x in cb.line_ids],context=context)
 		return True
 class account_cashback_line(osv.osv):
 	_name = "account.cashback.line"
@@ -121,6 +128,31 @@ class account_cashback_line(osv.osv):
 	_defaults = {
 		"state":'draft',
 	}
+
+	def update_partner_disc(self,cr,uid,ids,context=None):
+		if not context:
+			context={}
+		partner_disc = self.pool.get("res.partner.discounts")
+		for line in self.browse(cr,uid,ids,context=context):
+			value = {}
+			if line.invoice_id and line.invoice_id.id:
+				curr_date = datetime.datetime.strptime(line.end_date,"%Y-%m-%d")
+				next_date = curr_date + relativedelta(days=1)
+				next_end_date = next_date + relativedelta(months=1)+relativedelta(days=-1)
+				cr.execute("select max(coalesce(sequence,0))+1 as sequence from res_partner_discounts where partner_id=%s"%line.name.id)
+				sequence = cr.fetchone()
+
+				value = {
+					"name" 		: line.proposed_disc or line.name.current_discount or 0.0,
+					"start_date": next_date.strftime("%Y-%m-%d"),
+					"end_date"	: next_end_date.strftime("%Y-%m-%d"),
+					"partner_id": line.name.id,
+					"sequence"	: sequence and sequence[0] or 0,
+				}
+				partner_disc.create(cr,uid,value)
+			else:
+				continue
+		return True
 
 	def compute_cashback_lines(self,cr,uid,ids,context=None):
 		if not context:context={}
@@ -196,6 +228,7 @@ class account_cashback_line(osv.osv):
 							and aml.partner_id is not NULL
 							and ap.special=False
 							and aj.type in ('sale','sale_refund')
+							and before_disc.omzet_before_disc >0.0
 							group by rp.id,rp.current_discount,before_disc.omzet_before_disc
 							order by rp.name
 							"""%(start_date,end_date,start_date,end_date)
@@ -205,6 +238,9 @@ class account_cashback_line(osv.osv):
 			for r in res:
 				result.update({r['id']:r})
 			for line in self.browse(cr,uid,ids,context=context):
+				if not result.get(line.name.id,False):
+					line.unlink()
+					continue
 				current_disc 		= result.get(line.name.id,False) and result[line.name.id]['current_disc'] or 0.0
 				omzet_before_disc 	= result.get(line.name.id,False) and result[line.name.id]['omzet_before_disc'] or 0.0
 				omzet_after_disc 	= result.get(line.name.id,False) and result[line.name.id]['omzet_after_disc'] or 0.0
