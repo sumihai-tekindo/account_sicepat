@@ -84,14 +84,24 @@ class account_cashback(osv.osv):
 			self.pool.get('account.cashback.line').update_partner_disc(cr,uid,[x.id for x in cb.line_ids],context=context)
 		return True
 
-	def delete_zero_transaction(self,cr,uid,ids,context=None):
+	def delete_zero_omzet(self,cr,uid,ids,context=None):
 		if not context:context={}
 		for cb in self.browse(cr,uid,ids,context=context):
 			partner = []
 			for cb_line in cb.line_ids:
 				context.update({'start_date':cb_line.start_date,'end_date':cb_line.end_date})
 				partner.append(cb_line.name.id)
-			self.pool.get('account.cashback.line').delete_zero_transaction(cr,uid,[x.id for x in cb.line_ids],partner,context=context)
+			self.pool.get('account.cashback.line').delete_zero_omzet(cr,uid,[x.id for x in cb.line_ids],partner,context=context)
+		return True
+
+	def delete_zero_cashback(self,cr,uid,ids,context=None):
+		if not context:context={}
+		for cb in self.browse(cr,uid,ids,context=context):
+			lines = []
+			for cb_line in cb.line_ids:
+				if cb_line.cash_back_amt<=0.0:
+					lines.append(cb_line.id)
+			self.pool.get('account.cashback.line').unlink(cr,uid,lines)
 		return True		
 class account_cashback_line(osv.osv):
 	_name = "account.cashback.line"
@@ -164,7 +174,7 @@ class account_cashback_line(osv.osv):
 				continue
 		return True
 
-	def delete_zero_transaction(self,cr,uid,ids,partner=False,context=None):
+	def delete_zero_omzet(self,cr,uid,ids,partner=False,context=None):
 		if not context:context={}
 		if context.get('start_date',False) and context.get('end_date',False):
 			start_date = context.get('start_date')
