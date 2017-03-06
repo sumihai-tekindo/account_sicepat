@@ -47,7 +47,7 @@ class account_cashback(osv.osv):
 		for cb in self.browse(cr,uid,ids):
 			for cb_line in cb.line_ids:
 				context.update({'start_date':cb_line.start_date,'end_date':cb_line.end_date})
-				self.pool.get('account.cashback.line').compute_cashback_lines(cr,uid,[cb_line.id],context=context)
+			self.pool.get('account.cashback.line').compute_cashback_lines(cr,uid,[cx.id for cx in cb.line_ids],context=context)
 		return True
 
 	def submit_cashback(self,cr,uid,ids,context=None):
@@ -87,7 +87,11 @@ class account_cashback(osv.osv):
 	def delete_zero_transaction(self,cr,uid,ids,context=None):
 		if not context:context={}
 		for cb in self.browse(cr,uid,ids,context=context):
-			self.pool.get('account.cashback.line').delete_zero_transaction(cr,uid,[x.id for x in cb.line_ids],context=context)
+			partner = []
+			for cb_line in cb.line_ids:
+				context.update({'start_date':cb_line.start_date,'end_date':cb_line.end_date})
+				partner.append(cb_line.name.id)
+			self.pool.get('account.cashback.line').delete_zero_transaction(cr,uid,[x.id for x in cb.line_ids],partner,context=context)
 		return True		
 class account_cashback_line(osv.osv):
 	_name = "account.cashback.line"
@@ -160,7 +164,8 @@ class account_cashback_line(osv.osv):
 				continue
 		return True
 
-	def delete_zero_transaction(self,cr,uid,ids,context=None):
+	def delete_zero_transaction(self,cr,uid,ids,partner=False,context=None):
+		if not context:context={}
 		if context.get('start_date',False) and context.get('end_date',False):
 			start_date = context.get('start_date')
 			end_date = context.get('end_date')
@@ -187,12 +192,14 @@ class account_cashback_line(osv.osv):
 								select sum(aml2.credit) as credit,aml2.reconcile_partial_id,aml2.partner_id  
 								from account_move_line aml2 
 								where aml2.credit>0.0 and aml2.reconcile_partial_id is not NULL 
+								and aml2.partner_id in %s
 								group by aml2.reconcile_partial_id,aml2.partner_id ) rec_aml2 
 								on aml.reconcile_partial_id=rec_aml2.reconcile_partial_id and aml.debit>0.0
 							left join (
 								select sum(aml3.credit) as credit,aml3.reconcile_id,aml3.partner_id  
 								from account_move_line aml3 
 								where aml3.credit>0.0 and aml3.reconcile_id is not NULL 
+								and aml3.partner_id in %s
 								group by aml3.reconcile_id,aml3.partner_id ) rec_aml3 
 								on aml.reconcile_id=rec_aml3.reconcile_id and aml.debit>0.0
 							left join (
@@ -215,6 +222,7 @@ class account_cashback_line(osv.osv):
 									where  ai.date_invoice >= '%s'
 									and ai.date_invoice <= '%s'
 									and ai.state in ('open','paid') and ai.type in ('out_invoice','out_refund')
+									and ai.partner_id in %s
 									group by ail.partner_id
 								) before_disc on rp.id=before_disc.partner_id
 							where 
@@ -225,9 +233,10 @@ class account_cashback_line(osv.osv):
 							and ap.special=False
 							and aj.type in ('sale','sale_refund')
 							and before_disc.omzet_before_disc >0.0
+							and rp.id in %s
 							group by rp.id,rp.current_discount,before_disc.omzet_before_disc
 							order by rp.name
-							"""%(start_date,end_date,start_date,end_date)
+							"""%(tuple(partner),tuple(partner),start_date,end_date,tuple(partner),start_date,end_date,tuple(partner))
 			cr.execute(query_cashback)
 			res =cr.dictfetchall()
 			result = {}
@@ -236,11 +245,10 @@ class account_cashback_line(osv.osv):
 			to_unlink = []
 			for line in self.browse(cr,uid,ids,context=context):
 				if not result.get(line.name.id,False):
-					to_unlink.add(line.id)
+					to_unlink.append(line.id)
 					continue
 			self.unlink(cr,uid,to_unlink)
 		else:
-			
 			for line in self.browse(cr,uid,ids,context=context):
 				start_date=line.start_date
 				end_date=line.end_date
@@ -268,13 +276,15 @@ class account_cashback_line(osv.osv):
 								left join (
 									select sum(aml2.credit) as credit,aml2.reconcile_partial_id,aml2.partner_id  
 									from account_move_line aml2 
-									where aml2.credit>0.0 and aml2.reconcile_partial_id is not NULL 
+									where aml2.credit>0.0 and aml2.reconcile_partial_id is not NULL
+									and aml2.partner_id=%s 
 									group by aml2.reconcile_partial_id,aml2.partner_id ) rec_aml2 
 									on aml.reconcile_partial_id=rec_aml2.reconcile_partial_id and aml.debit>0.0
 								left join (
 									select sum(aml3.credit) as credit,aml3.reconcile_id,aml3.partner_id  
 									from account_move_line aml3 
 									where aml3.credit>0.0 and aml3.reconcile_id is not NULL 
+									and aml3.partner_id=%s
 									group by aml3.reconcile_id,aml3.partner_id ) rec_aml3 
 									on aml.reconcile_id=rec_aml3.reconcile_id and aml.debit>0.0
 								left join (
@@ -297,6 +307,7 @@ class account_cashback_line(osv.osv):
 									where  ai.date_invoice >= '%s'
 									and ai.date_invoice <= '%s'
 									and ai.state in ('open','paid') and ai.type in ('out_invoice','out_refund')
+									and ai.partner_id=%s
 									group by ail.partner_id
 									) before_disc on rp.id=before_disc.partner_id
 								where 
@@ -310,7 +321,7 @@ class account_cashback_line(osv.osv):
 								and before_disc.omzet_before_disc >0.0
 								group by rp.id,rp.current_discount,before_disc.omzet_before_disc
 								order by rp.name
-							"""%(start_date,end_date,start_date,end_date,line.name.id)
+							"""%(line.name.id,line.name.id,start_date,end_date,line.name.id,start_date,end_date,line.name.id)
 				cr.execute(query_cashback)
 				res =cr.dictfetchall()
 				result = {}
@@ -531,7 +542,8 @@ class account_cashback_line(osv.osv):
 				product_id			= False
 				journal_id			= False
 				department_id		= False
-				cashback_amt 		= 0.0
+				cash_back_amt 		= 0.0
+				proposed_disc		= 0.0
 				next_disc 			= line.name.current_discount or 0.0
 				partner_id 			= line.name.id
 				for rule in rules:
