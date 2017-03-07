@@ -447,11 +447,11 @@ class account_cashback_line(osv.osv):
 				for rule in rules:
 
 					if eval(rule.rules):
-						cash_back_amt = eval(rule.cash_back_amt_rule)
 						proposed_disc = rule.next_disc
 						product_id = rule.product_id and rule.product_id.id or False
 						journal_id = rule.journal_id and rule.journal_id.id
 						department_id = rule.department_id and rule.department_id.id
+						cash_back_amt = eval(rule.cash_back_amt_rule)
 						break
 				value = {
 						'current_disc'		: current_disc,
@@ -561,11 +561,12 @@ class account_cashback_line(osv.osv):
 					dt_end = datetime.datetime.strptime(rule.date_end,'%Y-%m-%d')
 					
 					if eval(rule.rules) and (dt_line_start >=dt_start and dt_line_end<=dt_end):
-						cash_back_amt = eval(rule.cash_back_amt_rule)
 						proposed_disc = rule.next_disc
+						print "=================",current_disc,proposed_disc,rule.next_disc
 						product_id = rule.product_id and rule.product_id.id
 						journal_id = rule.journal_id and rule.journal_id.id
 						department_id = rule.department_id and rule.department_id.id
+						cash_back_amt = eval(rule.cash_back_amt_rule)
 						break
 				value = {
 						'current_disc'		: current_disc,
