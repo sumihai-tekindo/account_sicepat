@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<openerp>
+  <data>
+	<record id="apl_0" model="account.financial.report">
+	  <field name="name">Profit &amp; Loss Analysis</field>
+	  <field name="sequence">0</field>
+	  <field name="type">sum</field>
+	  <field name="sign" eval="-1"/>
+	  <field name="display_detail">detail_flat</field>
+	</record>
+	<record id="apl_1" model="account.financial.report">
+	  <field name="name">Income</field>
+	  <field name="parent_id" ref="apl_0"/>
+	  <field name="sequence">1</field>
+	  <field name="type">accounts</field>
+	  <field name="sign" eval="-1"/>
+	  <field name="display_detail">no_detail</field>
+	  <field search="[('code','=','400.000.000')]" model='account.account' name="account_ids"/>
+	</record>
+	<record id="apl_2" model="account.financial.report">
+	  <field name="name">Biaya Langsung</field>
+	  <field name="parent_id" ref="apl_0"/>
+	  <field name="sequence">2</field>
+	  <field name="type">sum</field>
+	  <field name="sign" eval="1"/>
+	  <field name="display_detail">detail_flat</field>
+	</record>
+	<record id="apl_2_1" model="account.financial.report">
+	  <field name="name">Biaya Sigesit,Helper &amp; Driver</field>
+	  <field name="parent_id" ref="apl_2"/>
+	  <field name="sequence">1</field>
+	  <field name="type">accounts</field>
+	  <field name="sign" eval="1"/>
+	  <field name="display_detail">no_detail</field>
+	  <field search="[('code','=','500.001.000')]" model='account.account' name="account_ids"/>
+	</record>
+	<record id="apl_2_2" model="account.financial.report">
+	  <field name="name">Biaya Operasional</field>
+	  <field name="parent_id" ref="apl_2"/>
+	  <field name="sequence">2</field>
+	  <field name="type">accounts</field>
+	  <field name="sign" eval="1"/>
+	  <field name="display_detail">no_detail</field>
+	  <field search="[('code','=','500.006.000')]" model='account.account' name="account_ids"/>
+	</record>
+	<record id="apl_2_3" model="account.financial.report">
+	  <field name="name">Biaya Pengembalian Selisih Diskon</field>
+	  <field name="parent_id" ref="apl_2"/>
+	  <field name="sequence">3</field>
+	  <field name="type">accounts</field>
+	  <field name="sign" eval="1"/>
+	  <field name="display_detail">no_detail</field>
+	  <field search="[('code','=','500.007.000')]" model='account.account' name="account_ids"/>
+	</record>
+	<record id="apl_3" model="account.financial.report">
+	  <field name="name">Biaya Tidak Langsung</field>
+	  <field name="parent_id" ref="apl_0"/>
+	  <field name="sequence">3</field>
+	  <field name="type">sum</field>
+	  <field name="sign" eval="1"/>
+	  <field name="display_detail">detail_flat</field>
+	</record>
+	<record id="apl_3_1" model="account.financial.report">
+	  <field name="name">Biaya Pemasaran</field>
+	  <field name="parent_id" ref="apl_3"/>
+	  <field name="sequence">1</field>
+	  <field name="type">accounts</field>
+	  <field name="sign" eval="1"/>
+	  <field name="display_detail">no_detail</field>
+	  <field search="[('code','=','600.001.000')]" model='account.account' name="account_ids"/>
+	</record>
+	<record id="apl_3_2" model="account.financial.report">
+	  <field name="name">Biaya Komisi Marketing</field>
+	  <field name="parent_id" ref="apl_3"/>
+	  <field name="sequence">2</field>
+	  <field name="type">accounts</field>
+	  <field name="sign" eval="1"/>
+	  <field name="display_detail">no_detail</field>
+	  <field search="[('code','=','600.002.000')]" model='account.account' name="account_ids"/>
+	</record>
+	<record id="apl_3_3" model="account.financial.report">
+	  <field name="name">Biaya Tenaga Kerja</field>
+	  <field name="parent_id" ref="apl_3"/>
+	  <field name="sequence">3</field>
+	  <field name="type">accounts</field>
+	  <field name="sign" eval="1"/>
+	  <field name="display_detail">no_detail</field>
+	  <field search="[('code','in',('500.005.000','600.002.000'))]" model='account.account' name="account_ids"/>
+	</record>
+	<record id="apl_3_4" model="account.financial.report">
+	  <field name="name">Biaya Umum &amp; Administrasi</field>
+	  <field name="parent_id" ref="apl_3"/>
+	  <field name="sequence">4</field>
+	  <field name="type">accounts</field>
+	  <field name="sign" eval="1"/>
+	  <field name="display_detail">no_detail</field>
+	  <field search="[('code','=','600.004.000')]" model='account.account' name="account_ids"/>
+	</record>
+	<record id="apl_3_5" model="account.financial.report">
+	  <field name="name">Biaya Asuransi</field>
+	  <field name="parent_id" ref="apl_3"/>
+	  <field name="sequence">5</field>
+	  <field name="type">accounts</field>
+	  <field name="sign" eval="1"/>
+	  <field name="display_detail">no_detail</field>
+	  <field search="[('code','=','600.005.000')]" model='account.account' name="account_ids"/>
+	</record>
+	<record id="apl_3_6" model="account.financial.report">
+	  <field name="name">Biaya Sewa</field>
+	  <field name="parent_id" ref="apl_3"/>
+	  <field name="sequence">6</field>
+	  <field name="type">accounts</field>
+	  <field name="sign" eval="1"/>
+	  <field name="display_detail">no_detail</field>
+	  <field search="[('code','=','600.006.000')]" model='account.account' name="account_ids"/>
+	</record>
+	<record id="apl_3_7" model="account.financial.report">
+	  <field name="name">Biaya Bunga Leasing</field>
+	  <field name="parent_id" ref="apl_3"/>
+	  <field name="sequence">7</field>
+	  <field name="type">accounts</field>
+	  <field name="sign" eval="1"/>
+	  <field name="display_detail">no_detail</field>
+	  <field search="[('code','=','600.007.000')]" model='account.account' name="account_ids"/>
+	</record>
+	<record id="apl_3_8" model="account.financial.report">
+	  <field name="name">Biaya Depresiasi</field>
+	  <field name="parent_id" ref="apl_3"/>
+	  <field name="sequence">8</field>
+	  <field name="type">accounts</field>
+	  <field name="sign" eval="1"/>
+	  <field name="display_detail">no_detail</field>
+	  <field search="[('code','=','600.008.000')]" model='account.account' name="account_ids"/>
+	</record>
+	<record id="apl_3_9" model="account.financial.report">
+	  <field name="name">Biaya Pajak</field>
+	  <field name="parent_id" ref="apl_3"/>
+	  <field name="sequence">9</field>
+	  <field name="type">accounts</field>
+	  <field name="sign" eval="1"/>
+	  <field name="display_detail">no_detail</field>
+	  <field search="[('code','=','800.001.000')]" model='account.account' name="account_ids"/>
+	</record>
+	<record id="apl_3_10" model="account.financial.report">
+	  <field name="name">Biaya Pemeliharaan Dan Perbaikan</field>
+	  <field name="parent_id" ref="apl_3"/>
+	  <field name="sequence">10</field>
+	  <field name="type">accounts</field>
+	  <field name="sign" eval="1"/>
+	  <field name="display_detail">no_detail</field>
+	  <field search="[('code','=','600.009.000')]" model='account.account' name="account_ids"/>
+	</record>
+	<record id="apl_3_11" model="account.financial.report">
+	  <field name="name">Pendapatan Lain-Lain</field>
+	  <field name="parent_id" ref="apl_3"/>
+	  <field name="sequence">11</field>
+	  <field name="type">accounts</field>
+	  <field name="sign" eval="1"/>
+	  <field name="display_detail">no_detail</field>
+	  <field search="[('code','=','700.000.000')]" model='account.account' name="account_ids"/>
+	</record>
+	<record id="apl_3_12" model="account.financial.report">
+	  <field name="name">Biaya Lain-Lain</field>
+	  <field name="parent_id" ref="apl_3"/>
+	  <field name="sequence">12</field>
+	  <field name="type">accounts</field>
+	  <field name="sign" eval="1"/>
+	  <field name="display_detail">no_detail</field>
+	  <field search="[('code','in',('800.002.000','800.003.000'))]" model='account.account' name="account_ids"/>
+	</record>
+  </data>
+</openerp>
