@@ -34,11 +34,12 @@ import logging
 
 # from .nov_account_journal import nov_journal_print
 from openerp.tools.translate import _
+from partner_balance import partner_balance
 import logging
 _logger = logging.getLogger(__name__)
 
 
-class daily_receivable_xls_parser(report_sxw.rml_parse):
+class daily_receivable_xls_parser(partner_balance):
 
 	def __init__(self, cr, uid, name, context):
 		super(daily_receivable_xls_parser, self).__init__(cr, uid, name,
@@ -210,7 +211,7 @@ class daily_receivable_xls(report_xls):
 			TOTAL ={}
 
 			GRANDTOTAL=0.0
-			moves,fiscal = _p.get_outstanding_receivables(data,objects)
+			moves,fiscal = _p.result_with_partner()
 			for fis in fiscal:
 				headers.append(fis)
 				TOTAL[fis]=0.0
@@ -246,16 +247,16 @@ class daily_receivable_xls(report_xls):
 				ws.write(row_pos,col_pos+1,xlwt.Formula("SUM($"+chr_ord+"$10:$"+chr_ord+"$"+str(row_pos)+")"),subtotal_style2)
 				col_pos+=2
 			row_pos+=1
-			PIUTANG_NN=_p.get_nonamed(data,objects)
+			PIUTANG_NN=_p.result_without_partner()
 
 			ws.write(row_pos,0,"Total Piutang",subtotal_style2)
 			ws.write(row_pos,1,GRANDTOTAL,subtotal_style2)
 			row_pos +=1
 			ws.write(row_pos,0,"Tanpa Keterangan",subtotal_style2)
-			ws.write(row_pos,1,PIUTANG_NN['balance'],subtotal_style2)
+			ws.write(row_pos,1,PIUTANG_NN,subtotal_style2)
 			row_pos +=1
 			ws.write(row_pos,0,"TOTAL",subtotal_style2)
-			ws.write(row_pos,1,GRANDTOTAL-PIUTANG_NN['balance'],subtotal_style2)
+			ws.write(row_pos,1,GRANDTOTAL+	PIUTANG_NN,subtotal_style2)
 
 daily_receivable_xls('report.daily.receivable.report.xls', 'account.move.line',
 					parser=daily_receivable_xls_parser)
