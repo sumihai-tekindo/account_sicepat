@@ -34,11 +34,12 @@ import logging
 
 # from .nov_account_journal import nov_journal_print
 from openerp.tools.translate import _
+from partner_balance import partner_balance
 import logging
 _logger = logging.getLogger(__name__)
 
 
-class outstanding_followup_xls_parser(report_sxw.rml_parse):
+class outstanding_followup_xls_parser(partner_balance):
 
 	def __init__(self, cr, uid, name, context):
 		super(outstanding_followup_xls_parser, self).__init__(cr, uid, name,
@@ -58,8 +59,8 @@ class outstanding_followup_xls_parser(report_sxw.rml_parse):
 		start_date = data['start_date']
 		end_date = data['end_date']
 		if data['account_ids']:
-			qq ="and aa in "+str(tuple(account_ids))
-			qq ="and aa in "+str(tuple(account_ids))
+			qq ="and aa in "+str(tuple(data['account_ids']))
+			qq ="and aa in "+str(tuple(data['account_ids']))
 		query="""select dummy3.name,dummy3.number1,dummy3.balance1,dummy4.number2,dummy4.balance2
 			from
 			(select dummy.name,count(dummy.partner_id) as number1,sum(coalesce(balance,0.00)) as balance1
@@ -183,7 +184,8 @@ class outstanding_followup_xls(report_xls):
 			ws.write(9,2,"Jumlah Customer",normal_bold_style_a)
 			ws.write(9,3,"(Rp)",normal_bold_style_a)
 			ws.write(9,4,"Jumlah Customer",normal_bold_style_a)
-			cashflow = _p.get_outstanding(data,objects)
+# 			cashflow = _p.get_outstanding(data,objects)
+			cashflow = [res for res in _p.result_payment_responsible() if res['type'] == 3]
 			row_pos=10
 
 			SUBTOTAL_C1 =0.0
@@ -191,16 +193,26 @@ class outstanding_followup_xls(report_xls):
 			SUBTOTAL_C3 =0.0
 			SUBTOTAL_C4 =0.0
 			GRANDTOTAL =0.0
+
 			for cash in cashflow:
-				ws.write(row_pos,0,cash['name'],normal_style)
-				ws.write(row_pos,1,cash['balance1'],normal_style_float)
-				ws.write(row_pos,2,cash['number1'],normal_style_float)
-				ws.write(row_pos,3,cash['balance2'],normal_style_float)
-				ws.write(row_pos,4,cash['number2'],normal_style_float)
-				SUBTOTAL_C1 +=cash['balance1'] or 0.00
-				SUBTOTAL_C2 +=cash['number1'] or 0.00
-				SUBTOTAL_C3 +=cash['balance2'] or 0.00
-				SUBTOTAL_C4 +=cash['number2'] or 0.00
+# 				ws.write(row_pos,0,cash['name'],normal_style)
+# 				ws.write(row_pos,1,cash['balance1'],normal_style_float)
+# 				ws.write(row_pos,2,cash['number1'],normal_style_float)
+# 				ws.write(row_pos,3,cash['balance2'],normal_style_float)
+# 				ws.write(row_pos,4,cash['number2'],normal_style_float)
+# 				SUBTOTAL_C1 +=cash['balance1'] or 0.00
+# 				SUBTOTAL_C2 +=cash['number1'] or 0.00
+# 				SUBTOTAL_C3 +=cash['balance2'] or 0.00
+# 				SUBTOTAL_C4 +=cash['number2'] or 0.00
+				ws.write(row_pos,0,cash['payment_responsible_name'],normal_style)
+				ws.write(row_pos,1,cash['balance'],normal_style_float)
+				ws.write(row_pos,2,cash['partner_count'],normal_style_float)
+				ws.write(row_pos,3,cash['balance_full'],normal_style_float)
+				ws.write(row_pos,4,cash['partner_count_full'],normal_style_float)
+				SUBTOTAL_C1 +=cash['balance'] or 0.00
+				SUBTOTAL_C2 +=cash['partner_count'] or 0.00
+				SUBTOTAL_C3 +=cash['balance_full'] or 0.00
+				SUBTOTAL_C4 +=cash['partner_count_full'] or 0.00
 				row_pos+=1
 
 
