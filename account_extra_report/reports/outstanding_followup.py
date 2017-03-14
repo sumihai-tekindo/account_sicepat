@@ -207,12 +207,12 @@ class outstanding_followup_xls(report_xls):
 				ws.write(row_pos,0,cash['payment_responsible_name'],normal_style)
 				ws.write(row_pos,1,cash['balance'],normal_style_float)
 				ws.write(row_pos,2,cash['partner_count'],normal_style_float)
-				ws.write(row_pos,3,cash['balance_full'],normal_style_float)
-				ws.write(row_pos,4,cash['partner_count_full'],normal_style_float)
+				ws.write(row_pos,3,cash['balance_red'],normal_style_float)
+				ws.write(row_pos,4,cash['partner_count_red'],normal_style_float)
 				SUBTOTAL_C1 +=cash['balance'] or 0.00
 				SUBTOTAL_C2 +=cash['partner_count'] or 0.00
-				SUBTOTAL_C3 +=cash['balance_full'] or 0.00
-				SUBTOTAL_C4 +=cash['partner_count_full'] or 0.00
+				SUBTOTAL_C3 +=cash['balance_red'] or 0.00
+				SUBTOTAL_C4 +=cash['partner_count_red'] or 0.00
 				row_pos+=1
 
 
