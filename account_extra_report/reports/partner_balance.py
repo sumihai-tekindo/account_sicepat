@@ -92,6 +92,15 @@ class partner_balance(report_sxw.rml_parse):
                         "THEN sum(l.credit) - sum(l.debit) " \
                         "ELSE 0 " \
                     "END AS scredit, " \
+                "sum(COALESCE(lrf.debit, 0)) AS debit_full, sum(COALESCE(lrf.credit, 0)) AS credit_full, " \
+                    "CASE WHEN sum(COALESCE(lrf.debit, 0)) > sum(COALESCE(lrf.credit, 0)) " \
+                        "THEN sum(COALESCE(lrf.debit, 0)) - sum(COALESCE(lrf.credit, 0)) " \
+                        "ELSE 0 " \
+                    "END AS sdebit_full, " \
+                    "CASE WHEN sum(COALESCE(lrf.debit, 0)) < sum(COALESCE(lrf.credit, 0)) " \
+                        "THEN sum(COALESCE(lrf.credit, 0)) - sum(COALESCE(lrf.debit, 0)) " \
+                        "ELSE 0 " \
+                    "END AS scredit_full, " \
                 "sum(COALESCE(l.rdebit, 0)) AS rdebit, sum(COALESCE(l.rcredit, 0)) AS rcredit, " \
                     "CASE WHEN sum(COALESCE(l.rdebit, 0)) > sum(COALESCE(l.rcredit, 0)) " \
                         "THEN sum(COALESCE(l.rdebit, 0)) - sum(COALESCE(l.rcredit, 0)) " \
@@ -102,9 +111,9 @@ class partner_balance(report_sxw.rml_parse):
                         "ELSE 0 " \
                     "END AS srcredit " \
             "FROM ( " \
-                "SELECT bal.state, bal.move_id, bal.account_id, bal.period_id, bal.partner_id, bal.debit, bal.credit, red.debit AS rdebit, red.credit AS rcredit " \
+                "SELECT bal.id, bal.reconcile_id, bal.state, bal.move_id, bal.account_id, bal.period_id, bal.partner_id, bal.debit, bal.credit, red.debit AS rdebit, red.credit AS rcredit " \
                 "FROM ( " \
-                    "SELECT l.id, l.state, l.move_id, l.account_id, l.period_id, l.partner_id, l.debit, l.credit " \
+                    "SELECT l.id, l.reconcile_id, l.state, l.move_id, l.account_id, l.period_id, l.partner_id, l.debit, l.credit " \
                     "FROM account_move_line l " \
                     "WHERE " + self.query + "" \
                     ") AS bal " \
@@ -117,6 +126,7 @@ class partner_balance(report_sxw.rml_parse):
                     ") AS red " \
                     "ON (bal.id=red.id AND bal.move_id=red.move_id AND bal.partner_id=red.partner_id AND bal.account_id=red.account_id AND bal.period_id=red.period_id) " \
                 ") AS l " \
+            "LEFT OUTER JOIN account_move_line lrf ON (l.reconcile_id=lrf.reconcile_id and l.id<>lrf.id) " \
             "LEFT JOIN res_partner p ON (l.partner_id=p.id) " \
             "JOIN account_period ap ON (l.period_id = ap.id) JOIN account_fiscalyear fy ON (ap.fiscalyear_id=fy.id) " \
             "LEFT JOIN res_users u ON (p.payment_responsible_id=u.id) LEFT JOIN res_partner pu ON (u.partner_id=pu.id) " \
@@ -159,10 +169,18 @@ class partner_balance(report_sxw.rml_parse):
         tot_credit_f = 0.0
         tot_sdebit_f = 0.0
         tot_scredit_f = 0.0
+        tot_debit_full_f = 0.0
+        tot_credit_full_f = 0.0
+        tot_sdebit_full_f = 0.0
+        tot_scredit_full_f = 0.0
         tot_debit_p = 0.0
         tot_credit_p = 0.0
         tot_sdebit_p = 0.0
         tot_scredit_p = 0.0
+        tot_debit_full_p = 0.0
+        tot_credit_full_p = 0.0
+        tot_sdebit_full_p = 0.0
+        tot_scredit_full_p = 0.0
         for r in cleanarray:
             # For the first element we always add the line
             # type = 1 is the line is the first of the account
@@ -173,6 +191,10 @@ class partner_balance(report_sxw.rml_parse):
                 tot_credit_f = r['credit']
                 tot_sdebit_f = r['sdebit']
                 tot_scredit_f = r['scredit']
+                tot_debit_full_f = r['debit_full']
+                tot_credit_full_f = r['credit_full']
+                tot_sdebit_full_f = r['sdebit_full']
+                tot_scredit_full_f = r['scredit_full']
                 #
                 ##
                 new_header_f = {}
@@ -182,7 +204,11 @@ class partner_balance(report_sxw.rml_parse):
                 new_header_f['credit'] = tot_credit_f
                 new_header_f['sdebit'] = tot_sdebit_f
                 new_header_f['scredit'] = tot_scredit_f
-                new_header_f['balance'] = float(tot_sdebit_f) - float(tot_scredit_f)
+                new_header_f['debit_full'] = tot_debit_full_f
+                new_header_f['credit_full'] = tot_credit_full_f
+                new_header_f['sdebit_full'] = tot_sdebit_full_f
+                new_header_f['scredit_full'] = tot_scredit_full_f
+                new_header_f['balance'] = float(tot_sdebit_f) - float(tot_scredit_f) + float(tot_sdebit_full_f) - float(tot_scredit_full_f)
                 new_header_f['type'] = 3
                 ##
                 completearray.append(new_header_f)
@@ -191,6 +217,10 @@ class partner_balance(report_sxw.rml_parse):
                 tot_credit_p = r['credit']
                 tot_sdebit_p = r['sdebit']
                 tot_scredit_p = r['scredit']
+                tot_debit_full_p = r['debit_full']
+                tot_credit_full_p = r['credit_full']
+                tot_sdebit_full_p = r['sdebit_full']
+                tot_scredit_full_p = r['scredit_full']
                 #
                 ##
                 new_header_p = {}
@@ -202,13 +232,17 @@ class partner_balance(report_sxw.rml_parse):
                 new_header_p['credit'] = tot_credit_p
                 new_header_p['sdebit'] = tot_sdebit_p
                 new_header_p['scredit'] = tot_scredit_p
-                new_header_p['balance'] = float(tot_sdebit_p) - float(tot_scredit_p)
+                new_header_p['debit_full'] = tot_debit_full_p
+                new_header_p['credit_full'] = tot_credit_full_p
+                new_header_p['sdebit_full'] = tot_sdebit_full_p
+                new_header_p['scredit_full'] = tot_scredit_full_p
+                new_header_p['balance'] = float(tot_sdebit_p) - float(tot_scredit_p) + float(tot_sdebit_full_p) - float(tot_scredit_full_p)
                 new_header_p['type'] = 2
                 ##
                 completearray.append(new_header_p)
                 #
                 r['type'] = 1
-                r['balance'] = float(r['sdebit']) - float(r['scredit'])
+                r['balance'] = float(r['sdebit']) - float(r['scredit']) + float(r['sdebit_full']) - float(r['scredit_full'])
 
                 completearray.append(r)
 
@@ -219,6 +253,10 @@ class partner_balance(report_sxw.rml_parse):
                     tot_credit_f = r['credit']
                     tot_sdebit_f = r['sdebit']
                     tot_scredit_f = r['scredit']
+                    tot_debit_full_f = r['debit_full']
+                    tot_credit_full_f = r['credit_full']
+                    tot_sdebit_full_f = r['sdebit_full']
+                    tot_scredit_full_f = r['scredit_full']
                     #
                     ##
                     new_header_f = {}
@@ -228,7 +266,11 @@ class partner_balance(report_sxw.rml_parse):
                     new_header_f['credit'] = tot_credit_f
                     new_header_f['sdebit'] = tot_sdebit_f
                     new_header_f['scredit'] = tot_scredit_f
-                    new_header_f['balance'] = float(tot_sdebit_f) - float(tot_scredit_f)
+                    new_header_f['debit_full'] = tot_debit_full_f
+                    new_header_f['credit_full'] = tot_credit_full_f
+                    new_header_f['sdebit_full'] = tot_sdebit_full_f
+                    new_header_f['scredit_full'] = tot_scredit_full_f
+                    new_header_f['balance'] = float(tot_sdebit_f) - float(tot_scredit_f) + float(tot_sdebit_full_f) - float(tot_scredit_full_f)
                     new_header_f['type'] = 3
                     ##
                     completearray.append(new_header_f)
@@ -237,6 +279,10 @@ class partner_balance(report_sxw.rml_parse):
                     tot_credit_p = r['credit']
                     tot_sdebit_p = r['sdebit']
                     tot_scredit_p = r['scredit']
+                    tot_debit_full_p = r['debit_full']
+                    tot_credit_full_p = r['credit_full']
+                    tot_sdebit_full_p = r['sdebit_full']
+                    tot_scredit_full_p = r['scredit_full']
                     #
                     ##
                     new_header_p = {}
@@ -248,13 +294,17 @@ class partner_balance(report_sxw.rml_parse):
                     new_header_p['credit'] = tot_credit_p
                     new_header_p['sdebit'] = tot_sdebit_p
                     new_header_p['scredit'] = tot_scredit_p
-                    new_header_p['balance'] = float(tot_sdebit_p) - float(tot_scredit_p)
+                    new_header_p['debit_full'] = tot_debit_full_p
+                    new_header_p['credit_full'] = tot_credit_full_p
+                    new_header_p['sdebit_full'] = tot_sdebit_full_p
+                    new_header_p['scredit_full'] = tot_scredit_full_p
+                    new_header_p['balance'] = float(tot_sdebit_p) - float(tot_scredit_p) + float(tot_sdebit_full_p) - float(tot_scredit_full_p)
                     new_header_p['type'] = 2
                     ##
                     completearray.append(new_header_p)
                     #
                     r['type'] = 1
-                    r['balance'] = float(r['sdebit']) - float(r['scredit'])
+                    r['balance'] = float(r['sdebit']) - float(r['scredit']) + float(r['sdebit_full']) - float(r['scredit_full'])
 
                     completearray.append(r)
 
@@ -263,12 +313,20 @@ class partner_balance(report_sxw.rml_parse):
                     tot_credit_f += r['credit']
                     tot_sdebit_f += r['sdebit']
                     tot_scredit_f += r['scredit']
+                    tot_debit_full_f += r['debit_full']
+                    tot_credit_full_f += r['credit_full']
+                    tot_sdebit_full_f += r['sdebit_full']
+                    tot_scredit_full_f += r['scredit_full']
 
                     new_header_f['debit'] = tot_debit_f
                     new_header_f['credit'] = tot_credit_f
                     new_header_f['sdebit'] = tot_sdebit_f
                     new_header_f['scredit'] = tot_scredit_f
-                    new_header_f['balance'] = float(tot_sdebit_f) - float(tot_scredit_f)
+                    new_header_f['debit_full'] = tot_debit_full_f
+                    new_header_f['credit_full'] = tot_credit_full_f
+                    new_header_f['sdebit_full'] = tot_sdebit_full_f
+                    new_header_f['scredit_full'] = tot_scredit_full_f
+                    new_header_f['balance'] = float(tot_sdebit_f) - float(tot_scredit_f) + float(tot_sdebit_full_f) - float(tot_scredit_full_f)
 
                     if cleanarray[i]['period_id'] <> cleanarray[i-1]['period_id']:
                         # we reset the counter
@@ -276,6 +334,10 @@ class partner_balance(report_sxw.rml_parse):
                         tot_credit_p = r['credit']
                         tot_sdebit_p = r['sdebit']
                         tot_scredit_p = r['scredit']
+                        tot_debit_full_p = r['debit_full']
+                        tot_credit_full_p = r['credit_full']
+                        tot_sdebit_full_p = r['sdebit_full']
+                        tot_scredit_full_p = r['scredit_full']
                         #
                         ##
                         new_header_p = {}
@@ -287,7 +349,11 @@ class partner_balance(report_sxw.rml_parse):
                         new_header_p['credit'] = tot_credit_p
                         new_header_p['sdebit'] = tot_sdebit_p
                         new_header_p['scredit'] = tot_scredit_p
-                        new_header_p['balance'] = float(tot_sdebit_p) - float(tot_scredit_p)
+                        new_header_p['debit_full'] = tot_debit_full_p
+                        new_header_p['credit_full'] = tot_credit_full_p
+                        new_header_p['sdebit_full'] = tot_sdebit_full_p
+                        new_header_p['scredit_full'] = tot_scredit_full_p
+                        new_header_p['balance'] = float(tot_sdebit_p) - float(tot_scredit_p) + float(tot_sdebit_full_p) - float(tot_scredit_full_p)
                         new_header_p['type'] = 2
                         ##
                         completearray.append(new_header_p)
@@ -297,16 +363,24 @@ class partner_balance(report_sxw.rml_parse):
                         tot_credit_p += r['credit']
                         tot_sdebit_p += r['sdebit']
                         tot_scredit_p += r['scredit']
+                        tot_debit_full_p += r['debit_full']
+                        tot_credit_full_p += r['credit_full']
+                        tot_sdebit_full_p += r['sdebit_full']
+                        tot_scredit_full_p += r['scredit_full']
     
                         new_header_p['debit'] = tot_debit_p
                         new_header_p['credit'] = tot_credit_p
                         new_header_p['sdebit'] = tot_sdebit_p
                         new_header_p['scredit'] = tot_scredit_p
-                        new_header_p['balance'] = float(tot_sdebit_p) - float(tot_scredit_p)
+                        new_header_p['debit_full'] = tot_debit_full_p
+                        new_header_p['credit_full'] = tot_credit_full_p
+                        new_header_p['sdebit_full'] = tot_sdebit_full_p
+                        new_header_p['scredit_full'] = tot_scredit_full_p
+                        new_header_p['balance'] = float(tot_sdebit_p) - float(tot_scredit_p) + float(tot_sdebit_full_p) - float(tot_scredit_full_p)
                         
                     #
                     r['type'] = 1
-                    r['balance'] = float(r['sdebit']) - float(r['scredit'])
+                    r['balance'] = float(r['sdebit']) - float(r['scredit']) + float(r['sdebit_full']) - float(r['scredit_full'])
 
                     completearray.append(r)
 
