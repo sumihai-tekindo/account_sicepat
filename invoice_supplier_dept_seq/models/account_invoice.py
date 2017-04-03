@@ -77,6 +77,7 @@ class account_invoice_department(osv.Model):
         'name': fields.char('Code', size=4, required=True, copy=False),
         'description': fields.char('Description'),
         'active': fields.boolean('Active'),
+        'user_id': fields.many2one('res.users', string='Manager'),
     }
     
     _defaults = {

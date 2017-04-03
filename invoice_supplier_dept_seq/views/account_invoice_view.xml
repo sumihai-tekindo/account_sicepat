@@ -52,6 +52,7 @@
                 <tree string="Department">
                     <field name="name"/>
                     <field name="description"/>
+                    <field name="user_id"/>
                 </tree>
             </field>
         </record>
@@ -64,6 +65,7 @@
                         <field name="name"/>
                         <field name="active"/>
                         <field name="description"/>
+                        <field name="user_id"/>
                     </group>
                 </form>
             </field>
@@ -77,6 +79,35 @@
         </record>
         <menuitem action="action_dept_prefix_seq"
             id="menu_action_dept_prefix_seq" parent="account.menu_configuration_misc"/>
+        <record id="email_template_reminder_mail_submit_invoice_supplier" model="email.template">
+            <field name="name">Reminder to Dept Head to Submit Invoice Supplier</field>
+            <field name="model_id" ref="account.model_account_invoice"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="email_from">${(object.user_id != False and object.user_id.email)|safe}</field>
+            <field name="email_to">${(object.department_id.user_id != False and object.department_id.user_id.email)|safe}</field>
+            <field name="subject">Reminder Submit Invoice Supplier: ${object.number or object.internal_number} from ${object.user_id != False and object.user_id.name or 'Unknown'}</field>
+            <field name="body_html"><![CDATA[<p>This Invoice Supplier need to Submit by you. Here are some details:</p>
+<ul>
+<li>Number: <strong>${object.number or object.internal_number}</strong></li>
+<li>Supplier: ${object.partner_id.name}</li>
+<li>Total: <strong>${"{:,.2f}".format(object.amount_total)}</strong></li>
+<li>Responsible: ${object.user_id != False and object.user_id.name or 'Unknown'}</li>
+% if object.comment:
+<li>Additional information: ${object.comment}</li>
+% endif
+</ul>]]></field>
+        </record>
+        <record id="action_email_reminder_invoice_supplier" model="ir.actions.server">
+            <field name="name">Reminder to Dept Head</field>
+            <field name="model_id" ref="account.model_account_invoice"/>
+            <field name="condition">(object.type == ('in_invoice') and (object.department_id.user_id != False and object.department_id.user_id.email))</field>
+            <field name="type">ir.actions.server</field>
+            <field name="state">email</field>
+            <field name="template_id" ref="email_template_reminder_mail_submit_invoice_supplier"/>
+        </record>
+        <record id="account.act_draft" model="workflow.activity">
+            <field name="action_id" ref="action_email_reminder_invoice_supplier"/>
+        </record>
     </data>
 </openerp>
     	
