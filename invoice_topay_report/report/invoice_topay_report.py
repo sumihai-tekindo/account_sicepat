@@ -88,7 +88,7 @@ class invoice_tobe_paid_xls(report_xls):
         row_pos = self.xls_write_row(ws, row_pos, row_data, row_style=cell_style)
 
         # write empty row to define column sizes
-        c_sizes = [15,20,15,30,80,15,15]
+        c_sizes = [12,20,15,30,18,65,15,15]
         c_specs = [
             ('empty%s' % i, 1, c_sizes[i], 'text', None) for i in range(0, len(c_sizes))
         ]
@@ -103,6 +103,7 @@ class invoice_tobe_paid_xls(report_xls):
             ('bank_name', 1, 0, 'text', _('Bank'), None, c_hdr_cell_style_center),
             ('bank_account', 1, 0, 'text', _('Account'), None, c_hdr_cell_style_center),
             ('bank_owner', 1, 0, 'text', _('Atas Nama'), None, c_hdr_cell_style_center),
+            ('number_invoice', 1, 0, 'text', _('Nomor'), None, c_hdr_cell_style_center),
             ('line_name', 1, 0, 'text', _('Keterangan'), None, c_hdr_cell_style_center),
             ('line_amount', 1, 0, 'text', _('Nilai'), None, c_hdr_cell_style_center),
             ('total', 1, 0, 'text', _('Total'), None, c_hdr_cell_style_center),
@@ -124,6 +125,7 @@ class invoice_tobe_paid_xls(report_xls):
                     ('bank_name', 1, 0, 'text', None),
                     ('bank_account', 1, 0, 'text', None),
                     ('bank_owner', 1, 0, 'text', None),
+                    ('number_invoice', 1, 0, 'text', None),
                     ('line_name', 1, 0, 'text', line.name, None, c_line_cell_style),
                     ('line_amount', 1, 0, 'number', line.price_subtotal, None, c_line_cell_style_decimal),
                     ('total', 1, 0, 'text', None),
@@ -136,6 +138,7 @@ class invoice_tobe_paid_xls(report_xls):
                         ('bank_name', 1, 0, 'text', inv.partner_bank_id.bank_name, None, c_line_cell_style),
                         ('bank_account', 1, 0, 'text', inv.partner_bank_id.acc_number, None, c_line_cell_style),
                         ('bank_owner', 1, 0, 'text', inv.partner_bank_id.owner_name, None, c_line_cell_style),
+                        ('number_invoice', 1, 0, 'text', inv.number or inv.internal_number, None, c_line_cell_style),
                         ('line_name', 1, 0, 'text', line.name, None, c_line_cell_style),
                         ('line_amount', 1, 0, 'number', line.price_subtotal, None, c_line_cell_style_decimal),
                         ('total', 1, 0, 'number', inv.amount_total, None, c_line_cell_style_decimal),
@@ -143,5 +146,18 @@ class invoice_tobe_paid_xls(report_xls):
                 row_data = self.xls_row_template(c_specs, [x[0] for x in c_specs])
                 row_pos = self.xls_write_row(ws, row_pos, row_data, row_style=c_line_cell_style)
                 line_row += 1
+            for tax in inv.tax_line:
+                c_specs = [
+                    ('date_invoice', 1, 0, 'text', None),
+                    ('bank_name', 1, 0, 'text', None),
+                    ('bank_account', 1, 0, 'text', None),
+                    ('bank_owner', 1, 0, 'text', None),
+                    ('number_invoice', 1, 0, 'text', None),
+                    ('line_name', 1, 0, 'text', tax.name, None, c_line_cell_style),
+                    ('line_amount', 1, 0, 'number', tax.amount, None, c_line_cell_style_decimal),
+                    ('total', 1, 0, 'text', None),
+                ]
+                row_data = self.xls_row_template(c_specs, [x[0] for x in c_specs])
+                row_pos = self.xls_write_row(ws, row_pos, row_data, row_style=c_line_cell_style)
                 
 invoice_tobe_paid_xls('report.invoice.tobe_paid.report.xls', 'account.invoice', parser=report_invoice_tobe_paid_xls)
