@@ -9,6 +9,7 @@
 						<group string="Bank Statement Entry" colspan="4">
 							<field name="name" domain="[('type','=','bank')]"/>
 							<field name="into_existing"/>
+							<field name="reconcile"/>
 							<field name="statement_id" domain="[('state','=','draft'),('journal_id','=',name)]" attrs="{'invisible':[('into_existing','=',False)]}"/>
 							<field name="payment_date" attrs="{'invisible':[('into_existing','=',True)]}"/>
 						</group>

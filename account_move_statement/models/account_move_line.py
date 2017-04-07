@@ -10,10 +10,11 @@ class account_move_line_statement_wiz(osv.osv_memory):
 		"move_line_ids"			: fields.many2many("account.move.line","account_move_line_statement_rel","statement_id","move_line_id","Journal Items"),
 		"into_existing"			: fields.boolean("Import into existing?"),
 		"statement_id"			: fields.many2one("account.bank.statement","Existing Bank Statement"),
+		"reconcile"				: fields.boolean("Auto reconcile"),
 	}
 
 	_defaults = {
-
+		"reconcile": True,
 	}
 	def default_get(self,cr,uid,fields,context=None):
 		res = super(account_move_line_statement_wiz,self).default_get(cr,uid,fields,context=context)
@@ -85,16 +86,27 @@ class account_move_line_statement_wiz(osv.osv_memory):
 			context.update({'move_line_ids': [line.id],
 							'invoice_id': line.invoice.id})
 
-			statement_line_obj.create(cr, uid, {
-				'name': line.name or '?',
-				'amount': amount,
-				'partner_id': line.partner_id.id,
-				'statement_id': statement_id,
-				'ref': line.ref,
-				'date': payment_date,
-				'amount_currency': line.amount_currency,
-				'currency_id': line.currency_id.id,
-			}, context=context)
+			st_line_id = statement_line_obj.create(cr, uid, {
+					'name': line.name or '?',
+					'amount': amount,
+					'partner_id': line.partner_id.id,
+					'statement_id': statement_id,
+					'ref': line.ref,
+					'date': payment_date,
+					'amount_currency': line.amount_currency,
+					'currency_id': line.currency_id.id,
+				}, context=context)
+			if data.reconcile:
+				st_line = statement_line_obj.browse(cr, uid, [st_line_id], context=context)
+				reconciliation_proposition = statement_line_obj.get_reconciliation_proposition(cr, uid, st_line, context=context)
+				if reconciliation_proposition:
+					mv_line_dict = {
+						'debit': reconciliation_proposition[0]['credit'],
+						'credit': reconciliation_proposition[0]['debit'],
+						'name': reconciliation_proposition[0]['name'],
+						'counterpart_move_line_id': reconciliation_proposition[0]['id'],
+					}
+					statement_line_obj.process_reconciliation(cr, uid, st_line_id, [mv_line_dict], context=context)
 		self.pool.get('account.move.line').write(cr,uid,[x.id for x in line_ids],{'statement_recon_id':statement_id})
 		result = mod_obj.get_object_reference(cr, uid, 'account', 'action_bank_statement_tree')
 		id = result and result[1] or False
@@ -107,5 +119,5 @@ class account_move_line(osv.osv):
 	_inherit="account.move.line"
 
 	_columns = {
-		"statement_recon_id"	: fields.many2one("account.bank.statement","Bank Statement"),
+		"statement_recon_id"	: fields.many2one("account.bank.statement","Bank Statement", ondelete='set null'),
 	}
