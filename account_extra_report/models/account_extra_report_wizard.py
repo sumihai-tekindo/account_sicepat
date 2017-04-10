@@ -14,6 +14,7 @@ class account_extra_report_wizard(osv.osv_memory):
 		],"Jenis Laporan",required=True),
 	"start_date"	: fields.date("Start Date"),
 	"end_date"		: fields.date("End Date"),
+	"display_detail": fields.boolean('Display Detail'),
 	"account_ids"	: fields.many2many('account.account', 'account_account_extra_report_rel','wiz_id', 'account_id', 'Accounts'),
 	}
 
@@ -56,11 +57,18 @@ class account_extra_report_wizard(osv.osv_memory):
 			'ids': False,
 			'account_ids':wiz.account_ids and [x.id for x in wiz.account_ids] or False,
 			't_report': wiz.report_type,
+			'display_detail': wiz.display_detail,
 			}
 		if wiz.report_type=='daily_receivable':
 			#move_ids = self.get_daily_receivable(cr,uid,ids,wiz,context=context)
 			move_ids = self.pool.get('account.move.line').search(cr,uid,[],limit=1)
 			datas.update({'ids':move_ids})
+			if wiz.display_detail:
+				return {
+						'type': 'ir.actions.report.xml',
+						'report_name': 'daily.receivable.detail.xls',
+						'datas': datas
+						}
 			return {
 					'type': 'ir.actions.report.xml',
 					'report_name': 'daily.receivable.report.xls',

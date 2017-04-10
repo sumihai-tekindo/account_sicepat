@@ -9,6 +9,7 @@
 						<field name="report_type"/>
 						<field name="start_date" placeholder="Start Date"/>
 						<field name="end_date" placeholder="End Date"/>
+						<field name="display_detail" attrs="{'invisible': [('report_type','not in',['daily_receivable'])]}"/>
 					</group>
 					<notebook>
 						<page string="Filter Accounts">

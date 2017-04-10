@@ -40,6 +40,7 @@ class partner_balance(report_sxw.rml_parse):
         if data.get('start_date') and data.get('end_date'):
             ctx['date_from'] = data['start_date'] 
             ctx['date_to'] = data['end_date']
+        res_company = self.pool.get('res.users').browse(self.cr, self.uid, self.uid).company_id
         self.ACCOUNT_TYPE = ('receivable',)
         self.display_detail = data.get('display_detail', False)
         self.report_type = data.get('t_report', '')
@@ -53,12 +54,19 @@ class partner_balance(report_sxw.rml_parse):
         lines = self.lines()
         result_with_partner = self.get_result_with_partner(lines)
         result_without_partner = self.get_result_without_partner(lines)
+        daily_receivable_detail = self._group_fiscal_period(lines)
         result_payment_responsible = self._group_payment_responsible(lines)
+        sum_balance = 0
+        for line in filter(lambda x: x['type'] == 3, daily_receivable_detail):
+            sum_balance += line['balance'] or 0
         self.localcontext.update({
+            'res_company': res_company,
             'lines': lambda: lines,
             'result_with_partner': lambda: result_with_partner,
             'result_without_partner': lambda: result_without_partner,
+            'daily_receivable_detail': lambda: daily_receivable_detail,
             'result_payment_responsible': lambda: result_payment_responsible,
+            'sum_balance': lambda: sum_balance,
         })
         return super(partner_balance, self).set_context(objects, data, ids, report_type=report_type)
     
