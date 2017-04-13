@@ -156,11 +156,12 @@ class daily_receivable_detail_xls(report_xls):
 		cell_style_bold_currency = xlwt.easyxf(cell_format + _xs['bold'] + _xs['right'], num_format_str='_(%s* #,##0.00_);_(%s* (#,##0.00);_(%s* "-"??_);_(@_)' % (_p.res_company.currency_id.symbol, _p.res_company.currency_id.symbol, _p.res_company.currency_id.symbol))
 
 		if row_line['type'] == 1:
+			balance = row_line['sdebit'] - row_line['scredit'] + row_line['sdebit_full'] - row_line['scredit_full']
 			c_specs = [
 				('code', 2, 0, 'text', None),
 				('partner', 3, 0, 'text', row_line['name'], None, cell_style),
 				('account', 3, 0, 'text', row_line['code'] + u' - ' + row_line['account_name'], None, cell_style),
-				('balance', 2, 0, 'number', row_line['balance'], None, cell_style_currency),
+				('balance', 2, 0, 'number', balance, None, cell_style_currency),
 			]
 		elif row_line['type'] == 2:
 			c_specs = [
