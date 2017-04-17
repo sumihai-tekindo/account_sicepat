@@ -128,7 +128,7 @@ class ir_sequence(openerp.osv.osv.osv):
         if not isinstance(ids, (list, tuple)):
             ids = [ids]
         new_implementation = values.get('implementation')
-        rows = self.read(cr, uid, ids, ['id', 'implementation', 'number_increment', 'number_next', 'date_range_ids'], context)
+        rows = self.browse(cr, uid, ids, context)
         osv.osv.write(self, cr, uid, ids, values, context)
     
         for row in rows:
