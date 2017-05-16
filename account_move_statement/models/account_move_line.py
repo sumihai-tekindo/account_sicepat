@@ -87,7 +87,7 @@ class account_move_line_statement_wiz(osv.osv_memory):
 							'invoice_id': line.invoice.id})
 
 			st_line_id = statement_line_obj.create(cr, uid, {
-					'name': line.name or '?',
+					'name': ', '.join(lines.name for lines in line.move_id.line_id if lines.id <> line.id) or '/',
 					'amount': amount,
 					'partner_id': line.partner_id.id,
 					'statement_id': statement_id,
