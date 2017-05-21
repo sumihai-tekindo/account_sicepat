@@ -32,11 +32,11 @@ from partner_balance import partner_balance
 
 _logger = logging.getLogger(__name__)
 
-class daily_receivable_detail_xls(report_xls):
-	column_sizes = [10, 10, 10, 10, 10, 15, 18, 15, 10, 10]
+class outstanding_followup_detail_xls(report_xls):
+	column_sizes = [10, 10, 10, 10, 10, 10, 15, 18, 15, 10, 10]
 
 	def __init__(self, name, table, rml=False, parser=False, header=True, store=False):
-		super(daily_receivable_detail_xls, self).__init__(name, table, rml=rml, parser=parser, header=header, store=store)
+		super(outstanding_followup_detail_xls, self).__init__(name, table, rml=rml, parser=parser, header=header, store=store)
 
 	def print_empty_row(self, ws, row_position):
 		# Print empty row to define column sizes
@@ -52,65 +52,9 @@ class daily_receivable_detail_xls(report_xls):
 
 	def print_title(self, ws, _p, row_position, xlwt, _xs):
 		cell_style = xlwt.easyxf(_xs['xls_title'] + _xs['center'])
-		report_name = 'LAPORAN PIUTANG PER HARI DETAIL'
+		report_name = 'Laporan Outstanding Piutang Per Staf Collection AR'
 		c_specs = [
-			('report_name', 10, 0, 'text', report_name),
-		]
-		row_data = self.xls_row_template(c_specs, [x[0] for x in c_specs])
-		row_position = self.xls_write_row(
-			ws, row_position, row_data, row_style=cell_style)
-		
-		row_position = self.print_empty_row(ws, row_position)
-		return row_position
-
-	def print_header_attributes(self, ws, _p, data, row_position, xlwt, _xs):
-		cell_format = _xs['top']
-		cell_style = xlwt.easyxf(cell_format)
-		cell_style_wrap = xlwt.easyxf(cell_format + _xs['wrap'])
-		cell_style_bold = xlwt.easyxf(_xs['bold'])
-		c_specs = [
-			('coa', 3, 0, 'text', _('Chart of Accounts:')),
-			('fy', 3, 0, 'text', _('Fiscal Year:')),
-			('jrn', 3, 0, 'text', _('Journals:')),
-			_p.get_partners() and ('part', 3, 0, 'text', _('Partner\'s')) or
-			('part', 3, 0, 'text', None),
-		]
-		row_data = self.xls_row_template(c_specs, [x[0] for x in c_specs])
-		row_position = self.xls_write_row(
-			ws, row_position, row_data, row_style=cell_style_bold)
-		
-		c_specs = [
-			('coa', 3, 0, 'text', _p.get_account(data)),
-			('fy', 3, 0, 'text', _p.get_fiscalyear(data)),
-			('jrn', 3, 0, 'text', ', '.join([ lt or '' for lt in _p.get_journal(data) ]), None, cell_style_wrap),
-			_p.get_partners() and ('part', 3, 0, 'text', _p.get_partners()) or
-			('part', 3, 0, 'text', None),
-		]
-		row_data = self.xls_row_template(c_specs, [x[0] for x in c_specs])
-		row_position = self.xls_write_row(
-			ws, row_position, row_data, row_style=cell_style)
-		
-		c_specs = [
-			('df', 3, 0, 'text', _('Filter By:')),
-			('tm', 3, 0, 'text', _('Target Moves:')),
-		]
-		row_data = self.xls_row_template(c_specs, [x[0] for x in c_specs])
-		row_position = self.xls_write_row(
-			ws, row_position, row_data, row_style=cell_style_bold)
-		
-		filter_by = _('')
-		if data['form']['filter'] == 'filter_no': filter_by = _('Not filtered')
-		if data['form']['filter'] == 'filter_period':
-			filter_by = _('Filtered by period\n\n')
-			filter_by += _('Start Period: %s\n' % _p.get_start_period(data))
-			filter_by += _('End Period: %s' % _p.get_end_period(data))
-		if data['form']['filter'] == 'filter_date':
-			filter_by = _('Filtered by date\n\n')
-			filter_by += _('Date from: %s\n' % _p.formatLang(_p.get_start_date(data), date=True))
-			filter_by += _('Date to: %s' % _p.formatLang(_p.get_end_date(data), date=True))
-		c_specs = [
-			('df', 3, 0, 'text', filter_by, None, cell_style_wrap),
-			('tm', 3, 0, 'text', _p.get_target_move(data)),
+			('report_name', 11, 0, 'text', report_name),
 		]
 		row_data = self.xls_row_template(c_specs, [x[0] for x in c_specs])
 		row_position = self.xls_write_row(
@@ -125,7 +69,7 @@ class daily_receivable_detail_xls(report_xls):
 		cell_style_right = xlwt.easyxf(cell_format + _xs['right'])
 
 		c_specs = [
-			('name', 5, 0, 'text', data['group_by'] == 'group_partner' and _('Customer / Fiscal/Period / Account') or _('Fiscal/Period / Customer / Account'), None, cell_style),
+			('name', 6, 0, 'text', data['group_by'] == 'group_partner' and _('Followup / Customer / Fiscal/Period / Account') or _('Followup / Fiscal/Period / Customer / Account'), None, cell_style),
 			('date', 1, 0, 'text', _('Date Effective'), None, cell_style),
 			('move', 1, 0, 'text', _('Journal Entry'), None, cell_style),
 			('date_due', 1, 0, 'text', _('Due Date'), None, cell_style),
@@ -139,15 +83,14 @@ class daily_receivable_detail_xls(report_xls):
 	def print_header_data(self, ws, _p, data, row_position, xlwt, _xs):
 		cell_format = _xs['bold'] + _xs['borders_bottom']
 		cell_style = xlwt.easyxf(cell_format)
-		cell_style_decimal = xlwt.easyxf(cell_format + _xs['right'], num_format_str=report_xls.decimal_format)
 		cell_style_currency = xlwt.easyxf(cell_format + _xs['right'], num_format_str='_(%s* #,##0.00_);_(%s* (#,##0.00);_(%s* "-"??_);_(@_)' % (_p.res_company.currency_id.symbol, _p.res_company.currency_id.symbol, _p.res_company.currency_id.symbol))
 
 		c_specs = [
-			('name', 5, 0, 'text', _('Total:'), None, cell_style),
+			('name', 6, 0, 'text', _('Total:'), None, cell_style),
 			('date', 1, 0, 'text', None),
 			('move', 1, 0, 'text', None),
 			('date_due', 1, 0, 'text', None),
-			('balance', 2, 0, 'number', sum(line['balance'] for line in filter(lambda x: x['level'] == 0, _p.result_receivable())), None, cell_style_currency),
+			('balance', 2, 0, 'number', sum(line['balance'] for line in filter(lambda x: x['level'] == 0, _p.result_receivable_followup())), None, cell_style_currency),
 		]
 		row_data = self.xls_row_template(c_specs, [x[0] for x in c_specs])
 		row_position = self.xls_write_row(
@@ -156,17 +99,16 @@ class daily_receivable_detail_xls(report_xls):
 
 	def print_row_data(self, ws, _p, row_line, row_position, xlwt, _xs):
 		cell_format = _xs['borders_bottom']
-		if not row_line.get('level') > 3:
+		if not row_line.get('level') > 4:
 			cell_format += _xs['bold']
 		_xs['indent'] = 'align: inde %s;' % (row_line.get('level', 0))
 		cell_style = xlwt.easyxf(cell_format)
 		cell_style_indent = xlwt.easyxf(cell_format + _xs['indent'])
-		cell_style_decimal = xlwt.easyxf(cell_format + _xs['right'], num_format_str=report_xls.decimal_format)
 		cell_style_currency = xlwt.easyxf(cell_format + _xs['right'], num_format_str='_(%s* #,##0.00_);_(%s* (#,##0.00);_(%s* "-"??_);_(@_)' % (_p.res_company.currency_id.symbol, _p.res_company.currency_id.symbol, _p.res_company.currency_id.symbol))
 
-		if row_line['level'] == 4:
+		if row_line['level'] == 5:
 			c_specs = [
-				('name', 5, 0, 'text', None),
+				('name', 6, 0, 'text', None),
 				('date', 1, 0, 'text', row_line['date'], None, cell_style),
 				('move', 1, 0, 'text', row_line['move_name'], None, cell_style),
 				('date_due', 1, 0, 'text', row_line['date_maturity'], None, cell_style),
@@ -174,34 +116,12 @@ class daily_receivable_detail_xls(report_xls):
 			]
 		else:
 			c_specs = [
-				('name', 5, 0, 'text', row_line['name'], None, cell_style_indent),
+				('name', 6, 0, 'text', row_line['name'], None, cell_style_indent),
 				('date', 1, 0, 'text', None),
 				('move', 1, 0, 'text', None),
 				('date_due', 1, 0, 'text', None),
 				('balance', 2, 0, 'number', row_line['balance'], None, cell_style_currency),
 			]
-# 		if row_line['type'] == 1:
-# 			balance = row_line['sdebit'] - row_line['scredit'] + row_line['sdebit_full'] - row_line['scredit_full']
-# 			c_specs = [
-# 				('code', 2, 0, 'text', None),
-# 				('partner', 3, 0, 'text', row_line['name'], None, cell_style),
-# 				('account', 3, 0, 'text', row_line['code'] + u' - ' + row_line['account_name'], None, cell_style),
-# 				('balance', 2, 0, 'number', balance, None, cell_style_currency),
-# 			]
-# 		elif row_line['type'] == 2:
-# 			c_specs = [
-# 				('code', 2, 0, 'text', row_line['period_name'], None, cell_style_bold),
-# 				('partner', 3, 0, 'text', None),
-# 				('account', 3, 0, 'text', None),
-# 				('balance', 2, 0, 'number', row_line['balance'], None, cell_style_bold_currency),
-# 			]
-# 		elif row_line['type'] == 3:
-# 			c_specs = [
-# 				('code', 2, 0, 'text', row_line['fiscal'], None, cell_style_bold),
-# 				('partner', 3, 0, 'text', None),
-# 				('account', 3, 0, 'text', None),
-# 				('balance', 2, 0, 'number', row_line['balance'], None, cell_style_bold_currency),
-# 			]
 		row_data = self.xls_row_template(c_specs, [x[0] for x in c_specs])
 		row_position = self.xls_write_row(
 			ws, row_position, row_data, row_style=cell_style)
@@ -209,7 +129,7 @@ class daily_receivable_detail_xls(report_xls):
 
 	def generate_xls_report(self, _p, _xs, data, objects, wb):
 
-		ws = wb.add_sheet('daily.receivable.dtl')
+		ws = wb.add_sheet('outstanding.followup.dtl')
 		ws.panes_frozen = True
 		ws.remove_splits = True
 		ws.portrait = 0  # Landscape
@@ -220,17 +140,15 @@ class daily_receivable_detail_xls(report_xls):
 		
 		_xs['borders_bottom_black'] = 'borders: bottom thin, bottom_colour black;'
 		_xs['borders_bottom'] = 'borders: bottom thin, bottom_colour 22;'
-		
-		row_pos = self.print_title(ws, _p, row_pos, xlwt, _xs)
 
-# 		row_pos = self.print_header_attributes(ws, _p, data, row_pos, xlwt, _xs)
+		row_pos = self.print_title(ws, _p, row_pos, xlwt, _xs)
 
 		row_pos = self.print_header_titles(ws, _p, data, row_pos, xlwt, _xs)
 
 		row_pos = self.print_header_data(ws, _p, data, row_pos, xlwt, _xs)
 
-		for line in _p.result_receivable():
+		for line in _p.result_receivable_followup():
 			row_pos = self.print_row_data(ws, _p, line, row_pos, xlwt, _xs)
 
-daily_receivable_detail_xls('report.daily.receivable.detail.xls', 'account.move.line',
+outstanding_followup_detail_xls('report.outstanding.followup.detail.xls', 'account.move.line',
 					parser=partner_balance)

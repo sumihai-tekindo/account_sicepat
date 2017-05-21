@@ -9,7 +9,8 @@
 						<field name="report_type"/>
 						<field name="start_date" placeholder="Start Date"/>
 						<field name="end_date" placeholder="End Date"/>
-						<field name="display_detail" attrs="{'invisible': [('report_type','not in',['daily_receivable'])]}"/>
+						<field name="display_detail" attrs="{'invisible': [('report_type','not in',['daily_receivable','outstanding_followup'])]}"/>
+						<field name="group_by" attrs="{'invisible': [('display_detail','=',False)],'required': [('display_detail','=',True)]}"/>
 					</group>
 					<notebook>
 						<page string="Filter Accounts">

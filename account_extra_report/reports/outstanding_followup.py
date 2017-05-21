@@ -185,7 +185,7 @@ class outstanding_followup_xls(report_xls):
 			ws.write(9,3,"(Rp)",normal_bold_style_a)
 			ws.write(9,4,"Jumlah Customer",normal_bold_style_a)
 # 			cashflow = _p.get_outstanding(data,objects)
-			cashflow = [res for res in _p.result_payment_responsible() if res['type'] == 3]
+			cashflow = _p.result_followup()
 			row_pos=10
 
 			SUBTOTAL_C1 =0.0

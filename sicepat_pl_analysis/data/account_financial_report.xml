@@ -155,7 +155,7 @@
 	  <field name="parent_id" ref="apl_3"/>
 	  <field name="sequence">11</field>
 	  <field name="type">accounts</field>
-	  <field name="sign" eval="1"/>
+	  <field name="sign" eval="-1"/>
 	  <field name="display_detail">no_detail</field>
 	  <field search="[('code','=','700.000.000')]" model='account.account' name="account_ids"/>
 	</record>
