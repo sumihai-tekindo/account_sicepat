@@ -226,7 +226,7 @@ class account_invoice(models.Model):
         if vals.get('partner_id') and ac_type=='receivable':
             p = self.env['res.partner'].browse(vals['partner_id'])
             if not vals.get('user_id'):
-                vals['user_id'] = p.user_id and p.user_id.id or self.env.user
+                vals['user_id'] = p.user_id and p.user_id.id or self.env.user.id
             if not vals.get('payment_term'):
                 vals['payment_term'] = p.property_payment_term.id
             if not vals.get('date_due'):
