@@ -28,16 +28,6 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_supplier_form"/>
             <field name="arch" type="xml">
-<!--                <field name="state" position="attributes">-->
-<!--                    <attribute name="statusbar_visible">draft,proforma2,open,paid</attribute>-->
-<!--                    <attribute name="statusbar_colors">{'draft':'grey',proforma2':'yellow','open':'red','paid':'blue'}</attribute>-->
-<!--                </field>-->
-<!--                <button name="invoice_open" position="attributes">-->
-<!--                    <attribute name="groups">account.group_account_user,account.group_account_manager</attribute>-->
-<!--                </button>-->
-<!--                <button name="invoice_open" position="before">-->
-<!--                    <button name="invoice_proforma2" states="draft" string="Submit" groups="account.group_proforma_invoices"/>-->
-<!--                </button>-->
                 <xpath expr="//notebook/page[@string='Invoice']/field[@name='invoice_line']/tree/field[@name='discount']" position="attributes">
                 	<attribute name="groups"></attribute>
                 </xpath>
@@ -57,7 +47,29 @@
                 </field>
             </field>
         </record>
-        
+
+        <record id="invoice_supplier_form_analytic_required" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.form.analytic_required</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook/page[@string='Invoice']/field[@name='invoice_line']/tree/field[@name='account_analytic_id']" position="attributes">
+                	<attribute name="required">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_invoice_line_form_analytic_required" model="ir.ui.view">
+            <field name="name">account.invoice.line.form.analytic_required</field>
+            <field name="model">account.invoice.line</field>
+            <field name="inherit_id" ref="account.view_invoice_line_form"/>
+            <field name="arch" type="xml">
+                <field name="account_analytic_id" position="attributes">
+                	<attribute name="required">1</attribute>
+                </field>
+            </field>
+        </record>
+
 <!--        <record id="account.act_open" model="workflow.activity">-->
 <!--            <field name="action">action_date_assign()-->
 <!--action_move_create()-->
