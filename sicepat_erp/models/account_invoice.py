@@ -25,6 +25,7 @@ import logging
 # 2 :  imports of openerp
 from openerp import fields, models, api
 from openerp.osv import osv
+from openerp.tools.misc import pickle
 from openerp.tools.translate import _
 import openerp.addons.decimal_precision as dp
 
@@ -219,29 +220,41 @@ class account_invoice(models.Model):
     # CRUD methods
     @api.model
     def create(self, vals):
-        type = vals.get('type', False) or self._context.get('type', False)
-        partner_id = vals.get('partner_id', False)
-        date_invoice = vals.get('date_invoice', False)
-        payment_term = vals.get('payment_term', False)
-        partner_bank_id = vals.get('partner_bank_id', False)
-        company_id = vals.get('company_id', False)
-        if partner_id:
-            res_partner = self.onchange_partner_id(type, partner_id, date_invoice=date_invoice, \
-                payment_term=payment_term, partner_bank_id=partner_bank_id, company_id=company_id)
+        date_invoice = vals.get('date_invoice', fields.Date.context_today(self))
+        account = self.env['account.account'].browse(vals.get('account_id', False))
+        ac_type = account and account.type or False
+        if vals.get('partner_id') and ac_type=='receivable':
+            p = self.env['res.partner'].browse(vals['partner_id'])
             if not vals.get('user_id'):
-                vals['user_id'] = res_partner['value']['user_id']
+                vals['user_id'] = p.user_id and p.user_id.id or self.env.user.id
             if not vals.get('payment_term'):
-                vals['payment_term'] = res_partner['value']['payment_term']
+                vals['payment_term'] = p.property_payment_term.id
+            if not vals.get('date_due'):
+                term_date = self.onchange_payment_term_date_invoice(vals['payment_term'], date_invoice)
+                vals['date_due'] = term_date['value']['date_due']
+            if not vals.get('partner_bank_id'):
+                self._cr.execute("SELECT value FROM ir_values " \
+                    "WHERE name='partner_bank_id' AND model='account.invoice' " \
+                        "AND key='default' AND key2='type=out_invoice'")
+                partner_bank_id = (self._cr.fetchone() or [False])[0]
+                if partner_bank_id:
+                    vals['partner_bank_id'] = pickle.loads(partner_bank_id)
+            if not vals.get('partner_bank2_id'):
+                self._cr.execute("SELECT value FROM ir_values " \
+                    "WHERE name='partner_bank2_id' AND model='account.invoice' " \
+                        "AND key='default' AND key2='type=out_invoice'")
+                partner_bank2_id = (self._cr.fetchone() or [False])[0]
+                if partner_bank2_id:
+                    vals['partner_bank2_id'] = pickle.loads(partner_bank2_id)
         return super(account_invoice, self).create(vals)
     
     @api.multi
     def write(self, vals):
         self.ensure_one()
-        partner_id = vals.get('partner_id', False) or self.partner_id.id
-        if partner_id:
+        partner_id = vals.get('partner_id') or self.partner_id.id
+        if partner_id and self.type in ('out_invoice', 'out_refund'):
             p = self.env['res.partner'].browse(partner_id)
-            if self.type in ('out_invoice', 'out_refund'):
-                vals['user_id'] = p.user_id and p.user_id.id or self.env.user.id
+            vals['user_id'] = p.user_id and p.user_id.id or self.env.user.id
         return super(account_invoice, self).write(vals)
 
 
