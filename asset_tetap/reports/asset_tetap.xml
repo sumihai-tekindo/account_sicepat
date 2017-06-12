@@ -1,0 +1,12 @@
+<openerp>
+	<data>
+		<record id="action_asset_tetap_xls" model="ir.actions.report.xml">
+			<field name="name">Asset Tetap</field>
+			<field name="model">account.asset.asset</field>
+			<field name="type">ir.actions.report.xml</field>
+			<field name="report_name">report.asset.tetap.xls</field>
+			<field name="report_type">xls</field>
+			<field name="auto" eval="False"/>
+		</record>	
+	</data>
+</openerp>
