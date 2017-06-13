@@ -34,6 +34,7 @@
     'demo': [],
     'data': [
         'wizard/account_report_partner_balance_view.xml',
+        'views/report_partnerbalance.xml',
     ],
     'active': False,
     'installable': True,

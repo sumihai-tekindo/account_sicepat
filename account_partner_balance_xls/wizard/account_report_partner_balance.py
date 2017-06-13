@@ -29,15 +29,28 @@ class account_partner_balance(osv.osv_memory):
     _inherit = 'account.partner.balance'
 
     _columns = {
+        'display_detail': fields.boolean('Display Detail'),
+        'all_partner': fields.boolean('All Partner?'),
         'report_type': fields.selection([
             ('xls','Excel'),
             ('pdf','PDF')
             ], 'Report Type', required=True),
+        'partner_ids': fields.many2many('res.partner', string='Partners'),
     }
     _defaults = {
+        'display_detail': False,
+        'all_partner': True,
         'report_type': 'xls',
     }
 
+    def onchange_result_selection(self, cr, uid, ids, res_select='customer', context=None):
+        res = {'domain': {'partner_ids': [('customer', '=', True)]}}
+        if res_select == 'customer_supplier':
+            res = {'domain': {'partner_ids': [('customer', '=', True), ('supplier', '=', True)]}}
+        if res_select == 'supplier':
+            res = {'domain': {'partner_ids': [('supplier', '=', True)]}}
+        return res
+        
     def pre_print_report(self, cr, uid, ids, data, context=None):
         if context is None:
             context = {}
@@ -50,7 +63,10 @@ class account_partner_balance(osv.osv_memory):
             context = {}
 
         data = self.pre_print_report(cr, uid, ids, data, context=context)
-        data['form'].update(self.read(cr, uid, ids, ['report_type'])[0])
+        data['form'].update(self.read(cr, uid, ids, ['display_detail', 'all_partner', 'report_type', 'partner_ids'])[0])
+        all_partner = 'all_partner' in data['form'] and data['form']['all_partner'] or False
+        partner_ids = 'partner_ids' in data['form'] and data['form']['partner_ids'] or False
+        data['form']['used_context'].update(dict(all_partner=all_partner, partner_ids=partner_ids))
 
         if data['form']['report_type'] == 'xls':
             return {

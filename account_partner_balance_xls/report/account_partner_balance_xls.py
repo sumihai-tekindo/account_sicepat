@@ -150,7 +150,7 @@ class partner_balance_xls(report_xls):
             ws, row_position, row_data, row_style=cell_style)
         return row_position
 
-    def print_row_data(self, ws, _p, row_line, row_position, xlwt, _xs):
+    def print_row_data(self, ws, _p, data, row_line, row_position, xlwt, _xs):
         cell_format = _xs['borders_bottom']
         cell_style = xlwt.easyxf(cell_format)
         cell_style_bold = xlwt.easyxf(cell_format + _xs['bold'])
@@ -159,14 +159,25 @@ class partner_balance_xls(report_xls):
         cell_style_currency = xlwt.easyxf(cell_format + _xs['right'], num_format_str='_(%s* #,##0.00_);_(%s* (#,##0.00);_(%s* "-"??_);_(@_)' % (_p.res_company.currency_id.symbol, _p.res_company.currency_id.symbol, _p.res_company.currency_id.symbol))
         cell_style_bold_currency = xlwt.easyxf(cell_format + _xs['bold'] + _xs['right'], num_format_str='_(%s* #,##0.00_);_(%s* (#,##0.00);_(%s* "-"??_);_(@_)' % (_p.res_company.currency_id.symbol, _p.res_company.currency_id.symbol, _p.res_company.currency_id.symbol))
 
-        c_specs = [
-            ('code', 2, 0, 'text', row_line['ref'], None, cell_style),
-            ('acc_part', 3, 0, 'text', row_line['name'], None, cell_style),
-            ('dr', 2, 0, 'number', row_line['debit'], None, cell_style_decimal),
-            ('cr', 2, 0, 'number', row_line['credit'], None, cell_style_decimal),
-            ('bal', 2, 0, 'number', row_line['balance'], None, cell_style_currency),
-            ('disp', 1, 0, 'number', row_line['enlitige'], None, cell_style_currency),
-        ]
+        if row_line['type'] == 1:
+            c_specs = [
+                ('code', 2, 0, 'text', row_line['ref'], None, cell_style),
+                ('none', 1, 0, 'text', None),
+                ('acc_part', 2, 0, 'text', row_line['move_name'], None, cell_style),
+                ('dr', 2, 0, 'number', row_line['debit'], None, cell_style_decimal),
+                ('cr', 2, 0, 'number', row_line['credit'], None, cell_style_decimal),
+                ('bal', 2, 0, 'number', row_line['balance'], None, cell_style_currency),
+                ('disp', 1, 0, 'number', row_line['enlitige'], None, cell_style_currency),
+            ]
+        if row_line['type'] == 2:
+            c_specs = [
+                ('code', 2, 0, 'text', row_line['ref'], None, data['form']['display_detail'] and cell_style_bold or cell_style),
+                ('acc_part', 3, 0, 'text', row_line['name'], None, data['form']['display_detail'] and cell_style_bold or cell_style),
+                ('dr', 2, 0, 'number', row_line['debit'], None, data['form']['display_detail'] and cell_style_bold_decimal or cell_style_decimal),
+                ('cr', 2, 0, 'number', row_line['credit'], None, data['form']['display_detail'] and cell_style_bold_decimal or cell_style_decimal),
+                ('bal', 2, 0, 'number', row_line['balance'], None, data['form']['display_detail'] and cell_style_bold_currency or cell_style_currency),
+                ('disp', 1, 0, 'number', row_line['enlitige'], None, data['form']['display_detail'] and cell_style_bold_currency or cell_style_currency),
+            ]
         if row_line['type'] == 3:
             c_specs = [
                 ('code', 2, 0, 'text', row_line['ref'] + u'\n' + row_line['code'], None, cell_style_bold),
@@ -206,6 +217,6 @@ class partner_balance_xls(report_xls):
         row_pos = self.print_header_data(ws, _p, data, row_pos, xlwt, _xs)
         
         for line in _p.lines():
-            row_pos = self.print_row_data(ws, _p, line, row_pos, xlwt, _xs)
+            row_pos = self.print_row_data(ws, _p, data, line, row_pos, xlwt, _xs)
 
 partner_balance_xls('report.account.report_partnerbalance_xls', 'account.move.line', parser=partner_balance)

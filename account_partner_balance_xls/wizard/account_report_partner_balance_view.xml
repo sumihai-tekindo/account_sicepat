@@ -15,9 +15,19 @@
             <field name="model">account.partner.balance</field>
             <field name="inherit_id" ref="account.account_partner_balance_view" />
             <field name="arch" type="xml">
+            	<field name="result_selection" position="attributes">
+            		<attribute name="on_change">onchange_result_selection(result_selection)</attribute>
+            	</field>
                 <field name="display_partner" position="after">
-                	<field name="report_type"/>
+                	<field name="display_detail"/>
+                	<field name="all_partner"/>
+                	<field name="report_type" widget="radio"/>
                 </field>
+                <xpath expr="//notebook/page[@name='journal_ids']" position="after">
+                	<page string="Partners" name="partner_ids" attrs="{'invisible': [('all_partner', '=', True)]}">
+                		<field name="partner_ids"/>
+                	</page>
+                </xpath>
             </field>
         </record>
 
