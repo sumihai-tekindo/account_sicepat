@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+     <data>
+
+        <record id="account_partner_balance_view_filter_account" model="ir.ui.view">
+            <field name="name">General Ledger filter account</field>
+            <field name="model">account.report.general.ledger</field>
+            <field name="inherit_id" ref="account.account_report_general_ledger_view" />
+            <field name="arch" type="xml">
+                <field name="amount_currency" position="after">
+                	<field name="all_account"/>
+                </field>
+                <xpath expr="//notebook/page[@name='journal_ids']" position="after">
+                	<page string="Accounts" name="account_ids" attrs="{'invisible': [('all_account', '=', True)]}">
+                		<field name="account_ids"/>
+                	</page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
