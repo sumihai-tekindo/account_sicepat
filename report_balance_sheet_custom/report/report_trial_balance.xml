@@ -1,0 +1,15 @@
+<openerp>
+	<data>
+		<template id="report_trialbalance_initial_bal" inherit_id="account.report_trialbalance">
+			<xpath expr="//div[@class='page']/table[@class='table table-condensed'][1]/thead/tr/th[2]" position="after">
+				<th class="text-right" t-if="data['form']['initial_balance'] == 1">Init.Bal</th>
+			</xpath>
+
+			<xpath expr="//div[@class='page']/table[@class='table table-condensed'][1]/tbody/tr/td[2]" position="after">
+				<td class="text-right" t-if="data['form']['initial_balance'] == 1">
+	                 <span t-att-style="style" t-esc="formatLang(childrenaccount['initial_bal'])"/>
+	            </td>
+			</xpath>
+		</template>
+	</data>
+</openerp>
