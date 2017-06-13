@@ -1,0 +1,60 @@
+<openerp>
+	<data>
+		<template id="report_financial" inherit_id="account.report_financial">
+			<xpath expr="//div[@class='page']/table[@class='table table-condensed'][1]/thead/tr/th[4]" position="after">
+				<th t-if="data['form']['with_difference'] == 1" class="text-right">Diff.</th>
+			</xpath>
+			<xpath expr="//div[@class='page']/table[@class='table table-condensed'][1]/tbody/tr/t[1]/td[4]" position="after">
+				<td class="text-right" style="white-space: nowrap;" t-if="data['form']['with_difference'] == 1">
+                    <span t-att-style="style" t-esc="formatLang(a.get('balance_diff'), currency_obj=res_company.currency_id)"/>
+                </td>
+			</xpath>
+
+			<xpath expr="//div[@class='page']/table[@class='table table-condensed'][1]/thead/tr/th[4]" position="after">
+				<th t-if="data['form']['with_total'] == 1" class="text-right">Total.</th>
+			</xpath>
+			<xpath expr="//div[@class='page']/table[@class='table table-condensed'][1]/tbody/tr/t[1]/td[4]" position="after">
+				<td class="text-right" style="white-space: nowrap;" t-if="data['form']['with_total'] == 1">
+                    <span t-att-style="style" t-esc="formatLang(a.get('balance_total'), currency_obj=res_company.currency_id)"/>
+                </td>
+			</xpath>
+
+
+			<xpath expr="//div[@class='page']/table[@class='table table-condensed'][2]/thead/tr/th[2]" position="after">
+				<th t-if="data['form']['with_difference'] == 1" class="text-right">Diff.</th>
+			</xpath>
+			<xpath expr="//div[@class='page']/table[@class='table table-condensed'][2]/tbody/tr/t[1]/td[2]" position="after">
+                <td class="text-right" t-if="data['form']['with_difference'] == 1">
+                	<span t-att-style="style" t-esc="formatLang(a.get('balance_diff'), currency_obj=res_company.currency_id)"/>
+               	</td>
+			</xpath>
+
+			<xpath expr="//div[@class='page']/table[@class='table table-condensed'][2]/thead/tr/th[2]" position="after">
+				<th t-if="data['form']['with_total'] == 1" class="text-right">Total.</th>
+			</xpath>
+			<xpath expr="//div[@class='page']/table[@class='table table-condensed'][2]/tbody/tr/t[1]/td[2]" position="after">
+                <td class="text-right" t-if="data['form']['with_total'] == 1">
+                	<span t-att-style="style" t-esc="formatLang(a.get('balance_total'), currency_obj=res_company.currency_id)"/>
+               	</td>
+			</xpath>
+
+			<xpath expr="//div[@class='page']/table[@class='table table-condensed'][3]/thead/tr/th[3]" position="after">
+				<th t-if="data['form']['with_difference'] == 1" class="text-right">Diff.</th>
+			</xpath>
+			<xpath expr="//div[@class='page']/table[@class='table table-condensed'][3]/tbody/tr/t[1]/td[3]" position="after">
+                <td class="text-right" t-if="data['form']['with_difference'] == 1">
+                	<span t-att-style="style" t-esc="formatLang(a.get('balance_diff'), currency_obj=res_company.currency_id)"/>
+               	</td>
+			</xpath>
+
+			<xpath expr="//div[@class='page']/table[@class='table table-condensed'][3]/thead/tr/th[3]" position="after">
+				<th t-if="data['form']['with_total'] == 1" class="text-right">Total.</th>
+			</xpath>
+			<xpath expr="//div[@class='page']/table[@class='table table-condensed'][3]/tbody/tr/t[1]/td[3]" position="after">
+                <td class="text-right" t-if="data['form']['with_total'] == 1">
+                	<span t-att-style="style" t-esc="formatLang(a.get('balance_total'), currency_obj=res_company.currency_id)"/>
+               	</td>
+			</xpath>
+		</template>
+	</data>
+</openerp>
