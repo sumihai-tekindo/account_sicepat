@@ -28,7 +28,7 @@
 	                    <span t-att-style="style" t-esc="formatLang(childrenaccount['initial_bal'])"/>
 	                </td>
 	                <td class="text-right" style="white-space: nowrap;">
-	                    <span t-att-style="style" t-esc="formatLang(childrenaccount['credit'])"/>
+	                    <span t-att-style="style" t-esc="formatLang(childrenaccount['debit'])"/>
 	                </td>
                     <td class="text-right" style="white-space: nowrap;">
 	                    <span t-att-style="style" t-esc="formatLang(childrenaccount['credit'])"/>
