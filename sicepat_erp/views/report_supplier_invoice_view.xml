@@ -45,12 +45,12 @@
 							<tr t-foreach="o.invoice_line" t-as="line">
 								<td><span t-field="line.quantity"/></td>
 								<td><span t-field="line.name"/></td>
-								<td><span t-field="line.price_unit" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/></td>
-								<td><span t-field="line.price_subtotal" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/></td>
+								<td style="text-align:right;"><span t-field="line.price_unit" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/></td>
+								<td style="text-align:right;"><span t-field="line.price_subtotal" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/></td>
 							</tr>
 							<tr>
 								<td colspan="3" style="text-align:right;"><b>Total</b></td>
-								<td><span t-field="o.amount_total" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/></td>
+								<td style="text-align:right;"><span t-field="o.amount_total" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id", "no_rounding": true}'/></td>
 							</tr>
 						</tbody>
 					</table>
