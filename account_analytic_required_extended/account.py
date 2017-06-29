@@ -31,12 +31,12 @@ class AccountInvoiceLine(models.Model):
         return account.user_type.analytic_policy
 
     @api.one
-    @api.constrains('analytic_account_id', 'account_id', 'price_subtotal')
+    @api.constrains('account_analytic_id', 'account_id', 'price_subtotal')
     def _check_constraint_analytic_account(self):
         context = dict(self._context or {})
         if context.get('skip_analytic_required'):
             return True
-        if self.price_subtotal == 0:
+        if self.price_subtotal == 0.0:
             return True
         analytic_policy = self._get_analytic_policy(self.account_id)
         if analytic_policy == 'always' and not self.account_analytic_id:
