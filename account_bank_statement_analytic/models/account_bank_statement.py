@@ -21,17 +21,6 @@
 
 from openerp.osv import fields, osv 
 
-# class account_bank_statement(osv.osv):
-#     _inherit = 'account.bank.statement'
-#     
-#     def _prepare_move_line_vals(self, cr, uid, st_line, move_id, debit, credit, currency_id=False,
-#                 amount_currency=False, account_id=False, partner_id=False, context=None):
-#         res = super(account_bank_statement, self)._prepare_move_line_vals(cr, uid, st_line, move_id, debit, credit, \
-#             currency_id=currency_id, amount_currency=amount_currency, account_id=account_id, partner_id=partner_id, \
-#             context=context)
-#         res['analytic_account_id'] = st_line.analytic_account_id and st_line.analytic_account_id.id or False
-#         return res
-
 class account_bank_statement_line(osv.osv):
     _inherit = 'account.bank.statement.line'
 
@@ -44,5 +33,6 @@ class account_bank_statement_line(osv.osv):
             context = {}
         st_line = self.browse(cr, uid, id, context=context)
         for mv_line_dict in mv_line_dicts:
-            mv_line_dict['analytic_account_id'] = st_line.analytic_account_id and st_line.analytic_account_id.id or False
+            if not mv_line_dict.get('analytic_account_id'):
+                mv_line_dict['analytic_account_id'] = st_line.analytic_account_id and st_line.analytic_account_id.id or False
         return super(account_bank_statement_line, self).process_reconciliation(cr, uid, id, mv_line_dicts, context=context)
