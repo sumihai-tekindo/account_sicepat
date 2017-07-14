@@ -1,0 +1,25 @@
+<openerp>
+	<data>
+
+		<record id="cash_back_sequence" model="ir.sequence">
+			<field name="name">Cash Back Journal</field>
+			<field name="implementation">no_gap</field>
+			<field name="active" eval="True"/>
+			<field name="prefix">CB/%(year)s/%(month)s/</field>
+			<field name="padding">4</field>
+			<field name="number_increment">1</field>
+        </record>
+
+		
+		<record id="cash_back_journal" model="account.journal">
+			<field name="name">Cash Back Journal</field>
+            <field name="code">CB</field>
+            <field name="type">sale_refund</field>
+            <field name="analytic_journal_id" ref="account.analytic_journal_sale"/>
+            <field name="sequence_id" ref="account_cash_back.cash_back_sequence"/>
+            <field name="update_posted" eval="True"/>
+            <field name="group_invoice_lines" eval="True"/>
+        </record>
+
+    </data>
+</openerp>

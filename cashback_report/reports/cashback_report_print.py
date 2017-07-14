@@ -19,8 +19,7 @@ _logger = logging.getLogger(__name__)
 class cashback_report_xls_parser(report_sxw.rml_parse):
     
     def __init__(self, cr, uid, name, context):
-        super(cashback_report_xls_parser, self).__init__(cr, uid, name,
-                                                         context=context)
+        super(cashback_report_xls_parser, self).__init__(cr, uid, name, context=context)
         self.context = context
 
         

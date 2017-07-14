@@ -47,6 +47,8 @@
         'views/account_cash_back_wizard.xml',
         'views/res_partner_view.xml',
         'views/account_cash_back_view.xml',
+        'views/cash_back_journal.xml',
+        'security/cashback_security.xml',
     ],
 
     'demo': [

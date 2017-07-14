@@ -36,7 +36,7 @@ class account_cashback(osv.osv):
 		"start_date"	: fields.date("Start Date",required=True),
 		"end_date"		: fields.date("End Date",required=True),
 		"line_ids"		: fields.one2many("account.cashback.line","cashback_id","Cashback Lines"),
-		"state"			: fields.selection([('draft','Draft'),('submitted','Submitted'),('approved','Approved'),('cancelled','Cancelled')],"Status",required=True),
+		"state"			: fields.selection([('draft','Draft'),('inprogress','In Progress'),('done','Done'),('cancelled','Cancelled')],"Status",required=True),
 	}
 
 	_defaults = {
@@ -102,7 +102,52 @@ class account_cashback(osv.osv):
 				if cb_line.cash_back_amt<=0.0:
 					lines.append(cb_line.id)
 			self.pool.get('account.cashback.line').unlink(cr,uid,lines)
-		return True		
+		return True
+
+
+	def generate_customer_refund(self,cr,uid,ids,context=None):
+		for cb in self.browse(cr,uid,ids,context=context):
+			invoice_ids=[]
+			if cb.state=='approved':
+				return False
+			a = cb.name.property_account_payable.id
+			name =cb.cashback_id and cb.cashback_id.name or cb.name.name
+			expense_account = cb.product_id.property_account_expense and cb.product_id.property_account_expense.id or \
+							cb.product_id.categ_id and cb.product_id.categ_id.property_account_expense_categ and cb.product_id.categ_id.property_account_expense_categ.id or False
+
+			inv = {
+				'name': name,
+				'origin': name,
+				'type': 'out_refund',
+				'journal_id': journal_id,
+				'reference': cb.name.ref,
+				'account_id': a,
+				'partner_id': cb.name.id,
+				'currency_id': user.company_id.currency_id.id,
+				'comment': name,
+				'payment_term': cb.name.property_supplier_payment_term and cb.name.property_supplier_payment_term.id or False,
+				'fiscal_position': cb.name.property_account_position.id,
+				'department_id': cb.department_id and cb.department_id.id,
+				'user_id': uid,
+			}
+			
+			inv_id = self.pool.get('account.invoice').create(cr,uid,inv,context=context)
+			inv_line = {
+					'name': cb.product_id.name or 'Cashback %s periode %s-%s'%(cb.name.name,cb.start_date,cb.end_date),
+					'account_id': expense_account,
+					'price_unit': cb.cash_back_amt or 0.0,
+					'quantity': 1.0,
+					'product_id': cb.product_id and cb.product_id.id or False,
+					'uos_id': cb.product_id and cb.product_id.uom_id.id or False,
+					'cashback_line_id': cb.id,
+					'invoice_id':inv_id,
+					}
+			self.pool.get('account.invoice.line').create(cr,uid,inv_line)
+			cb.write({'invoice_id':inv_id})
+			invoice_ids.append(inv_id)
+		return True
+
+
 class account_cashback_line(osv.osv):
 	_name = "account.cashback.line"
 
@@ -127,18 +172,14 @@ class account_cashback_line(osv.osv):
 		"product_id"		: fields.many2one("product.product","Cash Back Product"),
 		"journal_id"		: fields.many2one("account.journal","Journal"),
 		"department_id"		: fields.many2one("account.invoice.department","Department",required=False),
-		"force_cb"			: fields.boolean("Force Rule"),
-		"state"				: fields.function(_get_state,type="selection",selection=[('draft','Draft'),
-											('proforma','Pro-forma'),
-											('proforma2','Pro-forma'),
-											('submit','Submit'),
-											('acknowledge','Acknowledge'),
-											('approved','Approve'),
-											('open','Open'),
-											('paid','Paid'),
-											('cancel','Cancelled')],string="State",copy=False,store={
-					'account.invoice': (lambda self, cr, uid, ids, c={}: ids, ['status'], 50)
-				   }),
+		"state"				: fields.selection([('draft','Draft'),('submitted','Submitted'),('approved','Approved'),('cancelled','Cancelled')],"Status",required=True),
+		# "force_cb"			: fields.boolean("Force Rule"),
+		# "state"				: fields.function(_get_state,type="selection",selection=[('draft','Draft'),
+		# 									('submit','Submit'),
+		# 									('approved','Approve'),
+		# 									('cancel','Cancelled')],string="State",copy=False,store={
+		# 			'account.invoice': (lambda self, cr, uid, ids, c={}: ids, ['status'], 50)
+		# 		   }),
 		"start_date"		: fields.date("Start Date",required=True,),
 		"end_date"			: fields.date("End Date",required=True,),
 		"cashback_id"		: fields.many2one("account.cashback","Cashback",),
@@ -148,6 +189,8 @@ class account_cashback_line(osv.osv):
 	_defaults = {
 		"state":'draft',
 	}
+
+
 
 	def update_partner_disc(self,cr,uid,ids,context=None):
 		if not context:
@@ -583,6 +626,27 @@ class account_cashback_line(osv.osv):
 				line.write(value)
 		# print "===================",value
 		return True
+
+	# ditambah oleh Andrean 07/12/2017
+	# ----------------------------------------------------------------------
+	def button_submit(self,cr,uid,ids,context=None):
+		self.write(cr, uid, ids, {'state': 'submitted'}, context=context)
+		return True
+
+	def button_approve(self,cr,uid,ids,context=None):
+		self.write(cr, uid, ids, {'state': 'approved'}, context=context)
+		return True
+
+	def button_cancel(self,cr,uid,ids,context=None):
+		self.write(cr, uid, ids, {'state': 'cancelled'}, context=context)
+		return True
+
+	def set_to_draft(self,cr,uid,ids,context=None):
+		self.write(cr,uid,ids,{'state':'draft'}, context=context)
+		return True
+	# ---------------------------------------------------------------------------
+
+
 
 	def create_invoice(self,cr,uid,ids,context=None):
 		if not context:context={}

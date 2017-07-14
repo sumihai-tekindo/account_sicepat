@@ -90,13 +90,13 @@
 					<field name="deposit"/>
 					<field name="proposed_disc"/>
 					<field name="cash_back_amt"/>
-					<field name="force_cb"/>
+					<!-- <field name="force_cb"/> -->
 					<field name="invoice_id"/>
-					<field name="state"/>
-					<button name="delete_zero_omzet" type="object" string="Remove Zero Omzet" states="draft" icon="gtk-cancel"/>
-					<button name="compute_cashback_lines" attrs="{'invisible':[('invoice_id','!=',False)]}" type="object" string="Compute" icon="gtk-execute"/>
-					<button name="update_partner_disc" attrs="{'invisible':[('invoice_id','=',False)]}" type="object" string="Upd. Disc" icon="gtk-execute"/>
-					<button name="create_invoice" attrs="{'invisible':[('invoice_id','!=',False)]}" type="object" string="Create Invoice" icon="gtk-apply"/>
+					<!-- <field name="state"/> -->
+					<button name="delete_zero_omzet" type="object" string="Remove Zero Omzet" icon="gtk-cancel"/>
+					<button name="compute_cashback_lines"  type="object" string="Compute" icon="gtk-execute"/>
+					<!-- <button name="update_partner_disc"  type="object" string="Upd. Disc" icon="gtk-execute"/> -->
+					<!-- <button name="create_invoice" attrs="{'invisible':[('invoice_id','!=',False)]}" type="object" string="Create Invoice" icon="gtk-apply"/> -->
 				</tree>
 			</field>
 		</record>
@@ -107,10 +107,14 @@
 			<field name="arch" type="xml">
 				<form string="Cashback Lines">
 					<header>
-						<button name="delete_zero_omzet" type="object" string="Remove Zero Omzet" states="draft" class="oe_highlight" icon="gtk-cancel"/>
-						<button name="compute_cashback_lines" attrs="{'invisible':[('invoice_id','!=',False)]}" type="object" string="Compute" icon="gtk-execute"/>
-						<button name="update_partner_disc" attrs="{'invisible':[('invoice_id','=',False)]}" type="object" string="Upd. Disc" icon="gtk-execute"/>
-						<button name="create_invoice" attrs="{'invisible':[('invoice_id','!=',False)]}" type="object" string="Create Invoice" icon="gtk-apply"/>
+						<button name="delete_zero_omzet" type="object" string="Remove Zero Omzet" class="oe_highlight" icon="gtk-cancel"/>
+						<button name="compute_cashback_lines"  type="object" string="Compute" icon="gtk-execute"/>
+						<button name="button_submit" type="object" string="Submit" states="draft" class="oe_highlight"/>
+						<button name="button_approve" type="object" string="Approve" states="submitted" class="oe_highlight"/>
+						<button name="button_cancel" type="object" string="Cancel" class="oe_highlight"/>
+						<button name="set_to_draft" type="object" string="Set to Draft" states="cancelled" class="oe_highlight"/>
+						<!-- <button name="update_partner_disc"  type="object" string="Upd. Disc" icon="gtk-execute"/> -->
+						<!-- <button name="create_invoice"  type="object" string="Create Invoice" icon="gtk-apply"/> -->
 						<field name="state" widget="statusbar"/>
 					</header>
 					<sheet>
@@ -124,7 +128,7 @@
 								<field name="deposit"/>
 								<field name="proposed_disc"/>
 								<field name="cash_back_amt"/>
-								<field name="force_cb"/>
+								<!-- <field name="force_cb"/> -->
 							</group>
 							<group>
 								<field name="start_date"/>
@@ -151,9 +155,9 @@
 					<field name="omzet_paid"/>
 					<field name="proposed_disc"/>
 					<field name="cash_back_amt"/>
-					<field name="force_cb"/>
+					<!-- <field name="force_cb"/> -->
 					<field name="invoice_id"/>
-					<field name="state"/>
+					<!-- <field name="state"/> -->
 				</search>
 			</field>
 		</record>
@@ -216,7 +220,7 @@
 						<button name="approve_cashback" type="object" string="Approve" states="submitted" class="oe_highlight"/>
 						<button name="cancel_cashback" type="object" string="Cancel" states="submitted,approved" class="oe_highlight"/>
 						<button name="set_to_draft" type="object" string="Set to Draft" states="cancelled" class="oe_highlight"/>
-						<button name="update_partner_disc" type="object" string="Update Cust. Disc." icon="gtk-execute"/>
+						<!-- <button name="update_partner_disc" type="object" string="Update Cust. Disc." icon="gtk-execute"/> -->
 						<field name="state" widget="statusbar"/>
 
 					</header>
