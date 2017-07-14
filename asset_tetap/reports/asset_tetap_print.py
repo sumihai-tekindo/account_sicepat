@@ -99,9 +99,10 @@ class asset_tetap_xls(report_xls):
                 ws.write(row,0,no,normal_style_float_round)
                 ws.write(row,1,rec.name,normal_style)
                 ws.write(row,2,rec.purchase_value,normal_style_float)
-                ws.write(row,4,rec.value_residual,normal_style_float)
 
                 
+                netbook_value = 0.0
+                depreciated_value = 0.0
                 depr=rec.depreciation_line_ids and rec.depreciation_line_ids[0]
                 if depr:
 
@@ -110,19 +111,20 @@ class asset_tetap_xls(report_xls):
                     for line in rec.depreciation_line_ids:
                         dep_date = datetime.strptime(line.depreciation_date,'%Y-%m-%d')
                         if dep_date<=end_date and line.move_check == True:
-                            netbook_value = line.remaining_value
-                        else:
-                            break
+                            depreciated_value += line.amount
+#                         else:
+#                             break
 
-                    ws.write(row,3,depr.amount,normal_style)
-                    max_len[3]=len(str(depr.amount)) > max_len[3] and len(str(depr.amount)) or max_len[3]
-                    
+                    ws.write(row,3,depreciated_value,normal_style_float)
+                    max_len[3]=len(str(depreciated_value)) > max_len[3] and len(str(depreciated_value)) or max_len[3]
+                netbook_value = rec.purchase_value - depreciated_value
+                ws.write(row,4,netbook_value,normal_style_float)
 
                 max_len[0]=len(str(no))+3 > max_len[0] and len(str(no))+3 or max_len[0]
                 max_len[1]=len(str(rec.name)) > max_len[1] and len(str(rec.name)) or max_len[1]
                 max_len[2]=len(str(rec.purchase_value))+3 > max_len[2] and len(str(rec.purchase_value))+3 or max_len[2]
                 
-                max_len[4]=len(str(rec.value_residual)) > max_len[4] and len(str(rec.value_residual)) or max_len[4]
+                max_len[4]=len(str(netbook_value)) > max_len[4] and len(str(netbook_value)) or max_len[4]
 
                 no+=1
                 row+=1

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+     <data>
+
+        <record id="account_report_balance_view_initial" model="ir.ui.view">
+            <field name="name">Trial Balance Initial</field>
+            <field name="model">account.balance.report</field>
+            <field name="inherit_id" ref="account.account_report_balance_view" />
+            <field name="arch" type="xml">
+            	<field name="fiscalyear_id" position="attributes">
+            		<attribute name="on_change">onchange_fiscalyear(fiscalyear_id)</attribute>
+            	</field>
+	            <xpath expr="//field[@name='filter']" position="after">
+	                <field name="initial_balance" attrs="{'readonly':[('filter', 'in', ('filter_no'))]}" />
+	            </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

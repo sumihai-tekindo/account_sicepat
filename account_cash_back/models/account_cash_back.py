@@ -18,6 +18,7 @@ class account_cashback_rule(osv.osv):
 		"date_start"		: fields.date("Effective Start Date",required=True),
 		"date_end"			: fields.date("Effective End Date",required=True),
 		"sequence"			: fields.integer("Computation Sequence",required=True),
+		"account_analytic_id": fields.many2one("account.analytic.account","Analytic Account"),
 	}
 	_defaults = {
 		"rules":"# Use this fields : current_disc, omzet_before_disc, omzet_after_disc, omzet_paid, deposit, cash_back_amt, proposed_disc",
@@ -170,6 +171,7 @@ class account_cashback_line(osv.osv):
 		"cash_back_amt"		: fields.float("CashBack Amount",required=True),
 		"invoice_id"		: fields.many2one("account.invoice","CB. Invoice"),
 		"product_id"		: fields.many2one("product.product","Cash Back Product"),
+		"account_analytic_id": fields.many2one("account.analytic.account","Analytic Account"),
 		"journal_id"		: fields.many2one("account.journal","Journal"),
 		"department_id"		: fields.many2one("account.invoice.department","Department",required=False),
 		"state"				: fields.selection([('draft','Draft'),('submitted','Submitted'),('approved','Approved'),('cancelled','Cancelled')],"Status",required=True),
@@ -483,6 +485,7 @@ class account_cashback_line(osv.osv):
 				product_id			= False
 				journal_id			= False
 				department_id		= False
+				account_analytic_id = False
 				cash_back_amt 		= 0.0
 				proposed_disc 		= 0.0
 				next_disc 			= line.name.current_discount or 0.0
@@ -495,6 +498,7 @@ class account_cashback_line(osv.osv):
 						journal_id = rule.journal_id and rule.journal_id.id
 						department_id = rule.department_id and rule.department_id.id
 						cash_back_amt = eval(rule.cash_back_amt_rule)
+						account_analytic_id = rule.account_analytic_id and rule.account_analytic_id.id or False
 						break
 				value = {
 						'current_disc'		: current_disc,
@@ -507,6 +511,7 @@ class account_cashback_line(osv.osv):
 						'product_id'		: product_id,
 						'journal_id'		: journal_id,
 						'department_id'		: department_id,
+						'account_analytic_id': account_analytic_id,
 						}
 
 				line.write(value)
@@ -595,6 +600,7 @@ class account_cashback_line(osv.osv):
 				product_id			= False
 				journal_id			= False
 				department_id		= False
+				account_analytic_id = False
 				cash_back_amt 		= 0.0
 				proposed_disc		= 0.0
 				next_disc 			= line.name.current_discount or 0.0
@@ -610,6 +616,7 @@ class account_cashback_line(osv.osv):
 						journal_id = rule.journal_id and rule.journal_id.id
 						department_id = rule.department_id and rule.department_id.id
 						cash_back_amt = eval(rule.cash_back_amt_rule)
+						account_analytic_id = rule.account_analytic_id and rule.account_analytic_id.id or False
 						break
 				value = {
 						'current_disc'		: current_disc,
@@ -622,6 +629,7 @@ class account_cashback_line(osv.osv):
 						'product_id'		: product_id,
 						'journal_id'		: journal_id,
 						'department_id'		: department_id,
+						'account_analytic_id'		: account_analytic_id,
 						}
 				line.write(value)
 		# print "===================",value
@@ -694,6 +702,7 @@ class account_cashback_line(osv.osv):
 					'uos_id': line.product_id and line.product_id.uom_id.id or False,
 					'cashback_line_id': line.id,
 					'invoice_id':inv_id,
+					'account_analytic_id':line.account_analytic_id and line.account_analytic_id.id or False,
 					}
 			self.pool.get('account.invoice.line').create(cr,uid,inv_line)
 			line.write({'invoice_id':inv_id})

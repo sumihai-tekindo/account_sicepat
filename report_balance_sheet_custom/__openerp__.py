@@ -13,9 +13,9 @@
     'depends': [ 'base','account' ],
     'data': [
         'views/accounting_report_view.xml',
-        'views/account_balance_report_view.xml',
+#         'views/account_balance_report_view.xml',
         'report/report_financial.xml',
-        'report/report_trial_balance.xml',
+#         'report/report_trial_balance.xml',
     ],
     'demo': [
 
