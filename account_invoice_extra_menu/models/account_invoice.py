@@ -33,8 +33,12 @@ class account_invoice_collection(osv.osv_memory):
 				text += "%s %s\n"%(inv.date_invoice,rml_parser.formatLang(inv.residual, currency_obj=inv.currency_id))
 			text+="\nSubTotal : %s\n"%(rml_parser.formatLang(total_unpaid, currency_obj=inv.currency_id))
 
-			unreconciled_payment = [('partner_id','=',inv.partner_id and inv.partner_id.id),('reconcile_id','=',False),('account_id.type','=','receivable'),('credit','>',0.0)]
+			cb_model, journal_id = self.pool.get('ir.model.data').get_object_reference(cr, uid,'account_cash_back','cash_back_journal')
+
+			unreconciled_payment = [('partner_id','=',inv.partner_id and inv.partner_id.id),('reconcile_id','=',False),('account_id.type','=','receivable'),('credit','>',0.0),('journal_id','!=',journal_id)]
 			aml_ids = self.pool.get('account.move.line').search(cr,uid,unreconciled_payment)
+
+
 
 			unreconciled=0.0
 			if aml_ids:
@@ -44,7 +48,28 @@ class account_invoice_collection(osv.osv_memory):
 					
 						unreconciled+= aml.amount_residual
 					# unreconciled+= aml.amount_residual
-				text+="Lebih bayar : %s"%(rml_parser.formatLang(abs(unreconciled), currency_obj=inv.currency_id))
+				text+="Lebih bayar : %s\n"%(rml_parser.formatLang(abs(unreconciled), currency_obj=inv.currency_id))
+
+
+			cashback_amt = 0.0
+			cbl_ids = self.pool.get('account.cashback.line').search(cr,uid,[('name','=',inv.partner_id.id),('state','=','approved')])
+			cbl = self.pool.get('account.cashback.line').browse(cr,uid,cbl_ids,context=context)
+			for cashback in cbl :
+				cashback_amt+=cashback.cash_back_amt
+			
+			unreconciled_payment = [('partner_id','=',inv.partner_id and inv.partner_id.id),('reconcile_id','=',False),('account_id.type','=','receivable'),('credit','>',0.0),('journal_id','=',journal_id)]
+			aml_ids = self.pool.get('account.move.line').search(cr,uid,unreconciled_payment)
+
+			if aml_ids:
+				amls = self.pool.get('account.move.line').browse(cr,uid,aml_ids)
+				for aml in amls :
+					if aml.amount_residual>0.0:
+					
+						cashback_amt+= aml.amount_residual
+
+			text+="Cashback : %s"%(rml_parser.formatLang(abs(cashback_amt), currency_obj=inv.currency_id))
+
+
 			text+="\nTotal : %s\n"%(rml_parser.formatLang((total_unpaid-abs(unreconciled)), currency_obj=inv.currency_id))
 			text+="\nPembayaran dapat melalui : \n\nBANK BCA \nNO rekening : 270 390 3088 \nAtas Nama: Sicepat Ekspres Indonesia\n\nBANK MANDIRI \nNO rekening : 121 000 655 7171 \nAtas Nama : Sicepat Ekspres Indonesia\n\nBANK BNI \nNO rekening : 4964 66952\nAtas Nama : Sicepat Ekspres Indonesia"
 			text+="\n\nHarap isi berita acara nama OLSHOP dan tanggal pengiriman di berita acara.\nContoh: 'SiCepatShop 19Feb15'"
@@ -58,6 +83,8 @@ class account_invoice_collection(osv.osv_memory):
 			import locale
 			import re
 			for inv in invoices:
+				if inv.invoice and inv.invoice.cashback_ids and inv.invoice.cashback_ids != [] :
+					continue
 				cust.append(inv.partner_id and inv.partner_id.id)
 				total_unpaid += inv.amount_residual or 0.0
 				# print "=================",inv.amount_residual,total_unpaid
@@ -90,6 +117,8 @@ class account_invoice_collection(osv.osv_memory):
 				text += "%s %s\n"%(inv_date,rml_parser.formatLang(inv.amount_residual, currency_obj=inv.currency_id or inv.company_id.currency_id))
 			text+="\nSubTotal : %s\n"%(rml_parser.formatLang(total_unpaid, currency_obj=inv.currency_id or inv.company_id.currency_id))
 
+
+
 			unreconciled_payment = [('partner_id','=',inv.partner_id and inv.partner_id.id),('reconcile_id','=',False),('account_id.type','=','receivable'),('credit','>',0.0)]
 			aml_ids = self.pool.get('account.move.line').search(cr,uid,unreconciled_payment)
 
@@ -100,7 +129,17 @@ class account_invoice_collection(osv.osv_memory):
 					if aml.amount_residual>0.0:
 						
 						unreconciled+= aml.amount_residual
-				text+="Lebih bayar : %s"%(rml_parser.formatLang(abs(unreconciled), currency_obj=inv.currency_id))
+				text+="Lebih bayar : %s\n"%(rml_parser.formatLang(abs(unreconciled), currency_obj=inv.currency_id))
+
+
+			cashback_amt = 0.0
+			cbl_ids = self.pool.get('account.cashback.line').search(cr,uid,[('name','=',inv.partner_id.id),('state','=','approved')])
+			cbl = self.pool.get('account.cashback.line').browse(cr,uid,cbl_ids,context=context)
+			for cashback in cbl :
+				cashback_amt+=cashback.cash_back_amt
+			text+="Cashback : %s"%(rml_parser.formatLang(abs(cashback_amt), currency_obj=inv.currency_id))
+
+
 			text+="\nTotal : %s\n"%(rml_parser.formatLang((total_unpaid-abs(unreconciled)), currency_obj=inv.currency_id))
 			text+="\nPembayaran dapat melalui : \n\nBANK BCA \nNO rekening : 270 390 3088 \nAtas Nama: Sicepat Ekspres Indonesia\n\nBANK MANDIRI \nNO rekening : 121 000 655 7171 \nAtas Nama : Sicepat Ekspres Indonesia\n\nBANK BNI \nNO rekening : 4964 66952\nAtas Nama : Sicepat Ekspres Indonesia"
 			text+="\n\nHarap isi berita acara nama OLSHOP dan tanggal pengiriman di berita acara.\nContoh: 'SiCepatShop 19Feb15'"

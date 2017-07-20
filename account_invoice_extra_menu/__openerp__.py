@@ -37,8 +37,8 @@
 
 	# any module necessary for this one to work correctly
 	'depends': [
-		'account',
 		'account_followup',
+		'account_cash_back',
 	],
 
 	# always loaded

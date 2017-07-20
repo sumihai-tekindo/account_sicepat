@@ -93,7 +93,7 @@
 					<field name="cash_back_amt"/>
 					<!-- <field name="force_cb"/> -->
 					<field name="invoice_id"/>
-					<!-- <field name="state"/> -->
+					<field name="state"/>
 					<button name="delete_zero_omzet" type="object" string="Remove Zero Omzet" icon="gtk-cancel"/>
 					<button name="compute_cashback_lines"  type="object" string="Compute" icon="gtk-execute"/>
 					<!-- <button name="update_partner_disc"  type="object" string="Upd. Disc" icon="gtk-execute"/> -->
@@ -112,7 +112,7 @@
 						<button name="compute_cashback_lines"  type="object" string="Compute" icon="gtk-execute"/>
 						<button name="button_submit" type="object" string="Submit" states="draft" class="oe_highlight"/>
 						<button name="button_approve" type="object" string="Approve" states="submitted" class="oe_highlight"/>
-						<button name="button_cancel" type="object" string="Cancel" class="oe_highlight"/>
+						<button name="button_cancel" type="object" string="Cancel" attrs="{'invisible':[('state','=','cancelled'),('state','=','done')]}" class="oe_highlight"/>
 						<button name="set_to_draft" type="object" string="Set to Draft" states="cancelled" class="oe_highlight"/>
 						<!-- <button name="update_partner_disc"  type="object" string="Upd. Disc" icon="gtk-execute"/> -->
 						<!-- <button name="create_invoice"  type="object" string="Create Invoice" icon="gtk-apply"/> -->
@@ -190,7 +190,6 @@
 					<field name="start_date"/>
 					<field name="end_date"/>
 					<field name="state"/>
-					
 				</tree>
 			</field>
 		</record>
@@ -214,23 +213,23 @@
 			<field name="arch" type="xml">
 				<form string="Cashback">
 					<header>
-						<button name="delete_zero_omzet" type="object" string="Remove Zero Omzet" states="draft" class="oe_highlight" icon="gtk-cancel"/>
+						<button name="delete_zero_omzet" type="object" string="Remove Zero Omzet" states="draft" class="oe_highlight" icon="gtk-cancel" />
 						<button name="delete_zero_cashback" type="object" string="Remove Zero Cashback" states="draft" class="oe_highlight" icon="gtk-cancel"/>
 						<button name="compute_cashback" type="object" string="Compute Cashback" states="draft" class="oe_highlight"/>
-						<button name="submit_cashback" type="object" string="Submit" states="draft" class="oe_highlight"/>
+						<!-- <button name="submit_cashback" type="object" string="Submit" states="draft" class="oe_highlight"/>
 						<button name="approve_cashback" type="object" string="Approve" states="submitted" class="oe_highlight"/>
 						<button name="cancel_cashback" type="object" string="Cancel" states="submitted,approved" class="oe_highlight"/>
 						<button name="set_to_draft" type="object" string="Set to Draft" states="cancelled" class="oe_highlight"/>
-						<!-- <button name="update_partner_disc" type="object" string="Update Cust. Disc." icon="gtk-execute"/> -->
+						 --><!-- <button name="update_partner_disc" type="object" string="Update Cust. Disc." icon="gtk-execute"/> -->
 						<field name="state" widget="statusbar"/>
 
 					</header>
 					<sheet>
 						<group>
 							<group>
-								<field name="name"/>
-								<field name="start_date"/>
-								<field name="end_date"/>
+								<field name="name" attrs="{'readonly':[('state', 'in', 'submitted'),('state', 'in', 'approved')]}"/>
+								<field name="start_date" attrs="{'readonly':[('state', 'in', 'submitted'),('state', 'in', 'approved')]}"/>
+								<field name="end_date" attrs="{'readonly':[('state', 'in', 'submitted'),('state', 'in', 'approved')]}"/>
 							</group>
 							<group>
 								<button name="%(action_cashback_wizard)d" type="action" string="Import Customers" class="oe_highlight" attrs="{'invisible':[('state','!=','draft')]}"/>
@@ -239,7 +238,7 @@
 
 						<notebook>
 							<page string="Cashback lines">
-								<field name="line_ids" colspan="4" nolabel="1" editable="bottom"/>
+								<field name="line_ids" colspan="4" nolabel="1" editable="bottom" attrs="{'readonly':[('state', 'in', 'submitted'),('state', 'in', 'approved')]}"/>
 							</page>
 						</notebook>
 					</sheet>
