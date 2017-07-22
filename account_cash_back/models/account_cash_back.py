@@ -1,5 +1,9 @@
-from openerp.osv import fields,osv
+from openerp.osv import fields, osv
+import time
 import datetime
+from openerp import tools
+from openerp.osv.orm import except_orm
+from openerp.tools.translate import _
 from dateutil.relativedelta import relativedelta
 
 
@@ -174,7 +178,7 @@ class account_cashback_line(osv.osv):
 		"account_analytic_id": fields.many2one("account.analytic.account","Analytic Account",readonly=True,states={'draft':[('readonly',False)]}),
 		"journal_id"		: fields.many2one("account.journal","Journal",readonly=True,states={'draft':[('readonly',False)]}),
 		"department_id"		: fields.many2one("account.invoice.department","Department",required=False,readonly=True,states={'draft':[('readonly',False)]}),
-		"state"				: fields.selection([('draft','Draft'),('submitted','Submitted'),('approved','Approved'),('done','Done'),('cancelled','Cancelled')],"Status",required=True,readonly=True),
+		"state"				: fields.selection([('draft','Draft'),('submitted','Submitted'),('approved','Approved'),('done','Done'),('expired','Expired'),('cancelled','Cancelled')],"Status",required=True,readonly=True),
 		# "force_cb"			: fields.boolean("Force Rule"),
 		# "state"				: fields.function(_get_state,type="selection",selection=[('draft','Draft'),
 		# 									('submit','Submit'),
@@ -185,6 +189,7 @@ class account_cashback_line(osv.osv):
 		"start_date"		: fields.date("Start Date",required=True,readonly=True,states={'draft':[('readonly',False)]}),
 		"end_date"			: fields.date("End Date",required=True,readonly=True,states={'draft':[('readonly',False)]}),
 		"cashback_id"		: fields.many2one("account.cashback","Cashback",readonly=True,states={'draft':[('readonly',False)]}),
+		"date_approved"		: fields.date("Date Approved",readonly=True),
 				}
 	_order="start_date desc,end_date desc"
 	
@@ -646,7 +651,7 @@ class account_cashback_line(osv.osv):
 		return True
 
 	def button_approve(self,cr,uid,ids,context=None):
-		self.write(cr, uid, ids, {'state': 'approved'}, context=context)
+		self.write(cr, uid, ids, {'state': 'approved', 'date_approved':datetime.date.today().strftime('%Y-%m-%d')}, context=context)
 		return True
 
 	def button_cancel(self,cr,uid,ids,context=None):
@@ -657,6 +662,19 @@ class account_cashback_line(osv.osv):
 		self.write(cr,uid,ids,{'state':'draft'}, context=context)
 		return True
 
+	def set_to_expired(self,cr,uid,ids=None,context=None):
+		if not ids:
+			cr.execute("select id from account_cashback_line where state='approved'")
+			ids = [id[0] for id in cr.fetchall()]
+
+		for cbl in self.browse(cr,uid,ids,context=context):
+			if cbl.state!='approved': 
+				continue
+
+			if ((datetime.date.today()+relativedelta(months=-3)).strftime('%Y-%m-%d'))>cbl.date_approved:
+				self.write(cr,uid,ids,{'state':'expired'}, context=context)
+		
+		return True
 
 
 	def generate_customer_refund(self,cr,uid,ids,context=None):
@@ -711,6 +729,10 @@ class account_cashback_line(osv.osv):
 			invoice_ids.append(inv_id)
 
 		return True
+
+
+
+
 	# ---------------------------------------------------------------------------
 
 
