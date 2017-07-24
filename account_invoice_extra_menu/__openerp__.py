@@ -45,6 +45,7 @@
 	'data': [
 		'views/account_invoice_view.xml',
 		'views/account_move_line_view.xml',
+		'views/myfollowup_cashback.xml',
 	   
 	],
 

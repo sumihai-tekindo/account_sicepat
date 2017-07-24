@@ -190,6 +190,8 @@ class account_cashback_line(osv.osv):
 		"end_date"			: fields.date("End Date",required=True,readonly=True,states={'draft':[('readonly',False)]}),
 		"cashback_id"		: fields.many2one("account.cashback","Cashback",readonly=True,states={'draft':[('readonly',False)]}),
 		"date_approved"		: fields.date("Date Approved",readonly=True),
+		"user"				: fields.many2one("res.users","User",readonly=True),
+		"followup_user_id" 	: fields.related('name', 'payment_responsible_id', type='many2one', relation='res.users', string='Follow-up Responsible', store=True, readonly=True,),
 				}
 	_order="start_date desc,end_date desc"
 	

@@ -1,0 +1,54 @@
+<openerp>
+	<data>
+
+		<record id="action_myfollowup_cashback_tree" model="ir.actions.act_window">
+			<field name="name">My Follow Up Cashback</field>
+			<field name="res_model">account.cashback.line</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field eval="False" name="view_id"/>
+			<field name="domain">[]</field>
+			<field name="context">{'search_default_filter_followup': 1}</field>
+			<field name="search_view_id" ref="account_cash_back.account_cashback_line_search"/>
+		</record>
+<!-- 
+		<record id="action_myfollowup_cashback_tree" model="ir.actions.act_window">
+			<field name="name">Follow Up Cashback</field>
+			<field name="res_model">account.cashback.lines</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form,calendar,graph</field>
+			<field eval="False" name="view_id"/>
+			<field name="domain">[('type','=','out_invoice'),('state','in',['open'])]</field>
+			<field name="context">{'default_followup_user_id':1, 'search_default_followup_user_id':1,'default_type':'out_invoice', 'type':'out_invoice', 'journal_type': 'sale', 'default_group_by_partner_id':1,'search_default_group_by_partner_id':1}</field>
+			<field name="search_view_id" ref="account.view_account_invoice_filter"/>
+			<field name="help" type="html">
+			  <p class="oe_view_nocontent_create">
+				Click to create a customer invoice.
+			  </p><p>
+				Odoo's electronic invoicing allows to ease and fasten the
+				collection of customer payments. Your customer receives the
+				invoice by email and he can pay online and/or import it
+				in his own system.
+			  </p><p>
+				The discussions with your customer are automatically displayed at
+				the bottom of each invoice.
+			  </p>
+			</field>
+		</record>
+ -->
+        <record id="action_myfollowup_cashback_tree_view1" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="account_cash_back.account_cashback_line_tree"/>
+            <field name="act_window_id" ref="account_invoice_extra_menu.action_myfollowup_cashback_tree"/>
+        </record>
+
+        <record id="action_myfollowup_cashback_tree_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_cash_back.account_cashback_line_form"/>
+            <field name="act_window_id" ref="account_invoice_extra_menu.action_myfollowup_cashback_tree"/>
+        </record>
+        <menuitem action="account_invoice_extra_menu.action_myfollowup_cashback_tree" id="menu_action_myfollowup_cashback_tree" parent="account.menu_finance_receivables" sequence="4"/>
+	</data>
+</openerp>
