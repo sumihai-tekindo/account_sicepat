@@ -70,7 +70,7 @@ class account_invoice_collection(osv.osv_memory):
 			text+="Cashback : %s"%(rml_parser.formatLang(abs(cashback_amt), currency_obj=inv.currency_id))
 
 
-			text+="\nTotal : %s\n"%(rml_parser.formatLang((total_unpaid-abs(unreconciled)), currency_obj=inv.currency_id))
+			text+="\nTotal : %s\n"%(rml_parser.formatLang((total_unpaid-abs(unreconciled)-abs(cashback_amt)), currency_obj=inv.currency_id))
 			text+="\nPembayaran dapat melalui : \n\nBANK BCA \nNO rekening : 270 390 3088 \nAtas Nama: Sicepat Ekspres Indonesia\n\nBANK MANDIRI \nNO rekening : 121 000 655 7171 \nAtas Nama : Sicepat Ekspres Indonesia\n\nBANK BNI \nNO rekening : 4964 66952\nAtas Nama : Sicepat Ekspres Indonesia"
 			text+="\n\nHarap isi berita acara nama OLSHOP dan tanggal pengiriman di berita acara.\nContoh: 'SiCepatShop 19Feb15'"
 		
@@ -140,7 +140,7 @@ class account_invoice_collection(osv.osv_memory):
 			text+="Cashback : %s"%(rml_parser.formatLang(abs(cashback_amt), currency_obj=inv.currency_id))
 
 
-			text+="\nTotal : %s\n"%(rml_parser.formatLang((total_unpaid-abs(unreconciled)), currency_obj=inv.currency_id))
+			text+="\nTotal : %s\n"%(rml_parser.formatLang((total_unpaid-abs(unreconciled)-abs(cashback_amt)), currency_obj=inv.currency_id))
 			text+="\nPembayaran dapat melalui : \n\nBANK BCA \nNO rekening : 270 390 3088 \nAtas Nama: Sicepat Ekspres Indonesia\n\nBANK MANDIRI \nNO rekening : 121 000 655 7171 \nAtas Nama : Sicepat Ekspres Indonesia\n\nBANK BNI \nNO rekening : 4964 66952\nAtas Nama : Sicepat Ekspres Indonesia"
 			text+="\n\nHarap isi berita acara nama OLSHOP dan tanggal pengiriman di berita acara.\nContoh: 'SiCepatShop 19Feb15'"
 
