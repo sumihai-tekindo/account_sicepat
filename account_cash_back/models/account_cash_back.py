@@ -179,7 +179,7 @@ class account_cashback_line(osv.osv):
 		"journal_id"		: fields.many2one("account.journal","Journal",readonly=True,states={'draft':[('readonly',False)]}),
 		"department_id"		: fields.many2one("account.invoice.department","Department",required=False,readonly=True,states={'draft':[('readonly',False)]}),
 		"state"				: fields.selection([('draft','Draft'),('submitted','Submitted'),('approved','Approved'),('done','Done'),('expired','Expired'),('cancelled','Cancelled')],"Status",required=True,readonly=True),
-		# "force_cb"			: fields.boolean("Force Rule"),
+		"force_cb"			: fields.boolean("Force Rule"),
 		# "state"				: fields.function(_get_state,type="selection",selection=[('draft','Draft'),
 		# 									('submit','Submit'),
 		# 									('approved','Approve'),
@@ -672,9 +672,9 @@ class account_cashback_line(osv.osv):
 		for cbl in self.browse(cr,uid,ids,context=context):
 			if cbl.state!='approved': 
 				continue
-
-			if ((datetime.date.today()+relativedelta(months=-3)).strftime('%Y-%m-%d'))>cbl.date_approved:
-				self.write(cr,uid,ids,{'state':'expired'}, context=context)
+			if datetime.datetime.strptime('%Y-%m-%d',cbl.date_start)>=datetime.datetime.strptime('%Y-%m-%d','2017-06-01'):
+				if ((datetime.date.today()+relativedelta(months=-3)).strftime('%Y-%m-%d'))>cbl.date_approved:
+					self.write(cr,uid,ids,{'state':'expired'}, context=context)
 		
 		return True
 
