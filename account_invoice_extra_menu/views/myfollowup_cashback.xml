@@ -7,7 +7,7 @@
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
 			<field eval="False" name="view_id"/>
-			<field name="domain">[]</field>
+			<field name="domain">[('state','in',['approved','done','expired'])]</field>
 			<field name="context">{'search_default_filter_followup': 1}</field>
 			<field name="search_view_id" ref="account_cash_back.account_cashback_line_search"/>
 		</record>
