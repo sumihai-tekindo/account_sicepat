@@ -75,7 +75,7 @@ class cashback_report_xls(report_xls):
         ws.write_merge(3,3,0,1,"PERIODE",normal_bold_style_a)
         ws.write_merge(3,3,2,5,": "+data['start_date']+" - "+data['end_date'],normal_bold_style_a)
        
-        headers = ["NO","Customer","Current Disc.","Omzet B.Disc.","Omzet A.Disc.","Omzet Paid","Deposit","Proposed Disc.","Cashback Amount","Force Rule","CB. Invoice"]
+        headers = ["NO","Customer","Current Disc.","Omzet B.Disc.","Omzet A.Disc.","Omzet Paid","Deposit","Proposed Disc.","Cashback Amount","Force Rule","CB. Invoice","State"]
         col = 0
         for head in headers:
             ws.write(5,col,head,normal_bold_style_b)
@@ -83,7 +83,7 @@ class cashback_report_xls(report_xls):
         col = 0
         row=6
         no=1
-        max_len = [0,0,0,0,0,0,0,0,0,0,0]
+        max_len = [0,0,0,0,0,0,0,0,0,0,0,0]
         for rec in objects:
             ws.write(row,0,no,normal_style_float_round)
             ws.write(row,1,rec.name.name,normal_style)
@@ -96,6 +96,8 @@ class cashback_report_xls(report_xls):
             ws.write(row,8,rec.cash_back_amt,normal_style_float)
             ws.write(row,9,rec.force_cb,normal_style)
             ws.write(row,10,rec.invoice_id.number,normal_style)
+            ws.write(row,11,rec.state,normal_style)
+
             
             max_len[0]=len(str(no))+3 > max_len[0] and len(str(no))+3 or max_len[0]
             max_len[1]=len(str(rec.name.name)) > max_len[1] and len(str(rec.name.name)) or max_len[1]
@@ -108,10 +110,12 @@ class cashback_report_xls(report_xls):
             max_len[8]=len(str(rec.cash_back_amt)) > max_len[8] and len(str(rec.cash_back_amt)) or max_len[8]
             max_len[9]=len(str(rec.force_cb)) > max_len[9] and len(str(rec.force_cb)) or max_len[9]
             max_len[10]=len(str(rec.invoice_id.number)) > max_len[10] and len(str(rec.invoice_id.number)) or max_len[10]
+            max_len[11]=len(str(rec.state)) > max_len[11] and len(str(rec.state)) or max_len[11]
+
             no+=1
             row+=1
         
-        for x in range(0,11):
+        for x in range(0,12):
             ws.col(x).width=max_len[x]*256 
         ws.write(row+1,1,"TOTAL",title_style)
         ws.write(row+1,3,xlwt.Formula("SUM($D$6:$D$"+str(row)+")"),subtotal_style2)
