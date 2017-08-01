@@ -9,6 +9,7 @@
             <field name="arch" type="xml">
                 <field name="amount_currency" position="after">
                 	<field name="all_account"/>
+                	<field name="report_type" widget="radio"/>
                 </field>
                 <xpath expr="//notebook/page[@name='journal_ids']" position="after">
                 	<page string="Accounts" name="account_ids" attrs="{'invisible': [('all_account', '=', True)]}">
@@ -18,5 +19,12 @@
             </field>
         </record>
 
+<report 
+    id="action_report_generalledger_xlsx" 
+    model="account.account" 
+    string="General Ledger"
+    report_type="xlsx"
+    name="account.report_generalledger_xlsx" 
+/>
     </data>
 </openerp>

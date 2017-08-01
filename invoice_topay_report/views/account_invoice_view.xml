@@ -22,7 +22,7 @@
         <record model="ir.values" id="values_invoice_tobe_paid_report_xls">
             <field name="model_id" ref="account.model_account_invoice" />
             <field name="name">invoice_tobe_paid_report_xls</field>
-            <field name="key2">client_action_multi</field>
+            <field name="key2">client_print_multi</field>
             <field name="value" eval="'ir.actions.report.xml,' + str(ref('invoice_topay_report.action_invoice_tobe_paid_report_xls'))" />
             <field name="key">action</field>
             <field name="model">account.invoice</field>

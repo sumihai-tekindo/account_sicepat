@@ -30,7 +30,10 @@
     This module add filter by account to General Ledger report
 
     """,
-    'depends': ['account'],
+    'depends': [
+        'account',
+        'report_xlsx',
+    ],
     'demo': [],
     'data': [
         'wizard/account_report_general_ledger_view.xml',

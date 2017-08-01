@@ -27,15 +27,20 @@ class account_partner_balance(osv.osv_memory):
     _columns = {
         'all_account': fields.boolean('All Accounts?'),
         'account_ids': fields.many2many('account.account', string='Accounts'),
+        'report_type': fields.selection([
+            ('xlsx','XLSX'),
+            ('pdf','PDF')
+            ], 'Report Type', required=True),
     }
     _defaults = {
         'all_account': True,
+        'report_type': 'xlsx',
    }
 
     def _print_report(self, cr, uid, ids, data, context=None):
         context = dict(context or {})
         data = self.pre_print_report(cr, uid, ids, data, context=context)
-        data['form'].update(self.read(cr, uid, ids, ['landscape',  'initial_balance', 'amount_currency', 'sortby', 'all_account', 'account_ids'])[0])
+        data['form'].update(self.read(cr, uid, ids, ['landscape',  'initial_balance', 'amount_currency', 'sortby', 'all_account', 'account_ids', 'report_type'])[0])
         if not data['form']['fiscalyear_id']:# GTK client problem onchange does not consider in save record
             data['form'].update({'initial_balance': False})
 
@@ -44,6 +49,13 @@ class account_partner_balance(osv.osv_memory):
         else:
             context['landscape'] = data['form']['landscape']
 
-        return self.pool['report'].get_action(cr, uid, [], 'account.report_generalledger', data=data, context=context)
+        if data['form']['report_type'] == 'xlsx':
+            return {
+                    'type': 'ir.actions.report.xml',
+                    'report_name': 'account.report_generalledger_xlsx',
+                    'datas': data
+                }
+        else:
+            return self.pool['report'].get_action(cr, uid, [], 'account.report_generalledger', data=data, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
