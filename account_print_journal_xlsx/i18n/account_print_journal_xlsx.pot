@@ -1,0 +1,266 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_print_journal_xlsx
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-01 08:06+0000\n"
+"PO-Revision-Date: 2017-08-01 08:06+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_print_journal_xlsx
+#: view:website:account_print_journal_xlsx.report_printjournal
+msgid "Account"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: model:ir.model,name:account_print_journal_xlsx.model_account_print_journal_xlsx
+msgid "Account Print Journal XLSX"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: selection:account.print.journal.xlsx,target_move:0
+msgid "All Entries"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: selection:account.print.journal.xlsx,target_move:0
+msgid "All Posted Entries"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: field:account.print.journal.xlsx,chart_account_id:0
+msgid "Chart of Account"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: view:website:account_print_journal_xlsx.report_printjournal
+msgid "Chart of Accounts:"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: field:account.print.journal.xlsx,company_id:0
+msgid "Company"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: field:account.print.journal.xlsx,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: field:account.print.journal.xlsx,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: view:website:account_print_journal_xlsx.report_printjournal
+msgid "Credit"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: view:website:account_print_journal_xlsx.report_printjournal
+msgid "Currency"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: selection:account.print.journal.xlsx,filter:0
+#: selection:account.print.journal.xlsx,sort_selection:0
+#: view:website:account_print_journal_xlsx.report_printjournal
+msgid "Date"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: view:website:account_print_journal_xlsx.report_printjournal
+msgid "Debit"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: field:account.print.journal.xlsx,display_name:0
+#: field:report.account.report_printjournal,display_name:0
+msgid "Display Name"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: field:account.print.journal.xlsx,date_to:0
+msgid "End Date"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: field:account.print.journal.xlsx,period_to:0
+msgid "End Period"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: view:website:account_print_journal_xlsx.report_printjournal
+msgid "Entries Sorted By:"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: field:account.print.journal.xlsx,sort_selection:0
+msgid "Entries Sorted by"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: field:account.print.journal.xlsx,filter:0
+msgid "Filter by"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: field:account.print.journal.xlsx,fiscalyear_id:0
+msgid "Fiscal Year"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: view:website:account_print_journal_xlsx.report_printjournal
+msgid "Fiscal Year:"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: field:account.print.journal.xlsx,id:0
+#: field:report.account.report_printjournal,id:0
+msgid "ID"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: model:ir.actions.report.xml,name:account_print_journal_xlsx.action_report_account_printjournal
+#: model:ir.actions.report.xml,name:account_print_journal_xlsx.action_report_account_printjournal_xlsx
+#: view:website:account_print_journal_xlsx.report_printjournal
+msgid "Journal"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: selection:account.print.journal.xlsx,sort_selection:0
+#: view:website:account_print_journal_xlsx.report_printjournal
+msgid "Journal Entry Number"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: view:website:account_print_journal_xlsx.report_printjournal
+msgid "Journal:"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: field:account.print.journal.xlsx,journal_ids:0
+msgid "Journals"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: model:ir.actions.act_window,name:account_print_journal_xlsx.action_account_print_journal_xlsx
+#: model:ir.ui.menu,name:account_print_journal_xlsx.menu_account_print_journal_xlsx
+msgid "Journals XLSX"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: help:account.print.journal.xlsx,fiscalyear_id:0
+msgid "Keep empty for all open fiscal year"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: view:website:account_print_journal_xlsx.report_printjournal
+msgid "Label"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: field:account.print.journal.xlsx,__last_update:0
+#: field:report.account.report_printjournal,__last_update:0
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: field:account.print.journal.xlsx,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: field:account.print.journal.xlsx,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: view:website:account_print_journal_xlsx.report_printjournal
+msgid "Move"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: selection:account.print.journal.xlsx,filter:0
+msgid "No Filters"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: selection:account.print.journal.xlsx,report_type:0
+msgid "PDF"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: view:website:account_print_journal_xlsx.report_printjournal
+msgid "Partner"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: view:website:account_print_journal_xlsx.report_printjournal
+msgid "Period:"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: selection:account.print.journal.xlsx,filter:0
+msgid "Periods"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: help:account.print.journal.xlsx,amount_currency:0
+msgid "Print Report with the currency column if the currency differs from the company currency."
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: field:account.print.journal.xlsx,report_type:0
+msgid "Report Type"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: help:account.print.journal.xlsx,chart_account_id:0
+msgid "Select Charts of Accounts"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: field:account.print.journal.xlsx,date_from:0
+msgid "Start Date"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: field:account.print.journal.xlsx,period_from:0
+msgid "Start Period"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: field:account.print.journal.xlsx,target_move:0
+msgid "Target Moves"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: view:website:account_print_journal_xlsx.report_printjournal
+msgid "Target Moves:"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: view:website:account_print_journal_xlsx.report_printjournal
+msgid "Total"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: field:account.print.journal.xlsx,amount_currency:0
+msgid "With Currency"
+msgstr ""
+
+#. module: account_print_journal_xlsx
+#: selection:account.print.journal.xlsx,report_type:0
+msgid "XLSX"
+msgstr ""
+
