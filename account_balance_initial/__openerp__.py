@@ -30,7 +30,10 @@
     This module add Initial Balance filter to Trial Balance report
 
     """,
-    'depends': ['account'],
+    'depends': [
+        'account',
+        'report_xlsx',
+    ],
     'demo': [],
     'data': [
         'wizard/account_report_account_balance_view.xml',

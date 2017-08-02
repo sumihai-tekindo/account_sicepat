@@ -7,6 +7,9 @@
             <field name="model">account.balance.report</field>
             <field name="inherit_id" ref="account.account_report_balance_view" />
             <field name="arch" type="xml">
+                <field name="display_account" position="after">
+                	<field name="report_type" widget="radio"/>
+                </field>
             	<field name="fiscalyear_id" position="attributes">
             		<attribute name="on_change">onchange_fiscalyear(fiscalyear_id)</attribute>
             	</field>
@@ -16,5 +19,12 @@
             </field>
         </record>
 
+<report 
+    id="action_report_trialbalance_xlsx" 
+    model="account.account" 
+    string="Trial Balance"
+    report_type="xlsx"
+    name="account.report_trialbalance_xlsx" 
+/>
     </data>
 </openerp>

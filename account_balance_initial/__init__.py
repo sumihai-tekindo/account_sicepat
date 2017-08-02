@@ -19,5 +19,10 @@
 #
 ##############################################################################
 
-from . import wizard
-from . import report
+try:
+    from . import wizard
+    from . import report
+except ImportError:
+    import logging
+    logging.getLogger('openerp.module').warning('''report_xlsx not available in
+    addons path. account_balance_initial will not be usable''')

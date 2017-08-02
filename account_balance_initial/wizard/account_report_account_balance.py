@@ -31,9 +31,14 @@ class account_balance_report(osv.osv_memory):
     _columns = {
         'initial_balance': fields.boolean('Include Initial Balances',
                                     help='If you selected to filter by date or period, this field allow you to add a row to display the amount of debit/credit/balance that precedes the filter you\'ve set.'),
+        'report_type': fields.selection([
+            ('xlsx','XLSX'),
+            ('pdf','PDF')
+            ], 'Report Type', required=True),
     }
     _defaults = {
         'initial_balance': False,
+        'report_type': 'xlsx',
     }
 
     def onchange_fiscalyear(self, cr, uid, ids, fiscalyear=False, context=None):
@@ -45,12 +50,19 @@ class account_balance_report(osv.osv_memory):
     def _print_report(self, cr, uid, ids, data, context=None):
         context = dict(context or {})
         data = self.pre_print_report(cr, uid, ids, data, context=context)
-        data['form'].update(self.read(cr, uid, ids, ['initial_balance'])[0])
+        data['form'].update(self.read(cr, uid, ids, ['initial_balance', 'report_type'])[0])
         if not data['form']['fiscalyear_id']:# GTK client problem onchange does not consider in save record
             data['form'].update({'initial_balance': False})
         if data['form'].get('initial_balance'):
             context['landscape'] = True
 
-        return self.pool['report'].get_action(cr, uid, [], 'account.report_trialbalance', data=data, context=context)
+        if data['form']['report_type'] == 'xlsx':
+            return {
+                    'type': 'ir.actions.report.xml',
+                    'report_name': 'account.report_trialbalance_xlsx',
+                    'datas': data
+                }
+        else:
+            return self.pool['report'].get_action(cr, uid, [], 'account.report_trialbalance', data=data, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

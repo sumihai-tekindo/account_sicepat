@@ -79,16 +79,16 @@
                                 <span t-att-style="style" t-esc="childrenaccount['name']"/>
                             </td>
                             <td t-if="data['form'].get('initial_balance')" class="text-right">
-                                 <span t-att-style="style" t-esc="formatLang(sum_initial_balance_account(childrenaccount), currency_obj=res_company.currency_id)"/>
+                                 <span t-att-style="style" t-esc="formatLang(childrenaccount['init_balance'], currency_obj=res_company.currency_id)"/>
                             </td>
                             <td class="text-right">
-                                 <span t-att-style="style" t-esc="childrenaccount['debit']"/>
+                                 <span t-att-style="style" t-esc="formatLang(childrenaccount['debit'], currency_obj=False)"/>
                             </td>
                             <td class="text-right">
-                                <span t-att-style="style" t-esc="childrenaccount['credit']"/>
+                                <span t-att-style="style" t-esc="formatLang(childrenaccount['credit'], currency_obj=False)"/>
                             </td>
                             <td class="text-right">
-                                <span t-att-style="style" t-esc="formatLang(sum_initial_balance_account(childrenaccount) + childrenaccount['balance'], currency_obj=res_company.currency_id)"/>
+                                <span t-att-style="style" t-esc="formatLang(childrenaccount['balance'], currency_obj=res_company.currency_id)"/>
                             </td>  
                         </tr>
                     </tbody>
