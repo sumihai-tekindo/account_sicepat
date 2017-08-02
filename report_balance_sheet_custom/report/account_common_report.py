@@ -32,12 +32,10 @@ class report_account_common_inh(report_account_common):
         super(report_account_common_inh, self).__init__(cr, uid, name, context=context)
         self.localcontext.update({
             'get_lines': self.get_lines,
-            
         })
         self.context = context
 
     def get_lines(self, data):
-    	print "--------------lines printed---------------",data
         lines = []
         account_obj = self.pool.get('account.account')
         currency_obj = self.pool.get('res.currency')

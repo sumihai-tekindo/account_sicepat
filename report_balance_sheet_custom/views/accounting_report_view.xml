@@ -9,7 +9,17 @@
                 	<field name="with_difference" attrs="{'invisible': ['|',('enable_filter','=',False),('account_report_id','!=',%(account.account_financial_report_balancesheet0)d)]}"/>
                 	<field name="with_total" attrs="{'invisible': ['|',('enable_filter','=',False),('account_report_id','!=',%(account.account_financial_report_profitandloss0)d)]}"/>
                 </field>
+                <field name="debit_credit" position="after">
+                	<field name="report_type" widget="radio"/>
+                </field>
             </field>
         </record>
+<report 
+    id="action_report_financial_xlsx" 
+    model="account.financial.report" 
+    string="Financial Report"
+    report_type="xlsx"
+    name="account.report_financial_xlsx" 
+/>
 	</data>
 </openerp>
