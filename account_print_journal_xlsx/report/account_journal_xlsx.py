@@ -93,7 +93,7 @@ class AccountPrintJournalXlsx(ReportXlsx):
             for line in rec['lines']:
                 worksheet.write(row, 0, line.move_id.name != '/' and line.move_id.name or ('*'+str(line.move_id.id)), cell_format)
                 worksheet.write(row, 1, line.date, cell_format_date)
-                worksheet.write(row, 2, line.account_id.code, cell_format)
+                worksheet.write(row, 2, line.account_id.code + ' ' + line.account_id.name, cell_format)
                 worksheet.write(row, 3, line.partner_id and line.partner_id.name or None, cell_format)
                 worksheet.write(row, 4, line.name, cell_format)
                 worksheet.write(row, 5, line.debit, cell_format_decimal)
