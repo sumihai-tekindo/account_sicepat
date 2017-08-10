@@ -82,54 +82,53 @@ class asset_tetap_xls(report_xls):
             ws.page_preview = False
             ws.set_fit_width_to_pages(1)
             
-            ws.write_merge(0,0,0,4,"ASSET TETAP",title_style_center)
-            ws.write_merge(3,3,0,1,"PERIODE",normal_bold_style_a)
-            ws.write_merge(3,3,2,5,": "+data['start_date']+" - "+data['end_date'],normal_bold_style_a)
+            ws.write_merge(0,0,0,6,"ASSET TETAP",title_style_center)
+            ws.write_merge(3,3,0,2,"PERIODE",normal_bold_style_a)
+            ws.write_merge(3,3,3,6,": "+data['start_date']+" - "+data['end_date'],normal_bold_style_a)
            
-            headers = ["No.","NAMA","HARGA PEROLEHAN","AKUMULASI PENYUSUTAN","NILAI BUKU"]
+            max_len = [0,0,0,0,0,0,0]
+            headers = ["No.","NAMA","TANGGAL PEMBELIAN","PENYUSUTAN","HARGA PEROLEHAN","AKUMULASI PENYUSUTAN","NILAI BUKU"]
             col = 0
             for head in headers:
+                max_len[col]=len(head)
                 ws.write(5,col,head,normal_bold_style_b)
                 col+=1
 
             row=6
             no=1
-            max_len = [0,0,0,0,0]
             for rec in grouping.get(group,[]): 
                 ws.write(row,0,no,normal_style_float_round)
                 ws.write(row,1,rec.name,normal_style)
-                ws.write(row,2,rec.purchase_value,normal_style_float)
+                ws.write(row,2,rec.purchase_date,normal_style)
+                ws.write(row,3,rec.method_number,normal_style_float_round)
+                ws.write(row,4,rec.purchase_value,normal_style_float)
 
-                
-                netbook_value = 0.0
                 depreciated_value = 0.0
                 depr=rec.depreciation_line_ids and rec.depreciation_line_ids[0]
                 if depr:
-
                     end_date = datetime.strptime(data['end_date'],'%Y-%m-%d')
-
                     for line in rec.depreciation_line_ids:
                         dep_date = datetime.strptime(line.depreciation_date,'%Y-%m-%d')
                         if dep_date<=end_date and line.move_check == True:
                             depreciated_value += line.amount
 #                         else:
 #                             break
-
-                    ws.write(row,3,depreciated_value,normal_style_float)
-                    max_len[3]=len(str(depreciated_value)) > max_len[3] and len(str(depreciated_value)) or max_len[3]
+                ws.write(row,5,depreciated_value,normal_style_float)
                 netbook_value = rec.purchase_value - depreciated_value
-                ws.write(row,4,netbook_value,normal_style_float)
+                ws.write(row,6,netbook_value,normal_style_float)
 
                 max_len[0]=len(str(no))+3 > max_len[0] and len(str(no))+3 or max_len[0]
-                max_len[1]=len(str(rec.name)) > max_len[1] and len(str(rec.name)) or max_len[1]
-                max_len[2]=len(str(rec.purchase_value))+3 > max_len[2] and len(str(rec.purchase_value))+3 or max_len[2]
-                
-                max_len[4]=len(str(netbook_value)) > max_len[4] and len(str(netbook_value)) or max_len[4]
+                max_len[1]=len(str(rec.name))+3 > max_len[1] and len(str(rec.name))+3 or max_len[1]
+                max_len[2]=len(str(rec.purchase_date))+3 > max_len[2] and len(str(rec.purchase_date))+3 or max_len[2]
+                max_len[3]=len(str(rec.method_number))+3 > max_len[3] and len(str(rec.method_number))+3 or max_len[3]
+                max_len[4]=len(str(rec.purchase_value))+3 > max_len[4] and len(str(rec.purchase_value))+3 or max_len[4]
+                max_len[5]=len(str(depreciated_value))+3 > max_len[5] and len(str(depreciated_value))+3 or max_len[5]
+                max_len[6]=len(str(netbook_value))+3 > max_len[6] and len(str(netbook_value))+3 or max_len[6]
 
                 no+=1
                 row+=1
             
-            for x in range(0,5):
+            for x in range(7):
                 ws.col(x).width=max_len[x]*256 
 
 
