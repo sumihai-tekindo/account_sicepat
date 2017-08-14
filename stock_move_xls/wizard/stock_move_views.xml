@@ -1,0 +1,37 @@
+<openerp>
+    <data>
+        <record id="hr_loan_submit_view" model="ir.ui.view">
+            <field name="name">stock.move.xls.form</field>
+            <field name="model">stock.move.xls.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Submit Stock">
+                    <group>
+                        <field name="location_id"/>
+                        <field name="location_dest_id"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                    </group>
+                    <footer>
+                        <button string="Print" name="print_report" type="object" default_focus="1" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="stock_move_action">
+            <field name="name">Stock Move XLS</field>
+            <field name="res_model">stock.move.xls.wiz</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            
+        </record>
+
+		
+        <menuitem id="stock_move_menu" name="Stock Move XLS" parent="stock.menu_traceability"
+                  action="stock_move_action"/>
+
+    </data>
+</openerp>
