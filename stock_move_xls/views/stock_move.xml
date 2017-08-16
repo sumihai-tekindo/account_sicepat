@@ -1,0 +1,12 @@
+<openerp>
+	<data>
+		<record id="action_stock_move_view_xls" model="ir.actions.report.xml">
+			<field name="name">Stock Move</field>
+			<field name="model">stock.move</field>
+			<field name="type">ir.actions.report.xml</field>
+			<field name="report_name">stock.move.xls</field>
+			<field name="report_type">xls</field>
+			<field name="auto" eval="False"/>
+		</record>	
+	</data>
+</openerp>
