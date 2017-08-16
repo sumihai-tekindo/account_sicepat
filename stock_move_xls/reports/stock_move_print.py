@@ -76,7 +76,7 @@ class stock_move_xls(report_xls):
         ws.write_merge(3,3,0,1,"PERIODE",normal_bold_style_a)
         ws.write_merge(3,3,2,4,": "+data['start_date']+" - "+data['end_date'],normal_bold_style_a)
        
-        headers = ["Source Location","Source Destination","Account Analytic","Date","Description", "Refrence","Picking Type", "Product", "Quantity","Unit Of Measure", "Price Unit", "State"]
+        headers = ["Source Location","Destination Location","Account Analytic","Date","Description", "Refrence","Picking Type", "Product", "Quantity","Unit Of Measure", "Price Unit", "State"]
                    
         col = 0
         for head in headers:

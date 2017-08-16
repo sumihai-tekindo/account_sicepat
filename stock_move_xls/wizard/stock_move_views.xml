@@ -8,6 +8,7 @@
                     <group>
                         <field name="location_id"/>
                         <field name="location_dest_id"/>
+                        <field name="account_analytic_dest_id"/>
                         <field name="start_date"/>
                         <field name="end_date"/>
                     </group>
