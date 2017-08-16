@@ -9,6 +9,23 @@
 					<field name="user_admin_id"/>
 					<field name="day_interval"/>
 				</field>
+
+				<field name="company_id" position="after">
+					<field name="koordinator_regional"/>
+					<field name="koordinator_wilayah"/>
+					<field name="koordinator_ops_malam"/>
+					<field name="koordinator_pickup"/>
+					<field name="koordinator_antar"/>
+				</field>
+
+				<!-- <xpath expr="//form/sheet/group/group[2]/field[@name:'company_id']" position="after">
+					<field name="koordinator_regional"/>
+					<field name="koordinator_Wilayah"/>
+					<field name="koordinator_ops_malam"/>
+					<field name="koordinator_pickup"/>
+					<field name="koordinator_antar"/>
+				</xpath> -->
+
 			</field>
 		</record>
 	</data>

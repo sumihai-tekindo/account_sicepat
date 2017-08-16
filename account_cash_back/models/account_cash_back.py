@@ -682,16 +682,14 @@ class account_cashback_line(osv.osv):
 	def generate_customer_refund(self,cr,uid,ids,context=None):
 		for cb in self.browse(cr,uid,ids,context=context):
 			invoice_ids=[]
-			account_jrnl_obj = self.pool.get('account.journal')
 			invoice_obj = self.pool.get('account.invoice')
-			journal_id = account_jrnl_obj.search(cr, uid, [('type', '=', 'sale_refund')], context=None)
-			journal_id = journal_id and journal_id[0] or False
+			journal_id = cb.journal_id and cb.journal_id.id or False
 			user = self.pool.get('res.users').browse(cr,uid,uid,context=context)
-			a = cb.name.property_account_payable.id
+			a = cb.name.property_account_receivable.id
 			name =cb.cashback_id and cb.cashback_id.name or cb.name.name
-			expense_account = cb.product_id.property_account_expense and cb.product_id.property_account_expense.id or \
-							cb.product_id.categ_id and cb.product_id.categ_id.property_account_expense_categ and cb.product_id.categ_id.property_account_expense_categ.id or False
-
+			income_account = cb.product_id.property_account_income and cb.product_id.property_account_income.id or \
+							cb.product_id.categ_id and cb.product_id.categ_id.property_account_income_categ and cb.product_id.categ_id.property_account_income_categ.id or False
+			print "===================",income_account
 			inv = {
 				'name': name,
 				'origin': name,
@@ -713,7 +711,7 @@ class account_cashback_line(osv.osv):
 
 			inv_line = {
 					'name': 'Cashback %s periode %s - %s'%(cb.name.name,cb.start_date,cb.end_date),
-					'account_id': expense_account,
+					'account_id': income_account,
 					'price_unit': cb.cash_back_amt or 0.0,
 					'quantity': 1.0,
 					'product_id': cb.product_id and cb.product_id.id or False,
