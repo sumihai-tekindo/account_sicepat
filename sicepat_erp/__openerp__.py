@@ -98,6 +98,7 @@ Feature
         'invoice_line_recipient/invoice_line_recipient_view.xml',
         'invoice_line_jne_number/invoice_line_jne_number_view.xml',
         'invoice_line_exp_cost/invoice_line_exp_cost_view.xml',
+        'invoice_line_service_type/invoice_line_service_type_view.xml',
         'views/account_invoice_view.xml',
         'views/voucher_payment_receipt_view.xml',
         'views/res_config_view.xml',

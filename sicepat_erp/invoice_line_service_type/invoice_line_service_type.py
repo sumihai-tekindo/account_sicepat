@@ -19,12 +19,12 @@
 #
 ##############################################################################
 
-import invoice_partner_bank2
-import invoice_line_dest_code
-import invoice_line_recipient
-import invoice_line_jne_number
-import invoice_line_exp_cost
-import invoice_line_service_type
-import models
-# import wizard
-# import report
+from openerp import fields, models, api
+
+class account_invoice_line(models.Model):
+    _inherit = "account.invoice.line"
+
+    layanan = fields.Selection([
+        ('R', 'Regular'),
+        ('C', 'Cargo'),
+        ], string='Service Type', default='R')

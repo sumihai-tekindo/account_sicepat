@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_invoice_line_form_sicepat_service_type" model="ir.ui.view">
+            <field name="name">account.invoice.line.form.sicepat.service_type</field>
+            <field name="model">account.invoice.line</field>
+            <field name="inherit_id" ref="sicepat_erp.view_invoice_line_form_sicepat_dest_code"/>
+            <field name="arch" type="xml">
+            	<field name="destination_code" position="after">
+                	<field name="layanan"/>
+            	</field>
+            </field>
+        </record>
+        
+        <record id="invoice_form_sicepat_service_type" model="ir.ui.view">
+            <field name="name">account.invoice.form.sicepat.service_type</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//form/sheet/notebook/page[1]/field[1]/tree/field[@name='name']" position="after">
+	            	<field name="layanan"/>
+            	</xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
