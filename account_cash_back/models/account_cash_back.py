@@ -186,8 +186,6 @@ class account_cashback_line(osv.osv):
 		# 									('cancel','Cancelled')],string="State",copy=False,store={
 		# 			'account.invoice': (lambda self, cr, uid, ids, c={}: ids, ['status'], 50)
 		# 		   }),
-		"start_date"		: fields.date("Start Date",required=True,readonly=True,states={'draft':[('readonly',False)]}),
-		"end_date"			: fields.date("End Date",required=True,readonly=True,states={'draft':[('readonly',False)]}),
 		"cashback_id"		: fields.many2one("account.cashback","Cashback",readonly=True,states={'draft':[('readonly',False)]}),
 		"date_approved"		: fields.date("Date Approved",readonly=True),
 		"user"				: fields.many2one("res.users","User",readonly=True),
@@ -680,7 +678,7 @@ class account_cashback_line(osv.osv):
 		for cbl in self.browse(cr,uid,ids,context=context):
 			if cbl.state!='approved': 
 				continue
-			if datetime.datetime.strptime('%Y-%m-%d',cbl.date_start)>=datetime.datetime.strptime('%Y-%m-%d','2017-06-01'):
+			if datetime.datetime.strptime('%Y-%m-%d',cbl.start_date)>=datetime.datetime.strptime('%Y-%m-%d','2017-06-01'):
 				if ((datetime.date.today()+relativedelta(months=-3)).strftime('%Y-%m-%d'))>cbl.date_approved:
 					self.write(cr,uid,ids,{'state':'expired'}, context=context)
 		
