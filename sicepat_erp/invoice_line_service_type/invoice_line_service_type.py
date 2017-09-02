@@ -27,4 +27,5 @@ class account_invoice_line(models.Model):
     layanan = fields.Selection([
         ('R', 'Regular'),
         ('C', 'Cargo'),
+        ('B', 'Best'),
         ], string='Service Type', default='R')
