@@ -90,6 +90,7 @@ Feature
 #         'data/account.analytic.account.csv',
         'data/analytic_account.xml',
         'data/report_paperformat.xml',
+        'data/ir.model.access.csv',
 #         'data/cron_job.xml',
 #         'wizard/sicepat_erp_wizard.yml',
 #         'wizard/account_report_partner_outstanding_view.xml',
