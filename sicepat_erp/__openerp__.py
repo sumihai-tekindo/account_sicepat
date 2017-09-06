@@ -112,6 +112,7 @@ Feature
         'views/supplier_invoice_action_view.xml',
         'views/report_supplier_invoice_view.xml',
         'views/res_partner.xml',
+        'views/account_asset_view.xml',
     ],
 
     # only loaded in demonstration mode
