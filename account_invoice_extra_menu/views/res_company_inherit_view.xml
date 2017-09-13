@@ -1,0 +1,27 @@
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="account_tree_new">
+                <field name="name">account.account.tree</field>
+                <field name="model">account.account</field>
+                <field name="arch" type="xml">
+                    <tree>
+                    	<field name='code'/>
+                    	<field name='name'/>
+                    </tree>
+                </field>
+        </record>
+
+
+		<record model="ir.ui.view" id="res_company_inherit_form">
+                <field name="name">res.company.inherit.form</field>
+                <field name="model">res.company</field>
+                <field name="inherit_id" ref="base.view_company_form"/>
+                <field name="arch" type="xml">
+                    <xpath expr="//form/sheet/notebook/page[@string='Configuration']/group/group/field[@name='currency_id']" position="after">
+                        <field name="receivable_ids" context="{'tree_view_ref': 'account_invoice_extra_menu.account_tree_new'}"/>
+                    </xpath>
+                </field>
+        </record>
+	</data>
+</openerp>
+

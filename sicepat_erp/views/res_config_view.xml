@@ -16,6 +16,14 @@
                         <label for="default_bank2_id"/>
                         <field domain="['|',('partner_id.ref_companies', 'in', [company_id]),('partner_id.parent_id.ref_companies', 'in', [company_id])]" name="default_bank2_id" class="oe_inline"/>
                     </div>
+                    <div name='partner_bank3_id'>
+                        <label for="default_bank3_id"/>
+                        <field domain="['|',('partner_id.ref_companies', 'in', [company_id]),('partner_id.parent_id.ref_companies', 'in', [company_id])]" name="default_bank3_id" class="oe_inline"/>
+                    </div>
+                    <div name='partner_bank4_id'>
+                        <label for="default_bank4_id"/>
+                        <field domain="['|',('partner_id.ref_companies', 'in', [company_id]),('partner_id.parent_id.ref_companies', 'in', [company_id])]" name="default_bank4_id" class="oe_inline"/>
+                    </div>
             	</xpath>
             </field>
         </record>
