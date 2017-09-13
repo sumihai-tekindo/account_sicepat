@@ -1,2 +1,3 @@
-from . import account_invoice
-from . import account_move_line
+import account_invoice
+import account_move_line
+import res_company

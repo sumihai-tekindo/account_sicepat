@@ -59,6 +59,13 @@ class AccountInvoice(models.Model):
     partner_bank2_id = fields.Many2one('res.partner.bank', string='Bank Account #2',
         help='Bank Account Number to which the invoice will be paid. A Company bank account if this is a Customer Invoice or Supplier Refund, otherwise a Partner bank account number.',
         readonly=True, states={'draft': [('readonly', False)]})
+    ##########################################################################################################################################
+    partner_bank3_id = fields.Many2one('res.partner.bank', string='Bank Account #3',
+        help='Bank Account Number to which the invoice will be paid. A Company bank account if this is a Customer Invoice or Supplier Refund, otherwise a Partner bank account number.',
+        readonly=True, states={'draft': [('readonly', False)]})
+    partner_bank4_id = fields.Many2one('res.partner.bank', string='Bank Account #4',
+        help='Bank Account Number to which the invoice will be paid. A Company bank account if this is a Customer Invoice or Supplier Refund, otherwise a Partner bank account number.',
+        readonly=True, states={'draft': [('readonly', False)]})
 #     partner_bank2_id = fields.Many2one('res.partner.bank', string='Bank Account #2',
 #         help='Bank Account Number to which the invoice will be paid. A Company bank account if this is a Customer Invoice or Supplier Refund, otherwise a Partner bank account number.',
 #         default=_get_partner_bank2, readonly=True, states={'draft': [('readonly', False)]})
