@@ -135,11 +135,7 @@ class account_invoice_collection(osv.osv_memory):
 							'name':acc.name,
 							'line':inv,
 							'total':inv.amount_residual,
-<<<<<<< HEAD
-							'currency_id':inv.currency_id}
-=======
 							'currency_id':inv.currency_id or inv.company_id.currency_id}
->>>>>>> origin/test
 				# cust.append(inv.partner_id and inv.partner_id.id)
 				# total_unpaid += inv.amount_residual or 0.0
 				# # print "=================",inv.amount_residual,total_unpaid
@@ -172,7 +168,7 @@ class account_invoice_collection(osv.osv_memory):
 			for k,v in sorted(receivable_dict.items()):
 				for line in v['line']:
 					text += "%s %s\n"%(line.date,rml_parser.formatLang(line.amount_residual, currency_obj=line.currency_id))
-					
+
 				text+="\nSubTotal %s : %s\n\n\n"%(v['name'],rml_parser.formatLang(v['total'], currency_obj=v['currency_id']))
 				
 			# 	text += "%s %s\n"%(inv_date,rml_parser.formatLang(inv.amount_residual, currency_obj=inv.currency_id or inv.company_id.currency_id))
