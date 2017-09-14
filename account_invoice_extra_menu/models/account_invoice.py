@@ -172,11 +172,7 @@ class account_invoice_collection(osv.osv_memory):
 			for k,v in sorted(receivable_dict.items()):
 				for line in v['line']:
 					text += "%s %s\n"%(line.date,rml_parser.formatLang(line.amount_residual, currency_obj=line.currency_id))
-<<<<<<< HEAD
-
-=======
-				print "----------------",v
->>>>>>> origin/test
+					
 				text+="\nSubTotal %s : %s\n\n\n"%(v['name'],rml_parser.formatLang(v['total'], currency_obj=v['currency_id']))
 				
 			# 	text += "%s %s\n"%(inv_date,rml_parser.formatLang(inv.amount_residual, currency_obj=inv.currency_id or inv.company_id.currency_id))
