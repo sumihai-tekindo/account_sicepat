@@ -117,18 +117,34 @@ class account_invoice_collection(osv.osv_memory):
 			text = "%s \n"%(invoices and invoices[0] and invoices[0].partner_id and invoices[0].partner_id.name)
 			import locale
 			import re
+			receivable_dict = {}
 			for inv in invoices:
 				if inv.invoice and inv.invoice.cashback_ids and inv.invoice.cashback_ids != [] :
 					continue
-				cust.append(inv.partner_id and inv.partner_id.id)
-				total_unpaid += inv.amount_residual or 0.0
-				# print "=================",inv.amount_residual,total_unpaid
-				result = re.findall("(\d\d)\-(.*?)\-(\w+)",inv.name)
-				substring=False
-				if result and result[0]:
-					substring=result[0][0]+"-"+result[0][1]+"-"+result[0][2]
+				for acc in inv.company_id.receivable_ids:
+					key = acc.id
+					if receivable_dict.get(key):
+						if acc.id!=inv.account_id.id:
+							continue
+						receivable_dict[key]['line']+=inv
+						receivable_dict[key]['total']+=inv.amount_residual
+					else:
+						if acc.id!=inv.account_id.id:
+							continue
+						receivable_dict[key]={
+							'name':acc.name,
+							'line':inv,
+							'total':inv.amount_residual,
+							'currency_id':inv.currency_id}
+				# cust.append(inv.partner_id and inv.partner_id.id)
+				# total_unpaid += inv.amount_residual or 0.0
+				# # print "=================",inv.amount_residual,total_unpaid
+				# result = re.findall("(\d\d)\-(.*?)\-(\w+)",inv.name)
+				# substring=False
+				# if result and result[0]:
+				# 	substring=result[0][0]+"-"+result[0][1]+"-"+result[0][2]
 
-				subst_date = False
+				# subst_date = False
 				try:
 					try:
 						try:
@@ -148,9 +164,15 @@ class account_invoice_collection(osv.osv_memory):
 				if subst_date and subst_date != inv_date:
 					inv_date = subst_date
 				inv_date=datetime.strftime(inv_date,'%Y-%m-%d')
+
+			for k,v in sorted(receivable_dict.items()):
+				for line in v['line']:
+					text += "%s %s\n"%(line.date,rml_parser.formatLang(line.amount_residual, currency_obj=line.currency_id))
+
+				text+="\nSubTotal %s : %s\n\n\n"%(v['name'],rml_parser.formatLang(v['total'], currency_obj=v['currency_id']))
 				
-				text += "%s %s\n"%(inv_date,rml_parser.formatLang(inv.amount_residual, currency_obj=inv.currency_id or inv.company_id.currency_id))
-			text+="\nSubTotal : %s\n"%(rml_parser.formatLang(total_unpaid, currency_obj=inv.currency_id or inv.company_id.currency_id))
+			# 	text += "%s %s\n"%(inv_date,rml_parser.formatLang(inv.amount_residual, currency_obj=inv.currency_id or inv.company_id.currency_id))
+			# text+="\nSubTotal : %s\n"%(rml_parser.formatLang(total_unpaid, currency_obj=inv.currency_id or inv.company_id.currency_id))
 
 
 
