@@ -135,7 +135,11 @@ class account_invoice_collection(osv.osv_memory):
 							'name':acc.name,
 							'line':inv,
 							'total':inv.amount_residual,
+<<<<<<< HEAD
 							'currency_id':inv.currency_id}
+=======
+							'currency_id':inv.currency_id or inv.company_id.currency_id}
+>>>>>>> origin/test
 				# cust.append(inv.partner_id and inv.partner_id.id)
 				# total_unpaid += inv.amount_residual or 0.0
 				# # print "=================",inv.amount_residual,total_unpaid
@@ -168,7 +172,11 @@ class account_invoice_collection(osv.osv_memory):
 			for k,v in sorted(receivable_dict.items()):
 				for line in v['line']:
 					text += "%s %s\n"%(line.date,rml_parser.formatLang(line.amount_residual, currency_obj=line.currency_id))
+<<<<<<< HEAD
 
+=======
+				print "----------------",v
+>>>>>>> origin/test
 				text+="\nSubTotal %s : %s\n\n\n"%(v['name'],rml_parser.formatLang(v['total'], currency_obj=v['currency_id']))
 				
 			# 	text += "%s %s\n"%(inv_date,rml_parser.formatLang(inv.amount_residual, currency_obj=inv.currency_id or inv.company_id.currency_id))
@@ -186,7 +194,7 @@ class account_invoice_collection(osv.osv_memory):
 					if aml.amount_residual>0.0:
 						
 						unreconciled+= aml.amount_residual
-				text+="Lebih bayar : %s\n"%(rml_parser.formatLang(abs(unreconciled), currency_obj=inv.currency_id))
+				text+="Lebih bayar : %s\n"%(rml_parser.formatLang(abs(unreconciled), currency_obj=inv.currency_id or inv.company_id.currency_id))
 
 
 			cashback_amt = 0.0
@@ -194,10 +202,10 @@ class account_invoice_collection(osv.osv_memory):
 			cbl = self.pool.get('account.cashback.line').browse(cr,uid,cbl_ids,context=context)
 			for cashback in cbl :
 				cashback_amt+=cashback.cash_back_amt
-			text+="Cashback : %s"%(rml_parser.formatLang(abs(cashback_amt), currency_obj=inv.currency_id))
+			text+="Cashback : %s"%(rml_parser.formatLang(abs(cashback_amt), currency_obj=inv.currency_id or inv.company_id.currency_id))
 
 
-			text+="\nTotal : %s\n"%(rml_parser.formatLang((total_unpaid-abs(unreconciled)-abs(cashback_amt)), currency_obj=inv.currency_id))
+			text+="\nTotal : %s\n"%(rml_parser.formatLang((total_unpaid-abs(unreconciled)-abs(cashback_amt)), currency_obj=inv.currency_id or inv.company_id.currency_id))
 			text+="\nPembayaran dapat melalui : \n\nBANK BCA \nNO rekening : 270 390 3088 \nAtas Nama: Sicepat Ekspres Indonesia\n\nBANK MANDIRI \nNO rekening : 121 000 655 7171 \nAtas Nama : Sicepat Ekspres Indonesia\n\nBANK BNI \nNO rekening : 4964 66952\nAtas Nama : Sicepat Ekspres Indonesia\n\nBANK BRI \nNO rekening : 0338 01 001027 30 7\nAtas Nama : Sicepat Ekspres Indonesia"
 			text+="\n\nHarap isi berita acara nama OLSHOP dan tanggal pengiriman di berita acara.\nContoh: 'SiCepatShop 19Feb15'"
 
