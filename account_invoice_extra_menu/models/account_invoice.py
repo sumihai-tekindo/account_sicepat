@@ -28,7 +28,6 @@ class account_invoice_collection(osv.osv_memory):
 			invoices = self.pool.get('account.invoice').browse(cr,uid,invoice_ids,context=context)
 			cust = []
 			total_unpaid = 0.0
-			total_unpaid_cargo = 0.0
 			text = "%s \n"%(invoices and invoices[0] and invoices[0].partner_id and invoices[0].partner_id.name)
 			receivable_dict = {}
 			for inv in invoices:
@@ -51,10 +50,11 @@ class account_invoice_collection(osv.osv_memory):
 			for k,v in sorted(receivable_dict.items()):
 				for line in v['line']:
 					text += "%s %s\n"%(line.date_invoice,rml_parser.formatLang(line.residual, currency_obj=line.currency_id))
-
+				
+				total_unpaid+=v['total']
 				text+="\nSubTotal %s : %s\n\n\n"%(v['name'],rml_parser.formatLang(v['total'], currency_obj=v['currency_id']))
 
-
+			text+="Total : %s\n\n\n"%(rml_parser.formatLang(total_unpaid))
 
 			# 		if acc.id == 'Piutang Usaha':
 			# 			cust.append(inv.partner_id and inv.partner_id.id)
@@ -169,8 +169,10 @@ class account_invoice_collection(osv.osv_memory):
 				for line in v['line']:
 					text += "%s %s\n"%(line.date,rml_parser.formatLang(line.amount_residual, currency_obj=line.currency_id))
 
+				total_unpaid+=v['total']	
 				text+="\nSubTotal %s : %s\n\n\n"%(v['name'],rml_parser.formatLang(v['total'], currency_obj=v['currency_id']))
-				
+			
+			text+="Total : %s\n\n\n"%(rml_parser.formatLang(total_unpaid))
 			# 	text += "%s %s\n"%(inv_date,rml_parser.formatLang(inv.amount_residual, currency_obj=inv.currency_id or inv.company_id.currency_id))
 			# text+="\nSubTotal : %s\n"%(rml_parser.formatLang(total_unpaid, currency_obj=inv.currency_id or inv.company_id.currency_id))
 
