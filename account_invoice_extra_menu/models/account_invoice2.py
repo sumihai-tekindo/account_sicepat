@@ -27,10 +27,23 @@ class account_invoice_collection(osv.osv_memory):
 			cust = []
 			total_unpaid = 0.0
 			text = "%s \n"%(invoices and invoices[0] and invoices[0].partner_id and invoices[0].partner_id.name)
+			date_dict = {}
 			for inv in invoices:
-				cust.append(inv.partner_id and inv.partner_id.id)
-				total_unpaid += inv.residual or 0.0
-				text += "%s %s\n"%(inv.date_invoice,rml_parser.formatLang(inv.residual, currency_obj=inv.currency_id))
+				key = inv.date_invoice
+				if date_dict.get(key):
+						date_dict[key]['total']+=inv.residual
+				else:
+					date_dict[key]={
+						'date_invoice':inv.date_invoice,
+						'total':inv.residual,
+						'currency_id':inv.currency_id}
+
+			for k,v in sorted(date_dict.items()):
+				text += "%s %s\n"%(v['date_invoice'],rml_parser.formatLang(v['total'], currency_obj=v['currency_id']))
+
+				# cust.append(inv.partner_id and inv.partner_id.id)
+				total_unpaid += v['total'] or 0.0
+				# text += "%s %s\n"%(inv.date_invoice,rml_parser.formatLang(inv.residual, currency_obj=inv.currency_id))
 			text+="\nSubTotal : %s\n"%(rml_parser.formatLang(total_unpaid, currency_obj=inv.currency_id))
 
 			cb_model, journal_id = self.pool.get('ir.model.data').get_object_reference(cr, uid,'account_cash_back','cash_back_journal')
@@ -148,3 +161,5 @@ class account_invoice_collection(osv.osv_memory):
 			'name': text,
 		})
 		return res
+
+

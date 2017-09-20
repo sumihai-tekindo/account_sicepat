@@ -716,7 +716,7 @@ class account_cashback_line(osv.osv):
 			inv_id = self.pool.get('account.invoice').create(cr,uid,inv,context=context)
 
 			inv_line = {
-					'name': 'Cashback %s periode %s - %s'%(cb.name.name,cb.start_date,cb.end_date),
+					'name': 'Penambahan discount %s periode %s - %s'%(cb.name.name,cb.start_date,cb.end_date),
 					'account_id': income_account,
 					'price_unit': cb.cash_back_amt or 0.0,
 					'quantity': 1.0,
