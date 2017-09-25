@@ -104,7 +104,7 @@ class account_invoice_collection(osv.osv_memory):
 					date_dict[key]={
 						'date':inv.date,
 						'total':inv.amount_residual,
-						'currency_id':inv.currency_id}
+						'currency_id':inv.company_id.currency_id}
 
 			for k,v in sorted(date_dict.items()):
 				text += "%s %s\n"%(v['date'],rml_parser.formatLang(v['total'], currency_obj=v['currency_id']))
@@ -112,7 +112,7 @@ class account_invoice_collection(osv.osv_memory):
 				# cust.append(inv.partner_id and inv.partner_id.id)
 				total_unpaid += v['total'] or 0.0
 				# text += "%s %s\n"%(inv.date_invoice,rml_parser.formatLang(inv.residual, currency_obj=inv.currency_id))
-			text+="\nSubTotal : %s\n"%(rml_parser.formatLang(total_unpaid, currency_obj=inv.currency_id))
+			text+="\nSubTotal : %s\n"%(rml_parser.formatLang(total_unpaid, currency_obj=inv.company_id.currency_id))
 
 
 			# for inv in invoices:
