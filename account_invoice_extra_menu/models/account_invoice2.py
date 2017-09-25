@@ -95,40 +95,60 @@ class account_invoice_collection(osv.osv_memory):
 			text = "%s \n"%(invoices and invoices[0] and invoices[0].partner_id and invoices[0].partner_id.name)
 			import locale
 			import re
+			date_dict = {}
 			for inv in invoices:
-				if inv.invoice and inv.invoice.cashback_ids and inv.invoice.cashback_ids != [] :
-					continue
-				cust.append(inv.partner_id and inv.partner_id.id)
-				total_unpaid += inv.amount_residual or 0.0
-				# print "=================",inv.amount_residual,total_unpaid
-				result = re.findall("(\d\d)\-(.*?)\-(\w+)",inv.name)
-				substring=False
-				if result and result[0]:
-					substring=result[0][0]+"-"+result[0][1]+"-"+result[0][2]
+				key = inv.date
+				if date_dict.get(key):
+						date_dict[key]['total']+=inv.amount_residual
+				else:
+					date_dict[key]={
+						'date':inv.date,
+						'total':inv.amount_residual,
+						'currency_id':inv.currency_id}
 
-				subst_date = False
-				try:
-					try:
-						try:
-							locale.setlocale(locale.LC_TIME,"id_ID.UTF-8")
-							subst_date = datetime.strptime(substring,'%d-%b-%y')
-						except:
-							locale.setlocale(locale.LC_TIME,"en_US.UTF-8")
-							subst_date = datetime.strptime(substring,'%d-%b-%y')
-					except:
-						locale.setlocale(locale.LC_TIME,"en_US.UTF-8")
-						subst_date = datetime.strptime(substring,'%d-%m-%Y')
-					locale.setlocale(locale.LC_TIME,"en_US.UTF-8")
-				except:
-					subst_date=False
-				inv_date = datetime.strptime(inv.date,'%Y-%m-%d')
+			for k,v in sorted(date_dict.items()):
+				text += "%s %s\n"%(v['date'],rml_parser.formatLang(v['total'], currency_obj=v['currency_id']))
 
-				if subst_date and subst_date != inv_date:
-					inv_date = subst_date
-				inv_date=datetime.strftime(inv_date,'%Y-%m-%d')
+				# cust.append(inv.partner_id and inv.partner_id.id)
+				total_unpaid += v['total'] or 0.0
+				# text += "%s %s\n"%(inv.date_invoice,rml_parser.formatLang(inv.residual, currency_obj=inv.currency_id))
+			text+="\nSubTotal : %s\n"%(rml_parser.formatLang(total_unpaid, currency_obj=inv.currency_id))
+
+
+			# for inv in invoices:
+			# 	if inv.invoice and inv.invoice.cashback_ids and inv.invoice.cashback_ids != [] :
+			# 		continue
+			# 	cust.append(inv.partner_id and inv.partner_id.id)
+			# 	total_unpaid += inv.amount_residual or 0.0
+			# 	# print "=================",inv.amount_residual,total_unpaid
+			# 	result = re.findall("(\d\d)\-(.*?)\-(\w+)",inv.name)
+			# 	substring=False
+			# 	if result and result[0]:
+			# 		substring=result[0][0]+"-"+result[0][1]+"-"+result[0][2]
+
+			# 	subst_date = False
+			# 	try:
+			# 		try:
+			# 			try:
+			# 				locale.setlocale(locale.LC_TIME,"id_ID.UTF-8")
+			# 				subst_date = datetime.strptime(substring,'%d-%b-%y')
+			# 			except:
+			# 				locale.setlocale(locale.LC_TIME,"en_US.UTF-8")
+			# 				subst_date = datetime.strptime(substring,'%d-%b-%y')
+			# 		except:
+			# 			locale.setlocale(locale.LC_TIME,"en_US.UTF-8")
+			# 			subst_date = datetime.strptime(substring,'%d-%m-%Y')
+			# 		locale.setlocale(locale.LC_TIME,"en_US.UTF-8")
+			# 	except:
+			# 		subst_date=False
+			# 	inv_date = datetime.strptime(inv.date,'%Y-%m-%d')
+
+			# 	if subst_date and subst_date != inv_date:
+			# 		inv_date = subst_date
+			# 	inv_date=datetime.strftime(inv_date,'%Y-%m-%d')
 				
-				text += "%s %s\n"%(inv_date,rml_parser.formatLang(inv.amount_residual, currency_obj=inv.currency_id or inv.company_id.currency_id))
-			text+="\nSubTotal : %s\n"%(rml_parser.formatLang(total_unpaid, currency_obj=inv.currency_id or inv.company_id.currency_id))
+			# 	text += "%s %s\n"%(inv_date,rml_parser.formatLang(inv.amount_residual, currency_obj=inv.currency_id or inv.company_id.currency_id))
+			# text+="\nSubTotal : %s\n"%(rml_parser.formatLang(total_unpaid, currency_obj=inv.currency_id or inv.company_id.currency_id))
 
 
 
