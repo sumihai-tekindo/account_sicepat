@@ -587,7 +587,7 @@ class account_cashback_line(osv.osv):
 								where  ai.date_invoice >= '%s'
 								and ai.date_invoice <= '%s'
 								and ai.state in ('open','paid') and ai.type in ('out_invoice','out_refund')
-								and (aij.cb_journal=False or aij.cb_journal is NULL) and (aj.compute_as_cb=True or aj.compute_as_cb is True)
+								and (aij.cb_journal=False or aij.cb_journal is NULL) and (aij.compute_as_cb=True or aij.compute_as_cb is True)
 								
 								group by ail.partner_id
 								) before_disc on rp.id=before_disc.partner_id
