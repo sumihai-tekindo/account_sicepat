@@ -28,6 +28,7 @@
 			<field name="arch" type="xml">
 				<field name="centralisation" position="before">
 					<field name="cb_journal"/>
+					<field name="compute_as_cb"/>
 				</field>
 			</field>
 		</record>
