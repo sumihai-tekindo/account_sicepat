@@ -76,7 +76,7 @@ class stock_move_xls(report_xls):
         ws.write_merge(3,3,0,1,"PERIODE",normal_bold_style_a)
         ws.write_merge(3,3,2,4,": "+data['start_date']+" - "+data['end_date'],normal_bold_style_a)
        
-        headers = ["Source Location","Destination Location","Account Analytic","Date","Description", "Refrence","Picking Type", "Product", "Quantity","Unit Of Measure", "Price Unit", "State"]
+        headers = ["Source Location", "Destination Location", "Account Analytic", "Date", "Product", "Description", "Refrence","Picking Type", "Quantity","Unit Of Measure", "Price Unit", "State"]
                    
         col = 0
         for head in headers:
@@ -87,14 +87,16 @@ class stock_move_xls(report_xls):
         row=6
         max_len = [0,0,0,0,0,0,0,0,0,0,0,0]
         for rec in objects:
+            print "-------------------------",rec.product_id.name_get()
+            prod = rec.product_id and rec.product_id.name_get() and rec.product_id.name_get()[0][1] or rec.product_id.name or ''
             ws.write(row,0,rec.location_id.complete_name,normal_style)
             ws.write(row,1,rec.location_dest_id.complete_name,normal_style)
             ws.write(row,2,rec.account_analytic_dest_id.name,normal_style)
             ws.write(row,3,rec.date_expected,normal_style)
             ws.write(row,4,rec.name,normal_style)
-            ws.write(row,5,rec.picking_id.name,normal_style)
-            ws.write(row,6,rec.picking_type_id.name,normal_style)
-            ws.write(row,7,rec.product_id.name,normal_style)
+            ws.write(row,5,prod,normal_style)
+            ws.write(row,6,rec.picking_id.name,normal_style)
+            ws.write(row,7,rec.picking_type_id.name,normal_style)
             ws.write(row,8,rec.product_uom_qty,normal_style)
             ws.write(row,9,rec.product_uom.name,normal_style)
             ws.write(row,10,rec.price_unit,normal_style)
@@ -105,9 +107,9 @@ class stock_move_xls(report_xls):
             max_len[2]=len(str(rec.account_analytic_dest_id.name)) > max_len[2] and len(str(rec.account_analytic_dest_id.name)) or max_len[2]
             max_len[3]=len(str(rec.date_expected)) > max_len[3] and len(str(rec.date_expected)) or max_len[3]
             max_len[4]=len(str(rec.name)) > max_len[4] and len(str(rec.name)) or max_len[4]
-            max_len[5]=len(str(rec.picking_id.name)) > max_len[5] and len(str(rec.picking_id.name)) or max_len[5]
-            max_len[6]=len(str(rec.picking_type_id.name)) > max_len[6] and len(str(rec.picking_type_id.name)) or max_len[6]
-            max_len[7]=len(str(rec.product_id.name)) > max_len[7] and len(str(rec.product_id.name)) or max_len[7]
+            max_len[5]=len(str(prod)) > max_len[5] and len(str(prod)) or max_len[5]
+            max_len[6]=len(str(rec.picking_id.name)) > max_len[6] and len(str(rec.picking_id.name)) or max_len[6]
+            max_len[7]=len(str(rec.picking_type_id.name)) > max_len[7] and len(str(rec.picking_type_id.name)) or max_len[7]
             max_len[8]=len(str(rec.product_uom_qty)) > max_len[8] and len(str(rec.product_uom_qty)) or max_len[8]
             max_len[9]=len(str(rec.product_uom.name)) > max_len[9] and len(str(rec.product_uom.name)) or max_len[9]
             max_len[10]=len(str(rec.price_unit)) > max_len[10] and len(str(rec.price_unit)) or max_len[10]
