@@ -232,10 +232,10 @@ class account_cashback_line(osv.osv):
 			query_cashback = """select 
 						rp.id,
 						before_disc.omzet_before_disc,
-						(sum(case when aj.type='sale' then aml.debit else 0.0 END)-sum(case when aj.type ='sale_refund' and (aj.cb_journal=False or aj.cb_journal is NULL) then aml.credit else 0.00 END)) as omzet_after_disc,
-						round(100-((sum(case when aj.type='sale' then aml.debit else 0.0 END)-sum(case when aj.type ='sale_refund' and (aj.cb_journal=False or aj.cb_journal is NULL) then aml.credit else 0.00 END))/before_disc.omzet_before_disc)*100,2) as disc,
+						(sum(case when aj.type='sale' then aml.debit else 0.0 END)-sum(case when aj.type ='sale_refund' and (aj.cb_journal=False or aj.cb_journal is NULL) and (aj.compute_as_cb=True or aj.compute_as_cb is True) then aml.credit else 0.00 END)) as omzet_after_disc,
+						round(100-((sum(case when aj.type='sale' then aml.debit else 0.0 END)-sum(case when aj.type ='sale_refund' and (aj.cb_journal=False or aj.cb_journal is NULL) and (aj.compute_as_cb=True or aj.compute_as_cb is True) then aml.credit else 0.00 END))/before_disc.omzet_before_disc)*100,2) as disc,
 						coalesce(rp.current_discount,0.00) as current_disc,
-						sum(case when aj.type ='sale_refund' and (aj.cb_journal=False or aj.cb_journal is NULL) then aml.credit else 0.00 END) as credit_note,
+						sum(case when aj.type ='sale_refund' and (aj.cb_journal=False or aj.cb_journal is NULL) and (aj.compute_as_cb=True or aj.compute_as_cb is True) then aml.credit else 0.00 END) as credit_note,
 						sum(case when aml.reconcile_id is not NULL and aml.debit>0.00  then coalesce(rec_aml3.credit,0.00)
 							when aml.reconcile_partial_id is not NULL and aml.debit>0.00 then coalesce(rec_aml2.credit,0.00)
 							else 0.00
@@ -293,7 +293,7 @@ class account_cashback_line(osv.osv):
 							and aa.type='receivable' and aa.reconcile=True and aa.id in (98)
 							and aml.partner_id is not NULL
 							and ap.special=False
-							and aj.type in ('sale','sale_refund')
+							and aj.type in ('sale','sale_refund') and (aj.compute_as_cb=True or aj.compute_as_cb is True) and (aj.cb_journal=False or aj.cb_journal is NULL)
 							and before_disc.omzet_before_disc >0.0
 							and rp.id in %s
 							group by rp.id,rp.current_discount,before_disc.omzet_before_disc
@@ -319,10 +319,10 @@ class account_cashback_line(osv.osv):
 				query_cashback = """select 
 							rp.id,
 							before_disc.omzet_before_disc,
-							(sum(case when aj.type='sale' then aml.debit else 0.0 END)-sum(case when aj.type ='sale_refund' and (aj.cb_journal=False or aj.cb_journal is NULL) then aml.credit else 0.00 END)) as omzet_after_disc,
-							round(100-((sum(case when aj.type='sale' then aml.debit else 0.0 END)-sum(case when aj.type ='sale_refund' and (aj.cb_journal=False or aj.cb_journal is NULL) then aml.credit else 0.00 END))/before_disc.omzet_before_disc)*100,2) as disc,
+							(sum(case when aj.type='sale' then aml.debit else 0.0 END)-sum(case when aj.type ='sale_refund' and (aj.cb_journal=False or aj.cb_journal is NULL) and (aj.compute_as_cb=True or aj.compute_as_cb is True) then aml.credit else 0.00 END)) as omzet_after_disc,
+							round(100-((sum(case when aj.type='sale' then aml.debit else 0.0 END)-sum(case when aj.type ='sale_refund' and (aj.cb_journal=False or aj.cb_journal is NULL) and (aj.compute_as_cb=True or aj.compute_as_cb is True) then aml.credit else 0.00 END))/before_disc.omzet_before_disc)*100,2) as disc,
 							coalesce(rp.current_discount,0.00) as current_disc,
-							sum(case when aj.type ='sale_refund' and (aj.cb_journal=False or aj.cb_journal is NULL) then aml.credit else 0.00 END) as credit_note,
+							sum(case when aj.type ='sale_refund' and (aj.cb_journal=False or aj.cb_journal is NULL) and (aj.compute_as_cb=True or aj.compute_as_cb is True) then aml.credit else 0.00 END) as credit_note,
 							sum(case when aml.reconcile_id is not NULL and aml.debit>0.00  then coalesce(rec_aml3.credit,0.00)
 								when aml.reconcile_partial_id is not NULL and aml.debit>0.00 then coalesce(rec_aml2.credit,0.00)
 								else 0.00
@@ -381,7 +381,7 @@ class account_cashback_line(osv.osv):
 							and aml.partner_id is not NULL
 							and ap.special=False
 							and aml.partner_id=%s
-							and aj.type in ('sale','sale_refund')
+							and aj.type in ('sale','sale_refund') and (aj.compute_as_cb=True or aj.compute_as_cb is True)
 							and before_disc.omzet_before_disc >0.0
 							group by rp.id,rp.current_discount,before_disc.omzet_before_disc
 							order by rp.name
@@ -416,10 +416,10 @@ class account_cashback_line(osv.osv):
 			query_cashback = """select 
 							rp.id,
 							before_disc.omzet_before_disc,
-							(sum(case when aj.type='sale' then aml.debit else 0.0 END)-sum(case when aj.type ='sale_refund' and (aj.cb_journal=False or aj.cb_journal is NULL) then aml.credit else 0.00 END)) as omzet_after_disc,
-							round(100-((sum(case when aj.type='sale' then aml.debit else 0.0 END)-sum(case when aj.type ='sale_refund' and (aj.cb_journal=False or aj.cb_journal is NULL) then aml.credit else 0.00 END))/before_disc.omzet_before_disc)*100,2) as disc,
+							(sum(case when aj.type='sale' then aml.debit else 0.0 END)-sum(case when aj.type ='sale_refund' and (aj.cb_journal=False or aj.cb_journal is NULL) and (aj.compute_as_cb=True or aj.compute_as_cb is True) then aml.credit else 0.00 END)) as omzet_after_disc,
+							round(100-((sum(case when aj.type='sale' then aml.debit else 0.0 END)-sum(case when aj.type ='sale_refund' and (aj.cb_journal=False or aj.cb_journal is NULL) and (aj.compute_as_cb=True or aj.compute_as_cb is True) then aml.credit else 0.00 END))/before_disc.omzet_before_disc)*100,2) as disc,
 							coalesce(rp.current_discount,0.00) as current_disc,
-							sum(case when aj.type ='sale_refund' and (aj.cb_journal=False or aj.cb_journal is NULL) then aml.credit else 0.00 END) as credit_note,
+							sum(case when aj.type ='sale_refund' and (aj.cb_journal=False or aj.cb_journal is NULL) and (aj.compute_as_cb=True or aj.compute_as_cb is True) then aml.credit else 0.00 END) as credit_note,
 							sum(case when aml.reconcile_id is not NULL and aml.debit>0.00  then coalesce(rec_aml3.credit,0.00)
 								when aml.reconcile_partial_id is not NULL and aml.debit>0.00 then coalesce(rec_aml2.credit,0.00)
 								else 0.00
@@ -462,7 +462,11 @@ class account_cashback_line(osv.osv):
 									left join account_invoice ai on ail.invoice_id=ai.id
 									left join res_partner rp on ai.partner_id=rp.id
 									left join account_journal aij on ai.journal_id=aij.id 
+<<<<<<< HEAD
 									left join account_account aajc on aajc.id ail.account_id=aajc.id 
+=======
+									left join account_account aajc on ail.account_id=aajc.id 
+>>>>>>> b545b702570398a06a30452ba9fc8685335c3465
 									where  ai.date_invoice >= '%s'
 									and ai.date_invoice <= '%s'
 									and ai.state in ('open','paid') and ai.type in ('out_invoice','out_refund')
@@ -476,7 +480,7 @@ class account_cashback_line(osv.osv):
 							and aa.type='receivable' and aa.reconcile=True and aa.id in (98)
 							and aml.partner_id is not NULL
 							and ap.special=False
-							and aj.type in ('sale','sale_refund')
+							and aj.type in ('sale','sale_refund') and (aj.compute_as_cb=True or aj.compute_as_cb is True)
 							and before_disc.omzet_before_disc >0.0
 							group by rp.id,rp.current_discount,before_disc.omzet_before_disc
 							order by rp.id
@@ -538,10 +542,10 @@ class account_cashback_line(osv.osv):
 				query_cashback = """select 
 							rp.id,
 							before_disc.omzet_before_disc,
-							(sum(case when aj.type='sale' then aml.debit else 0.0 END)-sum(case when aj.type ='sale_refund' and (aj.cb_journal=False or aj.cb_journal is NULL) then aml.credit else 0.00 END)) as omzet_after_disc,
-							round(100-((sum(case when aj.type='sale' then aml.debit else 0.0 END)-sum(case when aj.type ='sale_refund' and (aj.cb_journal=False or aj.cb_journal is NULL) then aml.credit else 0.00 END))/before_disc.omzet_before_disc)*100,2) as disc,
+							(sum(case when aj.type='sale' then aml.debit else 0.0 END)-sum(case when aj.type ='sale_refund' and (aj.cb_journal=False or aj.cb_journal is NULL) and (aj.compute_as_cb=True or aj.compute_as_cb is True) then aml.credit else 0.00 END)) as omzet_after_disc,
+							round(100-((sum(case when aj.type='sale' then aml.debit else 0.0 END)-sum(case when aj.type ='sale_refund' and (aj.cb_journal=False or aj.cb_journal is NULL) and (aj.compute_as_cb=True or aj.compute_as_cb is True) then aml.credit else 0.00 END))/before_disc.omzet_before_disc)*100,2) as disc,
 							coalesce(rp.current_discount,0.00) as current_disc,
-							sum(case when aj.type ='sale_refund' and (aj.cb_journal=False or aj.cb_journal is NULL) then aml.credit else 0.00 END) as credit_note,
+							sum(case when aj.type ='sale_refund' and (aj.cb_journal=False or aj.cb_journal is NULL) and (aj.compute_as_cb=True or aj.compute_as_cb is True) then aml.credit else 0.00 END) as credit_note,
 							sum(case when aml.reconcile_id is not NULL and aml.debit>0.00  then coalesce(rec_aml3.credit,0.00)
 								when aml.reconcile_partial_id is not NULL and aml.debit>0.00 then coalesce(rec_aml2.credit,0.00)
 								else 0.00
@@ -584,12 +588,21 @@ class account_cashback_line(osv.osv):
 								left join account_invoice ai on ail.invoice_id=ai.id
 								left join res_partner rp on ai.partner_id=rp.id
 								left join account_journal aij on ai.journal_id=aij.id
+<<<<<<< HEAD
 								left join account_account aajc on aajc.id ail.account_id=aajc.id 
 								where  ai.date_invoice >= '%s'
 								and ai.date_invoice <= '%s'
 								and ai.state in ('open','paid') and ai.type in ('out_invoice','out_refund')
 								and (aij.cb_journal=False or aij.cb_journal is NULL)
 								and ail.account_id in (98)
+=======
+								left join account_account aajc on ail.account_id=aajc.id 
+								where  ai.date_invoice >= '%s'
+								and ai.date_invoice <= '%s'
+								and ai.state in ('open','paid') and ai.type in ('out_invoice','out_refund')
+								and (aij.cb_journal=False or aij.cb_journal is NULL) and (aij.compute_as_cb=True or aij.compute_as_cb is True)
+								
+>>>>>>> b545b702570398a06a30452ba9fc8685335c3465
 								group by ail.partner_id
 								) before_disc on rp.id=before_disc.partner_id
 							where 
@@ -599,7 +612,7 @@ class account_cashback_line(osv.osv):
 							and aml.partner_id is not NULL
 							and ap.special=False
 							and aml.partner_id=%s
-							and aj.type in ('sale','sale_refund')
+							and aj.type in ('sale','sale_refund') and (aj.compute_as_cb=True or aj.compute_as_cb is True)
 							and before_disc.omzet_before_disc >0.0
 							group by rp.id,rp.current_discount,before_disc.omzet_before_disc
 							order by rp.name
