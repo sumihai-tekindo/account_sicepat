@@ -462,11 +462,8 @@ class account_cashback_line(osv.osv):
 									left join account_invoice ai on ail.invoice_id=ai.id
 									left join res_partner rp on ai.partner_id=rp.id
 									left join account_journal aij on ai.journal_id=aij.id 
-<<<<<<< HEAD
-									left join account_account aajc on aajc.id ail.account_id=aajc.id 
-=======
 									left join account_account aajc on ail.account_id=aajc.id 
->>>>>>> b545b702570398a06a30452ba9fc8685335c3465
+
 									where  ai.date_invoice >= '%s'
 									and ai.date_invoice <= '%s'
 									and ai.state in ('open','paid') and ai.type in ('out_invoice','out_refund')
@@ -588,21 +585,12 @@ class account_cashback_line(osv.osv):
 								left join account_invoice ai on ail.invoice_id=ai.id
 								left join res_partner rp on ai.partner_id=rp.id
 								left join account_journal aij on ai.journal_id=aij.id
-<<<<<<< HEAD
-								left join account_account aajc on aajc.id ail.account_id=aajc.id 
-								where  ai.date_invoice >= '%s'
-								and ai.date_invoice <= '%s'
-								and ai.state in ('open','paid') and ai.type in ('out_invoice','out_refund')
-								and (aij.cb_journal=False or aij.cb_journal is NULL)
-								and ail.account_id in (98)
-=======
 								left join account_account aajc on ail.account_id=aajc.id 
 								where  ai.date_invoice >= '%s'
 								and ai.date_invoice <= '%s'
 								and ai.state in ('open','paid') and ai.type in ('out_invoice','out_refund')
 								and (aij.cb_journal=False or aij.cb_journal is NULL) and (aij.compute_as_cb=True or aij.compute_as_cb is True)
 								
->>>>>>> b545b702570398a06a30452ba9fc8685335c3465
 								group by ail.partner_id
 								) before_disc on rp.id=before_disc.partner_id
 							where 
@@ -712,7 +700,7 @@ class account_cashback_line(osv.osv):
 			name =cb.cashback_id and cb.cashback_id.name or cb.name.name
 			income_account = cb.product_id.property_account_income and cb.product_id.property_account_income.id or \
 							cb.product_id.categ_id and cb.product_id.categ_id.property_account_income_categ and cb.product_id.categ_id.property_account_income_categ.id or False
-			print "===================",income_account
+			# print "===================",income_account
 			inv = {
 				'name': name,
 				'origin': name,
