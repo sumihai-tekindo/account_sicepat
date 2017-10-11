@@ -25,3 +25,4 @@ import res_config
 import ir_import
 import res_partner
 import account_asset
+import account_asset_close

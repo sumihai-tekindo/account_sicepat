@@ -1,0 +1,38 @@
+<openerp>
+	<data>
+		<record id="account_asset_close_view" model="ir.ui.view">
+            <field name="name">account.asset.close.form</field>
+            <field name="model">account.asset.close</field>
+            <field name="arch" type="xml">
+                <form string="Close Assets">
+                    <p class="oe_grey">
+                        This wizard will close the all the selected non-closed assets.
+                    </p>
+                    <footer>
+                        <button string="Close Assets" name="asset_close" type="object" default_focus="1" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+		<record id="action_account_asset_close" model="ir.actions.act_window">
+            <field name="name">Close Account Asset</field>
+            <field name="res_model">account.asset.close</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="sicepat_erp.account_asset_close_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.values" id="values_account_asset_close">
+            <field name="model_id" ref="account_asset.model_account_asset_asset" />
+            <field name="name">action_account_asset_close</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('sicepat_erp.action_account_asset_close'))" />
+            <field name="key">action</field>
+            <field name="model">account.asset.asset</field>
+        </record>
+	</data>
+</openerp>

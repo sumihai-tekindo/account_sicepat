@@ -290,7 +290,7 @@ class account_cashback_line(osv.osv):
 							where 
 							aml.date >= '%s' 
 							and aml.date <= '%s'
-							and aa.type='receivable' and aa.reconcile=True
+							and aa.type='receivable' and aa.reconcile=True and aa.id in (98)
 							and aml.partner_id is not NULL
 							and ap.special=False
 							and aj.type in ('sale','sale_refund')
@@ -377,7 +377,7 @@ class account_cashback_line(osv.osv):
 							where 
 							aml.date >= '%s' 
 							and aml.date <= '%s'
-							and aa.type='receivable' and aa.reconcile=True
+							and aa.type='receivable' and aa.reconcile=True and aa.id in (98)
 							and aml.partner_id is not NULL
 							and ap.special=False
 							and aml.partner_id=%s
@@ -461,17 +461,19 @@ class account_cashback_line(osv.osv):
 									from account_invoice_line ail 
 									left join account_invoice ai on ail.invoice_id=ai.id
 									left join res_partner rp on ai.partner_id=rp.id
-									left join account_journal aij on ai.journal_id=aij.id
+									left join account_journal aij on ai.journal_id=aij.id 
+									left join account_account aajc on aajc.id ail.account_id=aajc.id 
 									where  ai.date_invoice >= '%s'
 									and ai.date_invoice <= '%s'
 									and ai.state in ('open','paid') and ai.type in ('out_invoice','out_refund')
 									and (aij.cb_journal=False or aij.cb_journal is NULL)
+									and ail.account_id in (98)
 									group by ail.partner_id
 								) before_disc on rp.id=before_disc.partner_id
 							where 
 							aml.date >= '%s' 
 							and aml.date <= '%s'
-							and aa.type='receivable' and aa.reconcile=True
+							and aa.type='receivable' and aa.reconcile=True and aa.id in (98)
 							and aml.partner_id is not NULL
 							and ap.special=False
 							and aj.type in ('sale','sale_refund')
@@ -582,16 +584,18 @@ class account_cashback_line(osv.osv):
 								left join account_invoice ai on ail.invoice_id=ai.id
 								left join res_partner rp on ai.partner_id=rp.id
 								left join account_journal aij on ai.journal_id=aij.id
+								left join account_account aajc on aajc.id ail.account_id=aajc.id 
 								where  ai.date_invoice >= '%s'
 								and ai.date_invoice <= '%s'
 								and ai.state in ('open','paid') and ai.type in ('out_invoice','out_refund')
 								and (aij.cb_journal=False or aij.cb_journal is NULL)
+								and ail.account_id in (98)
 								group by ail.partner_id
 								) before_disc on rp.id=before_disc.partner_id
 							where 
 							aml.date >= '%s' 
 							and aml.date <= '%s'
-							and aa.type='receivable' and aa.reconcile=True
+							and aa.type='receivable' and aa.reconcile=True and aa.id in (98)
 							and aml.partner_id is not NULL
 							and ap.special=False
 							and aml.partner_id=%s

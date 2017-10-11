@@ -113,6 +113,7 @@ Feature
         'views/report_supplier_invoice_view.xml',
         'views/res_partner.xml',
         'views/account_asset_view.xml',
+        'wizard/account_asset_close.xml',
     ],
 
     # only loaded in demonstration mode
