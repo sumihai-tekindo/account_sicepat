@@ -446,33 +446,29 @@ class account_cashback_line(osv.osv):
 								on aml.reconcile_id=rec_aml3.reconcile_id and aml.debit>0.0
 							left join (
 								select ail.partner_id,
-									round(sum(
-											case 
-												when ai.type='out_invoice' and ail.discount=0.0 
-													then (100.00/(100.00-rp.current_discount))*(ail.price_unit)*ail.quantity 
-												when ai.type='out_invoice' and ail.discount<> 0.0 
-													then ail.price_unit*ail.quantity
-												when ai.type='out_refund' and ail.discount=0.0
-													then (100.00/(100.00-rp.current_discount))*(-1*ail.price_unit)*ail.quantity
-												when ai.type='out_refund' and ail.discount<>0.0
-													then -1*ail.price_unit*ail.quantity
-											end),2) as omzet_before_disc,
-									sum(case when ai.type='out_invoice' then ail.price_subtotal else -1*ail.price_subtotal end) as after_disc
-									from account_invoice_line ail 
-									left join account_invoice ai on ail.invoice_id=ai.id
-									left join res_partner rp on ai.partner_id=rp.id
-									left join account_journal aij on ai.journal_id=aij.id 
-<<<<<<< HEAD
-									left join account_account aajc on aajc.id ail.account_id=aajc.id 
-=======
-									left join account_account aajc on ail.account_id=aajc.id 
->>>>>>> b545b702570398a06a30452ba9fc8685335c3465
-									where  ai.date_invoice >= '%s'
-									and ai.date_invoice <= '%s'
-									and ai.state in ('open','paid') and ai.type in ('out_invoice','out_refund')
-									and (aij.cb_journal=False or aij.cb_journal is NULL)
-									and ail.account_id in (98)
-									group by ail.partner_id
+								round(sum(
+										case 
+											when ai.type='out_invoice' and ail.discount=0.0 
+												then (100.00/(100.00-rp.current_discount))*(ail.price_unit)*ail.quantity 
+											when ai.type='out_invoice' and ail.discount<> 0.0 
+												then ail.price_unit*ail.quantity
+											when ai.type='out_refund' and ail.discount=0.0
+												then (100.00/(100.00-rp.current_discount))*(-1*ail.price_unit)*ail.quantity
+											when ai.type='out_refund' and ail.discount<>0.0
+												then -1*ail.price_unit*ail.quantity
+										end),2) as omzet_before_disc,
+								sum(case when ai.type='out_invoice' then ail.price_subtotal else -1*ail.price_subtotal end) as after_disc
+								from account_invoice_line ail 
+								left join account_invoice ai on ail.invoice_id=ai.id
+								left join res_partner rp on ai.partner_id=rp.id
+								left join account_journal aij on ai.journal_id=aij.id
+								left join account_account aajc on ail.account_id=aajc.id 
+								where  ai.date_invoice >= '%s'
+								and ai.date_invoice <= '%s'
+								and ai.state in ('open','paid') and ai.type in ('out_invoice','out_refund')
+								and (aij.cb_journal=False or aij.cb_journal is NULL) and (aij.compute_as_cb=True or aij.compute_as_cb is True)
+								
+								group by ail.partner_id
 								) before_disc on rp.id=before_disc.partner_id
 							where 
 							aml.date >= '%s' 
@@ -588,21 +584,12 @@ class account_cashback_line(osv.osv):
 								left join account_invoice ai on ail.invoice_id=ai.id
 								left join res_partner rp on ai.partner_id=rp.id
 								left join account_journal aij on ai.journal_id=aij.id
-<<<<<<< HEAD
-								left join account_account aajc on aajc.id ail.account_id=aajc.id 
-								where  ai.date_invoice >= '%s'
-								and ai.date_invoice <= '%s'
-								and ai.state in ('open','paid') and ai.type in ('out_invoice','out_refund')
-								and (aij.cb_journal=False or aij.cb_journal is NULL)
-								and ail.account_id in (98)
-=======
 								left join account_account aajc on ail.account_id=aajc.id 
 								where  ai.date_invoice >= '%s'
 								and ai.date_invoice <= '%s'
 								and ai.state in ('open','paid') and ai.type in ('out_invoice','out_refund')
 								and (aij.cb_journal=False or aij.cb_journal is NULL) and (aij.compute_as_cb=True or aij.compute_as_cb is True)
 								
->>>>>>> b545b702570398a06a30452ba9fc8685335c3465
 								group by ail.partner_id
 								) before_disc on rp.id=before_disc.partner_id
 							where 
@@ -695,7 +682,7 @@ class account_cashback_line(osv.osv):
 		for cbl in self.browse(cr,uid,ids,context=context):
 			if cbl.state!='approved': 
 				continue
-			if datetime.datetime.strptime('%Y-%m-%d',cbl.start_date)>=datetime.datetime.strptime('%Y-%m-%d','2017-06-01'):
+			if datetime.datetime.strptime(cbl.start_date,'%Y-%m-%d',)>=datetime.datetime.strptime('2017-06-01','%Y-%m-%d'):
 				if ((datetime.date.today()+relativedelta(months=-3)).strftime('%Y-%m-%d'))>cbl.date_approved:
 					self.write(cr,uid,ids,{'state':'expired'}, context=context)
 		
@@ -712,7 +699,7 @@ class account_cashback_line(osv.osv):
 			name =cb.cashback_id and cb.cashback_id.name or cb.name.name
 			income_account = cb.product_id.property_account_income and cb.product_id.property_account_income.id or \
 							cb.product_id.categ_id and cb.product_id.categ_id.property_account_income_categ and cb.product_id.categ_id.property_account_income_categ.id or False
-			print "===================",income_account
+			# print "===================",income_account
 			inv = {
 				'name': name,
 				'origin': name,
