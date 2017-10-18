@@ -96,8 +96,8 @@ class stock_quant(osv.osv):
 		account_analytic_id = context.get('account_analytic_id',False)
 		account_analytic_dest_id = context.get('account_analytic_dest_id',False)
 		if res and account_analytic_id and account_analytic_dest_id:
-			res[0][2]['account_analytic_id']=account_analytic_dest_id
-			res[1][2]['account_analytic_id']=account_analytic_id
+			res[0][2]['analytic_account_id']=account_analytic_dest_id
+			res[1][2]['analytic_account_id']=account_analytic_id
 		return res
 
 	def _create_account_move_line(self, cr, uid, quants, move, credit_account_id, debit_account_id, journal_id, context=None):
