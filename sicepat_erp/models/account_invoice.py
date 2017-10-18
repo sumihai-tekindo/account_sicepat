@@ -104,6 +104,30 @@ class account_invoice(models.Model):
 
 #         self.outstanding = self.test_outstanding()
 
+    
+    @api.model
+    def line_get_convert(self, line, part, date):
+        return {
+            'date_maturity': line.get('date_maturity', False),
+            'partner_id': part,
+            'name': line['name'],
+            'date': date,
+            'debit': line['price']>0 and line['price'],
+            'credit': line['price']<0 and -line['price'],
+            'account_id': line['account_id'],
+            'analytic_lines': line.get('analytic_lines', []),
+            'amount_currency': line['price']>0 and abs(line.get('amount_currency', False)) or -abs(line.get('amount_currency', False)),
+            'currency_id': line.get('currency_id', False),
+            'tax_code_id': line.get('tax_code_id', False),
+            'tax_amount': line.get('tax_amount', False),
+            'ref': line.get('ref', False),
+            'quantity': line.get('quantity',1.00),
+            'product_id': line.get('product_id', False),
+            'product_uom_id': line.get('uos_id', False),
+            'analytic_account_id': line.get('account_analytic_id', False),
+        }
+
+
     @api.one
     @api.depends(
         'state', 'currency_id', 'partner_id', 'date_invoice', 'invoice_line.price_subtotal',
@@ -313,3 +337,22 @@ class account_move(osv.osv):
                    ('posted', tuple(valid_moves),))
         self.invalidate_cache(cr, uid, ['state', ], valid_moves, context=context)
         return True
+
+
+class account_invoice_line(models.Model):
+    _inherit='account.invoice.line'
+
+    @api.model
+    def move_line_get_item(self, line):
+        return {
+            'type': 'src',
+            'name': line.name,
+            'price_unit': line.price_unit,
+            'quantity': line.quantity,
+            'price': line.price_subtotal,
+            'account_id': line.account_id.id,
+            'product_id': line.product_id.id,
+            'uos_id': line.uos_id.id,
+            'account_analytic_id': line.account_analytic_id.id,
+            'taxes': line.invoice_line_tax_id,
+        }
