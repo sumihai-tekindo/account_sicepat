@@ -150,7 +150,7 @@ class ReportGeneralLedgerXlsx(ReportXlsx):
                     worksheet.merge_range(row, 7, row, 8, line['move'], cell_format)
                     worksheet.merge_range(row, 9, row, 14, line['lname'], cell_format)
                     worksheet.merge_range(row, 12, row, 16, line['line_corresp'].replace(',',', '), cell_format)
-                    worksheet.merge_range(row, 14, row, 18, line['analytic_account.name'], cell_format)
+                    # worksheet.merge_range(row, 14, row, 18, line['analytic_account.name'], cell_format)
                     worksheet.merge_range(row, 14, row, 20, line['debit'], cell_format_decimal)
                     worksheet.merge_range(row, 16, row, 22, line['credit'], cell_format_decimal)
                     worksheet.merge_range(row, 18, row, 24, line['progress'], cell_format_decimal)
