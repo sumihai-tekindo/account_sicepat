@@ -124,22 +124,22 @@ class ReportGeneralLedgerXlsx(ReportXlsx):
             worksheet.merge_range(8, 5, 8, 6, 'Ref', cell_format_bold)
             worksheet.merge_range(8, 7, 8, 8, 'Move', cell_format_bold)
             worksheet.merge_range(8, 9, 8, 14, 'Entry Label', cell_format_bold)
-            worksheet.merge_range(8, 12, 8, 16, 'Counterpart', cell_format_bold)
-            worksheet.merge_range(8, 12, 8, 18, 'Analytic Account', cell_format_bold)
-            worksheet.merge_range(8, 14, 8, 20, 'Debit', cell_format_bold)
-            worksheet.merge_range(8, 16, 8, 22, 'Credit', cell_format_bold)
-            worksheet.merge_range(8, 18, 8, 24, 'Balance', cell_format_bold)
+            worksheet.merge_range(8, 15, 8, 16, 'Counterpart', cell_format_bold)
+            worksheet.merge_range(8, 17, 8, 18, 'Analytic Account', cell_format_bold)
+            worksheet.merge_range(8, 19, 8, 20, 'Debit', cell_format_bold)
+            worksheet.merge_range(8, 21, 8, 22, 'Credit', cell_format_bold)
+            worksheet.merge_range(8, 23, 8, 24, 'Balance', cell_format_bold)
             if data['form']['amount_currency']:
-                worksheet.merge_range(8, 20, 8, 21, 'Currency', cell_format_bold)
+                worksheet.merge_range(8, 25, 8, 26, 'Currency', cell_format_bold)
             row = 9
             for childrenaccount in _p.get_children_accounts(obj):
                 cell_format_bold_indent.set_indent(childrenaccount['level'] - 1)
                 worksheet.merge_range(row, 0, row, 13, childrenaccount['code'] + ' ' + childrenaccount['name'], cell_format_bold_indent)
-                worksheet.merge_range(row, 14, row, 15, _p.sum_debit_account(childrenaccount), cell_format_decimal_bold)
-                worksheet.merge_range(row, 16, row, 17, _p.sum_credit_account(childrenaccount), cell_format_decimal_bold)
-                worksheet.merge_range(row, 18, row, 19, _p.sum_balance_account(childrenaccount), cell_format_decimal_bold)
+                worksheet.merge_range(row, 19, row, 20, _p.sum_debit_account(childrenaccount), cell_format_decimal_bold)
+                worksheet.merge_range(row, 21, row, 22, _p.sum_credit_account(childrenaccount), cell_format_decimal_bold)
+                worksheet.merge_range(row, 23, row, 24, _p.sum_balance_account(childrenaccount), cell_format_decimal_bold)
                 if data['form']['amount_currency']:
-                    worksheet.merge_range(row, 20, row, 21, _p.sum_currency_amount_account(childrenaccount), cell_format_decimal)
+                    worksheet.merge_range(row, 25, row, 26, _p.sum_currency_amount_account(childrenaccount), cell_format_decimal)
                 row += 1
                 for line in _p.lines(childrenaccount):
                     print "==========================================",line
@@ -149,13 +149,13 @@ class ReportGeneralLedgerXlsx(ReportXlsx):
                     worksheet.merge_range(row, 5, row, 6, line['lref'], cell_format)
                     worksheet.merge_range(row, 7, row, 8, line['move'], cell_format)
                     worksheet.merge_range(row, 9, row, 14, line['lname'], cell_format)
-                    worksheet.merge_range(row, 12, row, 16, line['line_corresp'].replace(',',', '), cell_format)
-                    # worksheet.merge_range(row, 14, row, 18, line['analytic_account.name'], cell_format)
-                    worksheet.merge_range(row, 14, row, 20, line['debit'], cell_format_decimal)
-                    worksheet.merge_range(row, 16, row, 22, line['credit'], cell_format_decimal)
-                    worksheet.merge_range(row, 18, row, 24, line['progress'], cell_format_decimal)
+                    worksheet.merge_range(row, 15, row, 16, line['line_corresp'].replace(',',', '), cell_format)
+                    # worksheet.merge_range(row, 17, row, 18, line['analytic_account.name'], cell_format)
+                    worksheet.merge_range(row, 19, row, 20, line['debit'], cell_format_decimal)
+                    worksheet.merge_range(row, 21, row, 22, line['credit'], cell_format_decimal)
+                    worksheet.merge_range(row, 23, row, 24, line['progress'], cell_format_decimal)
                     if data['form']['amount_currency']:
-                        worksheet.merge_range(row, 20, row, 21, line['amount_currency'] > 0.0 and line['amount_currency'] or '', cell_format_decimal)
+                        worksheet.merge_range(row, 25, row, 26, line['amount_currency'] > 0.0 and line['amount_currency'] or '', cell_format_decimal)
                     row += 1
         
 ReportGeneralLedgerXlsx('report.account.report_generalledger_xlsx', 'account.account', parser=general_ledger)
