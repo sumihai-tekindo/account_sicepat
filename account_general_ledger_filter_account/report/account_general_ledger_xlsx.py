@@ -142,7 +142,6 @@ class ReportGeneralLedgerXlsx(ReportXlsx):
                     worksheet.merge_range(row, 25, row, 26, _p.sum_currency_amount_account(childrenaccount), cell_format_decimal)
                 row += 1
                 for line in _p.lines(childrenaccount):
-                    print "==========================================",line
                     worksheet.merge_range(row, 0, row, 1, line['ldate'], cell_format_date)
                     worksheet.write(row, 2, line['lcode'], cell_format)
                     worksheet.merge_range(row, 3, row, 4, line['partner_name'], cell_format)
@@ -150,7 +149,7 @@ class ReportGeneralLedgerXlsx(ReportXlsx):
                     worksheet.merge_range(row, 7, row, 8, line['move'], cell_format)
                     worksheet.merge_range(row, 9, row, 14, line['lname'], cell_format)
                     worksheet.merge_range(row, 15, row, 16, line['line_corresp'].replace(',',', '), cell_format)
-                    # worksheet.merge_range(row, 17, row, 18, line['analytic_account.name'], cell_format)
+                    worksheet.merge_range(row, 17, row, 18, line['analytic_account'], cell_format)
                     worksheet.merge_range(row, 19, row, 20, line['debit'], cell_format_decimal)
                     worksheet.merge_range(row, 21, row, 22, line['credit'], cell_format_decimal)
                     worksheet.merge_range(row, 23, row, 24, line['progress'], cell_format_decimal)

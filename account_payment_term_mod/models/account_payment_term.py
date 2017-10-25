@@ -21,6 +21,7 @@ class account_payment_term(osv.osv):
 		obj_precision = self.pool.get('decimal.precision')
 		prec = obj_precision.precision_get(cr, uid, 'Account')
 		override_date = False
+		n = 0
 		for line in pt.line_ids:
 			if line.value == 'fixed':
 				amt = round(line.value_amount, prec)
@@ -41,12 +42,23 @@ class account_payment_term(osv.osv):
 					if line.days3 in range(0,32) and (line.days2!=0 or line.days!=0):
 						raise osv.except_osv(_('Error!'),_("Number of Days and Day of the Month should be 0"))
 					elif line.days3 in range(0,32) and (line.days2==0 or line.days==0):
-						next_date = override_date or (datetime.strptime(date_ref, '%Y-%m-%d').replace(day=line.days3) + relativedelta(days=line.days))
-						next_date += relativedelta(months=1)
-						override_date = next_date
-						result.append( (next_date.strftime('%Y-%m-%d'), amt) )
-						amount -= amt
-						continue
+						# next_date = override_date or (datetime.strptime(date_ref, '%Y-%m-%d').replace(day=line.days3))
+						# next_date += relativedelta(months=1)
+						# override_date = next_date
+						# result.append( (next_date.strftime('%Y-%m-%d'), amt) )
+						# amount -= amt
+						if n ==0:
+							next_date = datetime.strptime(date_ref, '%Y-%m-%d').replace(day=line.days3)
+							ref = datetime.strptime(date_ref, '%Y-%m-%d')
+							
+							last_date_ref =ref + relativedelta(day=31)
+							if next_date < ref:
+								next_date = next_date + relativedelta(months=1)
+								next_date = next_date.replace(day=line.days3)
+						override_date =next_date + relativedelta(months=1)
+
+				n+=1
+				
 				result.append( (next_date.strftime('%Y-%m-%d'), amt) )
 				amount -= amt
 
