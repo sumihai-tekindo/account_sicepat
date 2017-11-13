@@ -682,7 +682,7 @@ class account_cashback_line(osv.osv):
 		for cbl in self.browse(cr,uid,ids,context=context):
 			if cbl.state!='approved': 
 				continue
-			if datetime.datetime.strptime('%Y-%m-%d',cbl.start_date)>=datetime.datetime.strptime('%Y-%m-%d','2017-06-01'):
+			if datetime.datetime.strptime(cbl.start_date,'%Y-%m-%d')>=datetime.datetime.strptime('2017-06-01','%Y-%m-%d'):
 				if ((datetime.date.today()+relativedelta(months=-3)).strftime('%Y-%m-%d'))>cbl.date_approved:
 					self.write(cr,uid,ids,{'state':'expired'}, context=context)
 		
