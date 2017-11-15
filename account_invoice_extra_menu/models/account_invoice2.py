@@ -80,10 +80,36 @@ class account_invoice_collection(osv.osv_memory):
 					
 						cashback_amt+= aml.amount_residual
 
-			text+="Cashback : %s"%(rml_parser.formatLang(abs(cashback_amt), currency_obj=inv.currency_id))
+			text+="Cashback : %s\n"%(rml_parser.formatLang(abs(cashback_amt), currency_obj=inv.currency_id))
+
+			
+			revision_amt=0.0
+			revision_journal_ids = self.pool.get('account.journal').search(cr,uid,[('type','=','sale_refund'),('compute_as_cb','=',True)])
+			revision_move_lines = [('partner_id','=',inv.partner_id and inv.partner_id.id),('account_id.type','=','receivable'),('credit','>',0.0),('journal_id','=',revision_journal_ids)]
+
+			if revision_journal_ids:
+				revisions = self.pool.get ('account.move.line').browse(cr,uid,revision_journal_ids)
+				for revision in revisions:
+					if revision.amount_residual>0.0:
+						revision_amt+=revision.amount_residual
+
+			text+="Revisian : %s\n"%(rml_parser.formatLang(abs(revision_amt), currency_obj=inv.currency_id))
+
+			
+			refund_cost_amt=0.0
+			refund_cost_journal_ids = self.pool.get('account.journal').search(cr,uid,[('type','=','sale_refund'),('compute_as_cb','=',False)])
+			refund_cost_move_lines = [('partner_id','=',inv.partner_id and inv.partner_id.id),('account_id.type','=','receivable'),('credit','>',0.0),('journal_id','=',refund_cost_journal_ids)]
+
+			if refund_cost_journal_ids:
+				refund_costs = self.pool.get ('account.move.line').browse(cr,uid,refund_cost_journal_ids)
+				for refund_cost in refund_costs:
+					if refund_cost.amount_residual>0.0:
+						refund_cost_amt+=refund_cost.amount_residual
+
+			text+="Penggantian : %s\n"%(rml_parser.formatLang(abs(refund_cost_amt), currency_obj=inv.currency_id))
 
 
-			text+="\nTotal : %s\n"%(rml_parser.formatLang((total_unpaid-abs(unreconciled)-abs(cashback_amt)), currency_obj=inv.currency_id))
+			text+="\nTotal : %s\n"%(rml_parser.formatLang((total_unpaid-abs(unreconciled)-abs(cashback_amt)-abs(revision_amt)-abs(refund_cost_amt)), currency_obj=inv.currency_id))
 			text+="\nPembayaran dapat melalui : \n\nBANK BCA \nNO rekening : 270 390 3088 \nAtas Nama: Sicepat Ekspres Indonesia\n\nBANK MANDIRI \nNO rekening : 121 000 655 7171 \nAtas Nama : Sicepat Ekspres Indonesia\n\nBANK BNI \nNO rekening : 4964 66952\nAtas Nama : Sicepat Ekspres Indonesia\n\nBANK BRI \nNO rekening : 0338 01 001027 30 7\nAtas Nama : Sicepat Ekspres Indonesia"
 			text+="\n\nHarap isi berita acara nama OLSHOP dan tanggal pengiriman di berita acara.\nContoh: 'SiCepatShop 19Feb15'"
 		
@@ -170,10 +196,36 @@ class account_invoice_collection(osv.osv_memory):
 			cbl = self.pool.get('account.cashback.line').browse(cr,uid,cbl_ids,context=context)
 			for cashback in cbl :
 				cashback_amt+=cashback.cash_back_amt
-			text+="Cashback : %s"%(rml_parser.formatLang(abs(cashback_amt), currency_obj=inv.company_id.currency_id))
+			text+="Cashback : %s\n"%(rml_parser.formatLang(abs(cashback_amt), currency_obj=inv.company_id.currency_id))
 
 
-			text+="\nTotal : %s\n"%(rml_parser.formatLang((total_unpaid-abs(unreconciled)-abs(cashback_amt)), currency_obj=inv.company_id.currency_id))
+			revision_amt=0.0
+			revision_journal_ids = self.pool.get('account.journal').search(cr,uid,[('type','=','sale_refund'),('compute_as_cb','=',True)])
+			revision_move_lines = [('partner_id','=',inv.partner_id and inv.partner_id.id),('account_id.type','=','receivable'),('credit','>',0.0),('journal_id','=',revision_journal_ids)]
+
+			if revision_journal_ids:
+				revisions = self.pool.get ('account.move.line').browse(cr,uid,revision_journal_ids)
+				for revision in revisions:
+					if revision.amount_residual>0.0:
+						revision_amt+=revision.amount_residual
+
+			text+="Revisian : %s\n"%(rml_parser.formatLang(abs(revision_amt), currency_obj=inv.currency_id))
+
+
+			refund_cost_amt=0.0
+			refund_cost_journal_ids = self.pool.get('account.journal').search(cr,uid,[('type','=','sale_refund'),('compute_as_cb','=',False)])
+			refund_cost_move_lines = [('partner_id','=',inv.partner_id and inv.partner_id.id),('account_id.type','=','receivable'),('credit','>',0.0),('journal_id','=',refund_cost_journal_ids)]
+
+			if refund_cost_journal_ids:
+				refund_costs = self.pool.get ('account.move.line').browse(cr,uid,refund_cost_journal_ids)
+				for refund_cost in refund_costs:
+					if refund_cost.amount_residual>0.0:
+						refund_cost_amt+=refund_cost.amount_residual
+
+			text+="Penggantian : %s\n"%(rml_parser.formatLang(abs(refund_cost_amt), currency_obj=inv.currency_id))
+
+
+			text+="\nTotal : %s\n"%(rml_parser.formatLang((total_unpaid-abs(unreconciled)-abs(cashback_amt)-abs(revision_amt)-abs(refund_cost_amt)), currency_obj=inv.company_id.currency_id))
 			text+="\nPembayaran dapat melalui : \n\nBANK BCA \nNO rekening : 270 390 3088 \nAtas Nama: Sicepat Ekspres Indonesia\n\nBANK MANDIRI \nNO rekening : 121 000 655 7171 \nAtas Nama : Sicepat Ekspres Indonesia\n\nBANK BNI \nNO rekening : 4964 66952\nAtas Nama : Sicepat Ekspres Indonesia\n\nBANK BRI \nNO rekening : 0338 01 001027 30 7\nAtas Nama : Sicepat Ekspres Indonesia"
 			text+="\n\nHarap isi berita acara nama OLSHOP dan tanggal pengiriman di berita acara.\nContoh: 'SiCepatShop 19Feb15'"
 
