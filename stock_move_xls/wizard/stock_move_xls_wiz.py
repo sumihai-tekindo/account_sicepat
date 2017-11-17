@@ -9,6 +9,7 @@ class stock_wizard(models.TransientModel):
     product_ids = fields.Many2many('product.product', string = 'Product')
     start_date = fields.Date(default=fields.Date.today)
     end_date = fields.Date(default=fields.Date.today)
+    date_of_transfer = fields.Boolean()
 
 
     @api.multi
@@ -24,12 +25,17 @@ class stock_wizard(models.TransientModel):
         clause_2 = []
         if self.start_date:
             clause_2 = [('date_expected','>=',self.start_date)]
+            if self.date_of_transfer:
+                clause_2 = [('picking_id.date_done','>=',self.start_date)]
         elif self.end_date:
             clause_2 = [('date_expected','<=',self.end_date)]
+            if self.date_of_transfer:
+                clause_2 = [('picking_id.date_done','>=',self.end_date)]
         elif self.start_date and self.end_date:
             clause_2 = [('date_expected','>=',self.start_date),('date_expected','<=',self.end_date)]
+            if self.date_of_transfer:
+                clause_2 = [('picking_id.date_done','>=',self.start_date),('picking_id.date_done','<=',self.end_date)]
         stock_ids = self.env['stock.move'].search(clause_1 + clause_2, order = 'location_id, location_dest_id, date_expected, account_analytic_dest_id')
-        print('stock_ids: %s' % stock_ids)
         stock_ids= [move.id for move in stock_ids]
         datas={
             'model': 'stock.move',
