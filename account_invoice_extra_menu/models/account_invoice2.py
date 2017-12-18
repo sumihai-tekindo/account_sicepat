@@ -24,9 +24,11 @@ class account_invoice_collection(osv.osv_memory):
 		rml_parser = report_sxw.rml_parse(cr, uid, 'reconciliation_widget_aml', context=context)
 		if invoice_ids and context.get('active_model',False)=='account.invoice':
 			invoices = self.pool.get('account.invoice').browse(cr,uid,invoice_ids,context=context)
+			partner = self.pool.get('res.partner').browse(cr,uid,[invoices[0].partner_id.id])
+			text = "%s\n\n"%(partner and partner.category_id and partner.category_id[0].name)
 			cust = []
 			total_unpaid = 0.0
-			text = "%s \n"%(invoices and invoices[0] and invoices[0].partner_id and invoices[0].partner_id.name)
+			text += "%s \n"%(invoices and invoices[0] and invoices[0].partner_id and invoices[0].partner_id.name)
 			date_dict = {}
 			for inv in invoices:
 				key = inv.date_invoice
