@@ -49,8 +49,9 @@ class account_invoice_collection(osv.osv_memory):
 			text+="\nSubTotal : %s\n"%(rml_parser.formatLang(total_unpaid, currency_obj=inv.currency_id))
 
 			cb_model, journal_id = self.pool.get('ir.model.data').get_object_reference(cr, uid,'account_cash_back','cash_back_journal')
-
-			unreconciled_payment = [('partner_id','=',inv.partner_id and inv.partner_id.id),('reconcile_id','=',False),('account_id.type','=','receivable'),('credit','>',0.0),('journal_id','!=',journal_id)]
+			journal_bank = self.pool.get('account.journal').search(cr,uid,[('type','in',('cash','bank'))])
+			unreconciled_payment = [('partner_id','=',inv.partner_id and inv.partner_id.id),('reconcile_id','=',False),
+			('account_id.type','=','receivable'),('credit','>',0.0),('journal_id','!=',journal_id),('journal_id','in',journal_bank)]
 			aml_ids = self.pool.get('account.move.line').search(cr,uid,unreconciled_payment)
 
 
@@ -179,8 +180,8 @@ class account_invoice_collection(osv.osv_memory):
 			# text+="\nSubTotal : %s\n"%(rml_parser.formatLang(total_unpaid, currency_obj=inv.currency_id or inv.company_id.currency_id))
 
 
-
-			unreconciled_payment = [('partner_id','=',inv.partner_id and inv.partner_id.id),('reconcile_id','=',False),('account_id.type','=','receivable'),('credit','>',0.0)]
+			journal_bank = self.pool.get('account.journal').search(cr,uid,[('type','in',('cash','bank'))])
+			unreconciled_payment = [('partner_id','=',inv.partner_id and inv.partner_id.id),('reconcile_id','=',False),('account_id.type','=','receivable'),('credit','>',0.0),('journal_id','in',journal_bank)]
 			aml_ids = self.pool.get('account.move.line').search(cr,uid,unreconciled_payment)
 
 			unreconciled=0.0
