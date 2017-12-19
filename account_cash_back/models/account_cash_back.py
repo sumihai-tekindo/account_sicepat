@@ -674,6 +674,10 @@ class account_cashback_line(osv.osv):
 		self.write(cr,uid,ids,{'state':'draft'}, context=context)
 		return True
 
+	def set_to_done(self,cr,uid,ids,context=None):
+		self.write(cr,uid,ids,{'state':'done'}, context=context)
+		return True
+
 	def set_to_expired(self,cr,uid,ids=None,context=None):
 		if not ids:
 			cr.execute("select id from account_cashback_line where state='approved'")
