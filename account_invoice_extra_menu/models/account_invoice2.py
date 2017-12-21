@@ -181,7 +181,9 @@ class account_invoice_collection(osv.osv_memory):
 
 
 			journal_bank = self.pool.get('account.journal').search(cr,uid,[('type','in',('cash','bank'))])
-			unreconciled_payment = [('partner_id','=',inv.partner_id and inv.partner_id.id),('reconcile_id','=',False),('account_id.type','=','receivable'),('credit','>',0.0),('journal_id','in',journal_bank)]
+			unreconciled_payment = [('partner_id','=',inv.partner_id and inv.partner_id.id),('reconcile_id','=',False),
+					('account_id.type','=','receivable'),('credit','>',0.0),('journal_id','in',journal_bank)]
+			
 			aml_ids = self.pool.get('account.move.line').search(cr,uid,unreconciled_payment)
 
 			unreconciled=0.0
@@ -204,8 +206,9 @@ class account_invoice_collection(osv.osv_memory):
 
 			revision_amt=0.0
 			revision_journal_ids = self.pool.get('account.journal').search(cr,uid,[('type','=','sale_refund'),('compute_as_cb','=',True)])
-			revision_move_lines = [('partner_id','=',inv.partner_id and inv.partner_id.id),('account_id.type','=','receivable'),('credit','>',0.0),('journal_id','=',revision_journal_ids)]
-
+			revision_move_lines = [('partner_id','=',inv.partner_id and inv.partner_id.id),('account_id.type','=','receivable'),('credit','>',0.0),
+			('journal_id','in',revision_journal_ids)]
+			print "-----------------",revision_move_lines
 			if revision_journal_ids:
 				revisions = self.pool.get ('account.move.line').browse(cr,uid,revision_journal_ids)
 				for revision in revisions:
