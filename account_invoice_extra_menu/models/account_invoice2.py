@@ -89,9 +89,10 @@ class account_invoice_collection(osv.osv_memory):
 			revision_amt=0.0
 			revision_journal_ids = self.pool.get('account.journal').search(cr,uid,[('type','=','sale_refund'),('compute_as_cb','=',True)])
 			revision_move_lines = [('partner_id','=',inv.partner_id and inv.partner_id.id),('account_id.type','=','receivable'),('credit','>',0.0),('journal_id','=',revision_journal_ids)]
+			revision_ids = self.pool.get('account.move.line').search(cr,uid,revision_move_lines)
 
-			if revision_journal_ids:
-				revisions = self.pool.get ('account.move.line').browse(cr,uid,revision_journal_ids)
+			if revision_ids:
+				revisions = self.pool.get ('account.move.line').browse(cr,uid,revision_ids)
 				for revision in revisions:
 					if revision.amount_residual>0.0:
 						revision_amt+=revision.amount_residual
@@ -208,9 +209,11 @@ class account_invoice_collection(osv.osv_memory):
 			revision_journal_ids = self.pool.get('account.journal').search(cr,uid,[('type','=','sale_refund'),('compute_as_cb','=',True)])
 			revision_move_lines = [('partner_id','=',inv.partner_id and inv.partner_id.id),('account_id.type','=','receivable'),('credit','>',0.0),
 			('journal_id','in',revision_journal_ids)]
+			revision_ids = self.pool.get('account.move.line').search(cr,uid,revision_move_lines)
+			
 			print "-----------------",revision_move_lines
-			if revision_journal_ids:
-				revisions = self.pool.get ('account.move.line').browse(cr,uid,revision_journal_ids)
+			if revision_ids:
+				revisions = self.pool.get ('account.move.line').browse(cr,uid,revision_ids)
 				for revision in revisions:
 					if revision.amount_residual>0.0:
 						revision_amt+=revision.amount_residual
