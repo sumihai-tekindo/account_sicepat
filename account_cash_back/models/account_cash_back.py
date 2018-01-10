@@ -448,16 +448,16 @@ class account_cashback_line(osv.osv):
 								select ail.partner_id,
 								round(sum(
 										case 
-											when ai.type='out_invoice' and ail.discount=0.0 
+											when ai.type='out_invoice' and ail.discount=0.0 and ail.layanan=1
 												then (100.00/(100.00-rp.current_discount))*(ail.price_unit)*ail.quantity 
-											when ai.type='out_invoice' and ail.discount<> 0.0 
+											when ai.type='out_invoice' and ail.discount<> 0.0 and ail.layanan=1
 												then ail.price_unit*ail.quantity
-											when ai.type='out_refund' and ail.discount=0.0
+											when ai.type='out_refund' and ail.discount=0.0 
 												then (100.00/(100.00-rp.current_discount))*(-1*ail.price_unit)*ail.quantity
-											when ai.type='out_refund' and ail.discount<>0.0
+											when ai.type='out_refund' and ail.discount<>0.0 
 												then -1*ail.price_unit*ail.quantity
 										end),2) as omzet_before_disc,
-								sum(case when ai.type='out_invoice' then ail.price_subtotal else -1*ail.price_subtotal end) as after_disc
+								sum(case when ai.type='out_invoice' and ail.layanan=1 then ail.price_subtotal when ai.type!='out_invoice' -1*ail.price_subtotal end) as after_disc
 								from account_invoice_line ail 
 								left join account_invoice ai on ail.invoice_id=ai.id
 								left join res_partner rp on ai.partner_id=rp.id
@@ -570,16 +570,16 @@ class account_cashback_line(osv.osv):
 								select ail.partner_id,
 								round(sum(
 										case 
-											when ai.type='out_invoice' and ail.discount=0.0 
+											when ai.type='out_invoice' and ail.discount=0.0 and ail.layanan=1
 												then (100.00/(100.00-rp.current_discount))*(ail.price_unit)*ail.quantity 
-											when ai.type='out_invoice' and ail.discount<> 0.0 
+											when ai.type='out_invoice' and ail.discount<> 0.0 and ail.layanan=1
 												then ail.price_unit*ail.quantity
-											when ai.type='out_refund' and ail.discount=0.0
+											when ai.type='out_refund' and ail.discount=0.0 
 												then (100.00/(100.00-rp.current_discount))*(-1*ail.price_unit)*ail.quantity
 											when ai.type='out_refund' and ail.discount<>0.0
 												then -1*ail.price_unit*ail.quantity
 										end),2) as omzet_before_disc,
-								sum(case when ai.type='out_invoice' then ail.price_subtotal else -1*ail.price_subtotal end) as after_disc
+								sum(case when ai.type='out_invoice' and ail.layanan=1 then ail.price_subtotal when ai.type!='out_invoice' -1*ail.price_subtotal end) as after_disc
 								from account_invoice_line ail 
 								left join account_invoice ai on ail.invoice_id=ai.id
 								left join res_partner rp on ai.partner_id=rp.id
