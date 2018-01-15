@@ -1,0 +1,12 @@
+<openerp>
+	<data>
+		<record id="action_gross_sale_xls" model="ir.actions.report.xml">
+			<field name="name">Gross Sale</field>
+			<field name="model">gross.sale</field>
+			<field name="type">ir.actions.report.xml</field>
+			<field name="report_name">gross.sale.xls</field>
+			<field name="report_type">xls</field>
+			<field name="auto" eval="False"/>
+		</record>	
+	</data>
+</openerp>
