@@ -21,17 +21,38 @@ class gross_sale_xls_parser(report_sxw.rml_parse):
     def __init__(self, cr, uid, name, context):
         super(gross_sale_xls_parser, self).__init__(cr, uid, name,
                                                          context=context)
-        # self.localcontext.update({
-        #     'get_start_periode': self._get_from_periode,
-        #     'get_end_periode': self._get_to_periode,
-        #     })
-        # self.context = context
+        self.localcontext.update({
+            'get_lines': self._get_lines,
+            })
+        self.context = context
 
-    # def group_by_partner(self,objects):
-    #     vars={}
-    #     for inv in objects:
-    #         for line in inv:
-    #             if vars.get(inv.partner_id.id):
+    def _get_lines(self,objects):
+        lines = {}
+        for inv in objects:
+            key = inv.partner_id.id
+            for line in inv.invoice_line:
+                gross_amt = inv.journal_id.type=='sale' and line.price_unit*line.quantity or 0.0
+                discount_amt = inv.journal_id.type=='sale' and line.price_unit*line.quantity*line.discount/100 or 0.0
+                cashback_amt = (inv.journal_id.type=='sale_refund' and inv.journal_id.cb_journal) and line.price_subtotal or 0.0
+                rev_amt = (inv.journal_id.type=='sale_refund' and not inv.journal_id.cb_journal) and line.price_subtotal or 0.0
+                net_amt = gross_amt - discount_amt - cashback_amt - rev_amt
+                if lines.get(key):
+                    lines[key]['gross_amt'] += gross_amt
+                    lines[key]['discount_amt'] += discount_amt
+                    lines[key]['cashback_amt'] += cashback_amt
+                    lines[key]['rev_amt'] += rev_amt
+                    lines[key]['net_amt'] += net_amt
+                else:
+                    lines[key] = {
+                        'customer_name': inv.partner_id.name,
+                        'gross_amt': gross_amt,
+                        'discount_amt': discount_amt,
+                        'cashback_amt': cashback_amt,
+                        'rev_amt': rev_amt,
+                        'net_amt': net_amt,
+                    }
+        return [v for k, v in sorted(lines.items())]
+
                     
 
 
@@ -93,47 +114,32 @@ class gross_sale_xls(report_xls):
         for head in headers:
             ws.write(5,col,head,normal_bold_style_b)
             col+=1
+        # print "--------------",objects
+        col = 0
+        row=6
+        max_len = [0,0,0,0,0,0]
+        for rec in sorted(_p.get_lines(objects),key=lambda x: x['customer_name']):
+            ws.write(row,0,rec['customer_name'],normal_style)
+            ws.write(row,1,rec['gross_amt'],normal_style)
+            ws.write(row,2,rec['discount_amt'],normal_style)
+            ws.write(row,3,rec['cashback_amt'],normal_style)
+            ws.write(row,4,rec['rev_amt'],normal_style)
+            ws.write(row,5,rec['net_amt'],normal_style)
             
-        # col = 0
-        # row=6
-        # max_len = [0,0,0,0,0,0]
-        # for rec in objects:
-        #     prod = rec.product_id and rec.product_id.name_get() and rec.product_id.name_get()[0][1] or rec.product_id.name or ''
-        #     ws.write(row,0,rec.location_id.complete_name,normal_style)
-        #     ws.write(row,1,rec.location_dest_id.complete_name,normal_style)
-        #     ws.write(row,2,rec.account_analytic_dest_id.name,normal_style)
-        #     ws.write(row,3,rec.date_expected,normal_style)
-        #     ws.write(row,4,rec.picking_id.date_done,normal_style)
-        #     ws.write(row,5,rec.name,normal_style)
-        #     ws.write(row,6,prod,normal_style)
-        #     ws.write(row,7,rec.picking_id.name,normal_style)
-        #     ws.write(row,8,rec.picking_type_id.name,normal_style)
-        #     ws.write(row,9,rec.product_uom_qty,normal_style)
-        #     ws.write(row,10,rec.product_uom.name,normal_style)
-        #     ws.write(row,11,rec.price_unit,normal_style)
-        #     ws.write(row,12,rec.state,normal_style)
-            
-        #     max_len[0]=len(str(rec.location_id.complete_name)) > max_len[0] and len(str(rec.location_id.complete_name)) or max_len[0]
-        #     max_len[1]=len(str(rec.location_dest_id.complete_name)) > max_len[1] and len(str(rec.location_dest_id.complete_name)) or max_len[1]
-        #     max_len[2]=len(str(rec.account_analytic_dest_id.name)) > max_len[2] and len(str(rec.account_analytic_dest_id.name)) or max_len[2]
-        #     max_len[3]=len(str(rec.date_expected)) > max_len[3] and len(str(rec.date_expected)) or max_len[3]
-        #     max_len[4]=len(str(rec.picking_id.date_done)) > max_len[4] and len(str(rec.picking_id.date_done)) or max_len[4]
-        #     max_len[5]=len(str(rec.name)) > max_len[5] and len(str(rec.name)) or max_len[5]
-        #     max_len[6]=len(str(prod)) > max_len[6] and len(str(prod)) or max_len[6]
-        #     max_len[7]=len(str(rec.picking_id.name)) > max_len[7] and len(str(rec.picking_id.name)) or max_len[7]
-        #     max_len[8]=len(str(rec.picking_type_id.name)) > max_len[8] and len(str(rec.picking_type_id.name)) or max_len[8]
-        #     max_len[9]=len(str(rec.product_uom_qty)) > max_len[9] and len(str(rec.product_uom_qty)) or max_len[9]
-        #     max_len[10]=len(str(rec.product_uom.name)) > max_len[10] and len(str(rec.product_uom.name)) or max_len[10]
-        #     max_len[11]=len(str(rec.price_unit)) > max_len[11] and len(str(rec.price_unit)) or max_len[11]
-        #     max_len[12]=len(str(rec.state)) > max_len[12] and len(str(rec.state)) or max_len[12]
+            max_len[0]=len(str(rec['customer_name'])) > max_len[0] and len(str(rec['customer_name'])) or max_len[0]
+            max_len[1]=len(str(rec['gross_amt'])) > max_len[1] and len(str(rec['gross_amt'])) or max_len[1]
+            max_len[2]=len(str(rec['discount_amt'])) > max_len[2] and len(str(rec['discount_amt'])) or max_len[2]
+            max_len[3]=len(str(rec['cashback_amt'])) > max_len[3] and len(str(rec['cashback_amt'])) or max_len[3]
+            max_len[4]=len(str(rec['rev_amt'])) > max_len[4] and len(str(rec['rev_amt'])) or max_len[4]
+            max_len[5]=len(str(rec['net_amt'])) > max_len[5] and len(str(rec['net_amt'])) or max_len[5]
 
-        #     row+=1
+            row+=1
             
-        # for x in range(0,12):
-        #     ws.col(x).width=max_len[x]*256
+        for x in range(0,5):
+            ws.col(x).width=max_len[x]*256
         
         
         
-gross_sale_xls('report.gross.sale.xls', 'gross.sale.wizard', parser=gross_sale_xls_parser)
+gross_sale_xls('report.gross.sale.xls', 'account.invoice', parser=gross_sale_xls_parser)
             
         
