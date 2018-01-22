@@ -433,17 +433,17 @@ class account_cashback_line(osv.osv):
 							left join res_partner rp on aml.partner_id=rp.id
 							left join account_period ap on aml.period_id=ap.id
 							left join (
-								select sum(aml2.credit) as credit,aml2.reconcile_partial_id,aml2.partner_id  
+								select sum(aml2.credit) as credit ,aml2.reconcile_partial_id,aml2.partner_id  
 								from account_move_line aml2 
 								where aml2.credit>0.0 and aml2.reconcile_partial_id is not NULL 
 								group by aml2.reconcile_partial_id,aml2.partner_id ) rec_aml2 
-								on aml.reconcile_partial_id=rec_aml2.reconcile_partial_id and aml.debit>0.0
+								on aml.reconcile_partial_id=rec_aml2.reconcile_partial_id
 							left join (
 								select sum(aml3.credit) as credit,aml3.reconcile_id,aml3.partner_id  
 								from account_move_line aml3 
 								where aml3.credit>0.0 and aml3.reconcile_id is not NULL 
 								group by aml3.reconcile_id,aml3.partner_id ) rec_aml3 
-								on aml.reconcile_id=rec_aml3.reconcile_id and aml.debit>0.0
+								on aml.reconcile_id=rec_aml3.reconcile_id
 							left join (
 								select ail.partner_id,
 								round(sum(
@@ -543,9 +543,9 @@ class account_cashback_line(osv.osv):
 							coalesce(rp.current_discount,0.00) as current_disc,
 							sum(case when aj.type ='sale_refund' and (aj.cb_journal=False or aj.cb_journal is NULL) and (aj.compute_as_cb=True or aj.compute_as_cb is True) then aml.credit else 0.00 END) as credit_note,
 							sum(case when aml.reconcile_id is not NULL and aml.debit>0.00  then coalesce(rec_aml3.credit,0.00)
-								when aml.reconcile_partial_id is not NULL and aml.debit>0.00 then coalesce(rec_aml2.credit,0.00)
-								else 0.00
-								END) as omzet_paid,
+							when aml.reconcile_partial_id is not NULL and aml.debit>0.00 then coalesce(rec_aml2.credit,0.00)
+							else 0.00
+							END) as omzet_paid,
 							sum(case when aml.reconcile_id is NULL and aml.reconcile_partial_id is NULL and aml.credit>0.0 and aj.type != 'sale_refund' then coalesce(aml.credit,0.00)
 								else 0.00
 								END) as deposit
@@ -555,17 +555,17 @@ class account_cashback_line(osv.osv):
 							left join res_partner rp on aml.partner_id=rp.id
 							left join account_period ap on aml.period_id=ap.id
 							left join (
-								select sum(aml2.credit) as credit,aml2.reconcile_partial_id,aml2.partner_id  
+								select sum(aml2.credit) as credit ,aml2.reconcile_partial_id,aml2.partner_id  
 								from account_move_line aml2 
 								where aml2.credit>0.0 and aml2.reconcile_partial_id is not NULL 
 								group by aml2.reconcile_partial_id,aml2.partner_id ) rec_aml2 
-								on aml.reconcile_partial_id=rec_aml2.reconcile_partial_id and aml.debit>0.0
+								on aml.reconcile_partial_id=rec_aml2.reconcile_partial_id
 							left join (
 								select sum(aml3.credit) as credit,aml3.reconcile_id,aml3.partner_id  
 								from account_move_line aml3 
 								where aml3.credit>0.0 and aml3.reconcile_id is not NULL 
 								group by aml3.reconcile_id,aml3.partner_id ) rec_aml3 
-								on aml.reconcile_id=rec_aml3.reconcile_id and aml.debit>0.0
+								on aml.reconcile_id=rec_aml3.reconcile_id
 							left join (
 								select ail.partner_id,
 								round(sum(

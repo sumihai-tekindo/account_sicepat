@@ -40,11 +40,19 @@ class account_invoice_line(models.Model):
         if self.invoice_id:
             self.price_subtotal = self.invoice_id.currency_id.round(self.price_subtotal)
 
+
+    def _compute_insurance_fee(self):
+        insurance_fee = self.insurance_value*((0.2)/100)
+
+
+    
     extra_shipping_cost = fields.Float(string='Extra Shipping Cost', digits= dp.get_precision('Product Price'), default=0.0)
     insurance_value = fields.Float(string='Insurance Value', digits= dp.get_precision('Product Price'), default=0.0)
-    insurance_fee = fields.Float(string='Insurance Fee', digits= dp.get_precision('Product Price'), default=0.0)
-    admcost_insurance = fields.Float(string='Cost Administration of Insurance', digits= dp.get_precision('Product Price'), default=0.0)
+    insurance_fee = fields.Float(string='Insurance Fee', digits= dp.get_precision('Product Price'), default=0.0 , readonly=True)
+    admcost_insurance = fields.Float(string='Cost Administration of Insurance', digits= dp.get_precision('Product Price'), default=5000.0, readonly=True)
     packing_cost = fields.Float(string='Packing Cost', digits= dp.get_precision('Product Price'), default=0.0)
+
+
 
 class account_invoice_tax(models.Model):
     _inherit = "account.invoice.tax"
