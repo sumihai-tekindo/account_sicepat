@@ -48,7 +48,7 @@ class account_invoice_line(models.Model):
     
     extra_shipping_cost = fields.Float(string='Extra Shipping Cost', digits= dp.get_precision('Product Price'), default=0.0)
     insurance_value = fields.Float(string='Insurance Value', digits= dp.get_precision('Product Price'), default=0.0)
-    insurance_fee = fields.Float(string='Insurance Fee', digits= dp.get_precision('Product Price'), default=0.0 , readonly=True)
+    insurance_fee = fields.Float(string='Insurance Fee', digits= dp.get_precision('Product Price'), default=0.0)
     admcost_insurance = fields.Float(string='Cost Administration of Insurance', digits= dp.get_precision('Product Price'), default=0.0)
     packing_cost = fields.Float(string='Packing Cost', digits= dp.get_precision('Product Price'), default=0.0)
 
