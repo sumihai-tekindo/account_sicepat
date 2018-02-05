@@ -610,7 +610,7 @@ class account_cashback_line(osv.osv):
 										sum(case when aml.reconcile_id is not NULL and aml.debit>0.00  then coalesce(rec_aml3.credit,0.00)
 											when aml.reconcile_partial_id is not NULL and aml.debit>0.00 then coalesce(rec_aml2.credit,0.00)
 											else 0.00
-											END) as omzet_paid,
+											END) as omzet_paid
 										from account_move_line aml
 										left join account_move am on aml.move_id=am.id
 										left join account_invoice ai on ai.move_id=am.id
