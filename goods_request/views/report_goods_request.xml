@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <report 
+            id="report_gr_form" 
+            model="goods.request" 
+            string="Print Goods Request"
+            report_type="qweb-pdf"
+            name="goods_request.report_goods_request" 
+            file="goods_request.report_goods_request"
+        />
+
+<template id="report_goods_request">
+    
+
+    <t t-call="report.html_container">
+
+        <t t-foreach="docs" t-as="o">
+            <div class="header">
+                <div class="row zero_min_height">
+                    <div class="col-xs-12">
+                        <div style="border-bottom: 4px double black;"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <h2><strong>GOODS REQUEST</strong></h2>
+                </div>
+                <div class="row">
+                    <h4><strong><span t-esc="'No GR:'+o.name"/></strong></h4>
+                </div>
+            </div>
+                <div class="page">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td><strong>Nama User</strong></td>
+                            <td><span t-field="o.user"/></td>
+                            <td></td>
+                            <td><strong>Cabang</strong></td>
+                            <td><span t-field="o.cabang"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tanggal Request</strong></td>
+                            <td><span t-field="o.tgl_req"/></td>
+                            <td></td>
+                            <td><strong>Deadline</strong></td>
+                            <td><span t-field="o.deadline"/></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center; border-bottom: 1px solid black;" colspan="5"><strong>Detail Barang</strong></td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid black;">Product</td>
+                            <td style="border: 1px solid black;">Availibility</td>
+                            <td style="border: 1px solid black;">Quantity</td>
+                            <td style="border: 1px solid black;">Quantity Approve</td>
+                            <td style="border: 1px solid black;">UOM</td>
+                        </tr>
+                        <tr t-foreach="o.goods_request_ids" t-as="line">
+                            <td style="border: 1px solid black;"><span t-field="line.product_id"/></td>
+                            <td style="border: 1px solid black;"><span t-field="line.qty_available"/></td>
+                            <td style="border: 1px solid black;"><span t-field="line.qty"/></td>
+                            <td style="border: 1px solid black;"><span t-field="line.qty_app"/></td>
+                            <td style="border: 1px solid black;"><span t-field="line.uom"/></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="footer">
+                    <div class="text-center" style="border-top: 4px double black;">
+                        
+                    </div>
+                </div>   
+            
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

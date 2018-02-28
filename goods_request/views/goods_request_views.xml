@@ -1,0 +1,85 @@
+<openerp>
+    <data>
+<!--	START MEMORANDUM	-->
+        <record model="ir.actions.act_window" id="goods_req_action">
+            <field name="name">Goods Request</field>
+            <field name="res_model">goods.request</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('user','=',uid)]</field>
+
+        </record>
+        <record model="ir.ui.view" id="goods_req_tree_view">
+            <field name="name">goods.request.tree</field>
+            <field name="model">goods.request</field>
+            <field name="arch" type="xml">
+                <tree string="Goods Request Tree">
+                    <field name="name"/>
+                    <field name="user"/>
+                    <field name="tgl_req"/>
+                    <field name="deadline"/>
+                    <field name="cabang"/>
+                    <field name="goods_request_ids"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="goods_req_form_view">
+            <field name="name">goods.request.form</field>
+            <field name="model">goods.request</field>
+            <field name="arch" type="xml">
+                <form string="Goods Request Form">
+                    <header>
+                        <button name="action_confirmed" type="object"
+                                string="Confirmed" groups="stock.group_stock_manager" class="oe_highlight" states="draft"/>
+                        <button name="action_rejected" type="object"
+                                string="Rejected" class="oe_highlight" states="draft" groups="stock.group_stock_manager"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="True"/>
+                        </h1>
+                    </div>
+                    <group string="Goods Request">
+                        <group>
+                            <group>
+                                <field name="user"/>
+                                <field name="cabang"/>
+                                <field name="loc" invisible="1"/>
+                                <field name="is_cabang" invisible="1"/>
+                                <field name="is_pusat" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="tgl_req"/>
+                                <field name="deadline"/>
+                            </group>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string = 'Products'>
+                            <field name="goods_request_ids">
+                                <tree editable='bottom'>
+                                    <field name="product_id" domain="['&amp;','|','&amp;',('cabang','=',parent.is_cabang),('pusat','=',parent.is_pusat),('cabang','=',True),('pusat','=',True)]"/>
+                                    <field name="qty_available"/>
+                                    <field name="qty"/>
+                                    <field name="qty_app"/>
+                                    <field name="uom"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+<!--    END OF MEMORANDUM    -->
+        
+<!--    START MENU ITEM    -->
+        <menuitem id="goods_request" name="Goods Request" 
+                  parent="stock_receipt.menu_stock_receipt_root"
+                  action="goods_req_action" sequence="2"/>
+<!--    END OF MENU ITEM    	-->
+    </data>
+</openerp>
