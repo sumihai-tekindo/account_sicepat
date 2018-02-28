@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="user_location_form" model="ir.ui.view">
+            <field name="name">user.location.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div/group[1]" position="inside">
+                    <field name="loc"/>
+                    <field name="location"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
