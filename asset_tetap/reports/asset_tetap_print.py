@@ -135,7 +135,7 @@ class asset_tetap_xls(report_xls):
                 row+=1
             
             for x in range(9):
-                ws.col(x).width=max_len[x]*256 
+                ws.col(x).width=max_len[x]*256 > 65535 and 65535 or max_len[x]*256
 
 
 
