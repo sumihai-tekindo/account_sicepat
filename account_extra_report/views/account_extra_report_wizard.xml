@@ -11,6 +11,7 @@
 						<field name="end_date" placeholder="End Date"/>
 						<field name="display_detail" attrs="{'invisible': [('report_type','not in',['daily_receivable','outstanding_followup'])]}"/>
 						<field name="group_by" attrs="{'invisible': [('display_detail','=',False)],'required': [('display_detail','=',True)]}"/>
+						<field name="display_payment" attrs="{'invisible': [('display_detail','=',False)]}"/>
 					</group>
 					<notebook>
 						<page string="Filter Accounts">

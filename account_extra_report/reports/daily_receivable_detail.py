@@ -141,13 +141,14 @@ class daily_receivable_detail_xls(report_xls):
 		cell_style = xlwt.easyxf(cell_format)
 		cell_style_decimal = xlwt.easyxf(cell_format + _xs['right'], num_format_str=report_xls.decimal_format)
 		cell_style_currency = xlwt.easyxf(cell_format + _xs['right'], num_format_str='_(%s* #,##0.00_);_(%s* (#,##0.00);_(%s* "-"??_);_(@_)' % (_p.res_company.currency_id.symbol, _p.res_company.currency_id.symbol, _p.res_company.currency_id.symbol))
-
+		cell_style_currency2 = xlwt.easyxf(cell_format + _xs['right'], num_format_str='_(#,##0.00_);(#,##0.00)')
+		
 		c_specs = [
 			('name', 5, 0, 'text', _('Total:'), None, cell_style),
 			('date', 1, 0, 'text', None),
 			('move', 1, 0, 'text', None),
 			('date_due', 1, 0, 'text', None),
-			('balance', 2, 0, 'number', sum(line['balance'] for line in filter(lambda x: x['level'] == 0, _p.result_receivable())), None, cell_style_currency),
+			('balance', 2, 0, 'number', sum(line['balance'] for line in filter(lambda x: x['level'] == 0, _p.result_receivable())), None, cell_style_currency2),
 		]
 		row_data = self.xls_row_template(c_specs, [x[0] for x in c_specs])
 		row_position = self.xls_write_row(
@@ -155,6 +156,7 @@ class daily_receivable_detail_xls(report_xls):
 		return row_position
 
 	def print_row_data(self, ws, _p, row_line, row_position, xlwt, _xs):
+		# print row_line;
 		cell_format = _xs['borders_bottom']
 		if not row_line.get('level') > 3:
 			cell_format += _xs['bold']
@@ -162,7 +164,9 @@ class daily_receivable_detail_xls(report_xls):
 		cell_style = xlwt.easyxf(cell_format)
 		cell_style_indent = xlwt.easyxf(cell_format + _xs['indent'])
 		cell_style_decimal = xlwt.easyxf(cell_format + _xs['right'], num_format_str=report_xls.decimal_format)
+		cell_style_decimal = xlwt.easyxf(cell_format + _xs['right'], num_format_str=report_xls.decimal_format)
 		cell_style_currency = xlwt.easyxf(cell_format + _xs['right'], num_format_str='_(%s* #,##0.00_);_(%s* (#,##0.00);_(%s* "-"??_);_(@_)' % (_p.res_company.currency_id.symbol, _p.res_company.currency_id.symbol, _p.res_company.currency_id.symbol))
+		cell_style_currency2 = xlwt.easyxf(cell_format + _xs['right'], num_format_str='_(#,##0.00_);(#,##0.00)')
 
 		if row_line['level'] == 4:
 			c_specs = [
@@ -170,7 +174,7 @@ class daily_receivable_detail_xls(report_xls):
 				('date', 1, 0, 'text', row_line['date'], None, cell_style),
 				('move', 1, 0, 'text', row_line['move_name'], None, cell_style),
 				('date_due', 1, 0, 'text', row_line['date_maturity'], None, cell_style),
-				('balance', 2, 0, 'number', row_line['balance'], None, cell_style_currency),
+				('balance', 2, 0, 'number', row_line['balance'], None, cell_style_currency2),
 			]
 		else:
 			c_specs = [
@@ -178,7 +182,7 @@ class daily_receivable_detail_xls(report_xls):
 				('date', 1, 0, 'text', None),
 				('move', 1, 0, 'text', None),
 				('date_due', 1, 0, 'text', None),
-				('balance', 2, 0, 'number', row_line['balance'], None, cell_style_currency),
+				('balance', 2, 0, 'number', row_line['balance'], None, cell_style_currency2),
 			]
 # 		if row_line['type'] == 1:
 # 			balance = row_line['sdebit'] - row_line['scredit'] + row_line['sdebit_full'] - row_line['scredit_full']

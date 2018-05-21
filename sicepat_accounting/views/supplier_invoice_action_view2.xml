@@ -1,0 +1,13 @@
+<openerp>
+	<data>
+		<report 
+            id="sicepat_erp.action_supplier_invoice_report_document" 
+            model="account.invoice" 
+            string="Supplier Invoice"
+            report_type="qweb-pdf" 
+            name="sicepat_accounting.report_supplier_invoice_with_tax" 
+            file="sicepat_accounting.report_supplier_invoice_view2.xml" 
+            menu="True" 
+        />
+	</data>
+</openerp>

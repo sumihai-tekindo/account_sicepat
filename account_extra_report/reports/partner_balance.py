@@ -20,6 +20,7 @@
 #
 ##############################################################################
 
+from openerp.osv import fields,osv
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
@@ -99,7 +100,13 @@ class partner_balance(report_sxw.rml_parse):
         self.group_by = data.get('group_by', 'group_fiscal')
         self.account_ids = data.get('account_ids')
         self.target_move = data.get('target_move', 'all')
-        lines = self.lines()
+
+        display_payment = data.get('display_payment')
+        if display_payment :
+            lines = self.lines_baru()
+        else :
+            lines = self.lines()
+
         result_with_partner = self.get_result_with_partner(lines)
         result_without_partner = self.get_result_without_partner(lines)
         result_followup = self.get_result_followup(lines)
@@ -214,18 +221,26 @@ class partner_balance(report_sxw.rml_parse):
                 '&', ('state', '!=', 'draft'), 
                 ('move_id.state', 'in', tuple(move_state))
             ]
+
         if self.start_date:
             domain += [('date','>=', self.start_date)]
         if self.end_date:
             domain += [('date', '<=', self.end_date)]
-#         if data.get('start_date') and data.get('end_date'):
-#             domain += ['&', ('date', '<=', data['end_date']), ('date','>=', data['start_date'])]
+
+        # if data.get('start_date') and data.get('end_date'):
+        #     domain += ['&', ('date', '<=', data['end_date']), ('date','>=', data['start_date'])]
+
         if self.account_ids:
             domain += [('account_id', 'in', tuple(self.account_ids))]
 
         receivables = []
+        num = 0;
         lines = aml_obj.search(self.cr, self.uid, domain, order="partner_id ASC, date ASC, account_id ASC")
         for line in aml_obj.browse(self.cr, self.uid, lines):
+            num = int(num) + 1;
+            # # print 'zzzzzzzzzzzzzzzzzzzzzzz',num,line.move_id.name;
+            if num > 1048576:
+                raise osv.except_osv(_('Warning!'),_("Data record lebih dari 1.048.576 !!! , Pilih range yang lebih kecil !!!"))
             receivables.append({
                     'date': line.date,
                     'move_name': line.move_id.name,
@@ -239,6 +254,7 @@ class partner_balance(report_sxw.rml_parse):
                     'balance': line.result,
                     'balance_red': (line.date_maturity and line.date_maturity < (datetime.now() + relativedelta(months=-1)).strftime('%Y-%m-%d')) and line.result or 0.0,
                 })
+
         if self.report_type == 'daily_receivable':
             receivables = sorted(receivables, key=lambda k: (k['fiscal'], k['period_name'], k['partner_name'], k['account_name']))
             if self.display_detail and self.group_by == 'group_partner':
@@ -247,7 +263,71 @@ class partner_balance(report_sxw.rml_parse):
             receivables = sorted(receivables, key=lambda k: (k['payment_responsible_name'], k['partner_name'], k['fiscal'], k['period_name'], k['account_name']))
             if self.display_detail and self.group_by == 'group_fiscal':
                 receivables = sorted(receivables, key=lambda k: (k['payment_responsible_name'], k['fiscal'], k['period_name'], k['partner_name'], k['account_name']))
+
         return receivables
+
+    def lines_baru(self):
+        aml_obj = self.pool.get('account.move.line')
+        move_state = ['draft','posted']
+        if self.target_move == 'posted':
+            move_state = ['posted']
+
+        domain = [
+                # '&', ('reconcile_id', '=', False), 
+                '&', ('account_id.active','=', True), 
+                '&', ('account_id.type', '=', 'receivable'), 
+                '&', ('state', '!=', 'draft'), 
+                ('move_id.state', 'in', tuple(move_state))
+            ]
+
+        if self.start_date:
+            domain += [('date','>=', self.start_date)]
+        if self.end_date:
+            domain += [('date', '<=', self.end_date)]
+
+        # if data.get('start_date') and data.get('end_date'):
+        #     domain += ['&', ('date', '<=', data['end_date']), ('date','>=', data['start_date'])]
+
+        if self.account_ids:
+            domain += [('account_id', 'in', tuple(self.account_ids))]
+
+        receivables = []
+        num = 0;
+        lines = aml_obj.search(self.cr, self.uid, domain, order="partner_id ASC, date ASC, account_id ASC")
+        for line in aml_obj.browse(self.cr, self.uid, lines):
+            num = int(num) + 1;
+            # # print 'zzzzzzzzzzzzzzzzzzzzzzz',num,line.move_id.name;
+            if num > 1048576:
+                raise osv.except_osv(_('Warning!'),_("Data record lebih dari 1.048.576 !!! , Pilih range yang lebih kecil !!!"))
+            receivables.append({
+                    'date': line.date,
+                    'move_name': line.move_id.name,
+                    'date_maturity': line.date_maturity,
+                    'fiscal': line.period_id.fiscalyear_id.code,
+                    'period_name': line.period_id.code,
+                    'account_name': '%s - %s' % (line.account_id.code, line.account_id.name),
+                    'payment_responsible_name': line.partner_id and line.partner_id.payment_responsible_id and line.partner_id.payment_responsible_id.name or False,
+                    'partner_name': line.partner_id and line.partner_id.name or False,
+                    'level': 1,
+                    'balance': line.result,
+                    'balance_red': (line.date_maturity and line.date_maturity < (datetime.now() + relativedelta(months=-1)).strftime('%Y-%m-%d')) and line.result or 0.0,
+                })
+
+        if self.report_type == 'daily_receivable':
+            receivables = sorted(receivables, key=lambda k: (k['fiscal'], k['period_name'], k['partner_name'], k['account_name']))
+            if self.display_detail and self.group_by == 'group_partner':
+                receivables = sorted(receivables, key=lambda k: (k['partner_name'], k['fiscal'], k['period_name'], k['account_name']))
+        if self.report_type == 'daily_transaction':
+            receivables = sorted(receivables, key=lambda k: (k['fiscal'], k['period_name'], k['partner_name'], k['account_name']))
+            if self.display_detail and self.group_by == 'group_partner':
+                receivables = sorted(receivables, key=lambda k: (k['partner_name'], k['fiscal'], k['period_name'], k['account_name']))
+        if self.report_type == 'outstanding_followup':
+            receivables = sorted(receivables, key=lambda k: (k['payment_responsible_name'], k['partner_name'], k['fiscal'], k['period_name'], k['account_name']))
+            if self.display_detail and self.group_by == 'group_fiscal':
+                receivables = sorted(receivables, key=lambda k: (k['payment_responsible_name'], k['fiscal'], k['period_name'], k['partner_name'], k['account_name']))
+        return receivables
+
+
         
     def get_result_with_partner(self, receivables):
         res = [res for res in receivables if res.get('partner_name')]

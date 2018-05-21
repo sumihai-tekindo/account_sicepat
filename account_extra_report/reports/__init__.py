@@ -1,7 +1,8 @@
-from . import daily_receivable
-from . import daily_receivable_detail
-from . import daily_payment
-from . import daily_cashflow
-from . import monthly_cashflow
-from . import outstanding_followup
-from . import outstanding_followup_detail
+import daily_receivable
+import daily_receivable_detail
+import daily_receivable_payment_detail
+import daily_payment
+import daily_cashflow
+import monthly_cashflow
+import outstanding_followup
+import outstanding_followup_detail

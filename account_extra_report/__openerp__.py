@@ -40,6 +40,7 @@
         'base',
         'account_followup',
         'invoice_supplier_dept_seq',
+        'report_xlsx'
         
     ],
 
