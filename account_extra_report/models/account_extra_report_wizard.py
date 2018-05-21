@@ -12,9 +12,10 @@ class account_extra_report_wizard(osv.osv_memory):
 		('monthly_cashflow','Laporan Cash Flow Bulanan'),
 		('outstanding_followup','Laporan Outstanding Piutang per Followup'),
 		],"Jenis Laporan",required=True),
-	"start_date"	: fields.date("Start Date"),
-	"end_date"		: fields.date("End Date"),
+	"start_date"	: fields.date("Start Date" ,required=True),
+	"end_date"		: fields.date("End Date" ,required=True),
 	"display_detail": fields.boolean('Display Detail'),
+	"display_payment": fields.boolean('Display Payment'),
 	"group_by"		: fields.selection([('group_fiscal','By Fiscal'), ('group_partner','By Partner')],"Group by"),
 	"account_ids"	: fields.many2many('account.account', 'account_account_extra_report_rel','wiz_id', 'account_id', 'Accounts'),
 	}
@@ -61,6 +62,7 @@ class account_extra_report_wizard(osv.osv_memory):
 			't_report': wiz.report_type,
 			'display_detail': wiz.display_detail,
 			'group_by': wiz.group_by,
+			'display_payment': wiz.display_payment,
 			}
 		if wiz.report_type=='daily_receivable':
 			#move_ids = self.get_daily_receivable(cr,uid,ids,wiz,context=context)
@@ -69,7 +71,8 @@ class account_extra_report_wizard(osv.osv_memory):
 			if wiz.display_detail:
 				return {
 						'type': 'ir.actions.report.xml',
-						'report_name': 'daily.receivable.detail.xls',
+						# 'report_name': 'daily.receivable.detail.xls',
+						'report_name': 'daily.receivable.payment.detail',
 						'datas': datas
 						}
 			return {
@@ -115,3 +118,4 @@ class account_extra_report_wizard(osv.osv_memory):
 					'report_name': 'outstanding.followup.report.xls',
 					'datas': datas
 					}
+

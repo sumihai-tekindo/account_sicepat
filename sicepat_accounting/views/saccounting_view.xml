@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+	<template id="head2" name="snippets featured apps" inherit_id="web.layout">
+		<xpath expr="." position="inside">
+             <link rel="stylesheet" href="/sicepat_accounting/static/src/css/style.css" t-ignore="true" />
+		</xpath> 
+	 </template>
+
+	<record model="ir.ui.view" id="account_invoice_sheet_form_view">
+		<field name="name">account.invoice_sheet</field>
+		<field name="model">account.invoice</field>
+		<field name="type">form</field>
+		<field name="inherit_id" ref="account.invoice_form" />
+		<field name="arch" type="xml">
+			<xpath expr="//sheet" position="attributes">
+			    <attribute name="class">oe_form_sheet_full_screen</attribute>
+			</xpath>
+		</field>
+	</record>
+
+    <record model="ir.ui.view" id="account_invoice_sheetb_form_view">
+        <field name="name">account.invoice_sheetb</field>
+        <field name="model">account.invoice</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="attributes">
+                <attribute name="class">oe_form_sheet_full_screen</attribute>
+            </xpath>
+        </field>
+    </record>
+
+	<record id="account_invoice_duedate_view" model="ir.ui.view">
+            <field name="name">account.invoice.duedate.form</field>
+            <field name="model">account.invoice.duedate</field>
+            <field name="arch" type="xml">
+                <form string="Confirm Draft Invoices">
+                    <group>
+                            <field name="invoice_date"/>
+                    </group>
+                    <footer>
+                        <button string="Confirm Invoice Duedate" name="invoice_confirm" type="object" default_focus="1" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="action_account_invoice_duedate"
+            multi="True"
+            key2="client_action_multi" name="Change Invoice Date"
+            res_model="account.invoice.duedate" src_model="account.invoice"
+            view_mode="form" target="new" view_type="form" />
+
+	
+
+	</data>
+</openerp>
