@@ -23,7 +23,8 @@
 	"name": "SICEPAT ACCOUNTING",
 	"version": "1.0",
 	"depends": [
-		"account_accountant"
+		"account_accountant",
+		'report_xlsx'
 		
 	],
 	"author": "IT Sicepat",
@@ -33,6 +34,7 @@
 	- Rekapitulasi data customer harus dibuat manual oleh team collection per invoice untuk mendapatkan data AR aging (untuk keperluan penagihan)
 	- inherit supplier invoice print
 	- tax progresif
+	- Package and Revenue
 
 
 	""",
@@ -41,6 +43,9 @@
           'views/saccounting_view.xml',		
           'views/supplier_invoice_action_view2.xml',
           'views/report_supplier_invoice_view2.xml',	
+          'sales/sales_inherit_view.xml',
+          # 'wizard/bi_report_wizard.xml',
+          # 'report/report_views.xml',
           ],
 	'installable': True,
 	'auto_install': False,
