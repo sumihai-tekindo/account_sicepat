@@ -34,6 +34,7 @@
 	- Rekapitulasi data customer harus dibuat manual oleh team collection per invoice untuk mendapatkan data AR aging (untuk keperluan penagihan)
 	- inherit supplier invoice print
 	- tax progresif
+	- sales selection
 	- Package and Revenue
 
 
@@ -44,8 +45,8 @@
           'views/supplier_invoice_action_view2.xml',
           'views/report_supplier_invoice_view2.xml',	
           'sales/sales_inherit_view.xml',
-          # 'wizard/bi_report_wizard.xml',
-          # 'report/report_views.xml',
+          'wizard/bi_report_wizard.xml',
+          'report/report_view.xml',
           ],
 	'installable': True,
 	'auto_install': False,
