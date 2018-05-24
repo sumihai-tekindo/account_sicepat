@@ -457,7 +457,11 @@ class account_cashback_line(osv.osv):
 									sum(case when aml.reconcile_id is not NULL and aml.debit>0.00  then coalesce(rec_aml3.credit,0.00)
 										when aml.reconcile_partial_id is not NULL and aml.debit>0.00 then coalesce(rec_aml2.credit,0.00)
 										else 0.00
+<<<<<<< HEAD
 										END) as omzet_paid,
+=======
+										END) as omzet_paid
+>>>>>>> e8a1cd91d214fccb9fd5e099da3e3879c24dd8f0
 									from account_move_line aml
 									left join account_move am on aml.move_id=am.id
 									left join account_invoice ai on ai.move_id=am.id
@@ -610,7 +614,11 @@ class account_cashback_line(osv.osv):
 										sum(case when aml.reconcile_id is not NULL and aml.debit>0.00  then coalesce(rec_aml3.credit,0.00)
 											when aml.reconcile_partial_id is not NULL and aml.debit>0.00 then coalesce(rec_aml2.credit,0.00)
 											else 0.00
+<<<<<<< HEAD
 											END) as omzet_paid,
+=======
+											END) as omzet_paid
+>>>>>>> e8a1cd91d214fccb9fd5e099da3e3879c24dd8f0
 										from account_move_line aml
 										left join account_move am on aml.move_id=am.id
 										left join account_invoice ai on ai.move_id=am.id
@@ -876,4 +884,17 @@ class account_invoice(osv.osv):
 
 	_columns = {
 		"cashback_ids": fields.one2many('account.cashback.line','invoice_id',"Cashback Line")
+<<<<<<< HEAD
 	}
+=======
+	}
+
+# class res_partner(osv.osv):
+# 	_inherit = "res.partner"
+
+# 	def check_cb_customer(self,cr,uid,ids,context=None):
+# 		customer_ids = self.pool.get('res.partner').search(cr,uid,[])
+# 		customers = self.pool.get('res.partner').browse(cr,uid,customer_ids)
+
+		
+>>>>>>> e8a1cd91d214fccb9fd5e099da3e3879c24dd8f0
