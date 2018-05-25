@@ -22,18 +22,19 @@
 		<field name="type">tree</field>
 		<field name="arch" type="xml">
 			<tree string="Revenue and Pagkage Tree" create="true">
-				<field name="name"/>
-                <field name="account_id" groups="account.group_account_user"/>
-                <field name="quantity"/>
-                <field name="uos_id" groups="product.group_uom"/>
-                <field name="price_unit"/>
+                <field name="account_analytic_id" string="Gerai" groups="analytic.group_analytic_accounting" domain="[('type','!=','view'), ('company_id', '=', parent.company_id), ('state','not in',('close','cancelled'))]"/>
+                <field name="sales"/>
+                <field name="partner_id" string="Customer" />
+                <field name="joindate"/>
+                <field name="quantity" string="Weight"/>
+                <field name="price_unit" string="Gross Revenue"/>
                 <field name="discount" groups="sale.group_discount_per_so_line"/>
-                <field name="price_subtotal"/>
+                <field name="price_subtotal" string="Net Revenue"/>
 			</tree>
 		</field>
 	</record>
 
-	<record model="ir.ui.view" id="account_invoice_line_form_view">
+	<!-- <record model="ir.ui.view" id="account_invoice_line_form_view">
 		<field name="name">account_invoice_line.form</field>
 		<field name="model">account.invoice.line</field>
 		<field name="type">form</field>
@@ -41,18 +42,19 @@
 			<form string="Revenue and Pagkage form" create="true">
 				<sheet>
 					<group>
-						<field name="name"/>
-	                    <field name="account_id" groups="account.group_account_user"/>
-	                    <field name="quantity"/>
-	                    <field name="uos_id" groups="product.group_uom"/>
-	                    <field name="price_unit"/>
-	                    <field name="discount" groups="sale.group_discount_per_so_line"/>
-	                    <field name="price_subtotal"/>
+                        <field name="account_analytic_id" string="Gerai" groups="analytic.group_analytic_accounting" domain="[('type','!=','view'), ('company_id', '=', parent.company_id), ('state','not in',('close','cancelled'))]"/>
+                        <field name="sales"/>
+                        <field name="partner_id" string="Customer" />
+                        <field name="joindate"/>
+                        <field name="quantity" string="Weight"/>
+                        <field name="price_unit" string="Gross Revenue"/>
+                        <field name="discount" groups="sale.group_discount_per_so_line"/>
+                        <field name="price_subtotal" string="Net Revenue"/>
 					</group>
 				</sheet>
 			</form>
 		</field>
-	</record>
+	</record> -->
 
 
 
@@ -72,12 +74,12 @@
         <field name="act_window_id" ref="action_account_invoice_line"/>
     </record>
 
-    <record id="account_invoice_line_action_form2" model="ir.actions.act_window.view">
+    <!-- <record id="account_invoice_line_action_form2" model="ir.actions.act_window.view">
         <field eval="2" name="sequence"/>
         <field name="view_mode">form</field>
         <field name="view_id" ref="account_invoice_line_form_view"/>
         <field name="act_window_id" ref="action_account_invoice_line"/>
-    </record>
+    </record> -->
 
 
     <menuitem id="menu_bisnis_intelegent_reporting" name="Bisnis Intelegent" parent="base.menu_sales" sequence="6"/>
@@ -100,12 +102,12 @@
         <field name="act_window_id" ref="action_toko"/>
     </record>
 
-    <record id="account_invoice_line_action_form2" model="ir.actions.act_window.view">
+    <!-- <record id="account_invoice_line_action_form2" model="ir.actions.act_window.view">
         <field eval="2" name="sequence"/>
         <field name="view_mode">form</field>
         <field name="view_id" ref="account_invoice_line_form_view"/>
         <field name="act_window_id" ref="action_toko"/>
-    </record>
+    </record> -->
 
 
     <menuitem id="revenue_toko_menu" name="Revenue per Toko" parent="menu_bisnis_intelegent_reporting" sequence="2" action="action_toko"/>
@@ -128,12 +130,12 @@
         <field name="act_window_id" ref="action_gerai"/>
     </record>
 
-    <record id="account_invoice_line_action_form2" model="ir.actions.act_window.view">
+    <!-- <record id="account_invoice_line_action_form2" model="ir.actions.act_window.view">
         <field eval="2" name="sequence"/>
         <field name="view_mode">form</field>
         <field name="view_id" ref="account_invoice_line_form_view"/>
         <field name="act_window_id" ref="action_gerai"/>
-    </record>
+    </record> -->
 
 
     <menuitem id="revenue_gerai_menu" name="Revenue per Gerai" parent="menu_bisnis_intelegent_reporting" sequence="3" action="action_gerai"/>
@@ -155,12 +157,12 @@
         <field name="act_window_id" ref="action_perwakilan"/>
     </record>
 
-    <record id="account_invoice_line_action_form2" model="ir.actions.act_window.view">
+    <!-- <record id="account_invoice_line_action_form2" model="ir.actions.act_window.view">
         <field eval="2" name="sequence"/>
         <field name="view_mode">form</field>
         <field name="view_id" ref="account_invoice_line_form_view"/>
         <field name="act_window_id" ref="action_perwakilan"/>
-    </record>
+    </record> -->
 
     <menuitem id="revenue_perwakilan_menu" name="Revenue per Perwakilan" parent="menu_bisnis_intelegent_reporting" sequence="4" action="action_perwakilan"/>
 

@@ -38,3 +38,13 @@ class res_partner_sales(osv.osv):
     _columns = {
         'user_id': fields.many2one('res.users', string='Salesperson' , domain=[('sales', '=', True)]),
     }
+
+class account_invoice_line3(osv.osv):
+    _inherit = "account.invoice.line"
+
+
+    _columns = {
+        'sales': fields.related('partner_id','user_id', relation='res.users', type='many2one', string='Sales' ),
+        'joindate': fields.related('partner_id','date', type='date', string='Join Date' ),
+    }
+
