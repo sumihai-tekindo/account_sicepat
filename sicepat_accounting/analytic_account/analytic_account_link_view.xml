@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+        <record id="master_analytic_tree_view" model="ir.ui.view">
+            <field name="name">master.analytic.account.tree</field>
+            <field name="model">master.analytic.account</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="departmen_id"/>      
+                    <field name="pruduct_id"/>
+                    <field name="account_analytic_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="master_analytic_form_view" model="ir.ui.view">
+            <field name="name">master.analytic.account.form</field>
+            <field name="model">master.analytic.account</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                            <group>
+                                <field name="departmen_id"/>      
+                                <field name="pruduct_id"/>
+                                <field name="account_analytic_id"/>
+                            </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_master_analytic_account" model="ir.actions.act_window">
+            <field name="name">Master Analytic Account</field>
+            <field name="res_model">master.analytic.account</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id"></field>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+        </record>
+
+
+        <menuitem id="master_analytic_account_menu" name="Link Analytic Account" parent="account.menu_analytic_accounting" sequence="100" action="action_master_analytic_account"/>
+
+
+	</data>
+</openerp>

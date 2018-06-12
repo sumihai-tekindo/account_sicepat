@@ -31,11 +31,10 @@
 	"category": "SICEPAT ACCOUNTING",
 	"description": """ SICEPAT ACCOUNTING :
 	
-	- Rekapitulasi data customer harus dibuat manual oleh team collection per invoice untuk mendapatkan data AR aging (untuk keperluan penagihan)
+	- Modifikasi AR aging (untuk keperluan penagihan)
 	- inherit supplier invoice print
 	- tax progresif
-	- sales selection
-	- Package and Revenue
+	- Automatic analytic account on supplier invoice
 
 
 	""",
@@ -44,7 +43,7 @@
           'views/saccounting_view.xml',		
           'views/supplier_invoice_action_view2.xml',
           'views/report_supplier_invoice_view2.xml',	
-          'sales/sales_inherit_view.xml',
+          'analytic_account/analytic_account_link_view.xml',
          ],
 	'installable': True,
 	'auto_install': False,
