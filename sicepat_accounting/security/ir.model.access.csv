@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+siacc1,account.invoice.duedate,sicepat_accounting.model_account_invoice_duedate,account.group_account_user,1,1,1,1
+siacc2,master.analytic.account,sicepat_accounting.model_master_analytic_account,account.group_account_user,1,1,1,1
