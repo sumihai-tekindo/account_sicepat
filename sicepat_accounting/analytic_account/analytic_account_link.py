@@ -78,8 +78,9 @@ class account_invoice_line_inherit1(models.Model):
         for rw in self.env.cr.dictfetchall():
             account_analytic = rw['account_analytic_id'];
 
-        account_analytic = self.env['account.analytic.account'].browse(account_analytic)
-        values['account_analytic_id'] = account_analytic.id
+        if account_analytic :
+            account_analytic = self.env['account.analytic.account'].browse(account_analytic)
+            values['account_analytic_id'] = account_analytic.id
 
 
         values['name'] = product.partner_ref
