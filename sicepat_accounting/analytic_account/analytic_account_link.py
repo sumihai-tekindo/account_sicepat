@@ -74,6 +74,7 @@ class account_invoice_line_inherit1(models.Model):
             self = self.with_context(lang=part.lang)
         product = self.env['product.product'].browse(product)
 
+        account_analytic = '';
         self.env.cr.execute("select account_analytic_id from master_analytic_account where pruduct_id = %s",(product.id,))
         for rw in self.env.cr.dictfetchall():
             account_analytic = rw['account_analytic_id'];
