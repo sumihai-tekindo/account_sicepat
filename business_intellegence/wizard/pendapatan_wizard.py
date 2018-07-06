@@ -113,18 +113,21 @@ class account_chart2(osv.osv_memory):
 
         date_start = '';
         date_stop = '';
+        period_id = '';
         
         cr.execute("select id,date_start,date_stop from account_period where id >= %s and id <= %s",(period_aw,period_ak,));
         for res in cr.dictfetchall():
             date_start = res['date_start'];
-            date_stop = res['date_stop'];      
+            date_stop = res['date_stop'];
+            period_id = res['id'];      
 
             # print'xxxxxxxxxxxxxxxxxxxxxx_date',date_start,date_stop;
 
-            cr.execute("select a.date,b.code,b.name as account,c.name as jurnal,a.debit,a.credit, (a.debit - a.credit) as balance from account_move_line a \
+            cr.execute("select d.name as period,a.period_id,a.date,b.code,b.name as account,c.name as jurnal,a.debit,a.credit, (a.debit - a.credit) as balance from account_move_line a \
             left join account_account b on a.account_id = b.id \
             left join account_journal c on a.journal_id = c.id \
-            where b.code like %s and b.type <> %s and a.date >= %s and a.date <= %s",('400.%','view',date_start,date_stop,))
+            left join account_period d on a.period_id = d.id \
+            where b.code like %s and b.type <> %s and a.period_id = %s",('400.%','view',period_id))
                 
             for res in cr.dictfetchall():
                 code = '';
@@ -134,6 +137,7 @@ class account_chart2(osv.osv_memory):
                 credit = '';
                 balance = '';
                 date = '';
+                period = '';
 
                 code = res['code']
                 account = res['account']
@@ -142,8 +146,9 @@ class account_chart2(osv.osv_memory):
                 credit = res['credit']
                 balance = res['balance']
                 date = res['date']
+                period = res['period']
 
-                # print 'xxxxxxxxxxxxxxxxxx_pendapatan',date,code,account,jurnal,debit,credit,balance;
+                print 'xxxxxxxxxxxxxxxxxx_pendapatan',period,date,code,account,jurnal,debit,credit,balance;
 
                 bi_revenue_pendapatan_obj.create(cr, uid, {
                     'code': code,
@@ -153,6 +158,7 @@ class account_chart2(osv.osv_memory):
                     'credit': credit,
                     'balance': balance,
                     'date': date,
+                    'period': period,
                 })
 
         if fiscalyear_id:

@@ -63,25 +63,55 @@
 
 
 
-        <menuitem id="bi_target_sales_rpt_menu" name="Sales Target" parent="menu_bisnis_intelegent_reporting" sequence="1" action="action_target"/>
+        <menuitem id="bi_target_sales_rpt_menu" name="Sales Target" parent="menu_bi_view" sequence="1" action="action_target"/>
 
 
 
 
+        <record id="bi_toko_tree" model="ir.ui.view">
+            <field name="name">bi.toko.tree</field>
+            <field name="model">bi.toko</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>      
+                    <field name="lokasi"/>      
+                </tree>
+            </field>
+        </record>
+
+        <record id="bi_toko_form" model="ir.ui.view">
+            <field name="name">bi.toko.form</field>
+            <field name="model">bi.toko</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                            <group>
+                                <field name="name"/>    
+                                <field name="lokasi"/>      
+                            </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_daftar_toko" model="ir.actions.act_window">
+            <field name="name">Toko</field>
+            <field name="res_model">bi.toko</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id"></field>
+            <field name="help">New Toko</field>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+        </record>
 
 
 
+        <menuitem id="bi_toko_rpt_menu" name="Toko" parent="menu_bi_view" sequence="2" action="action_daftar_toko"/>
 
 
 
-
-
-
-
-
-
-
-
+<!-- ================================================================================================================== -->
 
 
         <record id="bi_revenue_sales_rpt_tree_view" model="ir.ui.view">
@@ -99,11 +129,10 @@
                     <field name="gross_amount" string="Gross Revenue"/>
                     <field name="disc"/>
                     <field name="discount"/>
-<!--                     <field name="refund" invisible="0"/> -->
                     <field name="net_revenue" sum="Total Amount" string='Net Revenue'/>
-                    <field name="tag"  invisible="0"/>
-                    <field name="state" invisible="0"/>
-                    <field name="type" invisible="0"/>
+                    <field name="tag"  invisible="1"/>
+                    <field name="state" invisible="1"/>
+                    <field name="type" invisible="1"/>
                     <field name="first_invoice" invisible="0"/>
                 </tree>
             </field>
@@ -126,11 +155,10 @@
                                 <field name="gross_amount" string="Gross Revenue"/>
                                 <field name="disc"/>
                                 <field name="discount"/>
-<!--                                 <field name="refund" invisible="0"/> -->
                                 <field name="net_revenue" sum="Total Amount" string='Net Revenue'/>
-                                <field name="tag"  invisible="0"/>
-                                <field name="state" invisible="0"/>
-                                <field name="type" invisible="0"/>
+                                <field name="tag"  invisible="1"/>
+                                <field name="state" invisible="1"/>
+                                <field name="type" invisible="1"/>
                                 <field name="first_invoice" invisible="0"/>
                             </group>
                     </sheet>
@@ -147,7 +175,6 @@
                     <field name="user_id" type="row"/>
                     <field name="gross_amount" type="measure"/>
                     <field name="discount" type="measure"/>
-<!--                     <field name="refund" type="measure"/> -->
                     <field name="net_revenue" type="measure"/>
                     <field name="package" type="measure"/>
                 </graph>
@@ -232,7 +259,8 @@
             <field name="arch" type="xml">
                 <graph string="Leads Analysis" type="pivot" stacked="True">
                     <field name="invoice_date" interval="day" type="col"/>
-                    <field name="gerai" type="row"/>
+                    <!-- <field name="gerai" type="row"/> -->
+                    <field name="partner_id" type="row"/>
                     <field name="gross_amount" type="measure"/>
                     <field name="discount" type="measure"/>
                     <field name="net_revenue" type="measure"/>
@@ -247,7 +275,8 @@
             <field name="model">bi.revenue.location.rpt</field>
             <field name="arch" type="xml">
                 <search string="Analytic Account">
-                    <filter string="toko" name="toko" domain="[('tag','=','toko')]"/>
+                    <!-- <filter string="toko" name="toko" domain="[('tag','=','toko')]"/> -->
+                    <filter string="toko" name="toko" domain="[('lokasi','=','toko')]"/>
                     <filter string="gerai" name="gerai" domain="[('tag','=','gerai')]"/>
                     <filter string="cabang" name="cabang" domain="[('tag','=','cabang')]"/>
                 </search>
@@ -469,7 +498,7 @@
                 <graph string="Leads Analysis" type="pivot" stacked="True">
                     <field name="account" type="row"/>
                     <field name="jurnal" type="row"/>
-                    <field name="date" type="col"/>
+                    <field name="period" type="col"/>
                     <field name="debit" type="measure"/>
                     <field name="credit" type="measure"/>
                     <field name="balance" type="measure"/>
@@ -481,7 +510,7 @@
             <field name="name">Total Revenue</field>
             <field name="res_model">bi.revenue.pendapatan</field>
             <field name="view_type">form</field>
-            <field name="view_mode">graph,tree,form</field>
+            <field name="view_mode">graph</field>
             <field name="view_id"></field>
             <field name="help">Revenue</field>
             <field name="context">{}</field>

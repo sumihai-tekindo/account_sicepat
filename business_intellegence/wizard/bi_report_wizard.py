@@ -35,15 +35,13 @@ class bi_report_wizard(osv.osv_memory):
 		locations = []
 
 		if report_type == 'revenue_sales' :
-			# account_obj   =  self.pool.get('account.invoice') 
-
 			bi_revenue_obj   =  self.pool.get('bi.revenue.sales.rpt') 
 			num = 0;
 
 			cr.execute("delete from bi_revenue_sales_rpt");
 
 			cr.execute("select b.account_analytic_id,a.user_id,a.partner_id,a.state,a.type,d.date as joindate, \
-			a.date_invoice,a.type as invoice_type,b.discount, \
+			a.date_invoice,a.type as invoice_type,b.discount,f.lokasi,  \
 			case  \
 			when c.name is null then 'Regular' \
 			when c.name = 'Darat' then 'Cargo' \
@@ -59,8 +57,9 @@ class bi_report_wizard(osv.osv_memory):
 			left join account_invoice_line b on a.id = b.invoice_id \
 			left join consignment_service_type c on c.id = b.layanan \
 			left join res_partner d on d.id = a.partner_id \
+			left join bi_toko f on f.name = d.name \
 			where a.type in ('out_invoice')and a.state in ('open','paid') and a.date_invoice >= %s and a.date_invoice <= %s \
-			group by c.name,a.date_invoice,a.type,b.account_analytic_id,a.user_id,a.partner_id,b.discount,a.state,a.type,d.date,a.amount_total",(start_date,end_date,))
+			group by c.name,a.date_invoice,a.type,b.account_analytic_id,a.user_id,a.partner_id,b.discount,a.state,a.type,d.date,a.amount_total,f.lokasi",(start_date,end_date,))
 	        
 			for res in cr.dictfetchall():
 				gerai = '';
@@ -77,6 +76,7 @@ class bi_report_wizard(osv.osv_memory):
 				state = '';
 				tipe = '';
 				layanan = '';
+				lokasi = '';
 
 				date_invoice = res['date_invoice']
 				joindate = res['joindate']
@@ -93,6 +93,7 @@ class bi_report_wizard(osv.osv_memory):
 				state = res['state']
 				tipe = res['type']
 				layanan = res['layanan']
+				lokasi = res['lokasi']
 
 
 
@@ -103,7 +104,7 @@ class bi_report_wizard(osv.osv_memory):
 
 
 
-				# print 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gerai',date_invoice,gerai,user_id,partner_id,package,weight,gross_revenue,disc,discount_amount,refund,net_revenue,state,tipe,layanan;
+				print 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gerai',date_invoice,gerai,user_id,partner_id,package,weight,gross_revenue,disc,discount_amount,net_revenue,state,tipe,layanan,lokasi,first_invoice;
 
 				bi_revenue_obj.create(cr, uid, {
 					'invoice_date': date_invoice,
@@ -116,13 +117,13 @@ class bi_report_wizard(osv.osv_memory):
 					'gross_amount': gross_revenue,
 					'disc': disc,
 					'discount': discount_amount,
-					# 'refund': refund,
 					'net_revenue': net_revenue,
 					# 'amount_total': amount_total,
 					'state': state,
 					'type': tipe,
 					'layanan': layanan,
 					'first_invoice': first_invoice,
+					'lokasi': lokasi,
 				})
 
 
