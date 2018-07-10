@@ -44,6 +44,7 @@
           'views/supplier_invoice_action_view2.xml',
           'views/report_supplier_invoice_view2.xml',	
           'analytic_account/analytic_account_link_view.xml',
+          'sales/sales_inherit_view.xml',
           'security/ir.model.access.csv',
          ],
 	'installable': True,
