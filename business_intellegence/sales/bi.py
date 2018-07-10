@@ -77,8 +77,10 @@ class bi_revenue_sales_rpt(osv.osv):
         'state': fields.char(string='State', size=100 ),
         'type': fields.char(string='Type', size=100 ),
         'layanan': fields.char(string='Layanan', size=100 ),
-        'lokasi': fields.char(string='Lokasi', size=100 ),
-        'first_invoice': fields.boolean(string='First Invoice'),
+        'location': fields.char(string='Lokasi', size=100 ),
+        'first_invoice': fields.boolean(string='New Customer'),
+        'store': fields.char(string='Store', size=100),
+        'refund': fields.float(string='Refund'),
 
    }
 
@@ -117,7 +119,23 @@ class toko(osv.osv):
     _description = "BI Toko"
 
 
+    def _sts_customer(self, cr, uid, ids, name, arg, context=None):
+        res = {}
+        line_id_obj   =  self.pool.get('account.invoice') 
+        for linea in self.browse(cr, uid, ids, context=context):
+            code = linea.code;
+            code_str = code+'%';
+            # print 'xxxxxxxxxxxxxxxxx',code,code_str;
+
+            cr.execute("update res_partner set rds_code = %s where name like %s",(code,code_str))
+            res[linea.id] = True;
+
+        return res
+
+
     _columns = {
+        'code': fields.char(string='Code'),
         'name': fields.char(string='Name'),
-        'lokasi': fields.char(string='Lokasi'),
+        'location': fields.char(string='Location'),
+        'status': fields.function(_sts_customer, string='Status', type='boolean'),
     }

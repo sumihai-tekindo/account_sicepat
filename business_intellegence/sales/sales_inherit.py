@@ -24,19 +24,12 @@ from openerp.tools.translate import _
 
 
 
-class res_users_sales(osv.osv):
-    _inherit = "res.users"
-    _description = "res users"
-    _columns = {
-        'sales': fields.boolean(string='Sales'),
-    }
 
-
-class res_partner_sales(osv.osv):
+class res_partner_sales3(osv.osv):
     _inherit = "res.partner"
     _description = "res Partner"
     _columns = {
-        'user_id': fields.many2one('res.users', string='Salesperson' , domain=[('sales', '=', True)]),
+        'rds_code': fields.char(string='RDS Customer Code'),
     }
 
 class account_invoice_line3(osv.osv):

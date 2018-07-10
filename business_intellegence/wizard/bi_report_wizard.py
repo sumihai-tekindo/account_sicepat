@@ -40,26 +40,26 @@ class bi_report_wizard(osv.osv_memory):
 
 			cr.execute("delete from bi_revenue_sales_rpt");
 
-			cr.execute("select b.account_analytic_id,a.user_id,a.partner_id,a.state,a.type,d.date as joindate, \
-			a.date_invoice,a.type as invoice_type,b.discount,f.lokasi,  \
+			cr.execute("select b.account_analytic_id,a.user_id,a.partner_id,a.state,d.date as joindate, \
+			a.date_invoice,b.discount,f.location,f.name as store,  \
 			case  \
 			when c.name is null then 'Regular' \
 			when c.name = 'Darat' then 'Cargo' \
 			when c.name != 'Darat' and c.name is not null then c.name \
 			end as layanan, \
-			sum(b.price_subtotal)as net_revenue, \
-			sum((b.price_unit * b.discount)/100)as discount_amount, \
-			sum(b.price_subtotal + ((b.price_unit * b.discount)/100))as gross_revenue, \
-			sum( case when b.id is not Null then 1 else 0 end) as package, \
-			sum(b.quantity)as weight, \
-			a.amount_total as amount_total \
+			case when a.type = 'out_invoice' then sum(b.price_subtotal) else -sum(b.price_subtotal) end as net_revenue , \
+			case when a.type = 'out_refund' then sum(b.price_subtotal) end as refund, \
+			case when a.type = 'out_invoice' then sum((b.price_subtotal * b.discount)/100) else 0 end as discount_amount, \
+			case when a.type = 'out_invoice' then sum(b.price_subtotal + ((b.price_subtotal * b.discount)/100)) else 0 end as gross_revenue, \
+			sum(case when b.id is not Null then 1 else 0 end)as package, \
+			sum(b.quantity)as weight \
 			from account_invoice a \
 			left join account_invoice_line b on a.id = b.invoice_id \
 			left join consignment_service_type c on c.id = b.layanan \
 			left join res_partner d on d.id = a.partner_id \
-			left join bi_toko f on f.name = d.name \
-			where a.type in ('out_invoice')and a.state in ('open','paid') and a.date_invoice >= %s and a.date_invoice <= %s \
-			group by c.name,a.date_invoice,a.type,b.account_analytic_id,a.user_id,a.partner_id,b.discount,a.state,a.type,d.date,a.amount_total,f.lokasi",(start_date,end_date,))
+			left join bi_toko f on f.code = d.rds_code \
+			where a.type in ('out_invoice','out_refund')and a.state in ('open','paid') and a.date_invoice >= %s and a.date_invoice <= %s and b.cashback_line_id is null \
+			group by c.name,a.date_invoice,a.type,b.account_analytic_id,a.user_id,a.partner_id,b.discount,a.state,d.date,f.location,f.name",(start_date,end_date,))
 	        
 			for res in cr.dictfetchall():
 				gerai = '';
@@ -72,11 +72,11 @@ class bi_report_wizard(osv.osv_memory):
 				discount = 0;
 				refund = 0;
 				net_revenue = 0;
-				amount_total = 0;
 				state = '';
 				tipe = '';
 				layanan = '';
-				lokasi = '';
+				location = '';
+				store = '';
 
 				date_invoice = res['date_invoice']
 				joindate = res['joindate']
@@ -87,24 +87,21 @@ class bi_report_wizard(osv.osv_memory):
 				weight = res['weight']
 				gross_revenue = res['gross_revenue']
 				net_revenue = res['net_revenue']
+				refund = res['refund']
 				disc = res['discount']
 				discount_amount = res['discount_amount']
-				# amount_total = res['amount_total']
 				state = res['state']
-				tipe = res['type']
+				# tipe = res['type']
 				layanan = res['layanan']
-				lokasi = res['lokasi']
-
-
+				location = res['location']
+				store = res['store']
 
 				if (joindate >= start_date) and (joindate >= start_date) :
 					first_invoice = True;
 				else :
 					first_invoice = False;
 
-
-
-				print 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gerai',date_invoice,gerai,user_id,partner_id,package,weight,gross_revenue,disc,discount_amount,net_revenue,state,tipe,layanan,lokasi,first_invoice;
+				print 'xxxxxx_gerai',date_invoice,gerai,user_id,partner_id,package,weight,gross_revenue,disc,discount_amount,net_revenue,state,tipe,layanan,location,first_invoice,store;
 
 				bi_revenue_obj.create(cr, uid, {
 					'invoice_date': date_invoice,
@@ -117,13 +114,14 @@ class bi_report_wizard(osv.osv_memory):
 					'gross_amount': gross_revenue,
 					'disc': disc,
 					'discount': discount_amount,
+					'refund': refund,
 					'net_revenue': net_revenue,
-					# 'amount_total': amount_total,
 					'state': state,
-					'type': tipe,
+					# 'type': tipe,
 					'layanan': layanan,
 					'first_invoice': first_invoice,
-					'lokasi': lokasi,
+					'location': location,
+					'store': store,
 				})
 
 

@@ -73,8 +73,10 @@
             <field name="model">bi.toko</field>
             <field name="arch" type="xml">
                 <tree>
+                    <field name="code"/>      
                     <field name="name"/>      
-                    <field name="lokasi"/>      
+                    <field name="location"/>      
+                    <field name="status"/>   
                 </tree>
             </field>
         </record>
@@ -86,8 +88,10 @@
                 <form>
                     <sheet>
                             <group>
+                                <field name="code"/>      
                                 <field name="name"/>    
-                                <field name="lokasi"/>      
+                                <field name="location"/>
+                                <field name="status"/>         
                             </group>
                     </sheet>
                 </form>
@@ -129,11 +133,12 @@
                     <field name="gross_amount" string="Gross Revenue"/>
                     <field name="disc"/>
                     <field name="discount"/>
+                    <field name="refund" sum="Total Amount" string='Refund'/>
                     <field name="net_revenue" sum="Total Amount" string='Net Revenue'/>
                     <field name="tag"  invisible="1"/>
                     <field name="state" invisible="1"/>
-                    <field name="type" invisible="1"/>
-                    <field name="first_invoice" invisible="0"/>
+                    <field name="type" invisible="0"/>
+                    <field name="first_invoice" invisible="1"/>
                 </tree>
             </field>
         </record>
@@ -155,11 +160,12 @@
                                 <field name="gross_amount" string="Gross Revenue"/>
                                 <field name="disc"/>
                                 <field name="discount"/>
+                                <field name="refund" sum="Total Amount" string='Refund'/>
                                 <field name="net_revenue" sum="Total Amount" string='Net Revenue'/>
                                 <field name="tag"  invisible="1"/>
                                 <field name="state" invisible="1"/>
-                                <field name="type" invisible="1"/>
-                                <field name="first_invoice" invisible="0"/>
+                                <field name="type" invisible="0"/>
+                                <field name="first_invoice" invisible="1"/>
                             </group>
                     </sheet>
                 </form>
@@ -175,6 +181,7 @@
                     <field name="user_id" type="row"/>
                     <field name="gross_amount" type="measure"/>
                     <field name="discount" type="measure"/>
+                    <field name="refund" type="measure"/>
                     <field name="net_revenue" type="measure"/>
                     <field name="package" type="measure"/>
                 </graph>
@@ -188,6 +195,10 @@
                 <search string="Analytic Account">
                     <filter string="New Customer" name="new_customer" domain="[('first_invoice','=', 'True')]"/>
                     <!-- <filter name="invoices" string="Invoices" domain="[('state','not in',['draft','cancel'])]" help="Proforma/Open/Paid Invoices"/> -->
+                    <group expand="0" string="Group By">
+                        <filter string="Invoice date" name="invoice_date" context="{'group_by':'invoice_date:day',}"/>
+                        <filter string="Type" name="type" context="{'group_by':'type',}"/>
+                    </group>
                 </search>
             </field>
         </record>
@@ -224,6 +235,7 @@
                     <field name="layanan" type="row"/>
                     <field name="gross_amount" type="measure"/>
                     <field name="discount" type="measure"/>
+                    <field name="refund" type="measure"/>
                     <field name="net_revenue" type="measure"/>
                     <field name="package" type="measure"/>
                 </graph>
@@ -260,9 +272,10 @@
                 <graph string="Leads Analysis" type="pivot" stacked="True">
                     <field name="invoice_date" interval="day" type="col"/>
                     <!-- <field name="gerai" type="row"/> -->
-                    <field name="partner_id" type="row"/>
+                    <field name="store" type="row"/>
                     <field name="gross_amount" type="measure"/>
                     <field name="discount" type="measure"/>
+                    <field name="refund" type="measure"/>
                     <field name="net_revenue" type="measure"/>
                     <field name="package" type="measure"/>
                 </graph>
@@ -272,11 +285,11 @@
 
         <record id="revenue_location_search" model="ir.ui.view">
             <field name="name">bi.revenue.location.rpt.search</field>
-            <field name="model">bi.revenue.location.rpt</field>
+            <field name="model">bi.revenue.sales.rpt</field>
             <field name="arch" type="xml">
                 <search string="Analytic Account">
                     <!-- <filter string="toko" name="toko" domain="[('tag','=','toko')]"/> -->
-                    <filter string="toko" name="toko" domain="[('lokasi','=','toko')]"/>
+                    <filter string="toko" name="toko" domain="[('location','=','toko')]"/>
                     <filter string="gerai" name="gerai" domain="[('tag','=','gerai')]"/>
                     <filter string="cabang" name="cabang" domain="[('tag','=','cabang')]"/>
                 </search>
@@ -291,7 +304,6 @@
             <field name="view_mode">graph,tree,form</field>
             <field name="view_id"></field>
             <field name="help">Sales Revenue</field>
-            <field name="context">{}</field>
             <field name="search_view_id" ref="revenue_location_search"/>
             <field name="context">{'search_default_toko': 1}</field>
             <field name="domain">[]</field>
@@ -316,6 +328,7 @@
                 <graph string="Leads Analysis" type="pivot" stacked="True">
                     <field name="invoice_date" interval="year" type="col"/>
                     <field name="invoice_date" interval="day" type="row"/>
+                    <field name="refund" type="measure"/>
                     <field name="net_revenue" type="measure"/>
                     <field name="package" type="measure"/>
                 </graph>
@@ -359,6 +372,7 @@
                     <field name="partner_id" type="row"/>
                     <field name="gross_amount" type="measure"/>
                     <field name="discount" type="measure"/>
+                    <field name="refund" type="measure"/>
                     <field name="net_revenue" type="measure"/>
                     <field name="package" type="measure"/>
                 </graph>
@@ -400,6 +414,7 @@
                     <field name="invoice_date" interval="day" type="col"/>
                     <field name="user_id" type="row"/>
                     <field name="partner_id" type="row"/>
+                    <field name="refund" type="measure"/>
                     <field name="net_revenue" type="measure"/>
                 </graph>
             </field>
@@ -464,7 +479,7 @@
 
 
 
-        <record id="view_account_tree3" model="ir.ui.view">
+<!--         <record id="view_account_tree3" model="ir.ui.view">
             <field name="name">account.account.tree</field>
             <field name="model">account.account</field>
             <field name="field_parent">child_id</field>
@@ -484,20 +499,18 @@
             <field name="view_type">tree</field>
             <field name="view_id" ref="view_account_tree3"/>
             <field name="domain">[]</field>
-            <!-- <field name="domain">[('parent_id','=',False)]</field> -->
-            <!-- <field name="domain">[('name','=','Pendapatan')]</field> -->
         </record>
 
         <menuitem id="bi_account_rpt_menu2" name="Chart of accounts" parent="menu_bi_analysis" sequence="8" action="action_account_tree3"/>
-
+ -->
 
         <record id="bi_pendapatan_rpt_graph2" model="ir.ui.view">
             <field name="name">bi_pendapatan_rpt.graph</field>
             <field name="model">bi.revenue.pendapatan</field>
             <field name="arch" type="xml">
                 <graph string="Leads Analysis" type="pivot" stacked="True">
-                    <field name="account" type="row"/>
                     <field name="jurnal" type="row"/>
+                    <field name="account" type="row"/>
                     <field name="period" type="col"/>
                     <field name="debit" type="measure"/>
                     <field name="credit" type="measure"/>
@@ -506,15 +519,27 @@
             </field>
         </record>
 
+        <record id="bi_pendapatan_rpt2_search" model="ir.ui.view">
+            <field name="name">bi_pendapatan_rpt.search</field>
+            <field name="model">bi.revenue.pendapatan</field>
+            <field name="arch" type="xml">
+                <search string="Jurnal">
+                    <filter name="cashback_miscellaneous" string="Without Cash Back and Miscellaneous" domain="[('jurnal','!=','Cash Back Journal'),('jurnal','!=','Miscellaneous Journal')]"/>
+                </search>
+            </field>
+        </record>
+
         <record id="action_bi_pendapatan_rpt2" model="ir.actions.act_window">
-            <field name="name">Total Revenue</field>
+            <field name="name">Total Revenue Sales</field>
             <field name="res_model">bi.revenue.pendapatan</field>
             <field name="view_type">form</field>
             <field name="view_mode">graph</field>
             <field name="view_id"></field>
             <field name="help">Revenue</field>
-            <field name="context">{}</field>
             <field name="domain">[]</field>
+            <field name="search_view_id" ref="bi_pendapatan_rpt2_search"/>
+            <field name="context">{'search_default_cashback_miscellaneous': 1}</field>
+
         </record>
 
         <record id="obj_bi_pendapatan_report2" model="ir.actions.act_window.view">
@@ -524,7 +549,31 @@
             <field name="act_window_id" ref="action_bi_pendapatan_rpt2"/>
         </record>
 
-        <menuitem id="bi_pendapatan_rpt_menu2" name="Total Revenue" parent="menu_bi_analysis" sequence="9" action="action_bi_pendapatan_rpt2"/>
+        <menuitem id="bi_pendapatan_rpt_menu2" name="Total Revenue Sales" parent="menu_bi_analysis" sequence="9" action="action_bi_pendapatan_rpt2"/>
+
+
+
+        <record id="action_bi_pendapatan_rpt3" model="ir.actions.act_window">
+            <field name="name">Total Revenue</field>
+            <field name="res_model">bi.revenue.pendapatan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id"></field>
+            <field name="help">Revenue</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+
+        </record>
+
+        <record id="obj_bi_pendapatan_report3" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="bi_pendapatan_rpt_graph2"/>
+            <field name="act_window_id" ref="action_bi_pendapatan_rpt3"/>
+        </record>
+
+        <menuitem id="bi_pendapatan_rpt_menu3" name="Total Revenue" parent="menu_bi_analysis" sequence="10" action="action_bi_pendapatan_rpt3"/>
+
 
 
 
