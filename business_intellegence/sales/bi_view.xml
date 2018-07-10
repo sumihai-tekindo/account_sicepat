@@ -137,7 +137,7 @@
                     <field name="net_revenue" sum="Total Amount" string='Net Revenue'/>
                     <field name="tag"  invisible="1"/>
                     <field name="state" invisible="1"/>
-                    <field name="type" invisible="0"/>
+                    <field name="type" invisible="1"/>
                     <field name="first_invoice" invisible="1"/>
                 </tree>
             </field>
@@ -164,7 +164,7 @@
                                 <field name="net_revenue" sum="Total Amount" string='Net Revenue'/>
                                 <field name="tag"  invisible="1"/>
                                 <field name="state" invisible="1"/>
-                                <field name="type" invisible="0"/>
+                                <field name="type" invisible="1"/>
                                 <field name="first_invoice" invisible="1"/>
                             </group>
                     </sheet>
@@ -320,49 +320,6 @@
         <menuitem id="bi_revenue_sales_rpt_menu3" name="Revenue By Locations" parent="menu_bi_analysis" sequence="3" action="action_bi_revenue_sales_rpt3"/>
 
 
-
-        <record id="bi_report_sales_rpt_graph3" model="ir.ui.view">
-            <field name="name">bi_revenue_sales_rpt.graph</field>
-            <field name="model">bi.revenue.sales.rpt</field>
-            <field name="arch" type="xml">
-                <graph string="Leads Analysis" type="pivot" stacked="True">
-                    <field name="invoice_date" interval="year" type="col"/>
-                    <field name="invoice_date" interval="day" type="row"/>
-                    <field name="refund" type="measure"/>
-                    <field name="net_revenue" type="measure"/>
-                    <field name="package" type="measure"/>
-                </graph>
-            </field>
-        </record>
-
-        <record id="action_bi_report_sales_rpt3" model="ir.actions.act_window">
-            <field name="name">Revenue and Package</field>
-            <field name="res_model">bi.revenue.sales.rpt</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">graph,tree,form</field>
-            <field name="view_id"></field>
-            <field name="help">Revenue</field>
-            <field name="context">{}</field>
-            <field name="domain">[]</field>
-        </record>
-
-        <record id="obj_bi_sales_report3" model="ir.actions.act_window.view">
-            <field eval="1" name="sequence"/>
-            <field name="view_mode">graph</field>
-            <field name="view_id" ref="bi_report_sales_rpt_graph3"/>
-            <field name="act_window_id" ref="action_bi_report_sales_rpt3"/>
-        </record>
-
-        <menuitem id="bi_report_sales_rpt_menu3" name="Revenue and Package" parent="menu_bi_analysis" sequence="4" action="action_bi_report_sales_rpt3"/>
-
-
-
-
-
-
-
-
-
         <record id="bi_revenue_cust_rpt_graph2" model="ir.ui.view">
             <field name="name">bi_revenue_sales_rpt.graph</field>
             <field name="model">bi.revenue.sales.rpt</field>
@@ -397,7 +354,42 @@
             <field name="act_window_id" ref="action_bi_revenue_cust_rpt2"/>
         </record>
 
-        <menuitem id="bi_revenue_cust_rpt_menu2" name="Revenue By Customer" parent="menu_bi_analysis" sequence="5" action="action_bi_revenue_cust_rpt2"/>
+        <menuitem id="bi_revenue_cust_rpt_menu2" name="Revenue By Customer" parent="menu_bi_analysis" sequence="4" action="action_bi_revenue_cust_rpt2"/>
+
+
+        <record id="bi_report_sales_rpt_graph3" model="ir.ui.view">
+            <field name="name">bi_revenue_sales_rpt.graph</field>
+            <field name="model">bi.revenue.sales.rpt</field>
+            <field name="arch" type="xml">
+                <graph string="Leads Analysis" type="pivot" stacked="True">
+                    <field name="invoice_date" interval="year" type="col"/>
+                    <field name="invoice_date" interval="day" type="row"/>
+                    <field name="net_revenue" type="measure"/>
+                    <field name="package" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="action_bi_report_sales_rpt3" model="ir.actions.act_window">
+            <field name="name">Revenue and Package</field>
+            <field name="res_model">bi.revenue.sales.rpt</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph,tree,form</field>
+            <field name="view_id"></field>
+            <field name="help">Revenue</field>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+        </record>
+
+        <record id="obj_bi_sales_report3" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="bi_report_sales_rpt_graph3"/>
+            <field name="act_window_id" ref="action_bi_report_sales_rpt3"/>
+        </record>
+
+        <menuitem id="bi_report_sales_rpt_menu3" name="Revenue and Package" parent="menu_bi_analysis" sequence="5" action="action_bi_report_sales_rpt3"/>
+
 
 
 
@@ -439,8 +431,6 @@
         </record>
 
         <menuitem id="bi_report_sales_rpt_menu2" name="New Customer By Sales" parent="menu_bi_analysis" sequence="6" action="action_bi_report_sales_rpt2"/>
-
-
 
 
         <record id="bi_report_sales_rpt_graph4" model="ir.ui.view">
