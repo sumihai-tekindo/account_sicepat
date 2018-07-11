@@ -210,6 +210,7 @@
             <field name="view_mode">graph,tree,form</field>
             <field name="view_id"></field>
             <field name="help">Sales Revenue</field>
+            <field name="search_view_id" ref="bi_revenue_sales_rpt_search"/>
             <field name="context">{}</field>
             <!-- <field name="domain">[('type','=','out_invoice'),('state','in',('open','paid'))]</field> -->
             <field name="domain">[]</field>
@@ -249,6 +250,7 @@
             <field name="view_mode">graph,tree,form</field>
             <field name="view_id"></field>
             <field name="help">Sales Revenue</field>
+            <field name="search_view_id" ref="bi_revenue_sales_rpt_search"/>
             <field name="context">{}</field>
             <field name="domain">[]</field>
         </record>
@@ -274,10 +276,10 @@
                     <!-- <field name="gerai" type="row"/> -->
                     <field name="store" type="row"/>
                     <field name="gross_amount" type="measure"/>
-                    <field name="discount" type="measure"/>
-                    <field name="refund" type="measure"/>
+                    <!-- <field name="discount" type="measure"/> -->
+                    <!-- <field name="refund" type="measure"/> -->
                     <field name="net_revenue" type="measure"/>
-                    <field name="package" type="measure"/>
+                    <!-- <field name="package" type="measure"/> -->
                 </graph>
             </field>
         </record>
@@ -343,6 +345,7 @@
             <field name="view_mode">graph,tree,form</field>
             <field name="view_id"></field>
             <field name="help">Customer Revenue</field>
+            <field name="search_view_id" ref="bi_revenue_sales_rpt_search"/>
             <field name="context">{}</field>
             <field name="domain">[]</field>
         </record>
@@ -377,6 +380,7 @@
             <field name="view_mode">graph,tree,form</field>
             <field name="view_id"></field>
             <field name="help">Revenue</field>
+            <field name="search_view_id" ref="bi_revenue_sales_rpt_search"/>
             <field name="context">{}</field>
             <field name="domain">[]</field>
         </record>
@@ -403,11 +407,10 @@
             <field name="model">bi.revenue.sales.rpt</field>
             <field name="arch" type="xml">
                 <graph string="Leads Analysis" type="pivot" stacked="True">
-                    <field name="invoice_date" interval="day" type="col"/>
-                    <field name="user_id" type="row"/>
-                    <field name="partner_id" type="row"/>
-                    <field name="refund" type="measure"/>
-                    <field name="net_revenue" type="measure"/>
+                    <field name="user_id" type="col"/>
+                    <!-- <field name="partner_id" type="col"/> -->
+                    <field name="joindate" interval="day" type="row"/>
+                    <!-- <field name="net_revenue" type="measure"/> -->
                 </graph>
             </field>
         </record>
@@ -419,6 +422,7 @@
             <field name="view_mode">graph,tree,form</field>
             <field name="view_id"></field>
             <field name="help">New Customer</field>
+            <field name="search_view_id" ref="bi_revenue_sales_rpt_search"/>
             <field name="context">{'search_default_new_customer': 1}</field>
             <field name="domain">[]</field>
         </record>
@@ -450,6 +454,7 @@
             <field name="view_mode">graph</field>
             <field name="view_id"></field>
             <field name="help">Customer</field>
+            <field name="search_view_id" ref="bi_revenue_sales_rpt_search"/>
             <field name="context">{}</field>
             <field name="domain">[('customer','=','True')]</field>
         </record>
@@ -465,8 +470,7 @@
         <menuitem id="bi_report_sales_rpt_menu4" name="Customer" parent="menu_bi_analysis" sequence="7" action="action_bi_report_sales_rpt4"/>
 
 
-
-
+<!-- ==========================================================================================================================-->
 
 
 <!--         <record id="view_account_tree3" model="ir.ui.view">

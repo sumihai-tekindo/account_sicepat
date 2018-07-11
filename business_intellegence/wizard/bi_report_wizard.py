@@ -49,8 +49,8 @@ class bi_report_wizard(osv.osv_memory):
 			end as layanan, \
 			case when a.type = 'out_invoice' then sum(b.price_subtotal) else -sum(b.price_subtotal) end as net_revenue , \
 			case when a.type = 'out_refund' then sum(b.price_subtotal) end as refund, \
-			case when a.type = 'out_invoice' then sum((b.price_subtotal * b.discount)/100) else 0 end as discount_amount, \
-			case when a.type = 'out_invoice' then sum(b.price_subtotal + ((b.price_subtotal * b.discount)/100)) else 0 end as gross_revenue, \
+			case when a.type = 'out_invoice' then sum((b.price_unit * b.discount)/100) else 0 end as discount_amount, \
+			case when a.type = 'out_invoice' then sum(b.price_subtotal + ((b.price_unit * b.discount)/100)) else 0 end as gross_revenue, \
 			sum(case when b.id is not Null then 1 else 0 end)as package, \
 			sum(b.quantity)as weight \
 			from account_invoice a \
@@ -60,7 +60,8 @@ class bi_report_wizard(osv.osv_memory):
 			left join bi_toko f on f.code = d.rds_code \
 			where a.type in ('out_invoice','out_refund')and a.state in ('open','paid') and a.date_invoice >= %s and a.date_invoice <= %s and b.cashback_line_id is null \
 			group by c.name,a.date_invoice,a.type,b.account_analytic_id,a.user_id,a.partner_id,b.discount,a.state,d.date,f.location,f.name",(start_date,end_date,))
-	        
+
+
 			for res in cr.dictfetchall():
 				gerai = '';
 				user_id = '';
@@ -101,7 +102,8 @@ class bi_report_wizard(osv.osv_memory):
 				else :
 					first_invoice = False;
 
-				print 'xxxxxx_gerai',date_invoice,gerai,user_id,partner_id,package,weight,gross_revenue,disc,discount_amount,net_revenue,state,tipe,layanan,location,first_invoice,store;
+				# print 'xxxxxx_gerai',date_invoice,gerai,user_id,partner_id,package,weight,gross_revenue,disc,discount_amount,net_revenue,state,tipe,layanan,location,first_invoice,store;
+				print 'xxxxxx_gerai',date_invoice,net_revenue;
 
 				bi_revenue_obj.create(cr, uid, {
 					'invoice_date': date_invoice,

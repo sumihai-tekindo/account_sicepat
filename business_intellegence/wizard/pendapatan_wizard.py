@@ -148,7 +148,7 @@ class account_chart2(osv.osv_memory):
                 date = res['date']
                 period = res['period']
 
-                print 'xxxxxxxxxxxxxxxxxx_pendapatan',period,date,code,account,jurnal,debit,credit,balance;
+                # print 'xxxxxxxxxxxxxxxxxx_pendapatan',period,date,code,account,jurnal,debit,credit,balance;
 
                 bi_revenue_pendapatan_obj.create(cr, uid, {
                     'code': code,
