@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+biintel1,bi.discount.line,__export__.ir_model_726,base.group_sale_salesman,1,1,1,1
+biintel2,bi.gross.line,__export__.ir_model_723,base.group_sale_salesman,1,1,1,1
+biintel3,bi.location.package,__export__.ir_model_721,base.group_sale_salesman,1,1,1,1
+biintel4,bi.net.line,__export__.ir_model_724,base.group_sale_salesman,1,1,1,1
+biintel5,bi.package.line,__export__.ir_model_725,base.group_sale_salesman,1,1,1,1
+biintel6,bi.report.wizard,sicepat_accounting.model_bi_report_wizard,base.group_sale_salesman,1,1,1,1
+biintel7,bi.revenue.location.rpt,sicepat_accounting.model_bi_revenue_location_rpt,base.group_sale_salesman,1,1,1,1
+biintel8,bi.revenue.package,__export__.ir_model_720,base.group_sale_salesman,1,1,1,1
+biintel9,bi.revenue.package.line,__export__.ir_model_722,base.group_sale_salesman,1,1,1,1
+biintel10,bi.revenue.package.rpt,sicepat_accounting.model_bi_revenue_package_rpt,base.group_sale_salesman,1,1,1,1

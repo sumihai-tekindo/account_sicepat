@@ -20,7 +20,7 @@
 ##############################################################################
 
 {
-	"name": "SICEPAT ACCOUNTING",
+	"name": "BUSINESS INTELLENGENCE",
 	"version": "1.0",
 	"depends": [
 		"account_accountant",
@@ -28,25 +28,28 @@
 		
 	],
 	"author": "IT Sicepat",
-	"category": "SICEPAT ACCOUNTING",
-	"description": """ SICEPAT ACCOUNTING :
+	"category": "BUSINESS INTELLENGENCE",
+	"description": """ BUSINESS INTELLENGENCE :
 	
-	- Modifikasi AR aging (untuk keperluan penagihan)
-	- inherit supplier invoice print
-	- tax progresif
-	- Automatic analytic account on supplier invoice
+	- sales revenue
+	- Package and Revenue
+	- Revenue per lokasi
+	- Report BI
 
 
 	""",
+	'external dependencies': {'python': ['pymssql']},
 	'data': [
              
-          'views/saccounting_view.xml',		
-          'views/supplier_invoice_action_view2.xml',
-          'views/report_supplier_invoice_view2.xml',	
-          'analytic_account/analytic_account_link_view.xml',
           'sales/sales_inherit_view.xml',
-          'security/ir.model.access.csv',
+          'sales/bi_view.xml',
+          'wizard/bi_report_wizard.xml',
+          'wizard/pendapatan_wizard.xml',
+          # 'security/ir.model.access.csv',
          ],
+    'qweb': [
+        'static/src/xml/lib.xml',
+    ],
 	'installable': True,
 	'auto_install': False,
 	'application': False,
