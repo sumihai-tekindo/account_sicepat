@@ -16,8 +16,9 @@ class stock_wizard(models.TransientModel):
     def print_report(self,):
         self.ensure_one()
         datas ={}
+        picking = self.env['stock.move'].search([('origin', '!=', False)])
         product_ids = [p.id for p in self.product_ids]
-        clause_1 = [('state','=','done'),('location_id','=',self.location_id.id),('location_dest_id','=',self.location_dest_id.id)]
+        clause_1 = [('state','=','done'),('picking_id.name', 'NOT IN', [p.origin for p in picking]),('location_id','=',self.location_id.id),('location_dest_id','=',self.location_dest_id.id)]
         if product_ids:
             clause_1 += [('product_id','in',product_ids)]
         if self.account_analytic_dest_id:
