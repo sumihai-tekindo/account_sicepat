@@ -123,7 +123,7 @@
             <field name="model">bi.revenue.sales.rpt</field>
             <field name="arch" type="xml">
                 <tree colors="blue:first_invoice == True" string="First Invoice">
-                    <field name="invoice_date"/>
+                    <field name="invoice_date" invisible="1"/>
                     <field name="gerai"/>
                     <field name="user_id" />
                     <field name="partner_id" />
