@@ -103,7 +103,7 @@ class bi_report_wizard(osv.osv_memory):
 					first_invoice = False;
 
 				# print 'xxxxxx_gerai',date_invoice,gerai,user_id,partner_id,package,weight,gross_revenue,disc,discount_amount,net_revenue,state,tipe,layanan,location,first_invoice,store;
-				print 'xxxxxx_gerai',date_invoice,net_revenue;
+				# print 'xxxxxx_gerai',date_invoice,net_revenue;
 
 				bi_revenue_obj.create(cr, uid, {
 					'invoice_date': date_invoice,
