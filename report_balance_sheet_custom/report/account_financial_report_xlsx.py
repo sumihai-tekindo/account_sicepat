@@ -143,7 +143,7 @@ class ReportAccountCommonXlsx(ReportXlsx):
                             worksheet.merge_range(row, 8, row, 10, a.get('balance_cmp'), not a['level'] > 3 and cell_format_decimal_bold or cell_format_decimal)
                             if data['form']['with_difference']:
                                 worksheet.merge_range(row, 11, row, 13, a.get('balance_diff'), not a['level'] > 3 and cell_format_decimal_bold or cell_format_decimal)
-                            elif data['form']['with_difference']:
+                            elif data['form']['with_total']:
                                 worksheet.merge_range(row, 11, row, 13, a.get('balance_total'), not a['level'] > 3 and cell_format_decimal_bold or cell_format_decimal)
                         else:
                             worksheet.merge_range(row, 0, row, 7, ' '*(a.get('level', 0)) + a.get('name'), not a['level'] > 3 and cell_format_bold or cell_format)

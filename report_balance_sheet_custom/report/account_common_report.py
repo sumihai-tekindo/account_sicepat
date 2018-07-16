@@ -28,12 +28,12 @@ from openerp.osv import osv
 
 class report_account_common_inh(report_account_common):
 
-    def __init__(self, cr, uid, name, context=None):
-        super(report_account_common_inh, self).__init__(cr, uid, name, context=context)
-        self.localcontext.update({
-            'get_lines': self.get_lines,
-        })
-        self.context = context
+#     def __init__(self, cr, uid, name, context=None):
+#         super(report_account_common_inh, self).__init__(cr, uid, name, context=context)
+#         self.localcontext.update({
+#             'get_lines': self.get_lines,
+#         })
+#         self.context = context
 
     def get_lines(self, data):
         lines = []
