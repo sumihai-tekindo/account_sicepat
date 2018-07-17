@@ -14,6 +14,7 @@
     <record id="account_sales_revenue_tree_view" model="ir.ui.view">
         <field name="name">account.invoice.tree</field>
         <field name="model">account.invoice</field>
+        <field name="priority">100</field>
         <field name="arch" type="xml">
             <tree colors="blue:first_invoice == True" string="First Invoice">
                 <field name="gerai"/>
@@ -59,6 +60,7 @@
 	<record model="ir.ui.view" id="account_revenue_package_tree_view">
 		<field name="name">account_invoice.tree2</field>
 		<field name="model">account.invoice</field>
+        <field name="priority">100</field>
 		<field name="type">tree</field>
 		<field name="arch" type="xml">
 			<tree colors="blue:first_invoice == True" string="First Invoice">
