@@ -42,7 +42,7 @@
 
     # always loaded
     'data': [
-        'views\internal_refference_view.xml',
+        'views/internal_refference_view.xml',
     ],
 
     'demo': [
