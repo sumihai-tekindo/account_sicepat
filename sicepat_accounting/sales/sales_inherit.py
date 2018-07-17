@@ -28,7 +28,7 @@ class res_users_sales(osv.osv):
     _inherit = "res.users"
     _description = "res users"
     _columns = {
-        'sales': fields.boolean(string='Sales'),
+        'sales': fields.boolean(string='Sales', default=False),
     }
 
 
