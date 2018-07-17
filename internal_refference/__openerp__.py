@@ -21,10 +21,10 @@
 {
     'name': "Internal Refference",
     'summary': """
-    This module add Internal Refference
+    This module add Internal Refference Dropdown
     """,
 
-    'author': "Aditya Nugraha",
+    'author': "Aditya Nugraha ",
     'website': "",
 
     # Categories can be used to filter modules in modules listing
