@@ -69,6 +69,46 @@ class account_invoice(osv.Model):
             self.write({'number': self.internal_number})
         return res
 
+    @api.multi
+    def finalize_invoice_move_lines(self, move_lines):
+        """ finalize_invoice_move_lines(move_lines) -> move_lines
+
+            Hook method to be overridden in additional modules to verify and
+            possibly alter the move lines to be created by an invoice, for
+            special cases.
+            :param move_lines: list of dictionaries with the account.move.lines (as for create())
+            :return: the (possibly updated) final move_lines to create for this invoice
+        """
+        for move in move_lines:
+            move[2]['department_id'] = self.department_id and self.department_id.id or False
+        return move_lines
+
+
+class account_move_line(osv.osv):
+    _inherit = "account.move.line"
+
+    _columns = {
+        'department_id': fields.many2one('account.invoice.department', 'Department', copy=False, ondelete='set null'),
+    }
+    
+    def _query_get(self, cr, uid, obj='l', context=None):
+        result = super(account_move_line, self)._query_get(cr, uid, obj=obj, context=context)
+        context = dict(context or {})
+        query = ''
+        query_params = {}
+        if context.get('department_ids'):
+            query_params['department_ids'] = tuple(context['department_ids'])
+            query += ' AND '+obj+'.department_id IN %(department_ids)s'
+        if context.get('analytic_ids'):
+            analytics = self.pool.get('account.analytic.account').search(cr, uid, [('parent_id', 'child_of', context['analytic_ids'])], context=context)
+            query_params['analytic_ids'] = tuple(analytics)
+            query += ' AND '+obj+'.analytic_account_id IN %(analytic_ids)s'
+        if query:
+            result += cr.mogrify(query, query_params)
+        return result
+    
+
+
 class account_invoice_department(osv.Model):
     _name = "account.invoice.department"
     _order = "description asc"

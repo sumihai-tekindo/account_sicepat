@@ -45,7 +45,10 @@
           'sales/bi_view.xml',
           'wizard/bi_report_wizard.xml',
           'wizard/pendapatan_wizard.xml',
-          # 'security/ir.model.access.csv',
+
+          'security/ir.module.category.csv',
+          'security/res.groups.csv',
+          'security/ir.model.access.csv',
          ],
     'qweb': [
         'static/src/xml/lib.xml',

@@ -26,8 +26,12 @@ class account_partner_balance(osv.osv_memory):
 
     _columns = {
         'all_account': fields.boolean('All Accounts?'),
-        'analytic_account': fields.many2one('account.analytic.account'),
         'account_ids': fields.many2many('account.account', string='Accounts'),
+        'all_department': fields.boolean('All Departments?'),
+        'department_ids': fields.many2many('account.invoice.department', 'report_ledger_department_rel', 'did', 'rid',  string='Departments'),
+        'all_analytic': fields.boolean('All Account Analytics?'),
+        'analytic_ids': fields.many2many('account.analytic.account', 'report_ledger_analytic_rel', 'aid', 'rid', string='Analytic Accounts',
+                                         domain=[('tag', 'in', ('gerai', 'cabang', 'toko', 'head_office', 'agen', 'transit', 'pusat_transitan'))]),
         'report_type': fields.selection([
             ('xlsx','XLSX'),
             ('pdf','PDF')
@@ -35,13 +39,19 @@ class account_partner_balance(osv.osv_memory):
     }
     _defaults = {
         'all_account': True,
+        'all_department': True,
+        'all_analytic': True,
         'report_type': 'xlsx',
    }
 
     def _print_report(self, cr, uid, ids, data, context=None):
         context = dict(context or {})
         data = self.pre_print_report(cr, uid, ids, data, context=context)
-        data['form'].update(self.read(cr, uid, ids, ['landscape',  'initial_balance', 'amount_currency', 'sortby', 'all_account', 'account_ids', 'report_type','analytic_account'])[0])
+        data['form'].update(self.read(cr, uid, ids, ['landscape',  'initial_balance', 'amount_currency', 'sortby', 'all_account', 'account_ids', 'all_department', 'department_ids', 'all_analytic', 'analytic_ids', 'report_type'])[0])
+        if 'used_context' in data['form'] and not data['form']['all_department']:
+            data['form']['used_context']['department_ids'] = 'department_ids' in data['form'] and data['form']['department_ids'] or False
+        if 'used_context' in data['form'] and not data['form']['all_analytic']:
+            data['form']['used_context']['analytic_ids'] = 'analytic_ids' in data['form'] and data['form']['analytic_ids'] or False
         if not data['form']['fiscalyear_id']:# GTK client problem onchange does not consider in save record
             data['form'].update({'initial_balance': False})
 

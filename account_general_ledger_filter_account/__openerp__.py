@@ -31,7 +31,8 @@
 
     """,
     'depends': [
-        'account',
+        'invoice_supplier_dept_seq',
+        'ds_api_analytic_account',
         'report_xlsx',
     ],
     'demo': [],

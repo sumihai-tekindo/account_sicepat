@@ -23,7 +23,7 @@
 	"name": "SICEPAT ACCOUNTING",
 	"version": "1.0",
 	"depends": [
-		"account_accountant",
+		"sicepat_erp",
 		'report_xlsx'
 		
 	],
