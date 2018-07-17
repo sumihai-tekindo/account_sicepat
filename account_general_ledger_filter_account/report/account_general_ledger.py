@@ -52,15 +52,15 @@ class general_ledger(gnrl_ldgr):
         ctx['state'] = data['form']['target_move']
         self.context = context.update(ctx)
         self.init_query = obj_move._query_get(self.cr, self.uid, obj='l', context=ctx2)
-        if (data['model'] == 'ir.ui.menu') and data['form'].get('all_account') is False and data['form'].get('account_ids'):
-            data['model'] = 'account.account'
-            new_ids = data['form']['account_ids']
-            data.update({'ids': new_ids})
-            data['form'].update({'active_ids': new_ids})
-            objects = self.pool.get('account.account').browse(self.cr, self.uid, new_ids)
         if (data['model'] == 'ir.ui.menu'):
             new_ids = [data['form']['chart_account_id']]
             objects = self.pool.get('account.account').browse(self.cr, self.uid, new_ids)
+            if 'all_account' in data['form'] and not data['form']['all_account'] and data['form'].get('account_ids'):
+                data['model'] = 'account.account'
+                new_ids = data['form']['account_ids']
+                data.update({'ids': new_ids})
+                data['form'].update({'active_ids': new_ids})
+                objects = self.pool.get('account.account').browse(self.cr, self.uid, new_ids)
         return super(gnrl_ldgr, self).set_context(objects, data, new_ids, report_type=report_type)
     
 
@@ -96,7 +96,7 @@ class general_ledger(gnrl_ldgr):
         else:
             sql_sort='l.date, l.move_id'
         sql = """
-            SELECT l.id AS lid, l.date AS ldate, j.code AS lcode, l.currency_id,l.amount_currency,l.ref AS lref, l.name AS lname, COALESCE(l.debit,0) AS debit, COALESCE(l.credit,0) AS credit, l.period_id AS lperiod_id, l.partner_id AS lpartner_id, l.analytic_account_id AS analytic_id,
+            SELECT l.id AS lid, l.date AS ldate, j.code AS lcode, l.currency_id,l.amount_currency,l.ref AS lref, l.name AS lname, COALESCE(l.debit,0) AS debit, COALESCE(l.credit,0) AS credit, l.period_id AS lperiod_id, l.partner_id AS lpartner_id, l.analytic_account_id AS analytic_id, l.department_id AS ldepartment_id,
             m.name AS move_name, m.id AS mmove_id,per.code as period_code,
             c.symbol AS currency_code,
             i.id AS invoice_id, i.type AS invoice_type, i.number AS invoice_number,
@@ -116,7 +116,7 @@ class general_ledger(gnrl_ldgr):
         if res_lines and self.init_balance:
             #FIXME: replace the label of lname with a string translatable
             sql = """
-                SELECT 0 AS lid, '' AS ldate, '' AS lcode, COALESCE(SUM(l.amount_currency),0.0) AS amount_currency, '' AS lref, 'Initial Balance' AS lname, COALESCE(SUM(l.debit),0.0) AS debit, COALESCE(SUM(l.credit),0.0) AS credit, '' AS lperiod_id, '' AS lpartner_id, '' AS analytic_id,
+                SELECT 0 AS lid, '' AS ldate, '' AS lcode, COALESCE(SUM(l.amount_currency),0.0) AS amount_currency, '' AS lref, 'Initial Balance' AS lname, COALESCE(SUM(l.debit),0.0) AS debit, COALESCE(SUM(l.credit),0.0) AS credit, '' AS lperiod_id, '' AS lpartner_id, '' AS analytic_id, '' AS ldepartment_id,
                 '' AS move_name, '' AS mmove_id, '' AS period_code,
                 '' AS currency_code,
                 NULL AS currency_id,
@@ -142,6 +142,8 @@ class general_ledger(gnrl_ldgr):
             l['line_corresp'] = l['mmove_id'] == '' and ' ' or counterpart_accounts[l['mmove_id']].replace(', ',',')
             analytic = self.pool.get('account.analytic.account').browse(self.cr, self.uid, [l['analytic_id']])
             l['analytic_account'] = analytic and analytic.complete_name or ''
+            department = self.pool.get('account.invoice.department').browse(self.cr, self.uid, [l['ldepartment_id']])
+            l['department'] = department and department.name or ''
             # Modification of amount Currency
             if l['credit'] > 0:
                 if l['amount_currency'] != None:
