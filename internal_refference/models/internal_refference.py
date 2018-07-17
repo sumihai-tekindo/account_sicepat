@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2016 STI (<https://github.com/sumihai-tekindo>).
-#    @author Pambudi Satria <pambudi.satria@yahoo.com>
-#
+#    Copyright (C) 2016 Sicepat Ekspres Indonesia (<http://www.sicepat.com>).
+# 
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
 #    published by the Free Software Foundation, either version 3 of the
@@ -19,26 +18,25 @@
 #
 ##############################################################################
 
-{
-    'name': 'Add filter by account to General Ledger report',
-    'version': '8.0.1.0.0',
-    'category': 'Accounting & Finance',
-    'author': 'Pambudi Satria',
-    'website': 'https://github.com/sumihai-tekindo',
-    'description': """
+# 1 : imports of python lib
 
-    This module add filter by account to General Ledger report
 
-    """,
-    'depends': [
-        'invoice_supplier_dept_seq',
-        'ds_api_analytic_account',
-        'report_xlsx',
-    ],
-    'demo': [],
-    'data': [
-        'wizard/account_report_general_ledger_view.xml',
-    ],
-    'active': False,
-    'installable': True,
-}
+# 2 :  imports of openerp
+from openerp import models, fields, api
+
+###LAMA
+class templateproduct(models.Model):
+    _name = "product.default.code"
+
+    name = fields.Char("internal_refference")
+###BARU
+class producttemplate(models.Model):
+    _inherit = "product.template"
+    
+    internal_reff = fields.Many2one('product.default.code','internal reff')
+
+    @api.onchange('internal_reff')  # if these fields are changed, call  method
+    def check_change(self):
+        if self.internal_reff:
+            print '=====================', self.internal_reff.name
+            self.default_code = self.internal_reff.name

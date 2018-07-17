@@ -11,13 +11,20 @@ class stock_wizard(models.TransientModel):
     end_date = fields.Date(default=fields.Date.today)
     date_of_transfer = fields.Boolean()
 
-
     @api.multi
-    def print_report(self,):
+    def print_report(self, ):
         self.ensure_one()
-        datas ={}
+        datas = {}
+        picking = self.env['stock.picking'].search([('origin', '!=', False)])
         product_ids = [p.id for p in self.product_ids]
-        clause_1 = [('state','=','done'),('location_id','=',self.location_id.id),('location_dest_id','=',self.location_dest_id.id)]
+        clause_1 = [
+            ('state', '=', 'done'),
+            ('picking_id.name', 'not in', [p.origin for p in picking]),
+            #('picking_id.name', 'not in', tuple([p.origin for p in picking]))
+            #'picking_id.name', NOT LIKE, ('ISSU%')),
+            ('location_id', '=', self.location_id.id),
+            ('location_dest_id', '=', self.location_dest_id.id),
+            ]
         if product_ids:
             clause_1 += [('product_id','in',product_ids)]
         if self.account_analytic_dest_id:
@@ -35,7 +42,11 @@ class stock_wizard(models.TransientModel):
             clause_2 = [('date_expected','>=',self.start_date),('date_expected','<=',self.end_date)]
             if self.date_of_transfer:
                 clause_2 = [('picking_id.date_done','>=',self.start_date),('picking_id.date_done','<=',self.end_date)]
-        stock_ids = self.env['stock.move'].search(clause_1 + clause_2, order = 'location_id, location_dest_id, date_expected, account_analytic_dest_id')
+        # print "======1=======",clause_1
+        # print "======2=======",clause_2
+        clause = clause_1+clause_2
+        #print "======1=======",clause
+        stock_ids = self.env['stock.move'].search(clause, order = 'location_id, location_dest_id, date_expected, account_analytic_dest_id')
         stock_ids= [move.id for move in stock_ids]
         datas={
             'model': 'stock.move',
