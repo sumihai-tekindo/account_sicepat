@@ -3,7 +3,7 @@
     'summary': """
     This module provides analytic account on stock move
     """,
-    'author': "Derri Widardi",
+    'author': "Derri Widardi,Aditya Nugraha",
     'website': "",
     'category': 'Accounting & Finance',
     'version': '8.0.0.1.0',
