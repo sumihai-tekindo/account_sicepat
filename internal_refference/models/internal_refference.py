@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-#
+#      
 #    Copyright (C) 2016 Sicepat Ekspres Indonesia (<http://www.sicepat.com>).
 # 
 #    This program is free software: you can redistribute it and/or modify
@@ -28,15 +28,16 @@ from openerp import models, fields, api
 class templateproduct(models.Model):
     _name = "product.default.code"
 
-    name = fields.Char("internal_refference")
+    name = fields.Char("Internal Refference",required=True)
+    type = fields.Selection([('biaya', 'Biaya'),('asset', 'Asset'),('material', 'Material')],required=True)
+
 ###BARU
 class producttemplate(models.Model):
     _inherit = "product.template"
     
-    internal_reff = fields.Many2one('product.default.code','internal reff')
+    internal_reff = fields.Many2one('product.default.code','internal reff',required=True)
 
     @api.onchange('internal_reff')  # if these fields are changed, call  method
     def check_change(self):
         if self.internal_reff:
-            print '=====================', self.internal_reff.name
             self.default_code = self.internal_reff.name
