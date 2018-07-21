@@ -41,7 +41,7 @@
 
     # always loaded
     'data': [
-        'views\purchase_order.xml',
+        'views/purchase_order.xml',
     ],
 
     'demo': [
