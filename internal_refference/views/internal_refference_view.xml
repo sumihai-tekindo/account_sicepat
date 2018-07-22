@@ -7,7 +7,8 @@
             <field name="inherit_id" ref="product.product_template_only_form_view"/>
             <field name="arch" type="xml">
                 <field name="ean13" position="after">
-                    <field name="internal_reff"/> 
+                    <field name="internal_reff"/>
+                    <field name="schedule_hari"/>
                 </field>
                 <field name="default_code" position="attributes">
                     <attribute name="invisible" >1</attribute>
