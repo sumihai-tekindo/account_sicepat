@@ -34,6 +34,8 @@ class templateproduct(models.Model):
 ###BARU
 class producttemplate(models.Model):
     _inherit = "product.template"
+    schedule_hari = fields.Integer(string='Schedule Date (N+hari)',default=3)
+    duration = fields.Integer(string='Duration')
     
     internal_reff = fields.Many2one('product.default.code','internal reff',required=True)
 
