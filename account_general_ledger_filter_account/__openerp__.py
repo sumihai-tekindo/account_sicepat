@@ -28,6 +28,7 @@
     'description': """
 
     This module add filter by account to General Ledger report
+    ToDo: also modified for pdf
 
     """,
     'depends': [
