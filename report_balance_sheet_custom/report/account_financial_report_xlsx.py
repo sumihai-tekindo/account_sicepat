@@ -95,6 +95,48 @@ class ReportAccountCommonXlsx(ReportXlsx):
             worksheet.merge_range(3, 11, 3, 13, _p.get_target_move(data), cell_format)
             worksheet.merge_range(4, 0, 4, 13, None, cell_format)
             
+            if data['form']['report_type'] == 'xlsx' and data['form']['group_by'] != 'none' and not data['form']['enable_filter'] and not data['form']['debit_credit']:
+                col_dict = _p.get_col_dict(data)
+                worksheet.merge_range(5, 0, 5, 10, 'Name', cell_format_bold)
+                worksheet.merge_range(5, 11, 5, 13, 'Balance', cell_format_bold_right)
+                col = 14
+                for k, v in col_dict.items():
+                    worksheet.merge_range(5, col, 5, col+2, v['string'], cell_format_bold_right)
+                    col += 3
+                row = 6
+                for a in _p.get_group_lines(data):
+                    if a['level'] != 0:
+                        worksheet.merge_range(row, 0, row, 10, '  '*(a.get('level', 0)) + a.get('name'), not a['level'] > 3 and cell_format_bold or cell_format)
+                        worksheet.merge_range(row, 11, row, 13, a.get('balance'), not a['level'] > 3 and cell_format_decimal_bold or cell_format_decimal)
+                        col = 14
+                        for k, v in col_dict.items():
+                            worksheet.merge_range(row, col, row, col+2, a.get(k), not a['level'] > 3 and cell_format_decimal_bold or cell_format_decimal)
+                            col += 3
+                        row += 1
+            
+            if data['form']['report_type'] == 'xlsx' and data['form']['group_by'] != 'none' and not data['form']['enable_filter'] and data['form']['debit_credit']:
+                col_dict = _p.get_col_dict(data)
+                worksheet.merge_range(5, 0, 5, 4, 'Name', cell_format_bold)
+                worksheet.merge_range(5, 5, 5, 7, 'Debit', cell_format_bold_right)
+                worksheet.merge_range(5, 8, 5, 10, 'Credit', cell_format_bold_right)
+                worksheet.merge_range(5, 11, 5, 13, 'Balance', cell_format_bold_right)
+                col = 14
+                for k, v in col_dict.items():
+                    worksheet.merge_range(5, col, 5, col+2, v['string'], cell_format_bold_right)
+                    col += 3
+                row = 6
+                for a in _p.get_group_lines(data):
+                    if a['level'] != 0:
+                        worksheet.merge_range(row, 0, row, 10, '  '*(a.get('level', 0)) + a.get('name'), not a['level'] > 3 and cell_format_bold or cell_format)
+                        worksheet.merge_range(row, 5, row, 7, a.get('debit'), not a['level'] > 3 and cell_format_decimal_bold or cell_format_decimal)
+                        worksheet.merge_range(row, 8, row, 10, a.get('credit'), not a['level'] > 3 and cell_format_decimal_bold or cell_format_decimal)
+                        worksheet.merge_range(row, 11, row, 13, a.get('balance'), not a['level'] > 3 and cell_format_decimal_bold or cell_format_decimal)
+                        col = 14
+                        for k, v in col_dict.items():
+                            worksheet.merge_range(row, col, row, col+2, a.get(k), not a['level'] > 3 and cell_format_decimal_bold or cell_format_decimal)
+                            col += 3
+                        row += 1
+
             if data['form']['debit_credit']:
                 worksheet.merge_range(5, 0, 5, 4, 'Name', cell_format_bold)
                 worksheet.merge_range(5, 5, 5, 7, 'Debit', cell_format_bold_right)

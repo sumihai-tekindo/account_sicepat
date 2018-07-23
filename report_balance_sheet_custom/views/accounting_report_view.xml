@@ -5,13 +5,28 @@
             <field name="model">accounting.report</field>
             <field name="inherit_id" ref="account.accounting_report_view"/>
             <field name="arch" type="xml">
-                <field name="enable_filter" position="after">
-                	<field name="with_difference" attrs="{'invisible': ['|',('enable_filter','=',False),('account_report_id','!=',%(account.account_financial_report_balancesheet0)d)]}"/>
+            	<field name="enable_filter" position="after">
+					<field name="with_difference" attrs="{'invisible': ['|',('enable_filter','=',False),('account_report_id','!=',%(account.account_financial_report_balancesheet0)d)]}"/>
                 	<field name="with_total" attrs="{'invisible': ['|',('enable_filter','=',False),('account_report_id','!=',%(account.account_financial_report_profitandloss0)d)]}"/>
-                </field>
-                <field name="debit_credit" position="after">
-                	<field name="report_type" widget="radio"/>
-                </field>
+				</field>
+				<field name="debit_credit" position="after">
+            		<group colspan="4" string="Grouping" attrs="{'invisible': ['|','|',('report_type','!=','xlsx'),('enable_filter','=',True),('account_report_id','!=',%(account.account_financial_report_profitandloss0)d)]}">
+	                 	<field name="group_by"/>
+	                	<field name="all_department" attrs="{'invisible': [('group_by', '!=', 'department')]}"/>
+	                	<field name="all_analytic" attrs="{'invisible': [('group_by', '!=', 'analytic')]}"/>
+            		</group>
+                	<group colspan="4" string="Report Type">
+						<field name="report_type" widget="radio"/>
+                	</group>
+				</field>
+				<xpath expr="//notebook/page[@string='Comparison']" position="after">
+                	<page string="Departments" name="department_ids" attrs="{'invisible': ['|','|','|',('report_type','!=','xlsx'),('enable_filter','=',True), ('group_by', '!=', 'department'), ('all_department', '=', True)]}">
+                		<field name="department_ids"/>
+                	</page>
+                	<page string="Analytics" name="analytic_ids" attrs="{'invisible': ['|','|','|',('report_type','!=','xlsx'),('enable_filter','=',True), ('group_by', '!=', 'analytic'), ('all_analytic', '=', True)]}">
+                		<field name="analytic_ids"/>
+                	</page>
+                </xpath>
             </field>
         </record>
 <report 

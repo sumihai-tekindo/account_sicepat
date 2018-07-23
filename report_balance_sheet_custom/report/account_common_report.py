@@ -28,75 +28,82 @@ from openerp.osv import osv
 
 class report_account_common_inh(report_account_common):
 
-#     def __init__(self, cr, uid, name, context=None):
-#         super(report_account_common_inh, self).__init__(cr, uid, name, context=context)
-#         self.localcontext.update({
-#             'get_lines': self.get_lines,
-#         })
-#         self.context = context
+    def set_context(self, objects, data, ids, report_type=None):
+        self.localcontext.update({
+            'get_columns': self._get_columns,
+            'get_col_dict': self._get_col_dict,
+            'get_group_lines': self.get_group_lines,
+        })
+        return super(report_account_common_inh, self).set_context(objects, data, ids, report_type=report_type)
 
     def get_lines(self, data):
-        lines = []
-        account_obj = self.pool.get('account.account')
-        currency_obj = self.pool.get('res.currency')
-        ids2 = self.pool.get('account.financial.report')._get_children_by_order(self.cr, self.uid, [data['form']['account_report_id'][0]], context=data['form']['used_context'])
-        for report in self.pool.get('account.financial.report').browse(self.cr, self.uid, ids2, context=data['form']['used_context']):
-            vals = {
-                'name': report.name,
-                'balance': report.balance * report.sign or 0.0,
-                'type': 'report',
-                'level': bool(report.style_overwrite) and report.style_overwrite or report.level,
-                'account_type': report.type =='sum' and 'view' or False, #used to underline the financial report balances
-            }
-            if data['form']['debit_credit']:
-                vals['debit'] = report.debit
-                vals['credit'] = report.credit
-            if data['form']['enable_filter']:
-                vals['balance_cmp'] = self.pool.get('account.financial.report').browse(self.cr, self.uid, report.id, context=data['form']['comparison_context']).balance * report.sign or 0.0
+        lines = super(report_account_common_inh, self).get_lines(data)
+        for line in lines:
             if data['form']['enable_filter'] and data['form']['with_difference']:
-                vals['balance_diff']=vals.get('balance',0.0)-vals.get('balance_cmp',0.0)
+                line['balance_diff'] = line.get('balance',0.0)-line.get('balance_cmp',0.0)
             if data['form']['enable_filter'] and data['form']['with_total']:
-                vals['balance_total']=vals.get('balance',0.0)+vals.get('balance_cmp',0.0)
-            lines.append(vals)
-            account_ids = []
-            if report.display_detail == 'no_detail':
-                #the rest of the loop is used to display the details of the financial report, so it's not needed here.
-                continue
-            if report.type == 'accounts' and report.account_ids:
-                account_ids = account_obj._get_children_and_consol(self.cr, self.uid, [x.id for x in report.account_ids])
-            elif report.type == 'account_type' and report.account_type_ids:
-                account_ids = account_obj.search(self.cr, self.uid, [('user_type','in', [x.id for x in report.account_type_ids])])
-            if account_ids:
-                for account in account_obj.browse(self.cr, self.uid, account_ids, context=data['form']['used_context']):
-                    #if there are accounts to display, we add them to the lines with a level equals to their level in
-                    #the COA + 1 (to avoid having them with a too low level that would conflicts with the level of data
-                    #financial reports for Assets, liabilities...)
-                    if report.display_detail == 'detail_flat' and account.type == 'view':
-                        continue
-                    flag = False
-                    vals = {
-                        'name': account.code + ' ' + account.name,
-                        'balance':  account.balance != 0 and account.balance * report.sign or account.balance,
-                        'type': 'account',
-                        'level': report.display_detail == 'detail_with_hierarchy' and min(account.level + 1,6) or 6, #account.level + 1
-                        'account_type': account.type,
-                    }
+                line['balance_total']=line.get('balance',0.0)+line.get('balance_cmp',0.0)
+        return lines
 
-                    if data['form']['debit_credit']:
-                        vals['debit'] = account.debit
-                        vals['credit'] = account.credit
-                    if not currency_obj.is_zero(self.cr, self.uid, account.company_id.currency_id, vals['balance']):
-                        flag = True
-                    if data['form']['enable_filter']:
-                        vals['balance_cmp'] = account_obj.browse(self.cr, self.uid, account.id, context=data['form']['comparison_context']).balance * report.sign or 0.0
-                        if not currency_obj.is_zero(self.cr, self.uid, account.company_id.currency_id, vals['balance_cmp']):
-                            flag = True
-                    if data['form']['enable_filter'] and data['form']['with_difference']:
-                        vals['balance_diff']=vals.get('balance',0.0)-vals.get('balance_cmp',0.0)
-                    if data['form']['enable_filter'] and data['form']['with_total']:
-                        vals['balance_total']=vals.get('balance',0.0)+vals.get('balance_cmp',0.0)
-                    if flag:
-                        lines.append(vals)
+    def _get_model_group(self, key):
+        if key == 'analytic':
+            return 'account.analytic.account'
+        if key == 'department':
+            return 'account.invoice.department'
+        return False
+
+    def _get_domain_group(self, data):
+        if data['form']['group_by'] == 'analytic':
+            domain = [('tag', 'in', ('gerai', 'cabang', 'toko', 'head_office', 'agen', 'transit', 'pusat_transitan')), ('parent_id.tag', '=', 'kota')]
+            if not data['form']['all_analytic'] and data['form']['analytic_ids']:
+                domain = [('id', 'in', tuple(data['form']['analytic_ids']))]
+            return domain
+        if data['form']['group_by'] == 'department':
+            domain = []
+            if not data['form']['all_department'] and data['form']['department_ids']:
+                domain = [('id', 'in', tuple(data['form']['department_ids']))]
+            return domain
+        return []
+        
+    def _get_col_dict(self, data):
+        model = self._get_model_group(data['form']['group_by'])
+        col_obj = self.pool.get(model)
+
+        col_dict = dict()
+        domain = self._get_domain_group(data)
+        col_ids = col_obj.search(self.cr, self.uid, domain)
+        for col in col_obj.browse(self.cr, self.uid, col_ids):
+            if data['form']['group_by'] == 'analytic':
+                col_dict.setdefault(col.code, dict(id=col.id,name=col.code,string=col.display_name))
+            if data['form']['group_by'] == 'department':
+                col_dict.setdefault(col.name, dict(id=col.id,name=col.name,string=col.description))
+        col_dict.setdefault('', dict(id=False,name='',string='Undefined'))
+        return col_dict
+
+    def _get_columns(self, data):
+        col_dict = self._get_col_dict(data)
+        return list(col_dict)
+
+    def get_group_lines(self, data):
+        ctx = data['form']['used_context']
+        col_dict = self._get_col_dict(data)
+        account_obj = self.pool.get('account.account')
+        lines = self.get_lines(data)
+        for line in lines:
+            for col in col_dict.keys():
+                line.update({col: 0.0})
+            if line['type'] == 'account':
+                sign = line['balance'] < 0 and -1 or 1
+                if data['form']['group_by'] == 'analytic':
+                    ctx_key = 'analytic_ids'
+                if data['form']['group_by'] == 'department':
+                    ctx_key = 'department_ids'
+                account_code = line['name'].split(' ')[0]
+                account_id = account_obj.search(self.cr, self.uid, [('code', '=', account_code)])
+                for k, v in col_dict.items():
+                    ctx[ctx_key] = v['id'] and [v['id']] or False 
+                    account = account_obj.browse(self.cr, self.uid, account_id, context=ctx)
+                    line[k] = account.balance * sign
         return lines
 
 

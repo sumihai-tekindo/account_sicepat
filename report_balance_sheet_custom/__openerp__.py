@@ -11,7 +11,8 @@
     'category': 'Accounting',
     'version': '8.0.0.1.0',
     'depends': [
-        'account',
+        'invoice_supplier_dept_seq',
+        'ds_api_analytic_account',
         'report_xlsx',
     ],
     'data': [
