@@ -29,11 +29,13 @@
         'stock_account',
         'invoice_supplier_validate',
         'seq_date_range',
+        'purchase'
     ],
     'data': [
         'security/ir.model.access.csv',
         'views/account_invoice_view.xml',
         'views/stock_invoice_view.xml',
+        'views/purchase_order_view.xml',
     ],
     "installable": True,
 }
