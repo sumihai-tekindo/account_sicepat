@@ -19,6 +19,7 @@ class stock_transfer_details(models.TransientModel):
 			qty_already_received = 0.0
 			received_qty = 0.0
 			returned_qty = 0.0
+			qty_po = 0.0
 			qty_po = x.purchase_line_id.product_qty
 			for y in x.purchase_line_id.move_ids:
 				if y.state=='done' and y.id!=x.id:
@@ -29,14 +30,19 @@ class stock_transfer_details(models.TransientModel):
 								returned_qty+= self.env['product.uom']._compute_qty_obj(z.product_uom, z.product_uom_qty, x.purchase_line_id.product_uom, round=True, rounding_method='UP', context=None)
 
 				qty_already_received = received_qty - returned_qty
-			qty_uom_trf = self.env['product.uom']._compute_qty_obj(x.product_uom, x.product_qty, x.purchase_line_id.product_uom, round=True, rounding_method='UP', context=None)
+				#qty_uom_trf = self.env['product.uom']._compute_qty_obj(x.product_uom, x.product_qty, x.purchase_line_id.product_uom, round=True, rounding_method='UP', context=None)
 
 			picking_items.update({
 				x.product_id.id:qty_po - qty_already_received
 				})
+			# print "======qty po",qty_po
+			# print "-----qty_already_received------",qty_already_received
+			if qty_already_received == 0.0 and qty_po is False:
+				res=super(stock_transfer_details,self).do_detailed_transfer()
+				#raise Warning(_('qty_po_false \'%s\'.') % qty_po)
+				return res
 			
-			
-		
+	
 		for item in self.item_ids:
 			if item.product_id and item.product_id.id and item.product_id.id in picking_items.keys():
 				if item.quantity>picking_items.get(item.product_id.id,0.0):
