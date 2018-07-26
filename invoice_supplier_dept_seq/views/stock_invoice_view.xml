@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <record id="view_stock_invoice_onshipping_dept" model="ir.ui.view">
-            <field name="name">Stock Invoice Onshipping Dept</field>
-            <field name="model">stock.invoice.onshipping</field>
-            <field name="inherit_id" ref="stock_account.view_stock_invoice_onshipping"/>
+        <record id="view_picking_form_dept" model="ir.ui.view">
+            <field name="name">stock.picking.form.dept</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
             <field name="arch" type="xml">
-            	<field name="journal_id" position="after">
-					<field name="department_id" required="1" context="{'description_only': 1}" />
+            	<field name="partner_id" position="after">
+					<field name="department_inv_id" context="{'description_only': 1}" />
             	</field>
             </field>
         </record>
