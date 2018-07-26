@@ -38,8 +38,8 @@ class stock_picking(osv.osv):
     
     def _get_invoice_vals(self, cr, uid, key, inv_type, journal_id, move, context=None):
         inv_vals = super(stock_picking, self)._get_invoice_vals(cr, uid, key, inv_type, journal_id, move, context=context)
-        if move.picking_id and move.picking_id.department_id:
-            department = move.picking_id.department_id
+        if move.picking_id and move.picking_id.department_inv_id:
+            department = move.picking_id.department_inv_id
             inv_vals.update({
                 'department_id': department.id,
             })
@@ -50,7 +50,7 @@ class stock_quant(osv.osv):
     
     def _prepare_account_move_line(self, cr, uid, move, qty, cost, credit_account_id, debit_account_id, context=None):
         move_lines = super(stock_quant, self)._prepare_account_move_line(cr, uid, move, qty, cost, credit_account_id, debit_account_id, context=context)
-        department_id = move.picking_id and move.picking_id.department_id and move.picking_id.department_id.id or False
+        department_id = move.picking_id and move.picking_id.department_inv_id and move.picking_id.department_inv_id.id or False
         for line in move_lines:
             line[2]['department_id'] = department_id
         return move_lines
