@@ -21,7 +21,7 @@
 {
     'name': "Purchase Order Periode",
     'summary': """
-    This module add Periode Date Start - Date End
+    This module add Periode Date Start - Date End & add Department
     """,
 
     'author': "Aditya Nugraha",

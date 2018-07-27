@@ -6,25 +6,57 @@
 			<field name="model">purchase.order</field>
 			<field name="inherit_id" ref="purchase.purchase_order_form"/>
 			<field name="arch" type="xml">
+			<field name="currency_id" position="before">
+					<field name="department" required="1" context="{'description_only': 1}" options='{"always_reload": True}'/>
+				</field>
 				<field name="currency_id" position="after">
-					<field name="date_start"/>
-					<field name="date_end"/>
+					<field name="sewa"/>
+					<field name="date_start" attrs="{'invisible':[('sewa', '=', False)]}"/>
+					<field name="date_end" attrs="{'invisible':[('sewa', '=', False)]}"/>
 				</field>
 			</field>
 		</record>
-	</data>
 	
-		<data>
-		<record id="view_account_invoice_inherited" model="ir.ui.view">
-			<field name="name">account.invoice.tree.inherited</field>
-			<field name="model">account.invoice</field>
-			<field name="inherit_id" ref="account.invoice_supplier_form"/>
-			<field name="arch" type="xml">
-				<field name="supplier_invoice_number" position="after">
-					<field name="date_start"/>
-					<field name="date_end"/>
-				</field>
-			</field>
-		</record>
+	<!-- action form window(delete, create) -->
+	<record model ="ir.actions.act_window" id="action_dept_purchase1">
+		<field name="name">Department</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">account.invoice.department</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+<!-- action form window(tree) -->
+	<record model = "ir.ui.view" id ="purchase_order_tree_view">
+		<field name="name">account.invoice.department.tree</field>
+		<field name="model">account.invoice.department</field>
+		<field name="arch" type="xml">
+			<tree string="Department">
+					<field name="name"/>
+                    <field name="description"/>
+                    <field name="user_id"/>
+			</tree>
+		</field>
+	</record>  
+	<!-- menampillkan tree sebelah form (edit,delete) -->
+	<record model = "ir.ui.view" id ="purchase_order_form_view">
+		<field name="name">account.invoice.department.form</field>
+		<field name="model">account.invoice.department</field>
+		<field name="arch" type="xml">
+			<form string="Department">
+					<group col="4">
+						 <field name="name"/>
+                        <field name="active"/>
+                        <field name="description"/>
+                        <field name="user_id"/>
+					</group>
+				</form>
+			
+		</field>
+	</record>
+ <menuitem
+		id="menu_action_department_purchase"
+		sequence="45"
+		parent="purchase.menu_product_in_config_purchase"
+		action="action_dept_purchase1"/>
 	</data>
 </openerp>
