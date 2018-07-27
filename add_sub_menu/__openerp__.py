@@ -45,6 +45,7 @@
         'views/submenu.xml',
 		'views/submenu_asset.xml',
 		'views/submenu_material.xml',
+        'views/sub.xml',
     ],
 
     'demo': [

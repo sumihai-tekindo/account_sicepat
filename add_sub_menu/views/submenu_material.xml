@@ -12,7 +12,7 @@
         <field name="search_view_id" ref="purchase_requisition.view_purchase_requisition_filter"/>
         <field name="help" type="html">                       
           <p class="oe_view_nocontent_create">
-            Click to start a new Call for Bids material process. 
+            Click to start a new Call for Bids Material process. 
           </p><p>
             A Call for Bids is a procedure for generating competing offers from
             different bidders. In the call for bids, you can record the

@@ -1,0 +1,10 @@
+<openerp>
+	<data>
+		<!-- Hilangkan action orginal menu 
+			ID = modelname.ID menu yg akan di inherit-->
+		<record model="ir.ui.menu" id="purchase_requisition.menu_purchase_requisition_pro_mgt">
+			<field name="action"></field>		
+			<field name="name">Purchase Requisition</field>
+		</record>	
+	</data>
+</openerp>

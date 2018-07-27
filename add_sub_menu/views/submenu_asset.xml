@@ -1,7 +1,7 @@
 <openerp>
     <data>
   <record model="ir.actions.act_window" id="action_purchase_requisition_asset">
-        <field name="name">Asset</field>
+        <field name="name">Assets</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">purchase.requisition</field>
         <field name="view_type">form</field>
@@ -25,22 +25,51 @@
             <field name="name">view.purchase.requisition.form.inherit</field>
             <field name="model">purchase.requisition</field>
             <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
-            <field name="arch" type="xml">
-                <field name="multiple_rfq_per_supplier" position="attributes">
-                        <attribute name="invisible" >1</attribute>
-                </field>  
-                <field name="date_end" position="attributes">
-                        <attribute name="invisible" >1</attribute>
-                </field>      
-                 <field name="exclusive" position="attributes">
-                        <attribute name="invisible" >1</attribute>
-                </field> 
-                
-            </field>
+            <field name="arch" type="xml">         
+                    <field name="account_analytic_id" position="after">
+                             <field name="employee" string="Employee"/>
+                    </field>                
+                    <field name="multiple_rfq_per_supplier" position="attributes">
+                            <attribute name="invisible" >1</attribute>
+                    </field>
+
+                    <field name="date_end" position="attributes">
+                            <attribute name="invisible">1</attribute>
+                    </field>
+                     <field name="exclusive" position="attributes">
+                            <attribute name="invisible">1</attribute>
+                    </field>
+                     <field name="user_id" position="attributes">
+                            <attribute name="invisible">1</attribute>
+                    </field>
+                     <field name="ordering_date" position="attributes">
+                            <attribute name="invisible">1</attribute>
+                    </field>    
+                    <field name="account_analytic_id" position="after">
+                            <field name="product_type"/>
+                    </field>
+                        
+                    <field name="account_analytic_id" position="attributes">
+                            <attribute name="domain">[('koordinator_wilayah','=',koordinator_wilayah)]</attribute>
+                    </field>
+                    <field name="product_type" position="attributes">
+                            <attribute name="invisible" >1</attribute>
+                    </field>
+                    <field name="employee" position="attributes">
+                            <attribute name="invisible" >1</attribute>
+                    </field>
+                    <xpath expr="//form/sheet/notebook/page[@string='Products']/field[@name='line_ids']/tree/field[@name='product_id']" position="attributes">
+                        <attribute name="domain">[('product_tmpl_id.internal_reff.type','=',parent.product_type)]</attribute>                       
+                    </xpath>
+                    <xpath expr="//form/sheet/notebook/page[@string='Products']/field[@name='line_ids']/form/group[1]/field[@name='product_id']" position="attributes">
+                        <attribute name="domain">[('product_tmpl_id.internal_reff.type','=',parent.product_type)]</attribute>    
+                    </xpath>
+                                  
+                </field>
     </record>
     <menuitem
         id="menu_purchase_requisition_pro_mgt2"
-        sequence="20"
+        sequence="10"
         parent="purchase_requisition.menu_purchase_requisition_pro_mgt"
         action="action_purchase_requisition_asset"/>
 
