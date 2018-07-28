@@ -11,11 +11,13 @@ class purchase_requisition_line(osv.osv):
 		if self.stock_out:
 			return {
 			'view_type': 'form',
-			'view_mode': 'tree,form,calendar',
-			'res_model': 'stock.picking',
-			'target': 'new',
-			'res_id': 'stock.vpicktree',
+			'flags': {'action_buttons': True},
+			'view_mode': 'kanban,form',
+			'res_model': 'stock.picking.type',
+			'target': 'current',
+			'res_id': 'stock.picking',
 			'type': 'ir.actions.act_window'
+			
 		} 
 	# def onchange_product_id(self, cr, uid, ids, product_id, product_uom_id, parent_analytic_account, analytic_account, parent_date, date, context=None):
 	# 	oc_res = super(purchase_requisition_line,self).onchange_product_id(cr, uid, ids, product_id, product_uom_id, parent_analytic_account, analytic_account, parent_date, date, context=context)
