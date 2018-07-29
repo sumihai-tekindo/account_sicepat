@@ -43,12 +43,13 @@ class producttemplate(models.Model):
     def check_change(self):
         if self.internal_reff:
             self.default_code = self.internal_reff.name
+
 class productproduct(models.Model):
     _inherit = "product.product"
     
     internal_reff = fields.Many2one('product.default.code','internal reff',required=False)
 
-    # @api.onchange('internal_reff')  # if these fields are changed, call  method
-    #  def check_change(self):
-    # if self.internal_reff:
-    #     self.default_code = self.internal_reff.name
+    @api.onchange('internal_reff')  # if these fields are changed, call  method
+    def check_change(self):
+        if self.internal_reff:
+            self.default_code = self.internal_reff.name
