@@ -9,7 +9,7 @@ class purchase_order(models.Model):
 	date_start = fields.Date('Periode Awal Sewa')
 	date_end = fields.Date('Periode Akhir Sewa')
 	sewa = fields.Boolean(string='Rent', default=False)
-	department	=	fields.Many2one('account.invoice.department','Department')
+	#department	=	fields.Many2one('account.invoice.department','Department')
 	@api.onchange('sewa')
 	def _compute_hide(self):
 		if self.sewa ==True:
