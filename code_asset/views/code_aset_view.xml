@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="product_template_inherit1" model="ir.ui.view">
+            <field name="name">product.template.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <field name="ean13" position="after">
+                    <field name="code_asset" string="Asset Code"/>
+                </field>
+                <field name="code_asset" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="product_product_category_inherit" model="ir.ui.view">
+            <field name="name">product.category.inherit</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+                <field name="type" position="after">
+                    <field name="code" string="Asset Code"/>
+                </field>
+
+                <field name="code" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>  
+        <record id="product_product_inherit_inherit" model="ir.ui.view">
+            <field name="name">product.product.inherit1</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <field name="ean13" position="before">
+                    <field name="code_asset" string="Asset Code"/>
+                </field> 
+            </field>
+        </record>
+    </data>    
+</openerp>
