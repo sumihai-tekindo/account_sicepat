@@ -6,8 +6,8 @@ from openerp.tools.translate import _
 class purchase_order(models.Model):
 	_inherit = "purchase.order"
 
-	date_start = fields.Date('Periode Awal Sewa')
-	date_end = fields.Date('Periode Akhir Sewa')
+	date_start = fields.Date('Start Rent')
+	date_end = fields.Date('End Rent')
 	sewa = fields.Boolean(string='Rent', default=False)
 	#department	=	fields.Many2one('account.invoice.department','Department')
 	@api.onchange('sewa')
@@ -22,8 +22,8 @@ class purchase_order(models.Model):
 class account_invoice(models.Model):
 	_inherit = "account.invoice"
 
-	date_start = fields.Date('Periode Awal Sewa')
-	date_end = fields.Date('Periode Akhir Sewa')
+	date_start = fields.Date('Start Rent')
+	date_end = fields.Date('End Rent')
 	sewa = fields.Boolean(string='Rent', default=False)
 
 	@api.onchange('sewa')
