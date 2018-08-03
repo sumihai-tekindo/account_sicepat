@@ -4,23 +4,11 @@
         <record id="product_product_sub_category_inherit" model="ir.ui.view">
             <field name="name">product.category_inherit</field>
             <field name="model">product.category</field>
-            <!-- <field name="domain">[('parent_id','=',1)]</field> -->
             <field name="inherit_id" ref="product.product_category_form_view"/>
             <field name="arch" type="xml">
-                <field name="type" position="after"><!-- 
-                    <field name="sub_categ" string="Sub Category"/>
-                    <field name="sub_categ_detail" string="Sub Detail Category"/> -->
-                    <field name="sequence" string="Code Sequence"/>
+                <field name="type" position="after">
+                    <field name="sequence1" string="Sub Category(Sequence)"/>
                 </field>
-               <!--  <field name="code" position="attributes">
-                        <attribute name="invisible">1</attribute>
-                </field> -->
-              <!--      <field name="sub_categ" position="attributes">
-                            <attribute name="domain">[('parent_id','!=',1)]</attribute>
-                    </field>
-                 <field name="sub_categ_detail" position="attributes">
-                            <attribute name="domain">[('parent_id','!=',1)]</attribute>
-                    </field> -->
             </field>
         </record>
     </data>
