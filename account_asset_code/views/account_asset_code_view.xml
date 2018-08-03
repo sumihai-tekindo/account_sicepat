@@ -1,0 +1,14 @@
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="view_account_asset_asset_form_analytic">
+			<field name="name">account.asset.asset.form.analytic</field>
+			<field name="model">account.asset.asset</field>
+			<field name="inherit_id" ref="account_asset.view_account_asset_asset_form"/>
+			 <field name="arch" type="xml">
+                <field name="parent_id" position="after">
+                    <field name="code_asset" string="Asset Code"/>
+                </field>
+			</field>
+		</record>
+	</data>
+</openerp>
