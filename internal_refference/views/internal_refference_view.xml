@@ -15,6 +15,20 @@
                 </field>  
             </field>
         </record>
+
+         <record id="product_product_template_inherit_inherit" model="ir.ui.view">
+            <field name="name">product.product.inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <field name="ean13" position="after">
+                    <field name="internal_reff"/>
+                </field>
+                <field name="default_code" position="attributes">
+                    <attribute name="invisible" >1</attribute>
+                </field>  
+            </field>
+        </record>
 <!-- action form window(delete, create) -->
     <record model ="ir.actions.act_window" id="action_internal_refference_form">
         <field name="name">Internal Refference</field>

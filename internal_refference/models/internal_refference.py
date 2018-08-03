@@ -37,9 +37,20 @@ class producttemplate(models.Model):
     schedule_hari = fields.Integer(string='Schedule Date (N+hari)',default=3)
     duration = fields.Integer(string='Duration')
     
-    internal_reff = fields.Many2one('product.default.code','internal reff',required=True)
+    internal_reff = fields.Many2one('product.default.code','Internal Refference',required=True)
 
     @api.onchange('internal_reff')  # if these fields are changed, call  method
     def check_change(self):
         if self.internal_reff:
             self.default_code = self.internal_reff.name
+
+class productproduct(models.Model):
+    _inherit = "product.product"
+    
+    internal_reff = fields.Many2one('product.default.code','Internal Refference',required=False)
+
+    @api.onchange('internal_reff')  # if these fields are changed, call  method
+    def check_change(self):
+        if self.internal_reff:
+            self.default_code = self.internal_reff.name
+
