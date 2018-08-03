@@ -27,12 +27,15 @@
 				<field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
 				<field name="arch" type="xml">
 					<field name="user_id" position="after">
-							 <field name="koordinator_wilayah" string="Koordinator Wilayah"/>
+							 <field name="koordinator_wilayah" string="Requestor"/>
 					</field>
 					<field name="account_analytic_id" position="after">
 							 <field name="employee" string="Employee"/>
+							  
 					</field>
-				
+					<field name="account_analytic_id" position ="before">
+							<field name="department" required="1" context="{'description_only': 1}" options='{"always_reload": True}'/>			
+					</field>
 					<field name="multiple_rfq_per_supplier" position="attributes">
 							<attribute name="invisible" >1</attribute>
 					</field>
@@ -51,7 +54,7 @@
 					</field>
 					 <field name="ordering_date" position="attributes">
 							<attribute name="invisible">1</attribute>
-					</field>    
+					</field>
 					<field name="account_analytic_id" position="after">
 							<field name="product_type"/>
 					</field>
@@ -66,14 +69,14 @@
 							<attribute name="invisible" >1</attribute>
 					</field>
 					<xpath expr="//form/sheet/notebook/page[@string='Products']/field[@name='line_ids']/tree/field[@name='product_id']" position="attributes">
-						<attribute name="domain">[('product_tmpl_id.internal_reff.type','=',parent.product_type)]</attribute>						
+						<attribute name="domain">[('product_tmpl_id.internal_reff.type','=',parent.product_type)]</attribute>
 					</xpath>
 					<xpath expr="//form/sheet/notebook/page[@string='Products']/field[@name='line_ids']/form/group[1]/field[@name='product_id']" position="attributes">
-						<attribute name="domain">[('product_tmpl_id.internal_reff.type','=',parent.product_type)]</attribute>    
+						<attribute name="domain">[('product_tmpl_id.internal_reff.type','=',parent.product_type)]</attribute>
 					</xpath>
 					<xpath expr="//form/sheet/notebook/page[@string='Products']/field[@name='line_ids']/tree/field[@name='account_analytic_id']" position="after">
 						<button name="stock_out" string="check" type="object" icon="gtk-execute"/>
-					</xpath>					
+					</xpath>
 				</field>
 		</record>
 		
