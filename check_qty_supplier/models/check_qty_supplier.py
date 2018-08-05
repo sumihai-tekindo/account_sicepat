@@ -35,23 +35,26 @@ class account_invoice_line(models.Model):
 	def write(self,vals):
 		self.ensure_one()
 		invoice = self.invoice_id
+		
+
 		invoice_items = {}
 		res=False
-		receipts = self.get_received_qty(self.move_line_ids)
+		qty_receipt = 0.0
+		qty_po = 0.0
+		qty_invoice= 0.0
+		if self.move_line_ids:
 
-		qty_receipt = receipts.get(self.product_id.id,0.0)
-		#qty_po = self.move_line_ids and self.move_line_ids[0].purchase_line_id and self.move_line_ids[0].purchase_line_id.product_qty
-		qty_po 	= self.move_line_ids[0].purchase_line_id.product_qty
-		qty_invoice = vals.get('quantity',self.quantity)
-		# print "-------qty_invoice---",qty_invoice
-		# print "-------qty_po---",qty_po
-		# print "-------qty_receipt---",qty_receipt
+			receipts = self.get_received_qty(self.move_line_ids)
+			qty_invoice = vals.get('quantity',self.quantity)
+			qty_receipt = receipts.get(self.product_id.id,0.0)
+			qty_po 	= self.move_line_ids[0].purchase_line_id.product_qty
+			#qty_po = self.move_line_ids and self.move_line_ids[0].purchase_line_id and self.move_line_ids[0].purchase_line_id.product_qty
+	
+			
 		if (qty_receipt>0 and qty_invoice > qty_po) or ((not qty_receipt or qty_receipt==0.0) and qty_invoice>qty_po) :
 			raise Warning(_('You cannot receive product more than Receipt / PO quantity \'%s\'.') % self.product_id.name)
 		else	:
 			res=super(account_invoice_line,self).write(vals)
-
-
 		return res
 
 		
