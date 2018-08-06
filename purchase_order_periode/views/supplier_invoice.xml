@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="view_order_purchase_inherited" model="ir.ui.view">
+			<field name="name">account.invoice.supplier.form.inherited</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_supplier_form"/>
+			<field name="arch" type="xml">	
+			<field name="supplier_invoice_number" position="after">
+				<field name="sewa"/>
+				<field name="date_start" attrs="{'invisible':[('sewa', '=', False)]}"/>
+				<field name="date_end" attrs="{'invisible':[('sewa', '=', False)]}"/>
+			</field>
+			</field>
+		</record>
+		
+	</data>
+</openerp>

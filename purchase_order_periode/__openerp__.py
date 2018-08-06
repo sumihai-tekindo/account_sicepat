@@ -21,7 +21,7 @@
 {
     'name': "Purchase Order Periode",
     'summary': """
-    This module add Periode Date Start - Date End & add Department
+    This module add Periode Date Start - Date End 
     """,
 
     'author': "Aditya Nugraha",
@@ -42,6 +42,7 @@
     # always loaded
     'data': [
         'views/purchase_order.xml',
+        'views/supplier_invoice.xml',
     ],
 
     'demo': [
