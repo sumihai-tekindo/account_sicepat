@@ -2,7 +2,7 @@
 <openerp>
 	<data>
 		<record id="view_order_purchase_inherited" model="ir.ui.view">
-			<field name="name">purchase.order.tree.inherited</field>
+			<field name="name">purchase.order.form.inherited1</field>
 			<field name="model">purchase.order</field>
 			<field name="inherit_id" ref="purchase.purchase_order_form"/>
 			<field name="arch" type="xml">
@@ -16,7 +16,19 @@
 				</field>
 			</field>
 		</record>
-		
+
+		<record id="view_account_invoice_inherited" model="ir.ui.view">
+			<field name="name">account.invoice.supplier.form.inherited</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_supplier_form"/>
+			<field name="arch" type="xml">	
+			<field name="supplier_invoice_number" position="after">
+				<field name="sewa"/>
+				<field name="date_start" attrs="{'invisible':[('sewa', '=', False)]}"/>
+				<field name="date_end" attrs="{'invisible':[('sewa', '=', False)]}"/>
+			</field>
+			</field>
+		</record>
 	
 	<!-- action form window(delete, create) -->
 	<record model ="ir.actions.act_window" id="action_dept_purchase1">
@@ -51,6 +63,7 @@
                         <field name="user_id"/>
 					</group>
 				</form>
+			
 		</field>
 	</record>
  <menuitem
