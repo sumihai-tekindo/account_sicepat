@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- <record id="asset_asset_building_form" model="ir.ui.view">
+            <field name="name">asset.asset.building.form</field>
+            <field name="model">asset.asset</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                
+                    <field name="internal_reff"/>
+                    <field name="schedule_hari"/>
+                
+                 
+            </field>
+        </record> -->
+
+        
+<!-- action form window(delete, create) -->
+    <record model ="ir.actions.act_window" id="asset.action_assets1">
+        <field name="name">Asset Rental</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">asset.rent</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- menampillkan tree sebelah kiri menu -->
+    <record model = "ir.ui.view" id = "action_asset_assset_tree">
+        <field name="name">asset.asset.tree</field>
+        <field name="model">asset.rent</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="date_invoice"/>
+				<field name="supplier_id"/>
+				<field name="building_type"/>
+				<field name="biaya_sewa"/>
+				<field name="deposit"/>
+				<field name="total"/>
+            </tree>
+        </field>
+
+    </record>
+    <!-- menampillkan tree sebelah form (edit,delete) -->
+    <record model = "ir.ui.view" id = "asset_asset_form_view">
+        <field name="name">asset.asset.form</field>
+        <field name="model">asset.rent</field>
+       <field name="arch" type="xml">
+                <form string="Building Maintenance">
+	              		<!-- <header>
+	                        <button modifiers="{'invisible': [['state', '=', 'closed']]}" name="contract_close" states="open" type="object" class="oe_highlight" string="Terminate Contract" groups="fleet.group_fleet_manager"/>
+	                        <button modifiers="{'invisible': [['state', '=', 'closed']]}" name="contract_close" states="toclose" type="object" class="oe_highlight" string="Terminate Contract" groups="fleet.group_fleet_manager"/>
+	                        <button modifiers="{'invisible': [['state', 'not in', ['closed']]]}" name="contract_open" states="closed" type="object" class="oe_highlight" string="Set Contract In Progress" groups="fleet.group_fleet_manager"/>
+	                        <button class="oe_highlight" name="act_renew_contract" type="object" string="Renew Contract" help="Create a new contract automatically with all the same informations except for the date that will start at the end of current contract" groups="fleet.group_fleet_manager"/>
+	                        <field name="state" widget="statusbar" />
+	                    </header> -->
+                    <sheet>
+                        <group col="2">
+                            <group string="Building Rent">
+                                <field name="building_type"/>
+                                <field name="branch"/>
+                                
+                            </group>
+                            <group string="Cost">
+                                <label for="Cost"/>
+                                <div>
+                                    <field name="biaya_sewa"/>
+                                    <field name="deposit"/>
+                                    <field name="total"/>
+                                </div>
+                            </group>
+                        </group>
+                        <group col="2">
+                            <group string = "Periode">>
+                            	<field name="date_invoice"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                            </group>
+                            <group string = "Payer">
+                                <field name="supplier_id"/>
+                                <field name="product_id"/>
+                                
+                            </group>
+                        </group>
+                      
+                     
+                    </sheet>
+                </form>
+            </field>
+        </record>
+ <menuitem
+        id="asset.action_rent"
+        sequence="99"
+        parent="asset.menu_maintenance_assets"
+        action="asset.action_assets1"/>
+   </data>
+</openerp>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+       <record model='ir.ui.view' id='asset_building_log_contract_form'>
+            <field name="name">asset.building.log.contract.form</field>
+            <field name="model">asset.rental</field>
+            <field name="type">form</field>
+            <field name="domain">[('state','!=','toclose')]</field>
+            <field name="arch" type="xml">
+                <form string="Building">
+                    <header>
+                    	<button modifiers="{'invisible': [['state', '=', 'closed'],['state','=','open']]}" name="document_complete" states="open" type="object" class="oe_highlight" string="Document Completed" groups="fleet.group_fleet_manager"/>
+                        <button modifiers="{'invisible': [['state', '=', 'closed']]}" name="contract_close" states="open" type="object" class="oe_highlight" string="Terminate Contract" groups="fleet.group_fleet_manager"/>
+                        <button modifiers="{'invisible': [['state', '=', 'closed']]}" name="contract_close" states="toclose" type="object" class="oe_highlight" string="Terminate Contract" groups="fleet.group_fleet_manager"/>
+                        <button modifiers="{'invisible': [['state', 'not in', ['closed']]]}" name="contract_open" states="closed" type="object" class="oe_highlight" string="Set Contract In Progress" groups="fleet.group_fleet_manager"/>
+                        <button class="oe_highlight" name="act_renew_contract" type="object" string="Renew Contract" help="Create a new contract automatically with all the same informations except for the date that will start at the end of current contract" groups="fleet.group_fleet_manager"/>
+                        <button name="compute_rent" string="Supplier Invoice" type="object" class="oe_highlight" groups="fleet.group_fleet_manager"/>
+                        <field name="state" widget="statusbar"/>
+						
+                    </header>
+                    <sheet>
+                    	 <xpath expr="/form/sheet/group[1]/group[1]" position="inside">
+	                            <group string=''>
+	                            	<div class="oe_right oe_button_box">
+				                    <button name="return_supplier_invoice"
+				                            class="oe_stat_button"
+				                            type="object"
+				                            string=" "
+				                            icon="fa-money">
+				                            <field name="count_invoice" widget="statinfo" string=""/>
+				                    </button> 
+				                </div>
+		                		</group>
+	                		</xpath> 
+                        <group col="2">
+                            <group string="Asset Rent">
+                                <field name="building_type" context="{'tag_only': 1}" options='{"always_reload": True}'/>
+                                <field name="branch" string="Branch"/> 
+                                <field name="alamat" string="Address"/>
+                                <field name="insurer_id" context="{'default_supplier': True}"/>
+                                <field name="ins_ref"/>
+                                <field name ="department_id" context="{'description_only': 1}" options='{"always_reload": True}'/>
+                                <!-- <field name ="cost_type"/> -->
+                            </group>
+                           
+                            <group string = "Rent Period">     
+                            <!--  <label for="cost_generated"/>
+                                <div>
+                                    <field name="cost_generated" class="oe_inline" attrs="{'invisible': [('cost_frequency','=','daily')]}" />
+                                <field name="cost_frequency" class="oe_inline"  />
+                                </div>            -->          
+                                <field name="date" string="Invoice Date"/>
+                                <field name="start_date"/>
+                                <field name="expiration_date" />	
+                                <field name="get_count_month"/>
+                                <!-- <field name="days_left"/> -->
+                            </group>
+                        </group>
+                        <group col="2">
+                            <group string = "Chart of Accounts">
+                                <field name="product_id" string="COA Sewa"/>
+                                <field name="product_deposit" string="COA Deposit" attrs="{'invisible': [('is_deposit', '=', False)]}" modifiers="{'invisible': [['is_deposit', '=', False]]}"/>
+                                <field name="is_deposit" string="Deposit" modifiers="{}"/>
+                            </group>
+                            <group string = "Amount">                       
+                                <field name="biaya_sewa" string="Rent Cost"/>
+                                <field name="deposit" string="Deposit Cost" attrs="{'invisible': [('is_deposit', '=', False)]}" modifiers="{'invisible': [['is_deposit', '=', False]]}"/>
+
+                                <field name="total" string="Total Amount"/>
+                            </group>
+                        </group>
+                        
+                        <group string="Terms and Conditions">
+                            <field name="notes" nolabel="1" placeholder="Write here all other information relative to this contract" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model='ir.ui.view' id='asset_building_log_contract_tree'>
+            <field name="name">asset.building.log.contract.tree</field>
+            <field name="model">asset.rental</field>
+            <field name="arch" type="xml">
+                <tree string="Asset Rental Logs" colors="red:days_left &lt;= 14; blue:days_left &gt;=15 and days_left &lt;= 30">
+                		<field name="start_date"/>
+		                <field name="expiration_date"/>
+		                <field name="building_type"/>
+						<field name="branch"/>
+						<field name="days_left" invisible="1"/>
+						<field name="biaya_sewa"/>
+						<field name="deposit"/>
+						<field name="total" string="Total Amount"/>
+						<field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model='ir.actions.act_window' id='action_asset_building_log_contract'>
+            <field name="name">Asset Rent</field>
+            <field name="res_model">asset.rental</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a new contract Asset.
+              </p><p>
+                Manage all your contracts (Building) with
+                their related building Odoo will automatically warn
+                you when some contracts have to be renewed.
+              </p><p>
+                Each contract (e.g.: leasing) may include several services
+                (reparation, insurances, periodic maintenance).
+              </p>
+            </field>
+        </record>   
+ <menuitem
+        id="menu_action_asset_building_log_contract"
+        sequence="99"
+        parent="asset.menu_maintenance_assets"
+        action="action_asset_building_log_contract"/>
+   </data>
+</openerp>
