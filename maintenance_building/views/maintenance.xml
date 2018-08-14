@@ -37,8 +37,11 @@
                             <group string="Asset Rent">
                                 <field name="building_type" context="{'tag_only': 1}" options='{"always_reload": True}'/>
                                 <field name="branch" string="Branch"/> 
-                                <field name="alamat" string="Address"/>
+                               
                                 <field name="insurer_id" context="{'default_supplier': True}"/>
+                                <field name="street" string="Address"/>
+                                <field name ="mobile"/>
+                                <field name ="phone"/>
                                 <field name="ins_ref"/>
                                 <field name ="department_id" context="{'description_only': 1}" options='{"always_reload": True}'/>
                                 <!-- <field name ="cost_type"/> -->

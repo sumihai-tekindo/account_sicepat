@@ -240,6 +240,7 @@ class asset_rental(osv.Model):
 			}
 
 			
+
 	def _count_supplier_invoice(self, cr, uid, ids, field_name, arg, context=None):
 		result = {}
 		invoice_ids = self.pool.get('account.invoice').search(cr,uid,[('aset_rental_id','in',ids)])
@@ -257,6 +258,12 @@ class asset_rental(osv.Model):
 			return {'value': {'expiration_date': self.compute_next_year_date(strdate),}}
 		return {}
 
+	def compute_next_year_date(self, strdate):
+		oneyear = datetime.timedelta(days=365)
+		curdate = str_to_datetime(strdate)
+		return datetime.datetime.strftime(curdate + oneyear, tools.DEFAULT_SERVER_DATE_FORMAT)	
+
+
 	def _change(self,cr,uid,is_deposit,product_deposit,deposit,context=None):
 		if (is_deposit)==True:	
 			(product_deposit)==True
@@ -272,15 +279,17 @@ class asset_rental(osv.Model):
 		'expiration_date': fields.date('Contract Expire Date', help='Date when the coverage of the contract expirates (by default, one year after begin date)'),
 		'date': fields.date('Invoice Date', help='Date when the coverage of the contract begins'),
 		'days_left': fields.function(get_days_left, type='integer', string='Warning Date'),
-		'insurer_id': fields.many2one('res.partner', 'Supplier'),
-		# 'invoice_id':fields.boolean(default=False, copy=False),
+		# 'insurer_id': fields.many2one('res.partner', 'Supplier'),
+		# 'mobile': fields.char('Mobile Phone'),
+		# 'phone': fields.char('Phone'),
+		'invoice_id':fields.boolean(default=False, copy=False),
 		'purchaser_id': fields.many2one('res.partner', 'Contractor', help='Person to which the contract is signed for'),
 		'ins_ref': fields.char('Contract Reference', size=64, copy=False),
 		'state': fields.selection([('open', 'In Progress'), ('toclose','To Close'), ('completed','Document Completed'),('closed', 'Terminated')],
 								  'Status', readonly=True, help='Choose wheter the contract is still valid or not',
 								  copy=False),
 		'branch' : fields.many2one('account.analytic.account','Branch'),
-		'alamat' : fields.text('Address'),
+		# 'alamat' : fields.text('Address'),
 		'deposit' : fields.float('Deposit'),
 		# 'is_deposit': fields.function(_change,'Deposit', readonly=False, default=False),
 		'is_deposit': fields.boolean('Deposit', default=False),
