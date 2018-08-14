@@ -270,7 +270,7 @@ class asset_rental(osv.Model):
 	def _get_name(self, cr, uid, ids, prop, unknow_none, context=None):
 		res = {}
 		for record in self.browse(cr, uid, ids, context=context):
-			name = record.building_type.start_date
+			name = record.building_type
 			# name += ' / '+ record.date
 			# if record.building_type:
 			#     name += ' / '+ record.cost_subtype_id.name
