@@ -14,7 +14,7 @@
                         <button modifiers="{'invisible': [['state', '=', 'closed']]}" name="contract_close" states="toclose" type="object" class="oe_highlight" string="Terminate Contract" groups="fleet.group_fleet_manager"/>
                         <button modifiers="{'invisible': [['state', 'not in', ['closed']]]}" name="contract_open" states="closed" type="object" class="oe_highlight" string="Set Contract In Progress" groups="fleet.group_fleet_manager"/>
                         <button class="oe_highlight" name="act_renew_contract" type="object" string="Renew Contract" help="Create a new contract automatically with all the same informations except for the date that will start at the end of current contract" groups="fleet.group_fleet_manager"/>
-                        <button name="compute_rent" string="Supplier Invoice" type="object" class="oe_highlight" groups="fleet.group_fleet_manager"/>
+                        <button name="compute_rent" string="Supplier Invoice" type="object" class="oe_highlight" attrs="{'invisible': [('invoice_id','!=',False)]}" groups="fleet.group_fleet_manager"/>
                         <field name="state" widget="statusbar"/>
 						
                     </header>
@@ -29,6 +29,7 @@
 				                            icon="fa-money">
 				                            <field name="count_invoice" widget="statinfo" string=""/>
 				                    </button> 
+				                  
 				                </div>
 		                		</group>
 	                		</xpath> 
@@ -53,6 +54,7 @@
                                 <field name="start_date"/>
                                 <field name="expiration_date" />	
                                 <field name="get_count_month"/>
+                                <field name="invoice_id" invisible="1"/>
                                 <!-- <field name="days_left"/> -->
                             </group>
                         </group>
@@ -69,7 +71,19 @@
                                 <field name="total" string="Total Amount"/>
                             </group>
                         </group>
-                        
+                      <!--   <notebook>
+                            <page string="Generated Recurring Costs">
+                                <group>
+                                    <field name="generated_cost_ids"  nolabel="1" sum="amount">
+                                        <tree editable="bottom" >
+                                            <field name="date" />
+                                            <field name="amount" sum="amount"/>
+                                        </tree>
+
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook> -->
                         <group string="Terms and Conditions">
                             <field name="notes" nolabel="1" placeholder="Write here all other information relative to this contract" />
                         </group>
