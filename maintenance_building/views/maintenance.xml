@@ -16,7 +16,6 @@
                         <button class="oe_highlight" name="act_renew_contract" type="object" string="Renew Contract" help="Create a new contract automatically with all the same informations except for the date that will start at the end of current contract" groups="fleet.group_fleet_manager"/>
                         <button name="compute_rent" string="Supplier Invoice" type="object" class="oe_highlight" attrs="{'invisible': [('invoice_id','!=',False)]}" groups="fleet.group_fleet_manager"/>
                         <field name="state" widget="statusbar"/>
-						
                     </header>
                     <sheet>
                     	 <xpath expr="/form/sheet/group[1]/group[1]" position="inside">
@@ -35,14 +34,14 @@
 	                		</xpath> 
                         <group col="2">
                             <group string="Asset Rent">
-                                <field name="building_type" context="{'tag_only': 1}" options='{"always_reload": True}'/>
-                                <field name="branch" string="Branch"/> 
-                               
-                                <field name="insurer_id" context="{'default_supplier': True}"/>
-                                <field name="street" string="Address"/>
-                                <field name ="mobile"/>
-                                <field name ="phone"/>
-                                <field name="ins_ref"/>
+                                <field name ="building_type" context="{'tag_only': 1}" options='{"always_reload": True}'/>
+                                <field name ="branch" string="Branch"/> 
+                                <field name ="alamat_lengkap"/>
+                                <field name ="insurer_id" context="{'default_supplier': True}"/>
+                                <field name ="street" string="Supplier Address" width="50%%"/>
+                                <field name ="mobile" string="Mobile phone"/>
+                                <field name ="phone" string="Phone"/>
+                                <field name ="ins_ref"/>
                                 <field name ="department_id" context="{'description_only': 1}" options='{"always_reload": True}'/>
                                 <!-- <field name ="cost_type"/> -->
                             </group>
@@ -56,7 +55,7 @@
                                 <field name="date" string="Invoice Date"/>
                                 <field name="start_date"/>
                                 <field name="expiration_date" />	
-                                <field name="get_count_month"/>
+                                <field name="get_count_month" />
                                 <field name="invoice_id" invisible="1"/>
                                 <!-- <field name="days_left"/> -->
                             </group>
@@ -102,10 +101,15 @@
                 <tree string="Asset Rental Logs" colors="red:days_left &lt;= 14; blue:days_left &gt;=15 and days_left &lt;= 30">
                 		<field name="start_date"/>
 		                <field name="expiration_date"/>
-		                <field name="building_type"/>
+                        <field name="get_count_month" string="Duration(month)"/>
+                        <field name="insurer_id" context="{'description_only': 1}" options='{"always_reload": True}'/>    
+		                <field name="phone"/>
+                        <field name="mobile"/>
+                        <field name="building_type"/>
 						<field name="branch"/>
+                        <field name="alamat_lengkap"/>
 						<field name="days_left" invisible="1"/>
-						<field name="biaya_sewa"/>
+						<field name="biaya_sewa" strnig ="Rental Costs"/>
 						<field name="deposit"/>
 						<field name="total" string="Total Amount"/>
 						<field name="state"/>
