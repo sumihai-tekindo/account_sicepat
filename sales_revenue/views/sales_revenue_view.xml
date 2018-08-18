@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+
+    <!-- create parent left menu -->
+    <menuitem id="menu_new_sales_rev" name="Sales Revenue" sequence="2" parent="base.menu_reporting" />
+<!-- 
+        <menuitem id="menu_sales_rev" name="Sales Revenue" parent="menu_new_sales_rev" />
+    <menuitem id="menu_sales_rev" name="Sales Revenue" parent="menu_new_sales_rev" />
+    <menuitem id="menu_sales_rev1" name="Sales 1Revenue" parent="menu_new_sales_rev" />
+    <menuitem id="menu_sales_rev2" name="Sales R2evenue" parent="menu_new_sales_rev" /> -->
+
+    <!-- TREE -->
+    <record id="action_sales_rev_tree_view" model="ir.ui.view">
+        <field name="name">sales.revenue.rpt.tree</field>
+        <field name="model">sales.revenue.rpt</field>
+    
+        <field name="arch" type="xml">
+            <form string="Sales Revenue">
+                <field name="invoice_date"/>          
+                <field name="user_id" string="Sales"/>
+                <field name="partner_id" groups="base.group_user"/>
+                <field name="join_date" string="Join Date"/>
+                <field name="will_be_count" string="Will Be Count"/>
+                <field name="weight"/>
+                <field name="gross_amount" string="Gross Revenue"/>
+                <field name="discount"/>
+                <field name="quantity"/>
+                <field name="discount_amount"/>
+                <field name="refund" invisible="1"/>
+                <field name="gross_amount" sum="Total Amount" string='Net Revenue'/>
+                <field name="service_type"  />
+            </form>
+        </field>
+    </record>
+    <!-- CRUD -->
+    <record id="action_sales_rev_view" model="ir.actions.act_window">
+        <field name="name">Sales Revenue</field>
+        <field name="res_model">sales.revenue.rpt</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="arch" type="xml">
+               <form string="Sales Revenue">
+                    
+                        <field name="gerai"/>
+                        <field name="user_id"/>
+                        <field name="partner_id" groups="base.group_user"/>
+                        <field name="join_date" string="Join Date"/>
+                        <field name="will_be_count" string="Will be Count"/>
+                        <field name="weight"/>
+                        <field name="gross_amount" string="Gross Revenue"/>
+                        <field name="discount"/>
+                        <field name="quantity"/>
+                        <field name="discount_amount"/>
+                        <field name="refund" invisible="1"/>
+                        <field name="gross_amount" sum="Total Amount" string='Net Revenue'/>
+                        <field name="service_type" />
+                   
+                </form>
+        </field>
+    </record>
+
+    <record id="sales_rev_action_tree2" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="action_sales_rev_tree_view"/>
+        <field name="act_window_id" ref="action_sales_rev_view"/>
+    </record>
+
+    <!-- <menuitem id="sales_rev_menu_rpt" name="Sales Revenue Report" parent="menu_new_sales_rev" sequence="5" action="action_sales_rev_view"/> -->
+<!-- =================================================LAYANAN================================================================================ -->
+
+        <record id="sales_revenue_rpt_graph2" model="ir.ui.view">
+            <field name="name">sales_revenue_rpt.graph2</field>
+            <field name="model">sales.revenue.rpt</field>
+            <field name="arch" type="xml">
+                <graph string="Revenue By Layanan" type="pivot" stacked="True">
+                    <field name="invoice_date" interval="day" type="col"/>
+                    <field name="gross_amount" type="measure"/>
+                    <field name="discount" type="measure"/>
+                    <field name="refund" type="measure"/>
+                    <field name="net_revenue" type="measure"/>
+                    <!-- <field name="service_type" type="measure"/> -->
+                </graph>
+            </field>
+        </record>
+         <record id="revenue_sales_layanan_search" model="ir.ui.view">
+             <field name="name">sales.revenue.sales.rpt.search</field>
+            <field name="model">sales.revenue.rpt</field>
+            <field name="arch" type="xml">
+                <search string="Analytic Account">
+                    <!-- <filter string="New Customer" name="new_customer" domain="[('first_invoice','=', 'True')]"/> -->
+                    <group  string="Group By">
+                        <filter string="Invoice date" name="invoice_date" context="{'group_by':'invoice_date:day',}"/>
+                        <filter string="Layanan" name="service_type" context="{'service_type':'service_type',}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_sales_rev_Layanan_view" model="ir.actions.act_window">
+            <field name="name">Revenue By Layanan</field>
+            <field name="res_model">sales.revenue.rpt</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph,tree,form</field>
+            <field name="view_id"></field>
+            <field name="help">Revenue by Layanan</field>
+            <field name="search_view_id" ref="revenue_sales_layanan_search"/>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+        </record>
+
+        <record id="obj_sales_report2" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">graph</field>
+            <!-- <field name="view_id" ref="bi_revenue_sales_rpt_graph2"/> -->
+            <field name="act_window_id" ref="action_sales_rev_Layanan_view"/>
+        </record>
+
+    <!-- parent menu Revenue by Layanan -->
+    <menuitem id="sales_rev_menu_rptLayanan" name="Revenue by Layanan" parent="menu_new_sales_rev" sequence="5" action="action_sales_rev_Layanan_view"/>
+
+<!-- =========================================LOCATION====================================================================== -->
+        <record id="sales_revenue_rpt_graph3" model="ir.ui.view">
+            <field name="name">sales_revenue_rpt.graph3</field>
+            <field name="model">sales.revenue.rpt</field>
+            <field name="arch" type="xml">
+                <graph string="Leads Analysis" type="pivot" stacked="True">
+                    <field name="invoice_date" interval="day" type="col"/>
+                    <field name="gross_amount" type="measure"/>
+                    <field name="discount" type="measure"/>
+                    <field name="refund" type="measure"/>
+                    <field name="net_revenue" type="measure"/>
+                    <!-- <field name="service_type" type="measure"/> -->
+                </graph>
+            </field>
+        </record>
+
+
+        <record id="revenue_sales_location_search" model="ir.ui.view">
+            <field name="name">sales.revenue.location.rpt.search</field>
+            <field name="model">sales.revenue.rpt</field>
+            <field name="arch" type="xml">
+                <search string="Analytic Account">
+                    <!-- <filter string="toko" name="toko" domain="[('location','=','toko')]"/> -->
+                    <filter string="gerai" name="gerai" domain="[('tag','=','gerai')]"/>
+                    <filter string="cabang" name="cabang" domain="[('tag','=','cabang')]"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="action_sales_rev_Locations_view" model="ir.actions.act_window">
+            <field name="name">Revenue by Locations</field>
+            <field name="res_model">sales.revenue.rpt</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph,tree,form</field>
+            <field name="view_id"></field>
+            <field name="help">Revenue by Location</field>
+            <field name="search_view_id" ref="revenue_sales_location_search"/>
+            <field name="context">{'search_default_toko': 1}</field>
+            <field name="domain">[]</field>
+        </record>
+
+
+        <record id="obj_sales_report3" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="sales_revenue_rpt_graph3"/>
+            <field name="act_window_id" ref="action_sales_rev_Locations_view"/>
+        </record>
+
+    <menuitem id="sales_rev_menu_rptLocation" name="Revenue by Location" parent="menu_new_sales_rev" sequence="5" action="action_sales_rev_Locations_view"/>
+    <!-- ===================================END LOCATION================================================================== -->
+    
+     <record id="sales_revenue_rpt_graph_customer" model="ir.ui.view">
+            <field name="name">sales_revenue_rpt.graph4</field>
+            <field name="model">sales.revenue.rpt</field>
+            <field name="arch" type="xml">
+                <graph string="Revenue By Customer" type="pivot" stacked="True">
+                    <field name="invoice_date" interval="day" type="col"/>
+                    <field name="partner_id" type="row"/>
+                    <field name="gross_amount" type="measure"/>
+                    <field name="discount" type="measure"/>
+                    <field name="refund" type="measure"/>
+                    <field name="net_revenue" type="measure"/>
+                    <!-- <field name="service_type" type="measure"/> -->
+                </graph>
+            </field>
+        </record>
+
+          <record id="revenue_sales_customer_search" model="ir.ui.view">
+             <field name="name">sales.revenue.sales.rpt.search</field>
+            <field name="model">sales.revenue.rpt</field>
+            <field name="arch" type="xml">
+                <search string="Analytic Account">
+                    <!-- <filter string="New Customer" name="new_customer" domain="[('first_invoice','=', 'True')]"/> -->
+                    <group  string="Group By">
+                        <filter string="Invoice date" name="invoice_date" context="{'group_by':'invoice_date:day',}"/>
+                        <filter string="Type" name="type" context="{'group_by':'type',}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_sales_rev_cust_rpt" model="ir.actions.act_window">
+            <field name="name">Revenue By Customer</field>
+            <field name="res_model">sales.revenue.rpt</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph,tree,form</field>
+            <field name="view_id"></field>
+            <field name="help">Customer Revenue</field>
+            <field name="search_view_id" ref="revenue_sales_customer_search"/>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+        </record>
+
+        <record id="obj_cust_report2" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="sales_revenue_rpt_graph_customer"/>
+            <field name="act_window_id" ref="action_sales_rev_cust_rpt"/>
+        </record>
+
+  
+    <menuitem id="sales_rev_menu_rptCustomer" name="Revenue by Customer" parent="menu_new_sales_rev" sequence="5" action="action_sales_rev_cust_rpt"/>
+    <!-- ===================================END Customer================================================================== -->
+
+     <record id="sales_revenue_rpt_graph_package" model="ir.ui.view">
+            <field name="name">sales_revenue_rpt.graph5</field>
+            <field name="model">sales.revenue.rpt</field>
+            <field name="arch" type="xml">
+                <graph string="Leads Analysis" type="pivot" stacked="True">
+                    <field name="invoice_date" interval="year" type="col"/>
+                    <field name="invoice_date" interval="day" type="row"/>
+                    <field name="net_revenue" type="measure"/>
+                    <!-- <field name="service_type" type="measure"/> -->
+                </graph>
+            </field>
+        </record>
+
+         <record id="revenue_sales_rpt_search" model="ir.ui.view">
+            <field name="name">sales.revenue.sales.rpt.search</field>
+            <field name="model">sales.revenue.rpt</field>
+            <field name="arch" type="xml">
+                <search string="Analytic Account">
+                    <!-- <filter string="New Customer" name="new_customer" domain="[('first_invoice','=', 'True')]"/> -->
+                    <group string="Group By">
+                        <filter string="Invoice date" name="invoice_date" context="{'group_by':'invoice_date:day',}"/>
+                        <filter string="Type" name="type" context="{'group_by':'type',}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_sales_rev_package_rpt" model="ir.actions.act_window">
+            <field name="name">Revenue and Package</field>
+            <field name="res_model">sales.revenue.rpt</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph,tree,form</field>
+            <field name="view_id"></field>
+            <field name="help">Revenue and Package</field>
+            <field name="search_view_id" ref="revenue_sales_rpt_search"/>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+        </record>
+
+        <record id="obj_bi_sales_report3" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="sales_revenue_rpt_graph_package"/>
+            <field name="act_window_id" ref="action_sales_rev_package_rpt"/>
+        </record>
+
+    <menuitem id="sales_rev_menu_rptPackage" name="Revenue and Package" parent="menu_new_sales_rev" sequence="5" action="action_sales_rev_package_rpt"/>
+ <!-- ===================================END Package================================================================== -->
+
+     <record id="sales_revenue_rpt_graph_newcust" model="ir.ui.view">
+            <field name="name">bi_revenue_sales_rpt.graph</field>
+            <field name="model">bi.revenue.sales.rpt</field>
+            <field name="arch" type="xml">
+                <graph string="Leads Analysis" type="pivot" stacked="True">
+                    <field name="user_id" type="col"/>
+                    <!-- <field name="partner_id" type="col"/> -->
+                    <field name="joindate" interval="day" type="row"/>
+                    <!-- <field name="net_revenue" type="measure"/> -->
+                </graph>
+            </field>
+        </record>
+
+        <record id="revenue_sales_newcust_search" model="ir.ui.view">
+             <field name="name">sales.revenue.sales.rpt.search</field>
+            <field name="model">sales.revenue.rpt</field>
+            <field name="arch" type="xml">
+                <search string="Analytic Account">
+                    <!-- <filter string="New Customer" name="new_customer" domain="[('first_invoice','=', 'True')]"/> -->
+                    <group expand="0" string="Group By">
+                        <filter string="Invoice date" name="invoice_date" context="{'group_by':'invoice_date:day',}"/>
+                        <filter string="Sales" name="user_id" context="{'group_by':'user_id',}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_sales_rev_newcust_rpt" model="ir.actions.act_window">
+            <field name="name">New Customer By Sales</field>
+            <field name="res_model">bi.revenue.sales.rpt</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph,tree,form</field>
+            <field name="view_id"></field>
+            <field name="help">New Customer</field>
+            <field name="search_view_id" ref="revenue_sales_newcust_search"/>
+            <field name="context">{'search_default_new_customer': 1}</field>
+            <field name="domain">[]</field>
+        </record>
+
+        <record id="obj_bi_sales_report2" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="sales_revenue_rpt_graph_newcust"/>
+            <field name="act_window_id" ref="action_sales_rev_newcust_rpt"/>
+        </record>
+
+
+    <menuitem id="sales_rev_menu_rptnewcust" name="New Customer by Sales" parent="menu_new_sales_rev" sequence="5" action="action_sales_rev_newcust_rpt"/>
+ <!-- ===================================New Customer by Sales================================================================== -->
+
+ 
+
+
+    </data>
+</openerp>

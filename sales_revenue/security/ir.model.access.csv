@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+biintel1,account.chart2,business_intellegence.model_account_chart2,managerbi,1,1,1,1
+biintel2,bi.report.wizard,business_intellegence.model_bi_report_wizard,managerbi,1,1,1,1
+biintel3,bi.revenue.location.rpt,business_intellegence.model_bi_revenue_location_rpt,managerbi,1,1,1,1
+biintel4,bi.revenue.package.rpt,business_intellegence.model_bi_revenue_package_rpt,managerbi,1,1,1,1
+biintel5,bi.revenue.pendapatan,business_intellegence.model_bi_revenue_pendapatan,managerbi,1,1,1,1
+biintel6,bi.revenue.sales.rpt,business_intellegence.model_bi_revenue_sales_rpt,managerbi,1,1,1,1
+biintel7,bi.sales.target,business_intellegence.model_bi_sales_target,managerbi,1,1,1,1
+biintel8,bi.toko,business_intellegence.model_bi_toko,managerbi,1,1,1,1
