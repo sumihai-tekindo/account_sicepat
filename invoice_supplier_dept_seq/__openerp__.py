@@ -29,7 +29,9 @@
         'stock_account',
         'invoice_supplier_validate',
         'seq_date_range',
-        'purchase'
+        'purchase',
+        'analytic',
+        
     ],
     'data': [
         'security/ir.model.access.csv',
