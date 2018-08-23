@@ -71,16 +71,18 @@ class account_invoice(models.Model):
 class account_journal(models.Model):
 	_inherit = "account.journal"
 
-	def _get_default_dept_id(self,):
-		dept_id = self._context.get('department_id',False)
-		return dept_id
 
-	department_id = fields.Many2one('account.invoice.department','Department',default=_get_default_dept_id)
+	department_id = fields.Many2one('account.invoice.department','Department')
 
 class account_move(models.Model):
 	_inherit="account.move"
 
-		
+	
+	def _get_default_dept_id(self,):
+		dept_id = False
+		if self._context and self._context.get('department_id',False):
+			dept_id = self._context.get('department_id',False)
+		return dept_id
 
 	@api.onchange('journal_id')
 	def onchange_journal_id(self,):
@@ -89,7 +91,7 @@ class account_move(models.Model):
 		
 
 	journal_id = fields.Many2one('account.journal','Journal')
-	department_id = fields.Many2one('account.invoice.department','Department',readonly=True)
+	department_id = fields.Many2one('account.invoice.department','Department',readonly=True,default=_get_default_dept_id)
 
 
 
@@ -98,7 +100,9 @@ class account_move_line(models.Model):
 	_inherit="account.move.line"
 
 	def _get_default_dept_id(self,):
-		dept_id = self._context.get('department_id',False)
+		dept_id = False
+		if self._context and self._context.get('department_id',False):
+			dept_id = self._context.get('department_id',False)
 		return dept_id
 
 	department_id = fields.Many2one('account.invoice.department','Department',default=_get_default_dept_id)
