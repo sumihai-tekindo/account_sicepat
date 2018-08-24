@@ -107,9 +107,9 @@ class account_move_line(osv.osv):
 				
 		if 'analytic_ids'in context:
 			if context.get('analytic_ids'):
-				analytics = self.pool.get('account.analytic.account').search(cr, uid, [('parent_id', 'child_of', context['analytic_ids'])], context=context)
-				query_params['analytic_ids'] = tuple(analytics)
-				# query_params['analytic_ids'] = tuple(context['analytic_ids'])
+				# analytics = self.pool.get('account.analytic.account').search(cr, uid, [('parent_id', 'child_of', context['analytic_ids'])], context=context)
+				# query_params['analytic_ids'] = tuple(analytics)
+				query_params['analytic_ids'] = tuple(context['analytic_ids'])
 				query += ' AND '+obj+'.analytic_account_id IN %(analytic_ids)s'
 			else:
 				query += ' AND '+obj+'.analytic_account_id IS NULL'
