@@ -46,8 +46,6 @@ class AccountInvoiceLine(models.Model):
         for line in self:
             if line.state not in ('draft', 'cancel'):
                 raise Warning(_('You cannot delete an item which is not draft or cancelled. You should refund it instead.'))
-            elif line.invoice_id.internal_number:
-                raise Warning(_('You cannot delete an item after it has been validated (and received a number).  You can set it back to "Draft" state and modify its content, then re-confirm it.'))
         return super(AccountInvoiceLine, self).unlink()
 
 class AccountInvoice(models.Model):
