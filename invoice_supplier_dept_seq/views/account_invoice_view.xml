@@ -131,29 +131,13 @@
             <field name="action_id" ref="action_email_reminder_invoice_supplier"/>
         </record>
 
-         <record id="account_journal_form_dept" model="ir.ui.view">
-            <field name="name">account.jornal.dept</field>
+         <record id="account_journal_form_dept_seq" model="ir.ui.view">
+            <field name="name">account.jornal.dept_seq</field>
             <field name="model">account.journal</field>
             <field name="inherit_id" ref="account.view_account_journal_form"/>
             <field name="arch" type="xml">
                 <field name="company_id" position="after">
                     <field name="department_id" context="{'description_only': 1}" options='{"always_reload": True}'/>
-                </field>
-            </field>
-        </record>
-        <record id="account_journal_form_dept1" model="ir.ui.view">
-            <field name="name">account.jornal.dept1</field>
-            <field name="model">account.move</field>
-            <field name="inherit_id" ref="account.view_move_form"/>
-            <field name="arch" type="xml">
-                <field name="company_id" position="after">
-                    <field name="department_id" string="Department Journal" context="{'description_only': 1}" options='{"always_reload": True}'/>
-                </field>
-                <field name="department_id" position="attributes">
-                    <attribute name="invisible" >1</attribute>
-                </field> 
-                <field name="line_id" position="attributes">
-                    <attribute name="context">{'line_id':line_id,'journal_id':journal_id,'department_id':department_id}</attribute>
                 </field>
             </field>
         </record>

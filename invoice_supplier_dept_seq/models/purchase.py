@@ -45,7 +45,7 @@ class purchase_order(osv.osv):
 	_inherit ="purchase.order"
 
 	_columns = {
-		'department_id': fields.many2one('account.invoice.department', 'Department', readonly=True, states={'draft': [('readonly', False)]}, copy=False, ondelete='set null'),
+		'department_id': fields.many2one('account.invoice.department', 'Department', readonly=True, states={'draft': [('readonly', False)]}, ondelete='set null'),
 	}
 
 	def _prepare_invoice(self, cr, uid, order, line_ids, context=None):

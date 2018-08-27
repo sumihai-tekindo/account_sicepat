@@ -20,6 +20,5 @@
 ##############################################################################
 
 from . import account_invoice
-from . import account_invoice1
 from . import stock_invoice
 from . import purchase
