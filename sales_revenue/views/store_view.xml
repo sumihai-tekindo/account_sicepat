@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <record id="view_res_store_tree" model="ir.ui.view">
+            <field name="name">res.store.tree</field>
+            <field name="model">res.store</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>      
+                    <field name="name"/>      
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_store_form" model="ir.ui.view">
+            <field name="name">res.store.form</field>
+            <field name="model">res.store</field>
+            <field name="arch" type="xml">
+	            <form>
+                    <sheet>
+	                    <group>
+	                        <field name="code"/>      
+	                        <field name="name"/>    
+	                    </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_res_store" model="ir.actions.act_window">
+            <field name="name">Store</field>
+            <field name="res_model">res.store</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_sales_revenue_sub_data" name="Data" parent="menu_sales_revenue_report" sequence="100"/>
+        <menuitem id="menu_res_store" name="Store" parent="menu_sales_revenue_sub_data" action="action_res_store"/>
+        
+	</data>
+</openerp>
