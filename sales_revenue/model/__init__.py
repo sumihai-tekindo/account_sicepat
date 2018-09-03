@@ -1,4 +1,4 @@
 # -*- coding: utf-8 -*-
 
-import sales_revenue
 import store
+import sales_revenue
