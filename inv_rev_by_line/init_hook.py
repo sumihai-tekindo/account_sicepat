@@ -48,10 +48,6 @@ def add_field_invoice_type(cr):
         """
         ALTER TABLE account_invoice_line ADD COLUMN IF NOT EXISTS invoice_type character varying;
         COMMENT ON COLUMN account_invoice_line.invoice_type IS 'Type';
-        CREATE INDEX account_invoice_line_invoice_type_index
-          ON public.account_invoice_line
-          USING btree
-          (invoice_type);
         """)
     
 def add_field_invoice_state(cr):
@@ -59,13 +55,16 @@ def add_field_invoice_state(cr):
         """
         ALTER TABLE account_invoice_line ADD COLUMN IF NOT EXISTS invoice_state character varying;
         COMMENT ON COLUMN account_invoice_line.invoice_state IS 'Status';
-        CREATE INDEX account_invoice_line_invoice_state_index
-          ON public.account_invoice_line
-          USING btree
-          (invoice_state);
         """)
 
 def store_field(cr):
+
+    cr.execute(
+        """
+        CREATE INDEX account_invoice_line_invoice_type_invoice_state_index
+          ON account_invoice_line
+          (invoice_type, invoice_state);
+        """)
 
     _logger.info("Storing computed values of account_invoice_line fields invoice_type, invoice_state")
 
