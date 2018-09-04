@@ -74,19 +74,19 @@ class SalesRevenueReport(models.Model):
 					WHEN service.id = 4 THEN 3
 					ELSE service.id 
 				END AS service_id, 
-				CASE 
-					WHEN ai.type::text = ANY (ARRAY['out_invoice'::character varying::text]) THEN SUM(ail.price_subtotal) 
+				CASE
+					WHEN ai.type::text = ANY (ARRAY['out_invoice'::character varying::text]) THEN SUM(ail.price_subtotal + (ail.quantity * (ail.price_unit * (ail.discount/100))))
 					ELSE 0.0
-				END AS net_amount, 
+				END AS gross_amount,
 				CASE 
-					WHEN ai.type::text = ANY (ARRAY['out_refund'::character varying::text]) THEN SUM(ail.price_subtotal + (ail.quantity * (ail.price_unit * (ail.discount/100)))) 
+					WHEN ai.type::text = ANY (ARRAY['out_refund'::character varying::text]) THEN SUM(ail.price_subtotal) 
 					ELSE 0.0
 				END AS refund, 
 				CASE 
 					WHEN ai.type::text = ANY (ARRAY['out_invoice'::character varying::text]) THEN SUM(ail.quantity * (ail.price_unit * (ail.discount/100))) 
 					ELSE 0.0 
 				END AS discount_amount, 
-				(invoice_type.sign*SUM(ail.price_subtotal + (ail.quantity * (ail.price_unit * (ail.discount/100))))) AS gross_amount,
+				(invoice_type.sign*SUM(ail.price_subtotal)) AS net_amount, 
 				(invoice_type.sign*COUNT(ail.id)) AS waybill_count, 
 				(invoice_type.sign*SUM(ail.quantity)) AS quantity 
 		"""
