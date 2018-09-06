@@ -16,7 +16,7 @@
                     <separator/>
                     <group expand="0" string="Group By">
                     	<filter name="group_by_partner_id" string="Partner" domain="[]" context="{'group_by':'partner_id'}"/>
-                        <filter name="group_by_state" string="Status" context="{'group_by':'state'}"/>
+                        <filter name="group_by_state" string="Status" context="{'group_by':'invoice_state'}"/>
                         <separator/>
                         <filter name="group_by_invoice_id" string="Invoice Reference" domain="[]" context="{'group_by':'invoice_id'}"/>
                     </group>

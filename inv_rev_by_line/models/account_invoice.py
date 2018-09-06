@@ -24,10 +24,12 @@ from openerp.tools.translate import _
 
 class account_invoice(models.Model):
     _inherit = "account.invoice.line"
+    _order = "date_invoice desc,sequence,id"
     
-    invoice_id = fields.Many2one('account.invoice', string='Invoice Reference',
-        ondelete='cascade', index=True, auto_join=True)
+    name = fields.Text(index=True)
+    date_invoice = fields.Date(related='invoice_id.date_invoice', states={}, store=True, index=True)
+    sequence = fields.Integer(index=True)
     inv_line_origin_id = fields.Many2one('account.invoice.line', copy=False)
     inv_line_rev_ids = fields.One2many('account.invoice.line', 'inv_line_origin_id')
-    invoice_type = fields.Selection(related='invoice_id.type', store=True, default=False, select=True)
-    invoice_state = fields.Selection(related='invoice_id.state', store=True, default=False, select=True)
+    invoice_type = fields.Selection(related='invoice_id.type', store=True, default=False, index=True)
+    invoice_state = fields.Selection(related='invoice_id.state', store=True, default=False, index=True)

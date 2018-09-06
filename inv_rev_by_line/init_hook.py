@@ -38,10 +38,18 @@ def pre_init_hook(cr):
 
     The post init script sets the value of maturity_residual.
     """
+    add_field_date_invoice(cr)
     add_field_invoice_type(cr)
     add_field_invoice_state(cr)
     store_field(cr)
 
+
+def add_field_date_invoice(cr):
+    cr.execute(
+        """
+        ALTER TABLE account_invoice_line ADD COLUMN IF NOT EXISTS date_invoice date;
+        COMMENT ON COLUMN account_invoice_line.date_invoice IS 'Invoice Date';
+        """)
 
 def add_field_invoice_type(cr):
     cr.execute(
@@ -59,26 +67,19 @@ def add_field_invoice_state(cr):
 
 def store_field(cr):
 
-    cr.execute(
-        """
-        CREATE INDEX account_invoice_line_invoice_type_invoice_state_index
-          ON account_invoice_line
-          (invoice_type, invoice_state);
-        """)
-
-    _logger.info("Storing computed values of account_invoice_line fields invoice_type, invoice_state")
+    _logger.info("Storing computed values of account_invoice_line fields date_invoice, invoice_type, invoice_state")
 
     if _logger.isEnabledFor(logging.DEBUG):
         start_time = time.time()
     cr.execute(
         """
         UPDATE account_invoice_line line
-        SET invoice_type = inv.type, invoice_state = inv.state
+        SET date_invoice = inv.date_invoice, invoice_type = inv.type, invoice_state = inv.state
         FROM account_invoice AS inv
         WHERE line.invoice_id = inv.id
         """
     )
     if _logger.isEnabledFor(logging.DEBUG):
         end_time = time.time() - start_time
-        _logger.debug('%.3fs Stored (account.invoice.line: (invoice_type, invoice_state))' % (end_time))
+        _logger.debug('%.3fs Stored (account.invoice.line: (date_invoice, invoice_type, invoice_state))' % (end_time))
 
