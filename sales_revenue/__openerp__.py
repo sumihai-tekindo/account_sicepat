@@ -4,8 +4,9 @@
 	"name": "Sales Revenue Report",
 	"version": "1.0",
 	"depends": [
-		"account_accountant",
-		'sicepat_erp'
+		'materialized_sql_view',
+		'account_accountant',
+		'sicepat_erp',
 	],
 	"author": "Pambudi Satria",
 	"description": """ Sicepat Sales Revenue Report:

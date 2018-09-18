@@ -41,13 +41,41 @@
 					<filter string="Salesperson" name="user" context="{'group_by':'user_id'}"/>
 					<filter string="Category of Service" name="service_type" context="{'group_by':'service_id'}"/>
 					<separator orientation="vertical" />
-					<filter string="Invoice Date:month" name="invoice_bymonth" context="{'group_by':'date_invoice:month'}"/>
-					<filter string="Invoice Date:week" name="invoice_byweek" context="{'group_by':'date_invoice:week'}"/>
-					<filter string="Invoice Date:day" name="invoice_bydate" context="{'group_by':'date_invoice:day'}"/>
+					<filter string="Invoice Month" name="invoice_bymonth" context="{'group_by':'date_invoice:month'}"/>
+					<filter string="Invoice Week" name="invoice_byweek" context="{'group_by':'date_invoice:week'}"/>
+					<filter string="Invoice Day" name="invoice_bydate" context="{'group_by':'date_invoice:day'}"/>
 					<separator orientation="vertical" />
-					<filter string="Join Date:month" name="partner_bymonth" context="{'group_by':'date_join:month'}"/>
-					<filter string="Join Date:week" name="partner_byweek" context="{'group_by':'date_join:week'}"/>
-					<filter string="Join Date:day" name="partner_bydate" context="{'group_by':'date_join:day'}"/>
+					<filter string="Joined Month" name="partner_bymonth" context="{'group_by':'date_join:month'}"/>
+					<filter string="Joined Week" name="partner_byweek" context="{'group_by':'date_join:week'}"/>
+					<filter string="Joined Day" name="partner_bydate" context="{'group_by':'date_join:day'}"/>
+				</group>
+            </search>
+		</field>
+	</record>
+	<record id="view_newpartner_revenue_search" model="ir.ui.view">
+		<field name="name">newpartner.revenue.report.search</field>
+		<field name="model">newpartner.revenue.report</field>
+		<field name="arch" type="xml">
+		   <search string ="Sales Revenue">
+				<field name="date_invoice"/>
+				<field name="partner_id" operator="child_of"/>
+				<field name="user_id"/>
+				<field name="date_join" string="Join Date"/>
+				<separator orientation="vertical" />
+				<filter string="Joined This Year" name="jointhisyear" domain="[('date_join','&lt;=',time.strftime('%Y-%m-%d')),('date_join','&gt;=',time.strftime('%Y-01-01'))]" help="Sales Revenue with period in current year"/>
+				<filter string="Joined This Month" name="jointhismonth" domain="[('date_join','&lt;=',(context_today()+relativedelta(months=1)).strftime('%Y-%m-01')),('date_join','&gt;=',time.strftime('%Y-%m-01'))]" help="Sales Revenue with period in current month"/>
+				<filter string="Joined Last Month" name="joinlastmonth" domain="[('date_join','&lt;=',(context_today()-relativedelta(day=31, months=1)).strftime('%Y-%m-%d')),('date_join','&gt;=',(context_today()-relativedelta(day=1,months=1)).strftime('%Y-%m-%d'))]" help="Sales Revenue with period in last month"/>
+				<separator orientation="vertical" />
+				<filter string="Joined Last 2 Weeks" name="joinlast2week" domain="[('date_join','&lt;=',(context_today()-relativedelta(weeks=1, weekday=-1)).strftime('%Y-%m-%d')),('date_join','&gt;=',(context_today()-relativedelta(weeks=3, weekday=0)).strftime('%Y-%m-%d'))]" help="Sales Revenue with period in last 2 weeks"/>
+				<filter string="Joined Last Week" name="joinlastweek" domain="[('date_join','&lt;=',(context_today()-relativedelta(weeks=1, weekday=-1)).strftime('%Y-%m-%d')),('date_join','&gt;=',(context_today()-relativedelta(weeks=2, weekday=0)).strftime('%Y-%m-%d'))]" help="Sales Revenue with period in last week"/>
+				<filter string="Joined This Week" name="jointhisweek" domain="[('date_join','&lt;=',(context_today()-relativedelta(weeks=0, weekday=-1)).strftime('%Y-%m-%d')),('date_join','&gt;=',(context_today()-relativedelta(weeks=1, weekday=0)).strftime('%Y-%m-%d'))]" help="Sales Revenue with period in current week"/>
+				<group expand="1" string="Group By">
+					<filter string="Partner" name="partner_id" context="{'group_by':'partner_id'}"/>
+					<filter string="Salesperson" name="user" context="{'group_by':'user_id'}"/>
+					<separator orientation="vertical" />
+					<filter string="Joined Month" name="partner_bymonth" context="{'group_by':'date_join:month'}"/>
+					<filter string="Joined Week" name="partner_byweek" context="{'group_by':'date_join:week'}"/>
+					<filter string="Joined Day" name="partner_bydate" context="{'group_by':'date_join:day'}"/>
 				</group>
             </search>
 		</field>
@@ -71,6 +99,24 @@
 				<field name="refund"/>
 				<field name="net_amount" sum="Total Amount" string='Net Revenue'/>
 				<field name="service_id"/>
+			</tree>
+		</field>
+	</record>
+	<record id="view_newpartner_revenue_tree" model="ir.ui.view">
+		<field name="name">newpartner.revenue.report.tree</field>
+		<field name="model">newpartner.revenue.report</field>	
+		<field name="arch" type="xml">
+			<tree string="Sales Revenue">
+				<field name="date_invoice"/>          
+				<field name="user_id" string="Sales"/>
+				<field name="partner_id" groups="base.group_user"/>
+				<field name="date_join" string="Join Date"/>
+				<field name="waybill_count" string="Waybill"/>
+				<field name="quantity"/>
+				<field name="gross_amount" sum="Gross" string="Gross Revenue"/>
+				<field name="discount_amount"/>
+				<field name="refund"/>
+				<field name="net_amount" sum="Total Amount" string='Net Revenue'/>
 			</tree>
 		</field>
 	</record>
@@ -100,16 +146,67 @@
 		</field>
 	</record>
 	<!-- GRAPH -->
-	<record id="view_sales_revenue_graph" model="ir.ui.view">
-		<field name="name">sales.revenue.graph</field>
+	<record id="view_sales_revenue_graph_service" model="ir.ui.view">
+		<field name="name">sales.revenue.graph.service</field>
 		<field name="model">sales.revenue.report</field>
 		<field name="arch" type="xml">
 		   <graph string="Sales Revenue" type="pivot">
                 <field name="date_invoice" interval="week" type="col"/>
                 <field name="date_invoice" interval="day" type="col"/>
                 <field name="service_id" type="row"/>
-                <field name="net_amount" type="measure"/>
-                <field name="waybill_count" type="measure"/>
+             </graph>
+		</field>
+	</record>
+	<record id="view_sales_revenue_graph_service2" model="ir.ui.view">
+		<field name="name">sales.revenue.graph.service</field>
+		<field name="model">sales.revenue.report</field>
+		<field name="arch" type="xml">
+		   <graph string="Sales Revenue" type="pivot">
+                <field name="date_invoice" interval="year" type="col"/>
+                <field name="date_invoice" interval="quarter" type="col"/>
+                <field name="service_id" type="row"/>
+             </graph>
+		</field>
+	</record>
+	<record id="view_sales_revenue_graph_analytic" model="ir.ui.view">
+		<field name="name">sales.revenue.graph.analytic</field>
+		<field name="model">sales.revenue.report</field>
+		<field name="arch" type="xml">
+		   <graph string="Sales Revenue" type="pivot">
+                <field name="date_invoice" interval="week" type="col"/>
+                <field name="date_invoice" interval="day" type="col"/>
+                <field name="account_analytic_id" type="row"/>
+             </graph>
+		</field>
+	</record>
+	<record id="view_sales_revenue_graph_store" model="ir.ui.view">
+		<field name="name">sales.revenue.graph.store</field>
+		<field name="model">sales.revenue.report</field>
+		<field name="arch" type="xml">
+		   <graph string="Sales Revenue" type="pivot">
+                <field name="date_invoice" interval="week" type="col"/>
+                <field name="date_invoice" interval="day" type="col"/>
+                <field name="store_id" type="row"/>
+             </graph>
+		</field>
+	</record>
+	<record id="view_sales_revenue_graph_partner" model="ir.ui.view">
+		<field name="name">sales.revenue.graph.partner</field>
+		<field name="model">sales.revenue.report</field>
+		<field name="arch" type="xml">
+		   <graph string="Sales Revenue" type="pivot">
+                <field name="date_invoice" type="col"/>
+                <field name="partner_id" type="row"/>
+             </graph>
+		</field>
+	</record>
+	<record id="view_newpartner_revenue_graph" model="ir.ui.view">
+		<field name="name">newpartner.revenue.graph</field>
+		<field name="model">newpartner.revenue.report</field>
+		<field name="arch" type="xml">
+		   <graph string="Sales Revenue" type="pivot">
+                <field name="user_id" type="col"/>
+                <field name="date_join" interval="day" type="row"/>
              </graph>
 		</field>
 	</record>
@@ -124,112 +221,64 @@
 		<field name="context">{'search_default_last2week':1}</field>
 	</record>
 
-    <record id="filter_revenue_service" model="ir.filters">
-        <field name="name">By Service</field>
-        <field name="model_id">sales.revenue.report</field>
-        <field name="domain">[('date_invoice','&lt;=',(context_today()-relativedelta(weeks=1, weekday=-1)).strftime('%Y-%m-%d')),('date_invoice','&gt;=',(context_today()-relativedelta(weeks=3, weekday=0)).strftime('%Y-%m-%d'))]</field>
-        <field name="user_id" eval="False"/>
-        <field name="context">{'group_by': ['service_id'], 'col_group_by': ['date_invoice:week', 'date_invoice:day'], 'measures': ['gross_amount', 'discount_amount', 'refund', 'net_amount', 'waybill_count']}</field>
-    </record>
-
-    <record id="filter_revenue_analytic" model="ir.filters">
-        <field name="name">By Location</field>
-        <field name="model_id">sales.revenue.report</field>
-        <field name="domain">[('date_invoice','&lt;=',(context_today()-relativedelta(weeks=1, weekday=-1)).strftime('%Y-%m-%d')),('date_invoice','&gt;=',(context_today()-relativedelta(weeks=3, weekday=0)).strftime('%Y-%m-%d'))]</field>
-        <field name="user_id" eval="False"/>
-        <field name="context">{'group_by': ['account_analytic_id'], 'col_group_by': ['date_invoice:week', 'date_invoice:day'], 'measures': ['gross_amount', 'discount_amount', 'refund', 'net_amount', 'waybill_count']}</field>
-    </record>
-
-    <record id="filter_revenue_store" model="ir.filters">
-        <field name="name">By Store</field>
-        <field name="model_id">sales.revenue.report</field>
-        <field name="domain">[('store_id','!=',False),('date_invoice','&lt;=',(context_today()-relativedelta(weeks=1, weekday=-1)).strftime('%Y-%m-%d')),('date_invoice','&gt;=',(context_today()-relativedelta(weeks=3, weekday=0)).strftime('%Y-%m-%d'))]</field>
-        <field name="user_id" eval="False"/>
-        <field name="context">{'group_by': ['store_id'], 'col_group_by': ['date_invoice:week', 'date_invoice:day'], 'measures': ['gross_amount', 'discount_amount', 'refund', 'net_amount', 'waybill_count']}</field>
-    </record>
-
-    <record id="filter_revenue_partner" model="ir.filters">
-        <field name="name">By Partner</field>
-        <field name="model_id">sales.revenue.report</field>
-        <field name="domain">[('date_join','&lt;=',(context_today()-relativedelta(day=31, months=1)).strftime('%Y-%m-%d')),('date_join','&gt;=',(context_today()-relativedelta(day=1,months=1)).strftime('%Y-%m-%d'))]</field>
-        <field name="user_id" eval="False"/>
-        <field name="context">{'group_by': ['partner_id'], 'col_group_by': ['date_invoice:month', 'date_invoice:week'], 'measures': ['gross_amount', 'discount_amount', 'refund', 'net_amount', 'waybill_count']}</field>
-    </record>
-    
-    <record id="filter_revenue_net" model="ir.filters">
-        <field name="name">Net Revenue</field>
-        <field name="model_id">sales.revenue.report</field>
-        <field name="domain">[('date_invoice','&lt;=',time.strftime('%Y-%m-%d')),('date_invoice','&gt;=',time.strftime('%Y-01-01'))]</field>
-        <field name="user_id" eval="False"/>
-        <field name="context">{'group_by': ['service_id'], 'col_group_by': ['date_invoice:year', 'date_invoice:quarter'], 'measures': ['net_amount', 'waybill_count']}</field>
-    </record>
-
-    <record id="filter_revenue_newpartner" model="ir.filters">
-        <field name="name">New Partner</field>
-        <field name="model_id">sales.revenue.report</field>
-        <field name="domain">[('new_partner', '=', True),('date_join','&lt;=',(context_today()-relativedelta(weeks=1, weekday=-1)).strftime('%Y-%m-%d')),('date_join','&gt;=',(context_today()-relativedelta(weeks=3, weekday=0)).strftime('%Y-%m-%d'))]</field>
-        <field name="user_id" eval="False"/>
-        <field name="context">{'group_by': ['date_join:day'], 'col_group_by': ['user_id'], 'measures': ['__count', 'net_amount', 'waybill_count']}</field>
-    </record>
-
 	<record id="action_sales_revenue_rpt_service" model="ir.actions.act_window">
-		<field name="name">Sales Revenue</field>
+		<field name="name">Revenue by Services</field>
 		<field name="res_model">sales.revenue.report</field>
 		<field name="view_type">form</field>
 		<field name="view_mode">tree,form,graph</field>
-		<field name="view_id" ref="view_sales_revenue_graph"/>
+		<field name="view_id" ref="view_sales_revenue_graph_service"/>
 		<field name="search_view_id" ref="view_sales_revenue_search"/>
-		<field name="context">{'search_default_last2week':1, 'group_by':['service_id'], 'col_group_by':['date_invoice:week', 'date_invoice:day'], 'measures':['gross_amount', 'discount_amount', 'refund', 'net_amount', 'waybill_count']}</field>
+		<field name="context">{'search_default_last2week':1, 'measures':['gross_amount', 'discount_amount', 'refund', 'net_amount', 'waybill_count']}</field>
 	</record>
 
 	<record id="action_sales_revenue_rpt_analytic" model="ir.actions.act_window">
-		<field name="name">Sales Revenue</field>
+		<field name="name">Revenue by Location</field>
 		<field name="res_model">sales.revenue.report</field>
 		<field name="view_type">form</field>
 		<field name="view_mode">graph,tree,form</field>
-		<field name="view_id" ref="view_sales_revenue_graph"/>
+		<field name="view_id" ref="view_sales_revenue_graph_analytic"/>
 		<field name="search_view_id" ref="view_sales_revenue_search"/>
-		<field name="context">{'search_default_last2week':1, 'group_by':['account_analytic_id'], 'col_group_by':['date_invoice:week', 'date_invoice:day'], 'measures':['gross_amount', 'discount_amount', 'refund', 'net_amount', 'waybill_count']}</field>
+		<field name="context">{'search_default_last2week':1, 'measures':['gross_amount', 'discount_amount', 'refund', 'net_amount', 'waybill_count']}</field>
 	</record>
 
 	<record id="action_sales_revenue_rpt_store" model="ir.actions.act_window">
-		<field name="name">Sales Revenue</field>
+		<field name="name">Revenue by Store</field>
 		<field name="res_model">sales.revenue.report</field>
 		<field name="view_type">form</field>
 		<field name="view_mode">graph,tree,form</field>
-		<field name="view_id" ref="view_sales_revenue_graph"/>
+		<field name="view_id" ref="view_sales_revenue_graph_store"/>
 		<field name="search_view_id" ref="view_sales_revenue_search"/>
-		<field name="context">{'search_default_last2week':1, 'search_default_is_store':1, 'group_by':['store_id'], 'col_group_by':['date_invoice:week', 'date_invoice:day'], 'measures':['gross_amount', 'discount_amount', 'refund', 'net_amount', 'waybill_count']}</field>
+		<field name="context">{'search_default_last2week':1, 'search_default_is_store':1, 'measures':['gross_amount', 'discount_amount', 'refund', 'net_amount', 'waybill_count']}</field>
 	</record>
 
 	<record id="action_sales_revenue_rpt_partner" model="ir.actions.act_window">
-		<field name="name">Sales Revenue</field>
+		<field name="name">Revenue by Partner</field>
 		<field name="res_model">sales.revenue.report</field>
 		<field name="view_type">form</field>
 		<field name="view_mode">graph,tree,form</field>
-		<field name="view_id" ref="view_sales_revenue_graph"/>
+		<field name="view_id" ref="view_sales_revenue_graph_partner"/>
 		<field name="search_view_id" ref="view_sales_revenue_search"/>
-		<field name="context">{'search_default_lastmonth':1, 'group_by':['partner_id'], 'col_group_by':['date_invoice:month'], 'measures':['gross_amount', 'discount_amount', 'refund', 'net_amount', 'waybill_count']}</field>
+		<field name="context">{'search_default_lastmonth':1, 'measures':['gross_amount', 'discount_amount', 'refund', 'net_amount', 'waybill_count']}</field>
 	</record>
 
 	<record id="action_sales_revenue_rpt_quarter" model="ir.actions.act_window">
-		<field name="name">Sales Revenue</field>
+		<field name="name">Net Revenue</field>
 		<field name="res_model">sales.revenue.report</field>
 		<field name="view_type">form</field>
 		<field name="view_mode">graph,tree,form</field>
-		<field name="view_id" ref="view_sales_revenue_graph"/>
+		<field name="view_id" ref="view_sales_revenue_graph_service2"/>
 		<field name="search_view_id" ref="view_sales_revenue_search"/>
-		<field name="context">{'search_default_thisyear':1, 'group_by':['service_id'], 'col_group_by':['date_invoice:year', 'date_invoice:quarter'], 'measures':['net_amount', 'waybill_count']}</field>
+		<field name="context">{'search_default_thisyear':1, 'measures':['net_amount', 'waybill_count']}</field>
 	</record>
 	
-	<record id="action_sales_revenue_rpt_newpartner" model="ir.actions.act_window">
-		<field name="name">Sales Revenue</field>
-		<field name="res_model">sales.revenue.report</field>
+	<record id="action_newpartner_revenue_rpt" model="ir.actions.act_window">
+		<field name="name">New Partner</field>
+		<field name="res_model">newpartner.revenue.report</field>
 		<field name="view_type">form</field>
-		<field name="view_mode">graph,tree,form</field>
-		<field name="view_id" ref="view_sales_revenue_graph"/>
-		<field name="search_view_id" ref="view_sales_revenue_search"/>
-		<field name="context">{'search_default_joinlast2week':1, 'search_default_new_partner':1, 'group_by': ['date_join:day'], 'col_group_by': ['user_id'], 'measures': ['__count', 'net_amount', 'waybill_count']}</field>
+		<field name="view_mode">graph,tree</field>
+		<field name="view_id" ref="view_newpartner_revenue_graph"/>
+		<field name="search_view_id" ref="view_newpartner_revenue_search"/>
+		<field name="context">{'search_default_joinlast2week':1, 'search_default_new_partner':1, 'measures': ['__count', 'net_amount', 'waybill_count']}</field>
 	</record>
 			
 	<menuitem id="menu_sales_revenue_report" name="Sales Revenue" sequence="2" parent="base.menu_reporting" />
@@ -241,7 +290,7 @@
 	<menuitem id="menu_sales_revenue_rpt_store" name="Revenue by Store" parent="menu_sales_revenue_report" sequence="25" action="action_sales_revenue_rpt_store"/>
 	<menuitem id="menu_sales_revenue_rpt_partner" name="Revenue by Partner" parent="menu_sales_revenue_report" sequence="30" action="action_sales_revenue_rpt_partner"/>
 	<menuitem id="menu_sales_revenue_rpt_quarter" name="Net Revenue" parent="menu_sales_revenue_report" sequence="35" action="action_sales_revenue_rpt_quarter"/>
-	<menuitem id="menu_sales_revenue_rpt_newpartner" name="New Partner" parent="menu_sales_revenue_report" sequence="40" action="action_sales_revenue_rpt_newpartner"/>
+	<menuitem id="menu_sales_revenue_rpt_newpartner" name="New Partner" parent="menu_sales_revenue_report" sequence="40" action="action_newpartner_revenue_rpt"/>
 	
 	</data>
 </openerp>
