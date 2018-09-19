@@ -307,7 +307,7 @@
 			
 	<menuitem id="menu_sales_revenue_report" name="Sales Revenue" sequence="2" parent="base.menu_reporting" />
 
-	<menuitem id="menu_sales_revenue_rpt_service" name="Revenue Analysis" parent="menu_sales_revenue_report" sequence="10" action="action_sales_revenue_rpt"/>
+	<menuitem id="menu_sales_revenue_rpt" name="Revenue Analysis" parent="menu_sales_revenue_report" sequence="10" action="action_sales_revenue_rpt"/>
 	
 	<menuitem id="menu_sales_revenue_rpt_service" name="Revenue by Services" parent="menu_sales_revenue_report" sequence="15" action="action_sales_revenue_rpt_service"/>
 	<menuitem id="menu_sales_revenue_rpt_analytic" name="Revenue by Location" parent="menu_sales_revenue_report" sequence="20" action="action_sales_revenue_rpt_analytic"/>

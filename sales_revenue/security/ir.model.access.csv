@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sales_revenue_sale_manager,sales.revenue.sale.manager,sales_revenue.model_sales_revenue_report,base.group_sale_manager,1,0,0,0
+access_newpartner_revenue_sale_manager,newpartner.revenue.sale.manager,sales_revenue.model_newpartner_revenue_report,base.group_sale_manager,1,0,0,0
+access_res_store_sale_manager,res.store.sale.manager,sales_revenue.model_res_store,base.group_sale_manager,1,1,1,1

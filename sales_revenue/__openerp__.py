@@ -20,9 +20,11 @@
 		- New Partner
 	""",
 	'data': [
+		'security/ir.model.access.csv',
 		'data/res.store.csv',
 		'views/sales_revenue_view.xml',
 		'views/store_view.xml',
+		'security/sales_revenue_security.xml',
 	],
     'qweb': [],
 	'installable': True,
