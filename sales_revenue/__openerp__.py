@@ -1,37 +1,31 @@
-
+# -*- coding: utf-8 -*-
 
 {
-	"name": "SALES REVENUE REPORT",
+	"name": "Sales Revenue Report",
 	"version": "1.0",
 	"depends": [
-		"account_accountant",
-		'report_xlsx'
-		
+		'materialized_sql_view',
+		'account_accountant',
+		'sicepat_erp',
 	],
-	"author": "",
-	"category": "Sales Revenue Report",
-	"description": """ Sales Revenue Report :
-	
-	- sales revenue
-	- Package and Revenue
-	- Revenue per lokasi
-	- Report BI
-
-
+	"author": "Pambudi Satria",
+	"description": """ Sicepat Sales Revenue Report:
+		
+		- Sales Revenue
+		- By Services
+		- By Location
+		- By Store
+		- By Partner
+		- Net Revenue
+		- New Partner
 	""",
-	'external dependencies': {'python': ['pymssql']},
 	'data': [
-             
-          'views/sales_revenue_view.xml',
-
-         ],
-    'qweb': [
-        'static/src/xml/lib.xml',
-    ],
+		'data/res.store.csv',
+		'views/sales_revenue_view.xml',
+		'views/store_view.xml',
+	],
+    'qweb': [],
 	'installable': True,
 	'auto_install': False,
 	'application': False,
 }
-
-
-
