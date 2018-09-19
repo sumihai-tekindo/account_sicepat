@@ -154,6 +154,11 @@
                 <field name="date_invoice" interval="week" type="col"/>
                 <field name="date_invoice" interval="day" type="col"/>
                 <field name="service_id" type="row"/>
+				<field name="gross_amount" type="measure"/>
+				<field name="discount_amount" type="measure"/>
+				<field name="refund" type="measure"/>
+				<field name="net_amount" type="measure"/>
+				<field name="waybill_count" type="measure"/>
              </graph>
 		</field>
 	</record>
@@ -165,7 +170,9 @@
                 <field name="date_invoice" interval="year" type="col"/>
                 <field name="date_invoice" interval="quarter" type="col"/>
                 <field name="service_id" type="row"/>
-             </graph>
+ 				<field name="net_amount" type="measure"/>
+				<field name="waybill_count" type="measure"/>
+            </graph>
 		</field>
 	</record>
 	<record id="view_sales_revenue_graph_analytic" model="ir.ui.view">
@@ -176,6 +183,11 @@
                 <field name="date_invoice" interval="week" type="col"/>
                 <field name="date_invoice" interval="day" type="col"/>
                 <field name="account_analytic_id" type="row"/>
+				<field name="gross_amount" type="measure"/>
+				<field name="discount_amount" type="measure"/>
+				<field name="refund" type="measure"/>
+				<field name="net_amount" type="measure"/>
+				<field name="waybill_count" type="measure"/>
              </graph>
 		</field>
 	</record>
@@ -187,6 +199,11 @@
                 <field name="date_invoice" interval="week" type="col"/>
                 <field name="date_invoice" interval="day" type="col"/>
                 <field name="store_id" type="row"/>
+				<field name="gross_amount" type="measure"/>
+				<field name="discount_amount" type="measure"/>
+				<field name="refund" type="measure"/>
+				<field name="net_amount" type="measure"/>
+				<field name="waybill_count" type="measure"/>
              </graph>
 		</field>
 	</record>
@@ -197,6 +214,11 @@
 		   <graph string="Sales Revenue" type="pivot">
                 <field name="date_invoice" type="col"/>
                 <field name="partner_id" type="row"/>
+				<field name="gross_amount" type="measure"/>
+				<field name="discount_amount" type="measure"/>
+				<field name="refund" type="measure"/>
+				<field name="net_amount" type="measure"/>
+				<field name="waybill_count" type="measure"/>
              </graph>
 		</field>
 	</record>
@@ -207,6 +229,8 @@
 		   <graph string="Sales Revenue" type="pivot">
                 <field name="user_id" type="col"/>
                 <field name="date_join" interval="day" type="row"/>
+				<field name="net_amount" type="measure"/>
+				<field name="waybill_count" type="measure"/>
              </graph>
 		</field>
 	</record>
@@ -238,7 +262,7 @@
 		<field name="view_mode">graph,tree,form</field>
 		<field name="view_id" ref="view_sales_revenue_graph_analytic"/>
 		<field name="search_view_id" ref="view_sales_revenue_search"/>
-		<field name="context">{'search_default_last2week':1, 'measures':['gross_amount', 'discount_amount', 'refund', 'net_amount', 'waybill_count']}</field>
+		<field name="context">{'search_default_last2week':1}</field>
 	</record>
 
 	<record id="action_sales_revenue_rpt_store" model="ir.actions.act_window">
@@ -248,7 +272,7 @@
 		<field name="view_mode">graph,tree,form</field>
 		<field name="view_id" ref="view_sales_revenue_graph_store"/>
 		<field name="search_view_id" ref="view_sales_revenue_search"/>
-		<field name="context">{'search_default_last2week':1, 'search_default_is_store':1, 'measures':['gross_amount', 'discount_amount', 'refund', 'net_amount', 'waybill_count']}</field>
+		<field name="context">{'search_default_last2week':1, 'search_default_is_store':1}</field>
 	</record>
 
 	<record id="action_sales_revenue_rpt_partner" model="ir.actions.act_window">
@@ -258,7 +282,7 @@
 		<field name="view_mode">graph,tree,form</field>
 		<field name="view_id" ref="view_sales_revenue_graph_partner"/>
 		<field name="search_view_id" ref="view_sales_revenue_search"/>
-		<field name="context">{'search_default_lastmonth':1, 'measures':['gross_amount', 'discount_amount', 'refund', 'net_amount', 'waybill_count']}</field>
+		<field name="context">{'search_default_lastmonth':1}</field>
 	</record>
 
 	<record id="action_sales_revenue_rpt_quarter" model="ir.actions.act_window">
@@ -268,7 +292,7 @@
 		<field name="view_mode">graph,tree,form</field>
 		<field name="view_id" ref="view_sales_revenue_graph_service2"/>
 		<field name="search_view_id" ref="view_sales_revenue_search"/>
-		<field name="context">{'search_default_thisyear':1, 'measures':['net_amount', 'waybill_count']}</field>
+		<field name="context">{'search_default_thisyear':1}</field>
 	</record>
 	
 	<record id="action_newpartner_revenue_rpt" model="ir.actions.act_window">
