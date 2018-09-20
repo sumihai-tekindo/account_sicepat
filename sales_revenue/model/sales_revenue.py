@@ -25,7 +25,7 @@ class SalesRevenueReport(models.Model):
 	refund = fields.Float('Refund', readonly=True)
 	discount_amount = fields.Float('Discount', readonly=True)
 	gross_amount = fields.Float('Gross Amount', readonly=True)
-	waybill_count = fields.Integer('Waybill', readonly=True)
+	waybill_count = fields.Integer('AWB', readonly=True)
 	quantity = fields.Float('Weight (kg) ', readonly=True)
 
 	_order = 'date_invoice DESC'
@@ -158,24 +158,7 @@ class SalesRevenueReport(models.Model):
 				   'ON sales_revenue_report (store_id)')
 		cr.execute('CREATE INDEX IF NOT EXISTS "sales_revenue_report_service_id_index" '
 				   'ON sales_revenue_report (service_id)')
-		cr.execute('SELECT indexname FROM pg_indexes WHERE indexname = \'sales_revenue_report_date_invoice_id_index\'')
-		if not cr.fetchone():
-			cr.execute('CREATE INDEX sales_revenue_report_date_invoice_id_index '
-					   'ON sales_revenue_report (date_invoice, id)')
-		cr.execute('SELECT indexname FROM pg_indexes WHERE indexname = \'sales_revenue_report_store_id_date_invoice_id_index\'')
-		if not cr.fetchone():
-			cr.execute('CREATE INDEX sales_revenue_report_store_id_date_invoice_id_index '
-					   'ON sales_revenue_report (store_id, date_invoice, id)')
-		cr.execute('SELECT indexname FROM pg_indexes WHERE indexname = \'sales_revenue_report_date_invoice_partner_id_index\'')
-		if not cr.fetchone():
-			cr.execute('CREATE INDEX sales_revenue_report_date_invoice_partner_id_index '
-					   'ON sales_revenue_report (date_invoice, partner_id)')
 		return res
-
-	@api.model
-	def read_group(self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True):
-		result = super(SalesRevenueReport, self).read_group(domain, fields, groupby, offset=offset, limit=limit, orderby=orderby, lazy=lazy)
-		return result
 
 
 class NewPartnerRevenueReport(models.Model):
@@ -184,6 +167,8 @@ class NewPartnerRevenueReport(models.Model):
 	_description = "New Partner Revenue"
 	_auto = False
 	_rec_name = 'date_join'
+
+	_inherit = ['abstract.materialized.sql.view']
 
 	date_invoice = fields.Date('Invoice Date', readonly=True)
 	partner_id = fields.Many2one('res.partner', 'Customer', readonly=True)
@@ -194,8 +179,8 @@ class NewPartnerRevenueReport(models.Model):
 	refund = fields.Float('Refund', readonly=True)
 	discount_amount = fields.Float('Discount', readonly=True)
 	gross_amount = fields.Float('Gross Amount', readonly=True)
-	waybill_count = fields.Integer('Waybill', readonly=True)
-	quantity = fields.Float('Weigh (kg) ', readonly=True)
+	waybill_count = fields.Integer('AWB', readonly=True)
+	quantity = fields.Float('Weight (kg) ', readonly=True)
 
 	_order = 'date_join DESC'
 
@@ -218,86 +203,87 @@ class NewPartnerRevenueReport(models.Model):
 		'account.journal': ['cb_journal'],
 	}
 
-	def _select(self):
-		select_str = """
-			SELECT
-				min(ail.id) AS id,
-				ai.date_invoice,
-				ai.partner_id,
-				ai.commercial_partner_id,
-				partner.date AS date_join, 
-				ai.user_id,
-				CASE
-					WHEN ai.type::text = ANY (ARRAY['out_invoice'::character varying::text]) THEN SUM(ail.price_subtotal + (ail.quantity * (ail.price_unit * (ail.discount/100))))
-					ELSE 0.0
-				END AS gross_amount,
-				CASE 
-					WHEN ai.type::text = ANY (ARRAY['out_refund'::character varying::text]) THEN SUM(ail.price_subtotal) 
-					ELSE 0.0
-				END AS refund, 
-				CASE 
-					WHEN ai.type::text = ANY (ARRAY['out_invoice'::character varying::text]) THEN SUM(ail.quantity * (ail.price_unit * (ail.discount/100))) 
-					ELSE 0.0 
-				END AS discount_amount, 
-				(invoice_type.sign*SUM(ail.price_subtotal)) AS net_amount, 
-				(invoice_type.sign*COUNT(ail.id)) AS waybill_count, 
-				(invoice_type.sign*SUM(ail.quantity)) AS quantity 
-		"""
-		return select_str
+	select_str = """
+		SELECT
+			min(ail.id) AS id,
+			ai.date_invoice,
+			ai.partner_id,
+			ai.commercial_partner_id,
+			partner.date AS date_join, 
+			ai.user_id,
+			CASE
+				WHEN ai.type::text = ANY (ARRAY['out_invoice'::character varying::text]) THEN SUM(ail.price_subtotal + (ail.quantity * (ail.price_unit * (ail.discount/100))))
+				ELSE 0.0
+			END AS gross_amount,
+			CASE 
+				WHEN ai.type::text = ANY (ARRAY['out_refund'::character varying::text]) THEN SUM(ail.price_subtotal) 
+				ELSE 0.0
+			END AS refund, 
+			CASE 
+				WHEN ai.type::text = ANY (ARRAY['out_invoice'::character varying::text]) THEN SUM(ail.quantity * (ail.price_unit * (ail.discount/100))) 
+				ELSE 0.0 
+			END AS discount_amount, 
+			(invoice_type.sign*SUM(ail.price_subtotal)) AS net_amount, 
+			(invoice_type.sign*COUNT(ail.id)) AS waybill_count, 
+			(invoice_type.sign*SUM(ail.quantity)) AS quantity 
+	"""
+	from_str = """
+		FROM 
+			account_invoice_line ail 
+			JOIN account_invoice ai ON ai.id = ail.invoice_id 
+			JOIN res_partner partner ON ai.commercial_partner_id = partner.id 
+			LEFT JOIN account_journal journal ON ai.journal_id = journal.id
+			JOIN (
+				SELECT id,(CASE
+					 WHEN ai.type::text = ANY (ARRAY['out_refund'::character varying::text, 'in_refund'::character varying::text])
+						THEN -1
+						ELSE 1
+					END) AS sign
+				FROM account_invoice ai
+			) AS invoice_type ON invoice_type.id = ai.id
+	"""
 
-	def _from(self):
-		from_str = """
-			FROM 
-				account_invoice_line ail 
-				JOIN account_invoice ai ON ai.id = ail.invoice_id 
-				JOIN res_partner partner ON ai.commercial_partner_id = partner.id 
-				LEFT JOIN account_journal journal ON ai.journal_id = journal.id
-				JOIN (
-					SELECT id,(CASE
-						 WHEN ai.type::text = ANY (ARRAY['out_refund'::character varying::text, 'in_refund'::character varying::text])
-							THEN -1
-							ELSE 1
-						END) AS sign
-					FROM account_invoice ai
-				) AS invoice_type ON invoice_type.id = ai.id
-		"""
-		return from_str
+	where_str = """
+		WHERE
+			ai.type::text = ANY (ARRAY['out_invoice'::character varying::text, 'out_refund'::character varying::text])
+			AND ai.state::text = ANY (ARRAY['open'::character varying::text, 'paid'::character varying::text])
+			AND ai.date_invoice = partner.date
+			AND NOT journal.cb_journal
+	"""
 
-	def _where(self):
-		where_str = """
-			WHERE
-				ai.type::text = ANY (ARRAY['out_invoice'::character varying::text, 'out_refund'::character varying::text])
-				AND ai.state::text = ANY (ARRAY['open'::character varying::text, 'paid'::character varying::text])
-				AND ai.date_invoice = partner.date
-				AND NOT journal.cb_journal
-		"""
-		return where_str
+	group_by_str = """
+		GROUP BY
+			ai.date_invoice,
+			ai.type,
+			ai.partner_id,
+			ai.commercial_partner_id,
+			partner.date,
+			ai.user_id,
+			invoice_type.sign
+	"""
 
-	def _group_by(self):
-		group_by_str = """
-			GROUP BY
-				ai.date_invoice,
-				ai.type,
-				ai.partner_id,
-				ai.commercial_partner_id,
-				partner.date,
-				ai.user_id,
-				invoice_type.sign
-		"""
-		return group_by_str
-
-	def init(self, cr):
-		tools.drop_view_if_exists(cr, self._table)
-		cr.execute("""CREATE or REPLACE VIEW %(table)s as (
+	_sql_view_definition = """
 				%(select)s 
 				%(from)s 
 				%(where)s
 				%(groupby)s
-		)""" % {
-				'table': self._table, 
-				'select': self._select(), 
-				'from': self._from(), 
-				'where': self._where(), 
-				'groupby': self._group_by(),
-			})
+		""" % {
+				'select': select_str, 
+				'from': from_str, 
+				'where': where_str, 
+				'groupby': group_by_str,
+			}
 
+	def init(self, cr):
+		res = super(NewPartnerRevenueReport, self).init(cr)
+		cr.execute('CREATE INDEX IF NOT EXISTS "newpartner_revenue_report_id_index" '
+				   'ON newpartner_revenue_report (id)')
+		cr.execute('CREATE INDEX IF NOT EXISTS "newpartner_revenue_report_date_invoice_index" '
+				   'ON newpartner_revenue_report (date_invoice)')
+		cr.execute('CREATE INDEX IF NOT EXISTS "newpartner_revenue_report_partner_id_index" '
+				   'ON newpartner_revenue_report (partner_id)')
+		cr.execute('CREATE INDEX IF NOT EXISTS "newpartner_revenue_report_date_join_index" '
+				   'ON newpartner_revenue_report (date_join)')
+		cr.execute('CREATE INDEX IF NOT EXISTS "newpartner_revenue_report_user_id_index" '
+				   'ON newpartner_revenue_report (user_id)')
+		return res
