@@ -11,11 +11,12 @@
 	"author": "Pambudi Satria",
 	"description": """ Sicepat Sales Revenue Report:
 		
-		- Sales Revenue
+		- Revenue Analysis
 		- By Services
 		- By Location
 		- By Store
 		- By Partner
+		- By Sales
 		- Net Revenue
 		- New Partner
 	""",
