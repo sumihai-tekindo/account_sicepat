@@ -98,16 +98,16 @@
 			<tree colors="blue:new_partner == True" string="Sales Revenue">
 				<field name="account_analytic_id"/>
 				<field name="date_invoice"/>          
-				<field name="user_id" string="Sales"/>
+				<field name="user_id"/>
 				<field name="partner_id" groups="base.group_user"/>
-				<field name="date_join" string="Join Date"/>
+				<field name="date_join"/>
 				<field name="new_partner" invisible="1"/>
-				<field name="waybill_count" string="Waybill"/>
+				<field name="waybill_count"/>
 				<field name="quantity"/>
-				<field name="gross_amount" sum="Gross" string="Gross Revenue"/>
+				<field name="gross_amount" sum="Gross Revenue"/>
 				<field name="discount_amount"/>
 				<field name="refund"/>
-				<field name="net_amount" sum="Total Amount" string='Net Revenue'/>
+				<field name="net_amount" sum="Net Revenue"/>
 				<field name="service_id"/>
 			</tree>
 		</field>
@@ -118,15 +118,15 @@
 		<field name="arch" type="xml">
 			<tree string="Sales Revenue">
 				<field name="date_invoice"/>          
-				<field name="user_id" string="Sales"/>
+				<field name="user_id"/>
 				<field name="partner_id" groups="base.group_user"/>
-				<field name="date_join" string="Join Date"/>
-				<field name="waybill_count" string="Waybill"/>
+				<field name="date_join"/>
+				<field name="waybill_count"/>
 				<field name="quantity"/>
-				<field name="gross_amount" sum="Gross" string="Gross Revenue"/>
+				<field name="gross_amount" sum="Gross Revenue"/>
 				<field name="discount_amount"/>
 				<field name="refund"/>
-				<field name="net_amount" sum="Total Amount" string='Net Revenue'/>
+				<field name="net_amount" sum="Net Revenue"/>
 			</tree>
 		</field>
 	</record>
@@ -142,13 +142,13 @@
 						<field name="date_invoice"/>          
 						<field name="user_id"/>
 						<field name="partner_id" groups="base.group_user"/>
-						<field name="date_join" string="Join Date"/>
-						<field name="waybill_count" string="Waybill"/>
+						<field name="date_join"/>
+						<field name="waybill_count"/>
 						<field name="quantity"/>
 						<field name="gross_amount" string="Gross Revenue"/>
 						<field name="discount_amount"/>
 						<field name="refund"/>
-						<field name="net_amount" string='Net Revenue'/>
+						<field name="net_amount" string="Net Revenue"/>
 						<field name="service_id"/>
 		 			</group>
 	            </sheet>
