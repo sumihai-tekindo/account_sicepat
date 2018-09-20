@@ -20,7 +20,7 @@ class SalesRevenueReport(models.Model):
 	user_id = fields.Many2one('res.users', 'Salesperson', readonly=True)
 	account_analytic_id = fields.Many2one('account.analytic.account', 'Analytic', readonly=True)
 	store_id = fields.Many2one('res.store', 'Store', readonly=True)
-	service_id = fields.Many2one('consignment.service.type', readonly=True)
+	service_id = fields.Many2one('consignment.service.type', 'Services', readonly=True)
 	net_amount = fields.Float('Net Amount', readonly=True)
 	refund = fields.Float('Refund', readonly=True)
 	discount_amount = fields.Float('Discount', readonly=True)
