@@ -16,6 +16,11 @@
 				<field name="store_id"/>
 				<field name="service_id"/>
 				<separator orientation="vertical" />
+                <field name="date_invoice" string="Date From" filter_domain="[('date_invoice', '&gt;=', self)]"/>
+                <field name="date_invoice" string="Date To" filter_domain="[('date_invoice', '&lt;=', self)]"/>
+                <field name="date_join" string="Joined From" filter_domain="[('date_join', '&gt;=', self)]"/>
+                <field name="date_join" string="Joined To" filter_domain="[('date_join', '&lt;=', self)]"/>
+				<separator orientation="vertical" />
 				<filter name="is_store" string="Store" domain="[('store_id','!=',False)]"/>
 				<filter name="new_partner" string="New Partner" domain="[('new_partner','=',1)]"/>
 				<separator orientation="vertical" />
@@ -61,6 +66,11 @@
 				<field name="partner_id" operator="child_of"/>
 				<field name="user_id"/>
 				<field name="date_join" string="Join Date"/>
+				<separator orientation="vertical" />
+                <field name="date_invoice" string="Date From" filter_domain="[('date_invoice', '&gt;=', self)]"/>
+                <field name="date_invoice" string="Date To" filter_domain="[('date_invoice', '&lt;=', self)]"/>
+                <field name="date_join" string="Joined From" filter_domain="[('date_join', '&gt;=', self)]"/>
+                <field name="date_join" string="Joined To" filter_domain="[('date_join', '&lt;=', self)]"/>
 				<separator orientation="vertical" />
 				<filter string="Joined This Year" name="jointhisyear" domain="[('date_join','&lt;=',time.strftime('%Y-%m-%d')),('date_join','&gt;=',time.strftime('%Y-01-01'))]" help="Sales Revenue with period in current year"/>
 				<filter string="Joined This Month" name="jointhismonth" domain="[('date_join','&lt;=',(context_today()+relativedelta(months=1)).strftime('%Y-%m-01')),('date_join','&gt;=',time.strftime('%Y-%m-01'))]" help="Sales Revenue with period in current month"/>
@@ -169,7 +179,9 @@
 		   <graph string="Sales Revenue" type="pivot">
                 <field name="date_invoice" interval="year" type="col"/>
                 <field name="date_invoice" interval="quarter" type="col"/>
+                <field name="date_invoice" interval="month" type="col"/>
                 <field name="service_id" type="row"/>
+				<field name="gross_amount" type="measure"/>
  				<field name="net_amount" type="measure"/>
 				<field name="waybill_count" type="measure"/>
             </graph>
@@ -207,6 +219,21 @@
              </graph>
 		</field>
 	</record>
+	<record id="view_sales_revenue_graph_user" model="ir.ui.view">
+		<field name="name">sales.revenue.graph.user</field>
+		<field name="model">sales.revenue.report</field>
+		<field name="arch" type="xml">
+		   <graph string="Sales Revenue" type="pivot">
+                <field name="user_id" type="col"/>
+                <field name="date_invoice" interval="day" type="row"/>
+				<field name="gross_amount" type="measure"/>
+				<field name="discount_amount" type="measure"/>
+				<field name="refund" type="measure"/>
+				<field name="net_amount" type="measure"/>
+				<field name="waybill_count" type="measure"/>
+             </graph>
+		</field>
+	</record>
 	<record id="view_sales_revenue_graph_partner" model="ir.ui.view">
 		<field name="name">sales.revenue.graph.partner</field>
 		<field name="model">sales.revenue.report</field>
@@ -229,20 +256,26 @@
 		   <graph string="Sales Revenue" type="pivot">
                 <field name="user_id" type="col"/>
                 <field name="date_join" interval="day" type="row"/>
-				<field name="net_amount" type="measure"/>
-				<field name="waybill_count" type="measure"/>
              </graph>
 		</field>
 	</record>
-			
+
+    <record id="filter_newpartner_revenue" model="ir.filters">
+        <field name="name">With Amount</field>
+        <field name="model_id">newpartner.revenue.report</field>
+        <field name="domain">[('date_join','&lt;=',(context_today()-relativedelta(weeks=1, weekday=-1)).strftime('%Y-%m-%d')),('date_join','&gt;=',(context_today()-relativedelta(weeks=3, weekday=0)).strftime('%Y-%m-%d'))]</field>
+        <field name="user_id" eval="False"/>
+        <field name="context">{'group_by': ['date_join:day'], 'col_group_by': ['user_id'], 'measures': ['__count', 'net_amount', 'waybill_count']}</field>
+    </record>
+				
 	<record id="action_sales_revenue_rpt" model="ir.actions.act_window">
-		<field name="name">Sales Revenue</field>
+		<field name="name">Revenue Analysis</field>
 		<field name="res_model">sales.revenue.report</field>
 		<field name="view_type">form</field>
 		<field name="view_mode">tree,form,graph</field>
 		<field name="view_id" ref="view_sales_revenue_tree"/>
 		<field name="search_view_id" ref="view_sales_revenue_search"/>
-		<field name="context">{'search_default_last2week':1}</field>
+		<field name="context">{}</field>
 	</record>
 
 	<record id="action_sales_revenue_rpt_service" model="ir.actions.act_window">
@@ -252,7 +285,7 @@
 		<field name="view_mode">tree,form,graph</field>
 		<field name="view_id" ref="view_sales_revenue_graph_service"/>
 		<field name="search_view_id" ref="view_sales_revenue_search"/>
-		<field name="context">{'search_default_last2week':1, 'measures':['gross_amount', 'discount_amount', 'refund', 'net_amount', 'waybill_count']}</field>
+		<field name="context">{'search_default_last2week':1}</field>
 	</record>
 
 	<record id="action_sales_revenue_rpt_analytic" model="ir.actions.act_window">
@@ -273,6 +306,16 @@
 		<field name="view_id" ref="view_sales_revenue_graph_store"/>
 		<field name="search_view_id" ref="view_sales_revenue_search"/>
 		<field name="context">{'search_default_last2week':1, 'search_default_is_store':1}</field>
+	</record>
+
+	<record id="action_sales_revenue_rpt_user" model="ir.actions.act_window">
+		<field name="name">Revenue by Sales</field>
+		<field name="res_model">sales.revenue.report</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">graph,tree,form</field>
+		<field name="view_id" ref="view_sales_revenue_graph_user"/>
+		<field name="search_view_id" ref="view_sales_revenue_search"/>
+		<field name="context">{'search_default_last2week':1}</field>
 	</record>
 
 	<record id="action_sales_revenue_rpt_partner" model="ir.actions.act_window">
@@ -302,7 +345,7 @@
 		<field name="view_mode">graph,tree</field>
 		<field name="view_id" ref="view_newpartner_revenue_graph"/>
 		<field name="search_view_id" ref="view_newpartner_revenue_search"/>
-		<field name="context">{'search_default_joinlast2week':1, 'search_default_new_partner':1, 'measures': ['__count', 'net_amount', 'waybill_count']}</field>
+		<field name="context">{'search_default_joinlast2week':1}</field>
 	</record>
 			
 	<menuitem id="menu_sales_revenue_report" name="Sales Revenue" sequence="2" parent="base.menu_reporting" />
@@ -313,8 +356,9 @@
 	<menuitem id="menu_sales_revenue_rpt_analytic" name="Revenue by Location" parent="menu_sales_revenue_report" sequence="20" action="action_sales_revenue_rpt_analytic"/>
 	<menuitem id="menu_sales_revenue_rpt_store" name="Revenue by Store" parent="menu_sales_revenue_report" sequence="25" action="action_sales_revenue_rpt_store"/>
 	<menuitem id="menu_sales_revenue_rpt_partner" name="Revenue by Partner" parent="menu_sales_revenue_report" sequence="30" action="action_sales_revenue_rpt_partner"/>
-	<menuitem id="menu_sales_revenue_rpt_quarter" name="Net Revenue" parent="menu_sales_revenue_report" sequence="35" action="action_sales_revenue_rpt_quarter"/>
-	<menuitem id="menu_sales_revenue_rpt_newpartner" name="New Partner" parent="menu_sales_revenue_report" sequence="40" action="action_newpartner_revenue_rpt"/>
+	<menuitem id="menu_sales_revenue_rpt_user" name="Revenue by Sales" parent="menu_sales_revenue_report" sequence="35" action="action_sales_revenue_rpt_user"/>
+	<menuitem id="menu_sales_revenue_rpt_quarter" name="Net Revenue" parent="menu_sales_revenue_report" sequence="40" action="action_sales_revenue_rpt_quarter"/>
+	<menuitem id="menu_sales_revenue_rpt_newpartner" name="New Partner" parent="menu_sales_revenue_report" sequence="45" action="action_newpartner_revenue_rpt"/>
 	
 	</data>
 </openerp>
