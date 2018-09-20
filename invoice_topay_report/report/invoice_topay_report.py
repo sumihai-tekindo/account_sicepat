@@ -107,7 +107,8 @@ class invoice_tobe_paid_xls(report_xls):
             ('line_name', 1, 0, 'text', _('Keterangan'), None, c_hdr_cell_style_center),
             ('line_quantity', 1, 0, 'text', _('Quantity'), None, c_hdr_cell_style_center),
             ('line_price_unit', 1, 0, 'text', _('Unit Price'), None, c_hdr_cell_style_center),
-            ('line_amount', 1, 0, 'text', _('Nilai'), None, c_hdr_cell_style_center),
+            ('line_discount', 1, 0, 'text', _('Discount'), None, c_hdr_cell_style_center),
+            ('line_amount', 1, 0, 'text', _('Amount'), None, c_hdr_cell_style_center),
             ('total', 1, 0, 'text', _('Total'), None, c_hdr_cell_style_center),
         ]
         c_hdr_data = self.xls_row_template(c_specs, [x[0] for x in c_specs])
@@ -122,6 +123,7 @@ class invoice_tobe_paid_xls(report_xls):
         for inv in objects:
             line_row = 0
             for line in inv.invoice_line:
+
                 c_specs = [
                     ('date_invoice', 1, 0, 'text', None),
                     ('bank_name', 1, 0, 'text', None),
@@ -131,6 +133,7 @@ class invoice_tobe_paid_xls(report_xls):
                     ('line_name', 1, 0, 'text', line.name, None, c_line_cell_style),
                     ('line_quantity', 1, 0, 'number', line.quantity, None, c_line_cell_style_decimal),
                     ('line_price_unit', 1, 0, 'number', line.price_unit, None, c_line_cell_style_decimal),
+                    ('line_discount', 1, 0, 'number', (line.discount * line.price_unit)/ 100, None, c_line_cell_style_decimal),
                     ('line_amount', 1, 0, 'number', line.price_subtotal, None, c_line_cell_style_decimal),
                     ('total', 1, 0, 'text', None),
                 ]
@@ -146,6 +149,7 @@ class invoice_tobe_paid_xls(report_xls):
                         ('line_name', 1, 0, 'text', line.name, None, c_line_cell_style),
                         ('line_quantity', 1, 0, 'number', line.quantity, None, c_line_cell_style_decimal),
                         ('line_price_unit', 1, 0, 'number', line.price_unit, None, c_line_cell_style_decimal),
+                        ('line_discount', 1, 0, 'number', (line.discount * line.price_unit)/ 100, None, c_line_cell_style_decimal),
                         ('line_amount', 1, 0, 'number', line.price_subtotal, None, c_line_cell_style_decimal),
                         ('total', 1, 0, 'number', inv.amount_total, None, c_line_cell_style_decimal),
                     ]
@@ -161,7 +165,9 @@ class invoice_tobe_paid_xls(report_xls):
                     ('bank_owner', 1, 0, 'text', None),
                     ('number_invoice', 1, 0, 'text', None),
                     ('line_name', 1, 0, 'text', tax.name, None, c_line_cell_style),
-                    ('line_quantity', 1, 0, 'number',1, None, c_line_cell_style_decimal),
+                    ('line_quantity', 1, 0, 'text', None),
+                    ('line_price_unit', 1, 0, 'text', None),
+                    ('line_discount', 1, 0, 'text', None),
                     ('line_amount', 1, 0, 'number', tax.amount, None, c_line_cell_style_decimal),
                     ('total', 1, 0, 'text', None),
                 ]
