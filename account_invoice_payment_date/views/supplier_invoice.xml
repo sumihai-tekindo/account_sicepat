@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	    <record id="account_invoice_groupby_payment_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.groupby.payment</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/filter[@string='Period']" position="after">
+                    <filter string="Payment Date" domain="[]" context="{'group_by':'payment_date'}"/>
+                </xpath>
+            </field>
+        </record>
+		
+        <record id="account_invoice_tree_payment_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.tree.payment</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree"/>
+            <field name="arch" type="xml">
+               <xpath expr="//field[@name='date_invoice']" position="after">
+                    <field name="payment_date" string="Payment Date"/>
+                </xpath>
+            </field>
+        </record>
+         
+        <record id="account_invoice_form_payment_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.form.payment</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+               <field name="date_due" position="after">
+                    <field name="payment_date" string="Payment Date"/>
+                </field>
+            </field>
+        </record>
+        
+	</data>
+</openerp>
