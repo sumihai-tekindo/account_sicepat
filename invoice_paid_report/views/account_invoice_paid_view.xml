@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_account_invoice_filter_paid" model="ir.ui.view">
+            <field name="name">account.invoice.select.paid</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <filter name="invoices" position="after">
+                    <filter name="paid" string="Paid Invoices" domain="[('state','not in',['draft','approved','cancel','open','verification','submit','acknowledge','proforma','proforma2'])]" help="Invoice has been Paid"/>
+                </filter>
+            </field>
+        </record>
+        <record id="action_invoice_paid_report_xls" model="ir.actions.report.xml">
+            <field name="name">Paid Invoices</field>
+            <field name="model">account.invoice</field>
+            <field name="type">ir.actions.report.xml</field>
+            <field name="report_name">invoice.paid.report.xls</field>
+            <field name="report_type">xls</field>
+            <field name="multi" eval="True"/>
+        </record>
+        <record model="ir.values" id="values_invoice_paid_report_xls">
+            <field name="model_id" ref="account.model_account_invoice" />
+            <field name="name">invoice_paid_report_xls</field>
+            <field name="key2">client_print_multi</field>
+            <field name="value" eval="'ir.actions.report.xml,' + str(ref('invoice_paid_report.action_invoice_paid_report_xls'))" />
+            <field name="key">action</field>
+            <field name="model">account.invoice</field>
+            <field name="groups_id" eval="[(4, ref('invoice_paid_report.group_invoices_paid'))]"/>
+        </record>
+    </data>
+</openerp>
+        
