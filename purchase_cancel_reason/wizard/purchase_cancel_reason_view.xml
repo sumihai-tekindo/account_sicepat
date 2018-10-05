@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	 <data>
+		<record id="view_purchase_order_cancel" model="ir.ui.view">
+			<field name="name">Reason for Cancellation Purchase Order</field>
+			<field name="model">purchase.order.cancel</field>
+			<field name="arch" type="xml">
+			 <form string="Reason for Cancellation Purchase Order">
+				<p class="oe_grey">
+					Please Write Reason for the Cancellation of the
+					purchase order.
+				</p>
+				<group>
+					<field name="cancel_reason" attrs="{'required':[('cancel_reason','=',False)]}"/>
+				</group>
+				<footer>
+					<button name="action_cancel"
+						string="Confirm" type="object"
+						class="oe_highlight"/>
+					or
+					<button string="Cancel" class="oe_link"
+						special="cancel" />
+				</footer>
+			</form>
+			</field>
+		</record>
+
+        <record id="cancel_reason_only_quotation" model="purchase.order.cancel.reason">
+            <field name="name">Purchase Order Cancel</field>
+        </record>
+
+		<record id="action_purchase_order_cancel" model="ir.actions.act_window">
+			<field name="name">Reason for the Cancellation</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">purchase.order.cancel</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_purchase_order_cancel"/>
+			<field name="target">new</field>
+		</record>
+
+		<record id="purchase_order_form" model="ir.ui.view">
+            <field name="name">purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_cancel']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_cancel_draft']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                    <attribute name="states">sent,confirmed</attribute>
+                </xpath>
+            
+                <xpath expr="//button[@name='action_cancel']" position="before">
+                    <button name="%(action_purchase_order_cancel)d" states="draft,approved,confirmed"
+                      string="Cancel" type="action" groups="base.group_user"/>
+                </xpath>
+                <xpath expr="/form/sheet/div/h1" position="after">
+                    <h2 attrs="{'invisible': [('state', '!=', 'cancel')]}">
+                        <label for="reason" string="Cancellation Reason:" />
+                        <field name="cancel_reason" class="oe_inline"/>
+                    </h2>
+                </xpath>
+            </field>
+        </record>
+
+       <!--  <record id="view_purchase_order_cancel_reason_form" model="ir.ui.view">
+            <field name="name">Purchase Order Cancel Reason</field>
+            <field name="model">purchase.order.cancel.reason</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Order Cancel Reason">
+                    <field name="name"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_purchase_order_cancel_reason_tree" model="ir.ui.view">
+            <field name="name">Purchase Order Cancel Reason</field>
+            <field name="model">purchase.order.cancel.reason</field>
+            <field name="arch" type="xml">
+                <tree string="Purchase Order Cancel1 Reason">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record> -->
+<!-- 
+        <record id="action_purchase_order_cancel_reason" model="ir.actions.act_window">
+            <field name="name">Purchase Order Cancel Reason</field>
+            <field name="res_model">purchase.order.cancel.reason</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_purchase_order_cancel_reason"
+          parent="purchase.menu_purchase_config"
+          name="Purchase Order Cancel Reasons"
+          action="action_purchase_order_cancel_reason"
+          sequence="150" groups="purchase.group_purchase_manager"/> -->
+	 </data>
+</openerp>
