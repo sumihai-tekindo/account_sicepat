@@ -8,6 +8,12 @@
             <field name="action">write({'state':'submit'})</field>
             <field name="kind">function</field>
         </record>
+        <record id="act_check" model="workflow.activity">
+            <field name="wkf_id" ref="account.wkf"/>
+            <field name="name">verification</field>
+            <field name="action">write({'state':'verification'})</field>
+            <field name="kind">function</field>
+        </record>
         <record id="act_acknowledge" model="workflow.activity">
             <field name="wkf_id" ref="account.wkf"/>
             <field name="name">aknowledge</field>
@@ -32,10 +38,20 @@
             <field name="act_to" ref="account.act_cancel"/>
             <field name="signal">invoice_cancel</field>
         </record>
-        <record id="submit_acknowledge" model="workflow.transition">
+          <record id="submit_check" model="workflow.transition">
             <field name="act_from" ref="act_submit"/>
+            <field name="act_to" ref="act_check"/>
+            <field name="signal">invoice_check</field>
+        </record>
+        <record id="submit_acknowledge" model="workflow.transition">
+            <field name="act_from" ref="act_check"/>
             <field name="act_to" ref="act_acknowledge"/>
             <field name="signal">invoice_acknowledge</field>
+        </record>
+         <record id="check_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_check"/>
+            <field name="act_to" ref="account.act_cancel"/>
+            <field name="signal">invoice_cancel</field>
         </record>
         <record id="acknowledge_cancel" model="workflow.transition">
             <field name="act_from" ref="act_acknowledge"/>
@@ -43,10 +59,16 @@
             <field name="signal">invoice_cancel</field>
         </record>
         <record id="submit_approve" model="workflow.transition">
-            <field name="act_from" ref="act_submit"/>
+            <field name="act_from" ref="act_acknowledge"/>
             <field name="act_to" ref="act_approve"/>
             <field name="signal">invoice_approve</field>
         </record>
+        <record id="check_approve" model="workflow.transition">
+            <field name="act_from" ref="act_check"/>
+            <field name="act_to" ref="act_approve"/>
+            <field name="signal">invoice_approve</field>
+        </record>
+      
         <record id="acknowledge_approve" model="workflow.transition">
             <field name="act_from" ref="act_acknowledge"/>
             <field name="act_to" ref="act_approve"/>

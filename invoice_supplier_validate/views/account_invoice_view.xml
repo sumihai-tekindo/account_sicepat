@@ -9,15 +9,16 @@
             <field name="arch" type="xml">
                 <button name="invoice_open" position="before">
                 	<button name="invoice_submit" states="draft,proforma2" string="Submit" class="oe_highlight" groups="invoice_supplier_validate.group_submit_invoices"/>
-                	<button name="invoice_acknowledge" states="submit" string="Acknowledge" class="oe_highlight" groups="invoice_supplier_validate.group_acknowledge_invoices"/>
-                	<button name="invoice_approve" states="submit,acknowledge" string="Approve" class="oe_highlight" groups="invoice_supplier_validate.group_approve_invoices"/>
+                    <button name="invoice_check" states="submit" string="Verification" class="oe_highlight" groups="invoice_supplier_validate.group_check_invoices"/>
+                	<button name="invoice_acknowledge" states="verification" string="Acknowledge" class="oe_highlight" groups="invoice_supplier_validate.group_acknowledge_invoices"/>
+                	<button name="invoice_approve" states="acknowledge" string="Approve" class="oe_highlight" groups="invoice_supplier_validate.group_approve_invoices"/>
                 </button>
             	<button name="invoice_open" position="attributes">
                 	<attribute name="states">approved</attribute>
                 	<attribute name="groups">invoice_supplier_validate.group_validate_invoices</attribute>
                 </button>
                 <button name="invoice_cancel" position="attributes">
-                    <attribute name="states">draft,proforma2,submit,acknowledge,approved,open</attribute>
+                    <attribute name="states">draft,proforma2,submit,validate_items,acknowledge,approved,open</attribute>
                 </button>
 
                 <xpath expr="//field[@name='invoice_line']/tree/field[@name='sequence']" position="before">
@@ -69,6 +70,7 @@
             <field name="arch" type="xml">
             	<filter name="proforma" position="after">
             		<filter name="submit" string="Submit" domain="[('state','=','submit')]"/>
+                    <filter name="verification" string="Verification" domain="[('state','=','verification')]"/>
             		<filter name="acknowledge" string="Acknowledge" domain="[('state','=','acknowledge')]"/>
             		<filter name="approved" string="Approve" domain="[('state','=','approved')]"/>
             	</filter>

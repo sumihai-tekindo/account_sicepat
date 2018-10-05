@@ -63,6 +63,7 @@ class AccountInvoice(models.Model):
             ('proforma','Pro-forma'),
             ('proforma2','Pro-forma'),
             ('submit','Submit'),
+			('verification','Verification'),
             ('acknowledge','Acknowledge'),
             ('approved','Approve'),
             ('open','Open'),
