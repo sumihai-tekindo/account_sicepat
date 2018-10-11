@@ -8,6 +8,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//group/filter[@string='Period']" position="after">
                     <filter string="Payment Date" domain="[]" context="{'group_by':'payment_date'}"/>
+                    <filter string="Payment by Day" icon="terp-go-month" domain="[]" context="{'group_by':'payment_date:day'}"/>
                 </xpath>
             </field>
         </record>
