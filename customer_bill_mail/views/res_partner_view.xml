@@ -1,0 +1,36 @@
+<openerp>
+	<data>
+		<record id="view_customer_bill_email" model="ir.ui.view">
+			<field name="name">customer.bill.email.form</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="/form/sheet/notebook/page[@name='sales_purchases']" position="after">
+					<page name="billing_information" string="Billing Informations">
+						<group name="billing_period" string="Period Informations">
+							<field name="billing_period"/>
+							<field name="billing_date" attrs=""/>
+							<field name="billing_nth_day" attrs=""/>
+						</group>
+						<group name="billing_mail_info" string="Mail Template Informations">
+							<field name="mail_payment_template_id"/>
+							<field name="mail_invoicing_template_id"/>
+						</group>
+					</page>
+				</xpath>
+			</field>
+		</record>
+
+		<record id="view_followup_user_partner_info" model="ir.ui.view">
+			<field name="name">view.followup.user.partner.info</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="sicepat_erp.view_res_partner_customer_npwp"/>
+			<field name="arch" type="xml">
+				<field name="npwp_number" position="after">
+					<field name="whatsapp_number"/>
+					<field name="line_account"/>
+				</field>
+			</field>
+		</record>
+	</data>
+</openerp> 

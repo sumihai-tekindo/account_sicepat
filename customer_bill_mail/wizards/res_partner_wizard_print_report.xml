@@ -1,0 +1,58 @@
+<openerp>
+	<data>
+		<record id="partner_wizard_print_bill_report" model="ir.ui.view">
+			<field name="name">partner.wizard.print.bill.report</field>
+			<field name="model">res.partner.bill.print.wiz</field>
+			<field name="arch" type="xml">
+				<form string="Print Billing">
+                    <group string="Print Periodical Bill">
+                        <group>
+                            <group>
+                                <field name="start_date"/>
+                                <field name="rep_type"/>
+                            </group>
+                            <group>
+                                <field name="end_date"/>
+                            </group>
+                        </group>
+                    </group>
+                    <group invisible="1">
+                    	<field name="partner_ids" invisible="1"/>
+                    </group>
+                    <footer>
+						<button string="Print" class="oe_highlight"  name="create_report_bill" type="object"/>
+						<button string="Close" class="oe_link" special="cancel" />
+					</footer>
+                </form>
+			</field>
+		</record>
+
+		<record id="action_partner_wizard_print_bill_report" model="ir.actions.act_window">
+			<field name="name">Print Periodical Bill</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.bill.print.wiz</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="partner_wizard_print_bill_report"/>
+			<field name="context">{}</field>
+			<field name="target">new</field>
+		</record>
+
+		<record model="ir.values" id="partner_wizard_print_bill_report_values">
+			<field name="model_id" ref="customer_bill_mail.model_res_partner_bill_print_wiz" />
+			<field name="name">Print Periodical Bill</field>
+			<field name="key2">client_action_multi</field>
+			<field name="value" eval="'ir.actions.act_window,' + str(ref('action_partner_wizard_print_bill_report'))" />
+			<field name="key">action</field>
+			<field name="model">res.partner</field>
+		</record>
+		<record id="action_report_bill_summ_xls" model="ir.actions.report.xml">
+			<field name="name">Periodical Bill Summary</field>
+			<field name="model">res.partner</field>
+			<field name="type">ir.actions.report.xml</field>
+			<field name="report_name">partner.bill.summ.xls</field>
+			<field name="report_type">xlsx</field>
+			<field name="auto" eval="False"/>
+		</record>
+	</data>
+</openerp>
