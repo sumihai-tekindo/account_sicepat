@@ -1,0 +1,152 @@
+<openerp>
+	<data>
+		<menuitem id="menu_customer_classification_conf" name="Customer Class Config" parent="base.menu_base_config"/>
+
+		<record id="view_master_cust_grade_rules_form" model="ir.ui.view">
+			<field name="name">Customer Grade Rules Form</field>
+			<field name="model">master.cust.grade.rules</field>
+			<field name="arch" type="xml">
+				<form string="Customer Grade Rules">
+					<sheet>
+						<group name="Rules">
+							<field name="start"/>
+							<field name="end"/>
+							<field name="min_rev"/>
+							<field name="max_rev"/>
+							<field name="r_type"/>
+
+							<field name="active"/>
+							<field name="override_disc"/>
+							<field name="sequence"/>
+						</group>
+						<notebook>
+							<page string="Rules">
+								<newline string="Applicable Rules"/>
+								<field name="python_rule" colspan="4"/>
+								<separator string="Applicable Partners"/>
+								<field name="partner_ids"/>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_master_cust_grade_rules_tree" model="ir.ui.view">
+			<field name="name">Customer Grade Rules Tree</field>
+			<field name="model">master.cust.grade.rules</field>
+			<field name="arch" type="xml">
+				<tree string="Customer Grade Rules">	
+					<field name="sequence" invisible="1"/>
+					<field name="active" invisible="1"/>
+					<field name="grade_id"/>
+					<field name="r_type"/>
+					<field name="start"/>
+					<field name="end"/>
+					<field name="min_rev"/>
+					<field name="max_rev"/>
+					<field name="override_disc"/>
+					<field name="python_rule"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_master_cust_grade_type_form" model="ir.ui.view">
+			<field name="name">Customer Grade Type Form</field>
+			<field name="model">master.cust.grade.type</field>
+			<field name="arch" type="xml">
+				<form string="Customer Grade Type">
+					<sheet>
+						<group name="Info">
+							<field name="name"/>
+							<field name="description"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_master_cust_grade_type_tree" model="ir.ui.view">
+			<field name="name">Customer Grade Type List</field>
+			<field name="model">master.cust.grade.type</field>
+			<field name="arch" type="xml">
+				<tree string="Customer Grade Type">
+					<field name="name"/>
+					<field name="description"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_master_customer_grade_type">
+            <field name="name">Customer Grade Type</field>
+            <field name="res_model">master.cust.grade.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="menu_action_master_customer_grade_type" name="Customer Grade Type" 
+                  parent="menu_customer_classification_conf"
+                  action="action_master_customer_grade_type" sequence="1"/>
+
+
+		<record id="view_master_cust_grade_form" model="ir.ui.view">
+			<field name="name">Customer Grade</field>
+			<field name="model">master.cust.grade</field>
+			<field name="arch" type="xml">
+				<form string="Customer Grade">
+					<sheet>
+						<group name="Info">
+							<field name="name"/>
+							<field name="code"/>
+							<field name="grade_type_id"/>
+						</group>
+						<group name="Revenue Limiter">
+							<field name="percentage_disc"/>
+						</group>
+						<notebook>
+							<page string="Conditions">
+								<field name="grade_rule_ids"/>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<record id="view_master_cust_grade_tree" model="ir.ui.view">
+			<field name="name">Customer Grade Tree</field>
+			<field name="model">master.cust.grade</field>
+			<field name="arch" type="xml">
+				<tree string="Customer Grade">
+					<field name="name"/>
+					<field name="code"/>
+					<field name="grade_type_id"/>
+					<field name="percentage_disc"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="action_master_customer_grade">
+            <field name="name">Customer Grade</field>
+            <field name="res_model">master.cust.grade</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="menu_action_master_customer_grade" name="Customer Grade" 
+                  parent="menu_customer_classification_conf"
+                  action="action_master_customer_grade" sequence="2"/>
+
+		<record id="view_partner_classification_inherit_form" model="ir.ui.view">
+			<field name="name">res.partner.classification.form</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form"/>
+			<field name="arch" type="xml">
+				<field name="title" position="after">
+					<field name="grade_type_id"/>
+					<field name="class_id"/>
+					<field name="masterdata_id"/>
+				</field>
+			</field>
+		</record>
+
+		
+	</data>
+</openerp>

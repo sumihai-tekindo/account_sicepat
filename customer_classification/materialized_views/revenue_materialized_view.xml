@@ -1,0 +1,88 @@
+<openerp>
+	<data>
+		<record id="view_cust_grade_statistics_graph" model="ir.ui.view">
+			<field name="name">Customer Revenue Statistics Graph</field>
+			<field name="model">cust.grade.statistics</field>
+			<field name="arch" type="xml">
+				<graph string="Customer Revenue for Grading" type="pivot">
+					<field name="partner_id" type="row"/>
+					<field name="period_id" type="col"/>
+					<field name="curr_net_rev" type="measure"/>
+				</graph>
+			</field>
+		</record>
+
+		<record id="view_cust_grade_statistics_tree" model="ir.ui.view">
+			<field name="name">Customer Revenue Statistics List</field>
+			<field name="model">cust.grade.statistics</field>
+			<field name="arch" type="xml">
+				<tree string="Customer Revenue for Grading">
+					<field name="name"/>
+					<field name="partner_id"/>
+					<field name="period_id"/>
+					<field name="period_start"/>
+					<field name="period_end" invisible="1"/>
+					<field name="period_end" invisible="1"/>
+					<field name="sales_id" />
+					<field name="curr_net_rev"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="filter_rev_grade_sales_id" model="ir.filters">
+			<field name="name">By Salespersons</field>
+			<field name="model_id">cust.grade.statistics</field>
+			<field name="domain">[]</field>
+			<field name="user_id" eval="False"/>
+			<field name="context">{'group_by': ['sales_id']}</field>
+		</record>
+
+		<record id="filter_rev_grade_partner_id" model="ir.filters">
+			<field name="name">By Partner</field>
+			<field name="model_id">cust.grade.statistics</field>
+			<field name="domain">[]</field>
+			<field name="user_id" eval="False"/>
+			<field name="context">{'group_by': ['partner_id']}</field>
+		</record>
+
+		<record id="filter_rev_grade_period" model="ir.filters">
+			<field name="name">By Period</field>
+			<field name="model_id">cust.grade.statistics</field>
+			<field name="domain">[]</field>
+			<field name="user_id" eval="False"/>
+			<field name="context">{'group_by': ['period_id']}</field>
+		</record>
+
+		<record id="view_cust_grade_statistics_search" model="ir.ui.view">
+			<field name="name">Customer Revenue Statistics Search</field>
+			<field name="model">cust.grade.statistics</field>
+			<field name="arch" type="xml">
+				<search string="Customer Revenue Statistics for Grading">
+					<field name="partner_id"/>
+					<filter string="This Year" name="thisyear" domain="['|', ('period_end', '=', False), '&amp;',('period_end','&lt;=', time.strftime('%%Y-12-31')),('period_end','&gt;=',time.strftime('%%Y-01-01'))]" help="Revenue with period in current year"/>
+					<filter string="This Month" name="thismonth" domain="['|', ('period_end', '=', False), '&amp;',('period_start','&lt;=',time.strftime('%%Y-%%m-01'))]" help="Revenue with period in current month"/>
+					<separator/>
+					<field name="partner_id"/>
+					<field name="sales_id" />
+					<group expand="1" string="Group By">
+						<filter string="Partner" name="partner_id" context="{'group_by':'partner_id'}"/>
+						<filter string="Salesperson" name='user' context="{'group_by':'sales_id'}"/>
+						<separator orientation="vertical" />
+						<filter string="Period" name="period_id" context="{'group_by':'period_id'}"/>
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<record id="action_view_cust_grade_statistics" model="ir.actions.act_window">
+			<field name="name">Customer Revenue Statistics</field>
+			<field name="res_model">cust.grade.statistics</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">graph,tree</field>
+			<field name="context">{}</field>
+			<field name="search_view_id" ref="view_cust_grade_statistics_search"/>
+		</record>
+
+		<menuitem action="action_view_cust_grade_statistics" id="menu_action_view_cust_grade_statistics" parent="account.menu_finance_reporting" sequence="5"/>
+	</data>
+</openerp>

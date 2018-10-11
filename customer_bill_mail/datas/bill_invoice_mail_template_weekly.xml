@@ -1,0 +1,137 @@
+<openerp>
+    <data>
+        <!--Email template -->
+        <record id="email_template_bill_invoice_weekly" model="email.template">
+            <field name="name">Billing Weekly Send by Email</field>
+            <field name="email_from">${('finance@sicepat.com' or 'noreply@localhost')|safe}</field>
+            <field name="subject">Rekonsiliasi tagihan dan pembayaran mingguan - ${object.name}</field>
+            <field name="partner_to">${object.id}</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="reply_to">${object.payment_responsible_id.partner_id.email|safe}</field>
+            <field name="email_cc">${object.payment_responsible_id.partner_id.email|safe}</field>
+            <!-- <field name="report_template" ref="account_invoices"/> -->
+            <!-- <field name="report_name">Invoice_${(object.number or '').replace('/','_')}_${object.state == 'draft' and 'draft' or ''}</field> -->
+            <field name="lang">${object.lang}</field>
+            <field name="body_html"><![CDATA[
+<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+    <p>Hi ${object.name},</p>
+
+    <p>Berikut Rekap sisa piutang Anda per hari ini : </p>
+    <table style="border:1px solid black; border-collapse:collapse;">
+        <tr>
+            <th>Tanggal</th>
+            <th>Nominal</th>
+            <th>Tanggal Jatuh Tempo</th>
+        </tr>
+    %if ctx['res_ob'][object.id|string]:
+        %for r in ctx['res_ob'][object.id|string]['outstandings']:
+           
+            <tr>
+                <td>${r}</td>
+                <td>${ctx['res_ob'][object.id|string]['outstandings'][r]['total']}</td>
+                <td>${ctx['res_ob'][object.id|string]['outstandings'][r]['due_date']}</td>
+            </tr>
+            
+        %endfor
+        <tr>
+            <td>Subtotal</td>
+            <td>${ctx['res_ob'][object.id|string]['outstandings_total']}
+            <td>&nbsp;</td>
+    %else:
+        %for r in ctx['res_ob'][object.id]['outstandings']:
+           
+            <tr>
+                <td>${r}</td>
+                <td>${ctx['res_ob'][object.id]['outstandings'][r]['total']}</td>
+                <td>${ctx['res_ob'][object.id]['outstandings'][r]['due_date']}</td>
+            </tr>
+            
+        %endfor
+        <tr>
+            <td>Subtotal</td>
+            <td>${ctx['res_ob'][object.id]['outstandings_total']}
+            <td>&nbsp;</td>
+    %endif
+    </tr>
+    </table>
+    <br/>
+    <p>Pembayaran dapat melalui : </p>
+    <p>
+        <ul>
+            <li>
+                <b>Bank BCA</b>
+                <br/>
+                No.Rekening 270 390 3088
+                <br/>
+                Atas Nama: Sicepat Ekspres Indonesia
+            </li>
+            <li>
+                <b>Bank Mandiri</b>
+                <br/>
+                No.Rekening 121 000 655 7171
+                <br/>
+                Atas Nama: Sicepat Ekspres Indonesia
+            </li>
+            <li>
+                <b>Bank BNI</b>
+                <br/>
+                No.Rekening 4964 66952
+                <br/>
+                Atas Nama: Sicepat Ekspres Indonesia
+            </li>
+            <li>
+                <b>Bank BRI</b>
+                <br/>
+                No.Rekening 0338 01 001027 30 7
+                <br/>
+                Atas Nama: Sicepat Ekspres Indonesia
+            </li>
+        </ul>
+    </p>
+    <p>Harap isi berita acara nama OLSHOP dan tanggal pengiriman di berita acara</p>
+    <p>Apabila ada ketidaksesuaian informasi di atas, dapat menghubungi finance Sicepat Ekspres Indonesia di: </p>
+    <p>Line ID: finance2sicepat</p>
+    <p>WhatsApp: 0856 7622 789</p>
+    <br/>
+    <br/>
+    <p>Thank you for choosing ${object.company_id.name or 'us'}!</p>
+    <br/>
+    <br/>
+    <div style="width: 375px; margin: 0px; padding: 0px; background-color: #8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; background-repeat: repeat no-repeat;">
+        <h3 style="margin: 0px; padding: 2px 14px; font-size: 12px; color: #DDD;">
+            <strong style="text-transform:uppercase;">${object.company_id.name}</strong></h3>
+    </div>
+    <div style="width: 347px; margin: 0px; padding: 5px 14px; line-height: 16px; background-color: #F2F2F2;">
+        <span style="color: #222; margin-bottom: 5px; display: block; ">
+        % if object.company_id.street:
+            ${object.company_id.street}<br/>
+        % endif
+        % if object.company_id.street2:
+            ${object.company_id.street2}<br/>
+        % endif
+        % if object.company_id.city or object.company_id.zip:
+            ${object.company_id.zip} ${object.company_id.city}<br/>
+        % endif
+        % if object.company_id.country_id:
+            ${object.company_id.state_id and ('%s, ' % object.company_id.state_id.name) or ''} ${object.company_id.country_id.name or ''}<br/>
+        % endif
+        </span>
+        % if object.company_id.phone:
+            <div style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; ">
+                Phone:&nbsp; ${object.company_id.phone}
+            </div>
+        % endif
+        % if object.company_id.website:
+            <div>
+                Web :&nbsp;<a href="${object.company_id.website}">${object.company_id.website}</a>
+            </div>
+        %endif
+        <p></p>
+    </div>
+</div>
+            ]]></field>
+        </record>
+    </data>
+</openerp>

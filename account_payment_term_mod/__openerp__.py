@@ -9,7 +9,7 @@
     'version': '8.0.0.1.0',
     'license': 'AGPL-3',
     'depends': [
-        'account',
+        'account'
     ],
     'data': [
             'views/payment_term_view.xml',
