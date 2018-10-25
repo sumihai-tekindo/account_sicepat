@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="view_purchase_order_dp_inherited" model="ir.ui.view">
+			<field name="name">purchase.order.dp.form.inherited</field>
+			<field name="model">purchase.order</field>
+			<field name="inherit_id" ref="purchase.purchase_order_form"/>
+			<field name="arch" type="xml">
+				<button name="view_picking" position="after">
+					<button name="%(action_view_purchase_payment_inv)d"  string="Create Invoice" type="action" attrs="{'invisible': ['|', ('state','!=', 'approved'), ('invoice_method','!=', 'downpayment')]}" class="oe_highlight"/>
+					</button>           
+				<field name="department_id" position="after">
+					<field name="is_downpayment" attrs="{'invisible': ['|', ('is_downpayment','=', False)],'readonly': ['|', ('is_downpayment','!=', False)]}"/>
+				</field>	  
+				<!--    <xpath expr="//div[contains(@class, 'oe_title')]" position="before">
+				   <div class="oe_right oe_button_box" name="view_picking" position="after">
+					 <button type="object" name="invoice_open" position="after" />
+							<button type="object" name="action_view_invoice"  string="" class="oe_stat_button" icon="fa-money" attrs="{'invisible': [('invoice_count', '=', 0),('invoice_method','!=', 'downpayment'),('invoice_method','=', 'done')]}">
+								<field name="invoice_count" widget="statinfo" string="Invoices DP"/>
+							</button> 
+					</div>
+				</xpath> -->
+			</field>
+		</record>
+	</data>
+</openerp>
