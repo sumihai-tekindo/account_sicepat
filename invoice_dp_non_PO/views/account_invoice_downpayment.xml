@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="account_invoice_dp_inherited" model="ir.ui.view">
+			<field name="name">account.invoice.dp.inherited</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_supplier_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//button[@name='invoice_cancel']" position="after">
+					<button name="%(action_view_invoice_payment_inv)d" state="paid"  type="action" string="Invoice Advance Payment"  attrs="{'invisible':['|','|', ('is_downpayment','=', False),('state','&lt;&gt;','paid'),('invoice_dp','!=', False)]}" class="oe_highlight"/>      
+				
+					<button name="open_invoices" states="paid" type="object" string="View Invoice" attrs="{'invisible': ['|', ('invoice_dp','=', False)]}" class="oe_highlight"/>   
+				</xpath>
+				<xpath expr="//field[@name='payment_term']" position="after">
+					<field name="is_downpayment"/>
+					<field name = "invoice_dp" string="Advance Payment Invoice"  attrs="{'invisible': ['|', ('invoice_dp','=', False),('is_downpayment','=',False)]}"/>
+				</xpath>
+			</field>
+		</record>
+
+		<record id="account_invoice_tree_dp" model="ir.ui.view">
+			<field name="name">account.invoice.tree.payment</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_tree"/>
+			<field name="arch" type="xml">
+					<tree position="attributes">
+					<attribute name="colors">blue:state == 'draft'; black:state in ('proforma','proforma2','open');gray:state=='cancel';red:is_downpayment==True and invoice_dp == False</attribute>
+				</tree>
+				<xpath expr="//field[@name='state']" position="after">
+					<field name="is_downpayment" invisible="1"/>
+					<field name="invoice_dp" invisible="1"/>
+				</xpath>
+			</field>
+		</record>
+		
+		 <record id="view_account_invoice_filter_advance" model="ir.ui.view">
+			<field name="name">account.invoice.advance</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.view_account_invoice_filter"/>
+			<field name="arch" type="xml">
+				<filter name="invoices" position="after">
+					 <filter name="is_downpayment" string="Advance Payment" domain="[('is_downpayment','=', 'True'),('invoice_dp','=',False),('state','=','paid')]"/>
+				</filter>
+			</field>
+		</record>
+	</data>
+</openerp>
+

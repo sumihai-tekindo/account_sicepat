@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="view_account_advance_payment_inv" model="ir.ui.view">
+			<field name="name">Invoice</field>
+			<field name="model">account.advance.payment.inv</field>
+			<field name="arch" type="xml">
+				<form string="Invoice">
+					<p class="oe_grey">
+						Select how you want to invoice this order. This
+						will create a draft invoice that can be modified
+						before validation.
+					</p> 
+					<group> 
+						<field name="product_id" string="Product" context="{'search_default_services': 1}" required="1"/>
+						<label for="amount"/>
+						<div >
+							<field name="amount" string="Amount" required="1"/>
+						</div>
+					</group>
+					<footer>
+						<button name="create_invoice" string="Create Invoice" type="object"
+							class="oe_highlight"/>
+						or
+						<button string="Cancel" class="oe_link" special="cancel"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+		<record id="action_view_invoice_payment_inv" model="ir.actions.act_window">
+			<field name="name">Advance Payment</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">account.advance.payment.inv</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+	</data>
+</openerp>
