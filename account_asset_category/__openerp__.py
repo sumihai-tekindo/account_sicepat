@@ -34,10 +34,9 @@
 
     # any module necessary for this one to work correctly
     'depends': [
-        'account',
-        'stock',
-        'stock_account',
-        'purchase',
+        'purchase',  
+        'stock_analytic_account' ,
+        'hr_stock_transfer',
     ],
 
     # always loaded

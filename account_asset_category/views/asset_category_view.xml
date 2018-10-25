@@ -18,7 +18,8 @@
             <field name="inherit_id" ref="purchase.purchase_order_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='order_line']/tree/field[@name='product_qty']" position="before">
-                    <field name="asset_category_id"/>
+                    <field name="asset_category_id" attrs="{'required': ['|', ('type','=', 'product')]}"/>
+                    <field name="type" invisible="1"/>
                 </xpath>
             </field>
         </record>
