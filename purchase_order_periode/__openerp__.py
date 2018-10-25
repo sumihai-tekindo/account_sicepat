@@ -37,6 +37,7 @@
     # any module necessary for this one to work correctly
 		'depends': [
         'purchase',
+        'account',
     ],
 
     # always loaded
