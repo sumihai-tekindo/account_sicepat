@@ -38,8 +38,9 @@
     ],
 
      'data': [
-        'views/account_invoice_downpayment.xml',
         'views/account_invoice_advance.xml',
+        'views/account_invoice_downpayment.xml',
+        
     ],
 
   
