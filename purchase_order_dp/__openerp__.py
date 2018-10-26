@@ -40,8 +40,9 @@
     ],
 
      'data': [
+        'views/purchase_make_invoice_advance.xml',
         'views/purchase_order_downpayment.xml',
-		'views/purchase_make_invoice_advance.xml',
+		
     ],
 
   
